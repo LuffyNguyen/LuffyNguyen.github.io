@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="vi" class="lang-vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Đồng Vọng</title>
+<meta name="description" content="Đồng Vọng — game giáo dục 2D cho trẻ 9–12, vẽ theo lối tranh Đông Hồ in lệch bản.">
+<meta property="og:title" content="Đồng Vọng">
+<meta property="og:description" content="Một game cho trẻ 9–12, vẽ theo lối tranh Đông Hồ. Có con mèo không bao giờ đói.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#FBF2E0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Nunito:wght@400;600;700&display=swap">
+<style>
+  :root{
+    --diep:#FBF2E0; --diep2:#F2E3C7; --giay:#FFFAF0;
+    --than:#3B3128; --hoe:#F2B93B; --vang:#E2604A;
+    --cham:#3A5C93; --tram:#6FA98B; --sen:#EFA9A0;
+    --go:#7A6248; --xam:#C9BCA6;
+    --ink:#3B3128; --dim:#7A6A55;
+    --sans:'Nunito',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --display:'Baloo 2','Nunito',-apple-system,sans-serif;
+    --pad:clamp(20px,5vw,40px);
+  }
+  *{box-sizing:border-box}
+  html{color-scheme:light;scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--diep);color:var(--ink);
+    font:400 17px/1.65 var(--sans);
+    -webkit-font-smoothing:antialiased;
+  }
+  /* giay diep: mot lop van giay rat nhat, khong phai gradient */
+  body::before{
+    content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+    background:
+      radial-gradient(circle at 18% 22%, rgba(122,98,72,.05) 0 1px, transparent 1px),
+      radial-gradient(circle at 71% 63%, rgba(122,98,72,.045) 0 1.2px, transparent 1.2px),
+      radial-gradient(circle at 44% 88%, rgba(122,98,72,.04) 0 1px, transparent 1px);
+    background-size:37px 41px,53px 47px,61px 59px;
+  }
+  main,header,footer{position:relative;z-index:1}
+
+  /* ---------------------------------------------------------- song ngu */
+  .en{display:none}
+  html.lang-en .vi{display:none}
+  html.lang-en .en{display:inline}
+  html.lang-en .en.block,.vi.block{display:block}
+  html.lang-en .vi.block{display:none}
+
+  /* ---------------------------------------------------------- khung */
+  .wrap{max-width:840px;margin:0 auto;padding:0 var(--pad)}
+  section{padding:clamp(56px,9vw,104px) 0}
+  section + section{border-top:1px solid rgba(122,98,72,.16)}
+
+  h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.01em;margin:0}
+  h1{font-size:clamp(56px,14vw,116px);line-height:.92}
+  h2{font-size:clamp(28px,5.2vw,42px);line-height:1.1;margin-bottom:14px}
+  h3{font-size:19px;font-weight:700;margin-bottom:6px}
+  p{margin:0 0 18px;max-width:62ch}
+  .lede{font-size:clamp(19px,2.6vw,23px);line-height:1.55;color:var(--ink)}
+  .eyebrow{
+    font-family:var(--display);font-weight:700;font-size:13px;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--go);margin-bottom:12px
+  }
+  .dim{color:var(--dim)}
+  em{font-style:normal;background:linear-gradient(transparent 62%,rgba(242,185,59,.55) 62%)}
+
+  /* ---------------------------------------------------------- nut ngon ngu */
+  .topbar{
+    position:sticky;top:0;z-index:9;backdrop-filter:saturate(150%) blur(12px);
+    background:rgba(251,242,224,.78);border-bottom:1px solid rgba(122,98,72,.12)
+  }
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:54px}
+  .mark{font-family:var(--display);font-weight:800;font-size:17px;letter-spacing:-.01em}
+  .toggle{
+    display:inline-flex;background:rgba(122,98,72,.1);border-radius:999px;padding:3px;gap:2px
+  }
+  .toggle button{
+    font:700 12.5px/1 var(--sans);letter-spacing:.06em;
+    border:0;background:transparent;color:var(--dim);
+    padding:7px 13px;border-radius:999px;cursor:pointer;transition:.18s
+  }
+  .toggle button[aria-pressed="true"]{background:var(--giay);color:var(--ink);box-shadow:0 1px 2px rgba(59,49,40,.1)}
+
+  /* ---------------------------------------------------------- hero */
+  .hero{padding-top:clamp(56px,11vw,110px);padding-bottom:clamp(48px,8vw,88px)}
+  .hero h1{margin-bottom:8px}
+  .hero .say{
+    font-family:var(--display);font-weight:700;font-size:clamp(17px,2.6vw,21px);
+    color:var(--vang);margin-bottom:26px
+  }
+  .hero .lede{max-width:52ch}
+  .flock{margin:38px 0 0;overflow:visible}
+
+  /* ---------------------------------------------------------- the */
+  .cards{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));margin-top:28px}
+  .card{
+    background:var(--giay);border-radius:16px;padding:22px 22px 20px;
+    border:1px solid rgba(122,98,72,.14)
+  }
+  .card p{font-size:15.5px;line-height:1.55;margin:0;color:var(--dim)}
+  .card .ic{display:block;margin-bottom:12px}
+
+  /* the khai niem — dung nhu trong game */
+  .prompt{
+    background:var(--giay);border:1px solid rgba(122,98,72,.16);border-radius:20px;
+    padding:26px var(--pad);margin:30px 0 8px;text-align:center
+  }
+  .prompt .cmd{font-family:var(--display);font-weight:700;font-size:clamp(20px,4vw,28px)}
+  .prompt .cmd b{color:var(--vang)}
+  .row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:20px}
+  .chip{
+    display:inline-flex;align-items:center;gap:7px;
+    font:700 14.5px/1 var(--sans);padding:9px 15px 9px 11px;border-radius:999px;
+    background:rgba(111,169,139,.16);color:#3F6B57
+  }
+  .chip.no{background:rgba(201,188,166,.3);color:var(--dim)}
+  .chip svg{flex:none}
+  .why{
+    margin-top:22px;font-size:15.5px;color:var(--dim);
+    border-top:1px dashed rgba(122,98,72,.24);padding-top:16px;max-width:56ch;
+    margin-left:auto;margin-right:auto
+  }
+
+  /* ---------------------------------------------------------- danh sach */
+  ul.plain{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:14px}
+  ul.plain li{display:flex;gap:13px;align-items:flex-start;max-width:64ch}
+  ul.plain .n{
+    flex:none;width:26px;height:26px;border-radius:50%;background:var(--hoe);
+    font:800 13px/26px var(--display);text-align:center;color:var(--than)
+  }
+  ul.plain .x{flex:none;width:26px;height:26px;border-radius:50%;background:rgba(201,188,166,.4);
+    font:800 14px/26px var(--display);text-align:center;color:var(--go)}
+  ul.plain p{margin:0;font-size:16px}
+
+  /* ---------------------------------------------------------- mien */
+  .miens{display:grid;gap:12px;margin-top:26px}
+  .mien{
+    display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;
+    background:var(--giay);border:1px solid rgba(122,98,72,.14);border-radius:16px;padding:18px 20px
+  }
+  .mien .dot{width:12px;height:12px;border-radius:50%}
+  .mien h3{margin:0 0 2px}
+  .mien p{margin:0;font-size:15.5px;color:var(--dim)}
+
+  /* ---------------------------------------------------------- duong cong hat */
+  .curve{display:flex;gap:10px;align-items:flex-end;margin:26px 0 10px;flex-wrap:wrap}
+  .day{text-align:center;min-width:74px}
+  .day .bar{
+    background:var(--hoe);border:2.5px solid var(--than);border-radius:8px 8px 4px 4px;
+    margin:0 auto 8px;width:44px
+  }
+  .day .bar.zero{background:transparent;border-style:dashed;border-color:var(--xam);height:6px}
+  .day span{font:700 13px/1.3 var(--sans);color:var(--dim);display:block}
+  .day b{font-family:var(--display);font-size:15px;color:var(--ink);display:block}
+
+  /* ---------------------------------------------------------- meo */
+  .cat-wrap{display:flex;gap:26px;align-items:center;flex-wrap:wrap;margin-top:26px}
+  .stages{display:flex;gap:18px;flex-wrap:wrap;margin-top:26px}
+  .stage{text-align:center;width:104px}
+  .stage b{display:block;font-family:var(--display);font-size:14.5px;margin-top:6px}
+  .stage span{display:block;font-size:12.5px;color:var(--dim);line-height:1.4}
+
+  /* ---------------------------------------------------------- footer */
+  footer{padding:52px 0 64px;border-top:1px solid rgba(122,98,72,.16)}
+  footer p{font-size:14.5px;color:var(--dim);margin-bottom:8px}
+  footer a{color:var(--cham);text-decoration:none;border-bottom:1px solid rgba(58,92,147,.3)}
+  footer a:hover{border-bottom-color:var(--cham)}
+
+  @media (max-width:520px){
+    .stages{gap:12px}
+    .stage{width:82px}
+  }
+  @media (prefers-reduced-motion:no-preference){
+    .float{animation:bob 5s ease-in-out infinite}
+    .float:nth-child(2){animation-delay:-1.4s}
+    .float:nth-child(3){animation-delay:-2.8s}
+    .float:nth-child(4){animation-delay:-4.1s}
+    @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <span class="mark">Đồng Vọng</span>
+    <span class="toggle">
+      <button id="b-vi" aria-pressed="true">TIẾNG VIỆT</button>
+      <button id="b-en" aria-pressed="false">ENGLISH</button>
+    </span>
+  </div>
+</div>
+
+<header class="hero wrap">
+  <h1>Đồng Vọng</h1>
+  <p class="say">
+    <span class="vi">đọc là <i>đồng-vọng</i> — nghĩa là tiếng vọng lại</span>
+    <span class="en">say it <i>dong-vong</i> — it means “the echo that comes back”</span>
+  </p>
+
+  <p class="lede">
+    <span class="vi block">Một cái game nhỏ cho trẻ <b>9–12 tuổi</b>, vẽ theo lối <b>tranh Đông Hồ in lệch bản</b> —
+    bản nét in trước, bản màu in sau, và <em>lệch đi một chút</em>, đúng như thợ khắc ngày xưa vẫn in.
+    Trong game có một con mèo. Nó không bao giờ đói, và không bao giờ trách bạn.</span>
+    <span class="en block">A small game for kids <b>aged 9–12</b>, drawn the way <b>Đông Hồ woodblock prints</b> are made —
+    the line plate first, the colour plate after, and <em>slightly out of register</em>, exactly the way old
+    printers did it. There is a cat in it. It never gets hungry, and it never guilt-trips you.</span>
+  </p>
+
+  <svg class="flock" viewBox="0 0 640 120" width="100%" height="120" fill="none" aria-hidden="true">
+    <!-- moi con: ban mau (lech -2.2,+1.6) roi ban net -->
+    <g class="float" transform="translate(40,60)">
+      <g transform="translate(-2.2,1.6)" opacity=".88">
+        <ellipse cx="0" cy="0" rx="22" ry="15" fill="#E2604A"/><circle cx="-20" cy="-6" r="8" fill="#F2B93B"/>
+      </g>
+      <ellipse cx="0" cy="0" rx="22" ry="15" stroke="#3B3128" stroke-width="4.6"/>
+      <circle cx="-20" cy="-6" r="8" stroke="#3B3128" stroke-width="3.4"/>
+      <path d="M0 -15 L0 15 M-11 -13 L-15 -24 M11 -13 L15 -24" stroke="#3B3128" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="-22" cy="-8" r="1.8" fill="#3B3128"/>
+    </g>
+    <g class="float" transform="translate(180,58)">
+      <g transform="translate(-2.2,1.6)" opacity=".88">
+        <ellipse cx="0" cy="0" rx="7" ry="26" fill="#3A5C93"/>
+        <ellipse cx="-16" cy="-9" rx="17" ry="6" fill="#8FA9CC"/><ellipse cx="16" cy="-9" rx="17" ry="6" fill="#8FA9CC"/>
+      </g>
+      <ellipse cx="0" cy="0" rx="7" ry="26" stroke="#3B3128" stroke-width="4.6"/>
+      <ellipse cx="-16" cy="-9" rx="17" ry="6" stroke="#3B3128" stroke-width="3"/>
+      <ellipse cx="16" cy="-9" rx="17" ry="6" stroke="#3B3128" stroke-width="3"/>
+      <circle cx="0" cy="-24" r="6" fill="#FBF2E0" stroke="#3B3128" stroke-width="3.4"/>
+    </g>
+    <g class="float" transform="translate(320,62)">
+      <g transform="translate(-2.2,1.6)" opacity=".88">
+        <path d="M-26 0 Q0 -20 24 0 Q0 20 -26 0Z" fill="#6FA98B"/><path d="M24 0 L38 -12 L38 12Z" fill="#B7D4C4"/>
+      </g>
+      <path d="M-26 0 Q0 -20 24 0 Q0 20 -26 0Z" stroke="#3B3128" stroke-width="4.6" stroke-linejoin="round"/>
+      <path d="M24 0 L38 -12 L38 12Z" stroke="#3B3128" stroke-width="3.4" stroke-linejoin="round"/>
+      <circle cx="-15" cy="-3" r="2.2" fill="#3B3128"/>
+      <path d="M-4 -11 Q2 0 -4 11" stroke="#3B3128" stroke-width="2.6"/>
+    </g>
+    <g class="float" transform="translate(460,58)">
+      <g transform="translate(-2.2,1.6)" opacity=".88">
+        <path d="M0 -26 Q22 -10 14 14 Q0 26 -14 14 Q-22 -10 0 -26Z" fill="#EFA9A0"/>
+      </g>
+      <path d="M0 -26 Q22 -10 14 14 Q0 26 -14 14 Q-22 -10 0 -26Z" stroke="#3B3128" stroke-width="4.6" stroke-linejoin="round"/>
+      <path d="M0 -22 L0 20 M-13 -8 Q0 -2 13 -8" stroke="#3B3128" stroke-width="2.8"/>
+    </g>
+    <g class="float" transform="translate(580,60)">
+      <g transform="translate(-2.2,1.6)" opacity=".88"><circle cx="0" cy="0" r="17" fill="#F2B93B"/></g>
+      <circle cx="0" cy="0" r="17" stroke="#3B3128" stroke-width="4.6"/>
+      <path d="M-8 -4 Q0 4 8 -4" stroke="#3B3128" stroke-width="3" stroke-linecap="round"/>
+    </g>
+  </svg>
+</header>
+
+<main>
+
+<section class="wrap">
+  <p class="eyebrow"><span class="vi">Chơi cái gì</span><span class="en">What you actually do</span></p>
+  <h2><span class="vi">Bạn chém. Nhưng chỉ chém đúng con.</span><span class="en">You slash. But only the right ones.</span></h2>
+  <p>
+    <span class="vi block">Các con vật bay lên như trong Fruit Ninja. Ở trên đầu màn hình có một <b>câu lệnh</b> — dài
+    nhiều nhất bảy chữ. Chém đúng thì được thưởng. Chém sai thì con vật <b>mất màu và rơi xuống</b>,
+    kêu một tiếng bịch. Không rung màn hình, không chớp đỏ, không dấu X.</span>
+    <span class="en block">Creatures fly up, Fruit-Ninja style. At the top of the screen sits one <b>instruction</b> —
+    seven words at most. Slash right and you are rewarded. Slash wrong and the creature <b>loses its colour
+    and drops</b>, with a small thud. No screen shake, no red flash, no big red X.</span>
+  </p>
+  <p>
+    <span class="vi block">Và <b>để một con đúng rơi mất thì không mất gì cả</b> — chỉ là không được thưởng.
+    Chần chừ không bị phạt. Đây là một quyết định thiết kế, không phải quên làm.</span>
+    <span class="en block">And <b>letting a correct one fall costs you nothing</b> — you simply don't get the reward.
+    Hesitation is never punished. That's a decision, not an oversight.</span>
+  </p>
+
+  <div class="prompt">
+    <p class="cmd" style="margin:0">
+      <span class="vi">Chém con nào có <b>SÁU CHÂN</b></span>
+      <span class="en">Slash the ones with <b>SIX LEGS</b></span>
+    </p>
+    <div class="row">
+      <span class="chip"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M3 8.5l3.2 3.2L13 4.6" stroke="#3F6B57" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vi">bọ</span><span class="en">beetle</span></span>
+      <span class="chip"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M3 8.5l3.2 3.2L13 4.6" stroke="#3F6B57" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vi">kiến</span><span class="en">ant</span></span>
+      <span class="chip"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M3 8.5l3.2 3.2L13 4.6" stroke="#3F6B57" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vi">chuồn chuồn</span><span class="en">dragonfly</span></span>
+      <span class="chip"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M3 8.5l3.2 3.2L13 4.6" stroke="#3F6B57" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vi">bướm</span><span class="en">butterfly</span></span>
+      <span class="chip no"><span class="vi">nhện</span><span class="en">spider</span></span>
+      <span class="chip no"><span class="vi">cá</span><span class="en">fish</span></span>
+      <span class="chip no"><span class="vi">lá</span><span class="en">leaf</span></span>
+      <span class="chip no"><span class="vi">ngói</span><span class="en">roof tile</span></span>
+    </div>
+    <p class="why">
+      <span class="vi block"><b>Cuối hiệp game mới nói:</b> Côn trùng nào cũng đúng sáu chân.
+      Nhện tám chân nên không phải côn trùng.</span>
+      <span class="en block"><b>Only at the end of the round does the game say:</b> every insect has exactly six legs.
+      A spider has eight, so it is not an insect.</span>
+    </p>
+  </div>
+  <p class="dim" style="font-size:15px">
+    <span class="vi block">Đó mới là chỗ học. Trong lúc chơi thì không giảng bài.</span>
+    <span class="en block">That is where the learning lives. Nothing is explained mid-play.</span>
+  </p>
+</section>
+
+<section class="wrap">
+  <p class="eyebrow"><span class="vi">Con mèo</span><span class="en">The cat</span></p>
+  <h2><span class="vi">Nhân vật quan trọng nhất không dạy gì cả.</span><span class="en">The most important character teaches nothing.</span></h2>
+  <p>
+    <span class="vi block">Bạn nhặt được một con mèo đang cuộn tròn. Nuôi nó bằng cách <b>cho ăn những con dư</b> —
+    con đầu tiên của mỗi loài ở lại sổ tay vĩnh viễn, kiến thức không bao giờ bị tiêu đi để đổi lấy thứ khác.</span>
+    <span class="en block">You find a cat, curled up. You raise it by <b>feeding it your spares</b> — the first of every
+    species stays in your notebook forever. Knowledge is never spent to buy something else.</span>
+  </p>
+
+  <div class="stages">
+    <div class="stage"><svg width="60" height="52" viewBox="0 0 60 52" aria-hidden="true"><g transform="translate(-2.2,1.6)" opacity=".9"><ellipse cx="30" cy="34" rx="20" ry="13" fill="#F2B93B"/></g><ellipse cx="30" cy="34" rx="20" ry="13" stroke="#3B3128" stroke-width="4.6" fill="none"/><path d="M14 32q8 -8 16 -2" stroke="#3B3128" stroke-width="2.6" fill="none"/></svg>
+      <b><span class="vi">Cuộn Tròn</span><span class="en">Curled Up</span></b>
+      <span><span class="vi">ngủ suốt</span><span class="en">sleeps all day</span></span></div>
+    <div class="stage"><svg width="60" height="52" viewBox="0 0 60 52" aria-hidden="true"><g transform="translate(-2.2,1.6)" opacity=".9"><circle cx="30" cy="30" r="14" fill="#F2B93B"/><path d="M19 20l-2-10 10 5M41 20l2-10-10 5" fill="#F2B93B"/></g><circle cx="30" cy="30" r="14" stroke="#3B3128" stroke-width="4.6" fill="none"/><path d="M19 20l-2-10 10 5M41 20l2-10-10 5" stroke="#3B3128" stroke-width="3.4" fill="none" stroke-linejoin="round"/><circle cx="25" cy="29" r="1.9" fill="#3B3128"/><circle cx="35" cy="29" r="1.9" fill="#3B3128"/></svg>
+      <b><span class="vi">Mèo Con</span><span class="en">Kitten</span></b>
+      <span><span class="vi">nhà ấm hơn</span><span class="en">a warmer house</span></span></div>
+    <div class="stage"><svg width="60" height="52" viewBox="0 0 60 52" aria-hidden="true"><g transform="translate(-2.2,1.6)" opacity=".9"><ellipse cx="30" cy="32" rx="16" ry="15" fill="#EFA9A0"/><path d="M18 21l-2-11 11 6M42 21l2-11-11 6" fill="#EFA9A0"/></g><ellipse cx="30" cy="32" rx="16" ry="15" stroke="#3B3128" stroke-width="4.6" fill="none"/><path d="M18 21l-2-11 11 6M42 21l2-11-11 6" stroke="#3B3128" stroke-width="3.4" fill="none" stroke-linejoin="round"/><circle cx="24" cy="31" r="2" fill="#3B3128"/><circle cx="36" cy="31" r="2" fill="#3B3128"/><path d="M26 38q4 4 8 0" stroke="#3B3128" stroke-width="2.4" fill="none"/></svg>
+      <b><span class="vi">Mèo Choai</span><span class="en">Young Cat</span></b>
+      <span><span class="vi">mở câu đố khó</span><span class="en">harder puzzles</span></span></div>
+    <div class="stage"><svg width="60" height="52" viewBox="0 0 60 52" aria-hidden="true"><g transform="translate(-2.2,1.6)" opacity=".9"><ellipse cx="30" cy="31" rx="19" ry="17" fill="#6FA98B"/><path d="M16 19l-3-12 13 7M44 19l3-12-13 7" fill="#6FA98B"/></g><ellipse cx="30" cy="31" rx="19" ry="17" stroke="#3B3128" stroke-width="4.6" fill="none"/><path d="M16 19l-3-12 13 7M44 19l3-12-13 7" stroke="#3B3128" stroke-width="3.4" fill="none" stroke-linejoin="round"/><circle cx="23" cy="29" r="2.1" fill="#3B3128"/><circle cx="37" cy="29" r="2.1" fill="#3B3128"/><path d="M24 38q6 5 12 0" stroke="#3B3128" stroke-width="2.6" fill="none"/></svg>
+      <b><span class="vi">Mèo Lớn</span><span class="en">Grown Cat</span></b>
+      <span><span class="vi">đi cùng bạn</span><span class="en">tags along</span></span></div>
+    <div class="stage"><svg width="60" height="52" viewBox="0 0 60 52" aria-hidden="true"><g transform="translate(-2.2,1.6)" opacity=".9"><ellipse cx="30" cy="32" rx="19" ry="17" fill="#E2604A"/><path d="M16 20l-3-12 13 7M44 20l3-12-13 7" fill="#E2604A"/></g><ellipse cx="30" cy="32" rx="19" ry="17" stroke="#3B3128" stroke-width="4.6" fill="none"/><path d="M16 20l-3-12 13 7M44 20l3-12-13 7" stroke="#3B3128" stroke-width="3.4" fill="none" stroke-linejoin="round"/><circle cx="23" cy="30" r="2.1" fill="#3B3128"/><circle cx="37" cy="30" r="2.1" fill="#3B3128"/><path d="M24 39q6 5 12 0" stroke="#3B3128" stroke-width="2.6" fill="none"/><path d="M22 14q8 -6 16 0" stroke="#3B3128" stroke-width="3" fill="#F2B93B"/></svg>
+      <b><span class="vi">Mèo Đám Cưới</span><span class="en">Wedding Cat</span></b>
+      <span><span class="vi">tập đố cuối</span><span class="en">the last set</span></span></div>
+  </div>
+
+  <ul class="plain" style="margin-top:36px">
+    <li><span class="n">1</span><p>
+      <span class="vi block"><b>Mèo không bao giờ đói.</b> Không thanh đo, không đếm ngược, không câu
+      “mèo đang buồn vì bạn chưa vào”. Giữ chân trẻ bằng cảm giác tội lỗi là dạy rằng tình cảm
+      là một món nợ. Không làm.</span>
+      <span class="en block"><b>The cat never gets hungry.</b> No meter, no countdown, no “your cat is sad because
+      you haven't visited”. Retention built on guilt teaches a child that affection is a debt. We don't do it.</span></p></li>
+    <li><span class="n">2</span><p>
+      <span class="vi block"><b>Đi vắng một tuần về, mèo mừng.</b> Nó không ốm, không trách móc, không tụt lại.</span>
+      <span class="en block"><b>Come back after a week away and the cat is delighted.</b> It doesn't get sick, sulk, or fall behind.</span></p></li>
+    <li><span class="n">3</span><p>
+      <span class="vi block"><b>Mèo ăn thịt.</b> Rau thì gặm một tí. Ngói, đá, mây thì nó ngửi rồi bỏ đi —
+      và đó là một bài học thật, không phải lỗi game.</span>
+      <span class="en block"><b>Cats are carnivores.</b> It nibbles at greens. Offer it a roof tile, a stone or a cloud
+      and it sniffs, then walks off — that's a real lesson, not a bug.</span></p></li>
+    <li><span class="n">4</span><p>
+      <span class="vi block"><b>Con hiếm không bổ hơn.</b> No bụng tính theo con to hay nhỏ; còn <i>đáng nhớ</i>
+      mới tính theo độ hiếm. Dinh dưỡng và câu chuyện là hai thứ khác nhau.</span>
+      <span class="en block"><b>A rare catch is not more nutritious.</b> Fullness follows size; <i>memorable</i> follows rarity.
+      Nutrition and story are two different things.</span></p></li>
+  </ul>
+</section>
+
+<section class="wrap">
+  <p class="eyebrow"><span class="vi">Bộ sưu tập</span><span class="en">The collection</span></p>
+  <h2><span class="vi">700 loài, và độ hiếm không phải may rủi.</span><span class="en">700 species, and rarity is never luck.</span></h2>
+  <p>
+    <span class="vi block">Mỗi loài là một dòng dữ liệu, xếp theo <b>ba trục cố ý không trộn vào nhau</b>:
+    <b>họ</b> (39 họ, 6 giới), <b>bậc khó</b> (quen mặt → rất khó), và <b>độ hiếm</b> (thường → linh).
+    Không ai khắc tay 700 lần: có 25 bản nét, còn bản màu, tỉ lệ và hoa văn suy ra từ chính mã của loài —
+    cùng mã thì cùng hình, mãi mãi.</span>
+    <span class="en block">Each species is one row of data on <b>three axes deliberately kept apart</b>:
+    <b>family</b> (39 of them, 6 kingdoms), <b>difficulty</b> (familiar → very hard) and <b>rarity</b>
+    (common → mythic). Nobody carved 700 blocks by hand: there are 25 line plates, and colour, scale and
+    pattern are derived from the species' own id — same id, same creature, forever.</span>
+  </p>
+  <div class="cards">
+    <div class="card">
+      <svg class="ic" width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="12" fill="#C9BCA6"/><circle cx="17" cy="17" r="12" stroke="#3B3128" stroke-width="3.4" fill="none"/></svg>
+      <h3><span class="vi">Hiếm 3</span><span class="en">Rarity 3</span></h3>
+      <p><span class="vi block">Chỉ ra khi hiệp đang <b>sạch bản</b> — chưa chém sai con nào.</span>
+         <span class="en block">Appears only while your round is <b>clean</b> — not one wrong slash yet.</span></p>
+    </div>
+    <div class="card">
+      <svg class="ic" width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="12" fill="#3A5C93"/><circle cx="17" cy="17" r="12" stroke="#3B3128" stroke-width="3.4" fill="none"/></svg>
+      <h3><span class="vi">Hiếm 4</span><span class="en">Rarity 4</span></h3>
+      <p><span class="vi block">Sạch bản, <b>và</b> chặng phải đủ khó. Chơi dễ mãi thì không gặp.</span>
+         <span class="en block">Clean, <b>and</b> the stage must be hard enough. Coasting never meets one.</span></p>
+    </div>
+    <div class="card">
+      <svg class="ic" width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="12" fill="#E2604A"/><circle cx="17" cy="17" r="12" stroke="#3B3128" stroke-width="3.4" fill="none"/><path d="M17 8l2.6 5.6L25 15l-4 4 1 6-5-3-5 3 1-6-4-4 5.4-1.4z" fill="#F2B93B" stroke="#3B3128" stroke-width="1.6"/></svg>
+      <h3><span class="vi">Hiếm 5 — linh vật</span><span class="en">Rarity 5 — the mythic</span></h3>
+      <p><span class="vi block">Cá chép hoá rồng, gà chín cựa, tre đằng ngà. Chỉ ra khi <b>cả vùng</b> đã sạch bản.</span>
+         <span class="en block">The carp that becomes a dragon, the nine-spurred rooster, the ivory bamboo.
+         Only when an <b>entire region</b> is clean.</span></p>
+    </div>
+  </div>
+  <p style="margin-top:22px">
+    <span class="vi block"><em>Hiếm là phần thưởng cho việc chơi ĐÚNG, không phải cho việc chơi LÂU.</em>
+    Trong game này không có gì mở ra bằng xác suất.</span>
+    <span class="en block"><em>Rarity rewards playing WELL, never playing LONG.</em>
+    Nothing in this game unlocks by probability.</span>
+  </p>
+</section>
+
+<section class="wrap">
+  <p class="eyebrow"><span class="vi">Hạt</span><span class="en">Seeds</span></p>
+  <h2><span class="vi">Nền kinh tế chính là sư phạm.</span><span class="en">The economy is the pedagogy.</span></h2>
+  <p>
+    <span class="vi block">Cùng một khái niệm, trong cùng một buổi chơi, trả thưởng giảm dần rồi về không.
+    Hôm sau về lại đầy. Nghĩa là <b>cày lại vô nghĩa thì không sinh lời, còn quay lại sau một ngày thì lời nhất</b> —
+    tự nền kinh tế thực thi <i>lặp lại ngắt quãng</i>, kỹ thuật học thuộc bền nhất mà khoa học biết.</span>
+    <span class="en block">The same concept, within the same session, pays less and less and then nothing.
+    Tomorrow it is full again. So <b>grinding pays nothing, and coming back a day later pays best</b> —
+    the economy itself enforces <i>spaced repetition</i>, the most durable memory technique we know of.</span>
+  </p>
+  <div class="curve">
+    <div class="day"><div class="bar" style="height:74px"></div><b>10</b><span class="vi">lần 1</span><span class="en">1st time</span></div>
+    <div class="day"><div class="bar" style="height:30px"></div><b>3</b><span class="vi">lần 2</span><span class="en">2nd</span></div>
+    <div class="day"><div class="bar" style="height:14px"></div><b>1</b><span class="vi">lần 3</span><span class="en">3rd</span></div>
+    <div class="day"><div class="bar zero"></div><b>0</b><span class="vi">lần 4+</span><span class="en">4th+</span></div>
+    <div class="day" style="min-width:96px"><div class="bar" style="height:74px"></div><b>10</b><span class="vi">hôm sau</span><span class="en">next day</span></div>
+  </div>
+  <p class="dim" style="font-size:15px">
+    <span class="vi block">Trần 420 Hạt mỗi ngày, khoảng 45–60 phút. Quá trần vẫn chơi vui như thường,
+    chỉ là không sinh thêm — và <b>game nói thẳng với trẻ điều đó</b>, không giấu.</span>
+    <span class="en block">A ceiling of 420 seeds a day, roughly 45–60 minutes. Past it the game is just as fun,
+    it simply stops paying — and <b>it says so to the child, plainly</b>, rather than hiding it.</span>
+  </p>
+  <p>
+    <span class="vi block">Và một luật cứng: <b>Hạt không mua được đồ.</b> Hạt chỉ mua được mạng.
+    Đồ thì phải chế từ nguyên liệu <i>cộng với</i> một câu đố đã giải xong. Nếu tiền mua được mọi thứ
+    thì phần suy nghĩ chậm trở thành tuỳ chọn, và cả thiết kế sập.</span>
+    <span class="en block">And one hard rule: <b>seeds cannot buy items.</b> Seeds buy lives, nothing else.
+    Items are crafted from materials <i>plus</i> a puzzle you actually solved. If money bought everything,
+    the slow-thinking half becomes optional and the whole design collapses.</span>
+  </p>
+</section>
+
+<section class="wrap">
+  <p class="eyebrow"><span class="vi">Thế giới</span><span class="en">The world</span></p>
+  <h2><span class="vi">Bốn miền trên một hệ sông.</span><span class="en">Four regions on one river system.</span></h2>
+  <p>
+    <span class="vi block">15 bản đồ, 4 miền. Vùng không chia cho vui: mỗi bản đồ có một <b>thử thách riêng</b> —
+    cách chơi khác hẳn, không chỉ khác chủ đề. Ruộng &amp; Rừng thì gom nhặt từ tốn. Lò Gốm có giờ, vì lò
+    không chờ ai. Mây &amp; Trời đảo luật giữa chừng, vì trời đổi thật. La Bàn Trong thì ba nhịp và
+    <b>không có đồng hồ</b> — không ai nên bị bấm giờ lúc đang gọi tên cảm xúc của mình.</span>
+    <span class="en block">15 maps across 4 regions. The split isn't decorative: each map has its own <b>trial</b> —
+    a different way to play, not just a different theme. Field &amp; Forest gathers slowly. The Kiln is timed,
+    because a kiln waits for nobody. Cloud &amp; Sky flips its rule mid-round, because weather really does turn.
+    The Inner Compass has three beats and <b>no clock at all</b> — nobody should be timed while naming
+    what they feel.</span>
+  </p>
+  <div class="miens">
+    <div class="mien"><span class="dot" style="background:#6FA98B"></span><div>
+      <h3><span class="vi">Miền Đất</span><span class="en">The Land</span></h3>
+      <p><span class="vi block">Hạ lưu — gần nhất, sờ được. <i>Thế giới quanh mình làm bằng gì và chạy ra sao?</i></span>
+         <span class="en block">Downstream — nearest, touchable. <i>What is the world around me made of, and how does it work?</i></span></p></div></div>
+    <div class="mien"><span class="dot" style="background:#7A6248"></span><div>
+      <h3><span class="vi">Miền Người</span><span class="en">The People</span></h3>
+      <p><span class="vi block">Ngược lên thượng nguồn — ngược thời gian. <i>Ai đã đi trước, và họ nghĩ gì?</i></span>
+         <span class="en block">Upstream — back through time. <i>Who walked before us, and what were they thinking?</i></span></p></div></div>
+    <div class="mien"><span class="dot" style="background:#3A5C93"></span><div>
+      <h3><span class="vi">Miền Số</span><span class="en">The Number</span></h3>
+      <p><span class="vi block">Nhánh sông chảy song song mọi miền. <i>Làm sao biết chắc?</i></span>
+         <span class="en block">A tributary running alongside everything. <i>How do we know for sure?</i></span></p></div></div>
+    <div class="mien"><span class="dot" style="background:#E2604A"></span><div>
+      <h3><span class="vi">Miền Trong</span><span class="en">The Inward</span></h3>
+      <p><span class="vi block">Không phải một nơi — nó là <b>con thuyền</b>, luôn đi theo.
+        <i>Mình là ai, và mình chọn thế nào?</i></span>
+         <span class="en block">Not a place — it is <b>the boat itself</b>, always with you.
+        <i>Who am I, and how do I choose?</i></span></p></div></div>
+  </div>
+</section>
+
+<section class="wrap">
+  <p class="eyebrow"><span class="vi">Cố tình không có</span><span class="en">Deliberately absent</span></p>
+  <h2><span class="vi">Những thứ game này nhất quyết không làm.</span><span class="en">Things this game refuses to do.</span></h2>
+  <ul class="plain">
+    <li><span class="x">✕</span><p><span class="vi block"><b>Hộp quà ngẫu nhiên.</b> Không có gì mở ra bằng xác suất.</span><span class="en block"><b>Loot boxes.</b> Nothing opens by chance.</span></p></li>
+    <li><span class="x">✕</span><p><span class="vi block"><b>Booster trả tiền.</b> Không mua được đường tắt qua chỗ khó.</span><span class="en block"><b>Paid boosters.</b> You cannot buy your way past the hard part.</span></p></li>
+    <li><span class="x">✕</span><p><span class="vi block"><b>Bảng xếp hạng.</b> Không có ai để thua.</span><span class="en block"><b>Leaderboards.</b> There is nobody to lose to.</span></p></li>
+    <li><span class="x">✕</span><p><span class="vi block"><b>Tim và mạng chờ hồi.</b> Không bắt trẻ đợi, cũng không bắt trẻ trả tiền để khỏi đợi.</span><span class="en block"><b>Hearts that refill on a timer.</b> No waiting, and no paying to skip the waiting.</span></p></li>
+    <li><span class="x">✕</span><p><span class="vi block"><b>Thú cưng dỗi.</b> Đã nói ở trên rồi — và đây là điều được viết ra trước cả dòng code đầu tiên.</span><span class="en block"><b>A sulking pet.</b> As above — and it was written down before the first line of code.</span></p></li>
+  </ul>
+</section>
+
+<section class="wrap">
+  <p class="eyebrow"><span class="vi">Vẽ thế nào</span><span class="en">How it's drawn</span></p>
+  <h2><span class="vi">Bốn dấu vết của nghề khắc gỗ.</span><span class="en">Four marks of the woodblock trade.</span></h2>
+  <p>
+    <span class="vi block">Luôn đủ cả bốn. Thiếu một cái là hình lập tức trông như đồ vector sạch đội lốt dân gian.</span>
+    <span class="en block">All four, always. Drop one and the art instantly reads as clean vector art wearing a folk costume.</span>
+  </p>
+  <ul class="plain">
+    <li><span class="n">1</span><p><span class="vi block"><b>Nét cong theo thớ gỗ</b> — mọi đường lượn nhẹ ±2px, như dao chạy theo vân.</span><span class="en block"><b>Lines that curve with the grain</b> — every stroke wanders ±2px, the way a blade follows wood.</span></p></li>
+    <li><span class="n">2</span><p><span class="vi block"><b>Nét dày mỏng không đều</b> — và <b>đường bao ngoài luôn dày nhất hình</b>. Đó là luật mộc bản.</span><span class="en block"><b>Uneven stroke weight</b> — and <b>the outer contour is always the thickest line</b>. That is the woodblock rule.</span></p></li>
+    <li><span class="n">3</span><p><span class="vi block"><b>Mực ăn loang</b> — bản màu đậm nhạt thất thường. Nhưng <b>không bao giờ</b> làm loang bản nét.</span><span class="en block"><b>Ink that drinks unevenly</b> — the colour plate mottles. But the line plate is <b>never</b> touched.</span></p></li>
+    <li><span class="n">4</span><p><span class="vi block"><b>Bản màu lệch bản nét</b> — lệch cố định, mỗi vật một kiểu. Đây là thứ khiến tranh Đông Hồ <i>là</i> tranh Đông Hồ.</span><span class="en block"><b>Colour out of register</b> — a fixed offset, its own for each object. This is what makes a Đông Hồ print <i>a Đông Hồ print</i>.</span></p></li>
+  </ul>
+  <p class="dim" style="font-size:15px;margin-top:22px">
+    <span class="vi block">Mọi hình được “nướng” một lần lúc màn hình chờ rồi cache lại. Lúc chạy chỉ dán — chạy mượt trên iPad cũ.</span>
+    <span class="en block">Every sprite is baked once on the loading screen and cached. At runtime it only blits — smooth on an old iPad.</span>
+  </p>
+</section>
+
+<section class="wrap">
+  <p class="eyebrow"><span class="vi">Còn thiếu</span><span class="en">Still missing</span></p>
+  <h2><span class="vi">Chế độ mang chính tên game vẫn chưa làm.</span><span class="en">The mode the game is named after isn't built yet.</span></h2>
+  <p>
+    <span class="vi block"><b>Đồng Vọng</b> — hai máy, hai đứa trẻ, <b>hợp tác bất đối xứng</b>: mỗi đứa nhìn thấy
+    một nửa sự thật, và phải nói ra thì cả hai mới qua được. Máy chủ phòng chạy ngay trên một cái Mac,
+    vào phòng bằng mã bốn chữ số. Đó là chỗ cái tên có nghĩa: <em>bạn nói, và tiếng vọng lại từ máy bên kia</em>.</span>
+    <span class="en block"><b>Đồng Vọng</b> — two devices, two children, <b>asymmetric co-op</b>: each sees half of
+    the truth and has to say it out loud for either to get through. The room server runs on a Mac; you join
+    with a four-digit code. That is where the name lands: <em>you speak, and the echo comes back from the
+    other screen</em>.</span>
+  </p>
+  <p class="dim" style="font-size:15px">
+    <span class="vi block">Sau đó: động từ Dựng · Tinh và Thấu · bảng phụ huynh · Xưởng · AI chạy ngay trên máy.
+    Mỗi thứ đều rất dễ sa lầy — nên chưa làm cái nào, trước khi biết chắc game có vui không.</span>
+    <span class="en block">After that: the Build verb · Refine and See-through · a parent dashboard · the Workshop ·
+    on-device AI. Every one of them is a swamp to get lost in — so none are started until we know the game is fun.</span>
+  </p>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <p><span class="vi block">Đồng Vọng — bản thử. Làm bởi Hoàng, ở Việt Nam.</span>
+     <span class="en block">Đồng Vọng — a pilot. Built by Hoàng, in Vietnam.</span></p>
+  <p><a href="https://github.com/LuffyNguyen/dongvong">github.com/LuffyNguyen/dongvong</a></p>
+</footer>
+
+<script>
+  (function () {
+    var root = document.documentElement
+    var bvi = document.getElementById('b-vi')
+    var ben = document.getElementById('b-en')
+    function set(lang) {
+      root.classList.toggle('lang-en', lang === 'en')
+      root.classList.toggle('lang-vi', lang !== 'en')
+      root.lang = lang
+      bvi.setAttribute('aria-pressed', String(lang !== 'en'))
+      ben.setAttribute('aria-pressed', String(lang === 'en'))
+      try { localStorage.setItem('dv.lang', lang) } catch (e) {}
+    }
+    bvi.addEventListener('click', function () { set('vi') })
+    ben.addEventListener('click', function () { set('en') })
+    var saved = null
+    try { saved = localStorage.getItem('dv.lang') } catch (e) {}
+    if (saved) set(saved)
+    else if ((navigator.language || '').slice(0, 2) !== 'vi') set('en')
+  })()
+</script>
+</body>
+</html>
