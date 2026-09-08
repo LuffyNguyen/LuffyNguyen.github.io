@@ -60,6 +60,7 @@
   h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.01em;margin:0}
   h1{font-size:clamp(56px,14vw,116px);line-height:.92}
   h2{font-size:clamp(28px,5.2vw,42px);line-height:1.1;margin-bottom:14px}
+  section.full h2{font-size:clamp(32px,4.5vw,54px);line-height:1.06;letter-spacing:-.02em;margin-bottom:18px}
   h3{font-size:19px;font-weight:700;margin-bottom:6px}
   p{margin:0 0 18px;max-width:62ch}
   .lede{font-size:clamp(19px,2.6vw,23px);line-height:1.55;color:var(--ink)}
@@ -165,6 +166,8 @@
   /* ---------------------------------------------------------- meo */
   .cat-wrap{display:flex;gap:26px;align-items:center;flex-wrap:wrap;margin-top:26px}
   .stages{display:flex;gap:18px;flex-wrap:wrap;margin-top:26px}
+  #meo .stages{gap:12px}
+  #meo .stages .stage{width:92px}
   .stage{text-align:center;width:104px}
   .stage b{display:block;font-family:var(--display);font-size:14.5px;margin-top:6px}
   .stage span{display:block;font-size:12.5px;color:var(--dim);line-height:1.4}
@@ -280,6 +283,7 @@
 
   /* ---------------------------------------------------------- ba nhu cau */
   .needs{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(214px,1fr));margin-top:30px}
+  @media (min-width:900px){.needs{grid-template-columns:repeat(3,1fr)}}
   .need{
     background:var(--giay);border:1px solid rgba(122,98,72,.14);
     border-radius:18px;padding:0 0 20px;overflow:hidden;display:flex;flex-direction:column
@@ -545,6 +549,7 @@
 
   /* ---------------------------------------------------------- co che */
   .mech{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(212px,1fr));margin-top:30px}
+  @media (min-width:900px){.mech{grid-template-columns:repeat(3,1fr)}}
   .mech .m{
     background:var(--giay);border:1px solid rgba(122,98,72,.14);
     border-radius:16px;padding:14px 18px 18px
@@ -699,10 +704,173 @@
     .climb rect:nth-child(3){animation-delay:.56s}
     @keyframes climb{0%{transform:scaleY(.08)}22%,84%{transform:scaleY(1)}96%,100%{transform:scaleY(.08)}}
   }
+
+  /* ============================================================ THEM VAO (4)
+     Lop bo cuc. Truoc ban nay moi muc deu la mot cot 840px giong het nhau,
+     va mot trang nhu the doc den muc thu ba la mat het cam giac dang di dau.
+     Gio co bon dang muc — cot doc · hai cot lech · nen dam tran vien ·
+     bang so — va chung xen ke nhau. */
+
+  /* ---------------------------------------------------------- cac dang muc */
+  .wide{max-width:1160px;margin:0 auto;padding:0 var(--pad)}
+  section.full{padding-top:clamp(64px,9vw,116px);padding-bottom:clamp(64px,9vw,116px)}
+  section.dark{
+    background:var(--than);color:var(--diep);border-top:0
+  }
+  section.dark + section{border-top:0}
+  section.dark h2,section.dark h3,section.dark b{color:var(--giay)}
+  section.dark p{color:rgba(251,242,224,.7)}
+  section.dark .eyebrow{color:var(--hoe)}
+  section.dark em{background:linear-gradient(transparent 62%,rgba(242,185,59,.4) 62%)}
+  section.dark .chips span{background:rgba(251,242,224,.1);color:rgba(251,242,224,.82)}
+  section.dark .pane{background:rgba(251,242,224,.06);border-color:rgba(251,242,224,.14)}
+  section.dark .pane.bad{background:rgba(226,96,74,.12);border-color:rgba(226,96,74,.3)}
+  section.dark .pane p{color:rgba(251,242,224,.66)}
+  section.dark .pane .tag{color:rgba(251,242,224,.5)}
+  section.dark .pane.bad .tag{color:#E68C78}
+
+  /* hai cot lech — chu mot ben, hinh mot ben, va doi ben o muc ke tiep */
+  .split{display:grid;gap:clamp(26px,4.5vw,60px);align-items:center}
+  .split > .txt{max-width:46ch}
+  @media (min-width:900px){
+    .split{grid-template-columns:minmax(0,.95fr) minmax(0,1.15fr)}
+    .split.flip > *:first-child{order:2}
+  }
+
+  /* ---------------------------------------------------------- vach in lech ban */
+  .strip{position:relative;height:22px;overflow:hidden}
+  .strip::before,.strip::after{content:'';position:absolute;inset:0}
+  .strip::before{background:repeating-linear-gradient(90deg,var(--vang) 0 20px,transparent 20px 40px);opacity:.9}
+  .strip::after{background:repeating-linear-gradient(90deg,var(--than) 0 20px,transparent 20px 40px);transform:translate(3px,-4px)}
+
+  /* ---------------------------------------------------------- man hinh nghieng */
+  .device{max-width:520px;margin:0 auto}
+  .device .stack{position:relative}
+  .device .shade{
+    position:absolute;left:16px;right:-16px;top:18px;bottom:-16px;border-radius:8px;
+    background:var(--sen);transform:rotate(-1.2deg)
+  }
+  .device .frame{
+    position:relative;border:3.5px solid var(--than);border-radius:8px;overflow:hidden;
+    background:var(--diep2);transform:rotate(-1.2deg)
+  }
+  .device .frame svg{display:block;width:100%;height:auto}
+  .device .cap{
+    position:relative;margin-top:26px;font:700 12.5px/1.5 var(--sans);
+    letter-spacing:.05em;color:var(--dim);text-align:center
+  }
+
+  /* ---------------------------------------------------------- bang so */
+  .stats{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(158px,1fr))}
+  .stat b{
+    display:block;font-family:var(--display);font-weight:800;letter-spacing:-.025em;
+    font-size:clamp(40px,6.4vw,62px);line-height:.95;color:var(--than)
+  }
+  .stat span{display:block;font-size:14px;line-height:1.4;color:var(--dim);margin-top:9px;max-width:20ch}
+  section.dark .stat b{color:var(--hoe)}
+
+  /* ---------------------------------------------------------- o dan chung */
+  .src{
+    border-left:4px solid var(--vang);background:var(--giay);
+    padding:18px 22px;border-radius:0 14px 14px 0;margin-top:26px;max-width:52ch
+  }
+  .src b{display:block;font:800 21px/1 var(--display);color:var(--vang);margin-bottom:9px}
+  .src p{margin:0 0 7px;font-size:15px;line-height:1.55}
+  .src cite{font-style:italic;font-size:13.5px;color:var(--dim)}
+
+  /* ---------------------------------------------------------- chip */
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+  .chips span{
+    font:700 13.5px/1 var(--sans);padding:10px 14px;border-radius:999px;
+    background:rgba(122,98,72,.1);color:var(--go)
+  }
+  .chips.off span{background:transparent;border:1.5px solid rgba(122,98,72,.22);color:var(--dim)}
+
+  /* ---------------------------------------------------------- bang chay */
+  .ticker{
+    background:var(--than);color:var(--diep);overflow:hidden;white-space:nowrap;
+    padding:10px 0;font:700 12.5px/1 var(--sans);letter-spacing:.05em;position:relative;z-index:10
+  }
+  .ticker > div{display:inline-block;will-change:transform}
+  .ticker i{font-style:normal;color:var(--hoe);margin:0 13px}
+
+  /* ---------------------------------------------------------- nhan doc ben le */
+  .rail{
+    position:absolute;left:0;top:0;writing-mode:vertical-rl;
+    font:700 11px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--xam)
+  }
+  @media (max-width:1340px){.rail{display:none}}
+
+  @media (prefers-reduced-motion:no-preference){
+    .ticker > div{animation:tick 46s linear infinite}
+    @keyframes tick{to{transform:translateX(-50%)}}
+
+    /* --- man hinh o dau trang: mot luot choi that, lap 8 giay --- */
+    .rise-up{animation:riseup 8s ease-out infinite}
+    @keyframes riseup{
+      0%{transform:translateY(96px);opacity:0}
+      10%{opacity:1}
+      26%,100%{transform:translateY(0);opacity:1}}
+    .swipe{stroke-dasharray:420;stroke-dashoffset:420;animation:swipe 8s infinite}
+    @keyframes swipe{
+      0%,30%{stroke-dashoffset:420;opacity:.85}
+      42%{stroke-dashoffset:0;opacity:.85}
+      56%,100%{stroke-dashoffset:0;opacity:0}}
+    .keep{animation:keep 8s infinite}
+    @keyframes keep{
+      0%,42%{transform:translateY(0);opacity:1}
+      56%{transform:translateY(-8px)}
+      70%{transform:translateY(-96px);opacity:0}
+      100%{transform:translateY(-96px);opacity:0}}
+    .drop{animation:drop 8s infinite}
+    @keyframes drop{
+      0%,44%{transform:translateY(0) rotate(0);opacity:1}
+      100%{transform:translateY(104px) rotate(22deg);opacity:.85}}
+    .fade-col{animation:fadecol 8s infinite}
+    @keyframes fadecol{0%,44%{opacity:.88}58%,100%{opacity:0}}
+    .tally i{animation:tally 8s infinite}
+    @keyframes tally{0%,58%{opacity:0;transform:scale(.5)}66%{opacity:1;transform:scale(1)}100%{opacity:1;transform:scale(1)}}
+    .tally i:nth-child(2){animation-delay:.14s}
+
+    /* --- ban mau truot vao dung cho, roi ban net in de len --- */
+    .plate{animation:plate 6.5s ease-in-out infinite}
+    @keyframes plate{
+      0%{transform:translate(-30px,20px);opacity:0}
+      14%{opacity:.9}
+      44%,86%{transform:translate(-2.2px,1.6px);opacity:.9}
+      98%,100%{transform:translate(-30px,20px);opacity:0}}
+    .ink{stroke-dasharray:1400;stroke-dashoffset:1400;animation:ink2 6.5s ease-in-out infinite}
+    @keyframes ink2{
+      0%,40%{stroke-dashoffset:1400}
+      66%,90%{stroke-dashoffset:0}
+      99%,100%{stroke-dashoffset:1400}}
+  }
+
+  /* ---------------------------------------------------------- HUD trong man hinh */
+  .device .hud{
+    position:absolute;left:0;right:0;top:0;z-index:2;
+    display:flex;justify-content:space-between;align-items:center;padding:11px 13px
+  }
+  .device .prompt{
+    font:800 13px/1 var(--display);letter-spacing:.07em;color:var(--than);
+    background:var(--hoe);padding:8px 12px;border-radius:999px
+  }
+  .device .tally{display:flex;gap:5px}
+  .device .tally i{display:block;width:10px;height:10px;border-radius:50%;background:var(--tram)}
+
+  /* ---------------------------------------------------------- ban in */
+  .press{display:grid;place-items:center}
+  .press svg{width:100%;max-width:330px;height:auto}
+  .rail{left:-34px}
+  section.dark .need,section.dark .m,section.dark .beat,section.dark .rung,section.dark .mien,
+  section.dark .card,section.dark .guide,section.dark .src{
+    background:rgba(251,242,224,.06);border-color:rgba(251,242,224,.14)
+  }
 </style>
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
+<div class="ticker" aria-hidden="true"><div><span class="vi">hạt rất nhỏ<i>·</i>những phòng rất nhỏ<i>·</i>bản chỉ dẫn<i>·</i>vì sao thành phố đầu tiên mọc bên sông<i>·</i>cái bơm chưa bao giờ kéo nước<i>·</i>nhện tám chân nên không phải côn trùng<i>·</i>tấm gương đảo trước sau<i>·</i>lương trên hợp đồng không phải lương về tay<i>·</i>bảy người nói sai, người thứ tám làm gì<i>·</i>hạt rất nhỏ<i>·</i>những phòng rất nhỏ<i>·</i>bản chỉ dẫn<i>·</i>vì sao thành phố đầu tiên mọc bên sông<i>·</i>cái bơm chưa bao giờ kéo nước<i>·</i>nhện tám chân nên không phải côn trùng<i>·</i>tấm gương đảo trước sau<i>·</i>lương trên hợp đồng không phải lương về tay<i>·</i>bảy người nói sai, người thứ tám làm gì<i>·</i></span><span class="en">very tiny grains<i>·</i>very small rooms<i>·</i>the instruction copy<i>·</i>why the first cities grew beside rivers<i>·</i>a pump never pulls water<i>·</i>a spider has eight legs, so not an insect<i>·</i>a mirror flips front to back<i>·</i>the salary on the contract is not the salary in hand<i>·</i>seven people say something false, what does the eighth do<i>·</i>very tiny grains<i>·</i>very small rooms<i>·</i>the instruction copy<i>·</i>why the first cities grew beside rivers<i>·</i>a pump never pulls water<i>·</i>a spider has eight legs, so not an insect<i>·</i>a mirror flips front to back<i>·</i>the salary on the contract is not the salary in hand<i>·</i>seven people say something false, what does the eighth do<i>·</i></span></div></div>
 
 <div class="topbar">
   <div class="wrap">
@@ -720,101 +888,95 @@
   </div>
 </div>
 
-<header class="hero wrap">
-  <h1>Đồng Vọng</h1>
-  <p class="say">
-    <span class="vi">đọc là <i>đồng-vọng</i> — nghĩa là tiếng vọng lại</span>
-    <span class="en">say it <i>dong-vong</i> — it means “the echo that comes back”</span>
-  </p>
+<header class="hero wide">
+  <span class="rail"><span class="vi">Đồng Vọng · bản thử</span><span class="en">Đồng Vọng · a pilot</span></span>
+  <div class="split">
+    <div class="txt">
+      <p class="eyebrow"><span class="vi">Game học · 7–16 tuổi</span><span class="en">A learning game · ages 7–16</span></p>
+      <h1>Đồng Vọng</h1>
+      <p class="say">
+        <span class="vi">đọc là <i>đồng-vọng</i> — nghĩa là tiếng vọng lại</span>
+        <span class="en">say it <i>dong-vong</i> — “the echo that comes back”</span>
+      </p>
+      <p class="lede">
+        <span class="vi block">Mỗi khái niệm bắt đầu bằng thứ trẻ <em>đếm được</em>. Không bằng một định nghĩa để thuộc.</span>
+        <span class="en block">Every concept starts with something a child can <em>count</em>. Never a definition to memorise.</span>
+      </p>
+      <div class="ctas">
+        <a class="cta" href="https://luffynguyen.github.io/dongvong-web/">
+          <span class="vi">Cho con thử</span><span class="en">Let them try it</span></a>
+        <a class="cta ghost" href="#phuhuynh">
+          <span class="vi">Bảng kiểm phụ huynh</span><span class="en">Parent's checklist</span></a>
+      </div>
+      <p class="facts">
+        <span><span class="vi">Không quảng cáo</span><span class="en">No ads</span></span>
+        <span><span class="vi">Không hộp quà</span><span class="en">No loot boxes</span></span>
+        <span><span class="vi">Không cần tài khoản</span><span class="en">No account</span></span>
+        <span><span class="vi">Chạy trong trình duyệt</span><span class="en">Runs in the browser</span></span>
+      </p>
+    </div>
 
-  <p class="lede">
-    <span class="vi block">Game học cho trẻ <b>7–16 tuổi</b>, vẽ theo lối tranh Đông Hồ.
-    Mỗi khái niệm bắt đầu bằng thứ trẻ <em>đếm được</em>, không bằng một định nghĩa để thuộc.</span>
-    <span class="en block">A learning game for ages <b>7–16</b>, drawn the way Đông Hồ woodblock prints are made.
-    Every concept starts with something a child can <em>count</em>, never a definition to memorise.</span>
-  </p>
+    <div class="device">
+      <div class="stack">
+      <div class="shade"></div>
+      <div class="frame">
+        <div class="hud">
+          <span class="prompt"><span class="vi">SÁU CHÂN</span><span class="en">SIX LEGS</span></span>
+          <span class="tally"><i></i><i></i></span>
+        </div>
+        <svg viewBox="0 0 400 280" aria-hidden="true">
+          <path class="swipe" d="M28 214 Q190 74 374 128" stroke="#3B3128" stroke-width="6" fill="none" stroke-linecap="round" opacity=".85"/>
 
-  <svg class="flock" viewBox="0 0 640 120" width="100%" height="120" fill="none" aria-hidden="true">
-    <!-- moi con: ban mau (lech -2.2,+1.6) roi ban net -->
-    <g transform="translate(40,60)"><g class="float">
-      <g transform="translate(-2.2,1.6)" opacity=".88">
-        <ellipse cx="0" cy="0" rx="22" ry="15" fill="#E2604A"/><circle cx="-20" cy="-6" r="8" fill="#F2B93B"/>
-      </g>
-      <ellipse cx="0" cy="0" rx="22" ry="15" stroke="#3B3128" stroke-width="4.6"/>
-      <circle cx="-20" cy="-6" r="8" stroke="#3B3128" stroke-width="3.4"/>
-      <path d="M0 -15 L0 15 M-11 -13 L-15 -24 M11 -13 L15 -24" stroke="#3B3128" stroke-width="3" stroke-linecap="round"/>
-      <circle cx="-22" cy="-8" r="1.8" fill="#3B3128"/>
-    </g></g>
-    <g transform="translate(180,58)"><g class="float">
-      <g transform="translate(-2.2,1.6)" opacity=".88">
-        <ellipse cx="0" cy="0" rx="7" ry="26" fill="#3A5C93"/>
-        <ellipse cx="-16" cy="-9" rx="17" ry="6" fill="#8FA9CC"/><ellipse cx="16" cy="-9" rx="17" ry="6" fill="#8FA9CC"/>
-      </g>
-      <ellipse cx="0" cy="0" rx="7" ry="26" stroke="#3B3128" stroke-width="4.6"/>
-      <ellipse cx="-16" cy="-9" rx="17" ry="6" stroke="#3B3128" stroke-width="3"/>
-      <ellipse cx="16" cy="-9" rx="17" ry="6" stroke="#3B3128" stroke-width="3"/>
-      <circle cx="0" cy="-24" r="6" fill="#FBF2E0" stroke="#3B3128" stroke-width="3.4"/>
-    </g></g>
-    <g transform="translate(320,62)"><g class="float">
-      <g transform="translate(-2.2,1.6)" opacity=".88">
-        <path d="M-26 0 Q0 -20 24 0 Q0 20 -26 0Z" fill="#6FA98B"/><path d="M24 0 L38 -12 L38 12Z" fill="#B7D4C4"/>
-      </g>
-      <path d="M-26 0 Q0 -20 24 0 Q0 20 -26 0Z" stroke="#3B3128" stroke-width="4.6" stroke-linejoin="round"/>
-      <path d="M24 0 L38 -12 L38 12Z" stroke="#3B3128" stroke-width="3.4" stroke-linejoin="round"/>
-      <circle cx="-15" cy="-3" r="2.2" fill="#3B3128"/>
-      <path d="M-4 -11 Q2 0 -4 11" stroke="#3B3128" stroke-width="2.6"/>
-    </g></g>
-    <g transform="translate(460,58)"><g class="float">
-      <g transform="translate(-2.2,1.6)" opacity=".88">
-        <path d="M0 -26 Q22 -10 14 14 Q0 26 -14 14 Q-22 -10 0 -26Z" fill="#EFA9A0"/>
-      </g>
-      <path d="M0 -26 Q22 -10 14 14 Q0 26 -14 14 Q-22 -10 0 -26Z" stroke="#3B3128" stroke-width="4.6" stroke-linejoin="round"/>
-      <path d="M0 -22 L0 20 M-13 -8 Q0 -2 13 -8" stroke="#3B3128" stroke-width="2.8"/>
-    </g></g>
-    <g transform="translate(580,60)"><g class="float">
-      <g transform="translate(-2.2,1.6)" opacity=".88"><circle cx="0" cy="0" r="17" fill="#F2B93B"/></g>
-      <circle cx="0" cy="0" r="17" stroke="#3B3128" stroke-width="4.6"/>
-      <path d="M-8 -4 Q0 4 8 -4" stroke="#3B3128" stroke-width="3" stroke-linecap="round"/>
-    </g></g>
-  </svg>
+          <g transform="translate(84,150)"><g class="rise-up"><g class="keep">
+            <g transform="translate(-2.2,1.6)" opacity=".88">
+              <ellipse cx="0" cy="0" rx="26" ry="18" fill="#E2604A"/><circle cx="-23" cy="-8" r="10" fill="#F2B93B"/></g>
+            <ellipse cx="0" cy="0" rx="26" ry="18" stroke="#3B3128" stroke-width="5" fill="none"/>
+            <circle cx="-23" cy="-8" r="10" stroke="#3B3128" stroke-width="3.6" fill="none"/>
+            <path d="M-9 -17 L-13 -30 M9 -17 L13 -30 M-16 16 L-22 27 M0 18 L0 30 M16 16 L22 27"
+                  stroke="#3B3128" stroke-width="3.2" stroke-linecap="round" fill="none"/>
+          </g></g></g>
 
-  <div class="ctas">
-    <a class="cta" href="https://luffynguyen.github.io/dongvong-web/">
-      <span class="vi">Cho con thử</span><span class="en">Let them try it</span>
-    </a>
-    <a class="cta ghost" href="#phuhuynh">
-      <span class="vi">Bảng kiểm cho phụ huynh</span><span class="en">Parent's checklist</span>
-    </a>
+          <g transform="translate(200,178)"><g class="rise-up" style="animation-delay:.5s"><g class="keep" style="animation-delay:.12s">
+            <g transform="translate(-2.2,1.6)" opacity=".88">
+              <ellipse cx="0" cy="0" rx="22" ry="15" fill="#6FA98B"/><circle cx="-20" cy="-6" r="9" fill="#B7D4C4"/></g>
+            <ellipse cx="0" cy="0" rx="22" ry="15" stroke="#3B3128" stroke-width="5" fill="none"/>
+            <circle cx="-20" cy="-6" r="9" stroke="#3B3128" stroke-width="3.6" fill="none"/>
+            <path d="M-8 -14 L-12 -26 M8 -14 L12 -26 M-14 13 L-20 24 M0 15 L0 26 M14 13 L20 24"
+                  stroke="#3B3128" stroke-width="3.2" stroke-linecap="round" fill="none"/>
+          </g></g></g>
+
+          <g transform="translate(316,142)"><g class="rise-up" style="animation-delay:.9s"><g class="drop">
+            <g class="fade-col" transform="translate(-2.2,1.6)"><circle cx="0" cy="0" r="19" fill="#3A5C93"/></g>
+            <circle cx="0" cy="0" r="19" stroke="#3B3128" stroke-width="5" fill="none"/>
+            <path d="M-14 -14 L-30 -28 M14 -14 L30 -28 M-18 -4 L-36 -10 M18 -4 L36 -10
+                     M-18 6 L-36 14 M18 6 L36 14 M-13 15 L-27 30 M13 15 L27 30"
+                  stroke="#3B3128" stroke-width="3.2" stroke-linecap="round" fill="none"/>
+          </g></g></g>
+        </svg>
+      </div>
+      </div>
+      <p class="cap"><span class="vi">Bọ và kiến sáu chân · nhện tám chân</span><span class="en">Beetle and ant have six · the spider has eight</span></p>
+    </div>
   </div>
-
-  <p class="facts">
-    <span><span class="vi">Không quảng cáo</span><span class="en">No ads</span></span>
-    <span><span class="vi">Không hộp quà ngẫu nhiên</span><span class="en">No loot boxes</span></span>
-    <span><span class="vi">Không cần tài khoản để bắt đầu</span><span class="en">No account to start</span></span>
-    <span><span class="vi">Chạy thẳng trong trình duyệt</span><span class="en">Runs in the browser</span></span>
-  </p>
 </header>
+
+<div class="strip"></div>
 
 <main>
 
-<section class="wrap" id="visao">
-  <p class="eyebrow rise"><span class="vi">Vì sao có game này</span><span class="en">Why this exists</span></p>
-  <h2 class="rise"><span class="vi">Trẻ thích những thứ dữ dội. Đó không phải chỗ hỏng.</span><span class="en">Kids are drawn to intensity. That is not a fault.</span></h2>
-  <p class="lede rise d1">
-    <span class="vi block">Thứ giữ chân trẻ ở những trò ồn ào thường không phải nội dung. Đó là nhu cầu
-    <em>diễn tập cho những tình huống cực đoan</em> — và nhu cầu ấy có thật.</span>
-    <span class="en block">What holds a child in a loud game is usually not the content. It is the need to
-    <em>rehearse extreme situations</em> — and that need is real.</span>
-  </p>
-  <p class="rise d1">
-    <span class="vi block">Chỗ khác nhau không nằm ở lúc chơi. Nó nằm ở <b>giây ngay sau khi trẻ trả lời sai</b>.</span>
-    <span class="en block">The difference is not in the playing. It is in <b>the second after a child gets it wrong</b>.</span>
-  </p>
+<section class="full dark" id="visao">
+  <div class="wide">
+    <p class="eyebrow rise"><span class="vi">Vì sao có game này</span><span class="en">Why this exists</span></p>
+    <h2 class="rise"><span class="vi">Trẻ thích những thứ dữ dội.<br>Đó không phải chỗ hỏng.</span><span class="en">Kids are drawn to intensity.<br>That is not a fault.</span></h2>
+    <p class="lede rise d1" style="max-width:40ch">
+      <span class="vi block">Chỗ khác nhau nằm ở <em>giây ngay sau khi trẻ trả lời sai</em>.</span>
+      <span class="en block">The difference is in <em>the second after a child gets it wrong</em>.</span>
+    </p>
 
-  <div class="versus rise d1">
-    <div class="pane bad">
-      <span class="tag"><span class="vi">Ở chỗ khác</span><span class="en">Elsewhere</span></span>
-      <div class="screen">
+    <div class="versus rise d1">
+      <div class="pane bad">
+        <span class="tag"><span class="vi">Ở chỗ khác</span><span class="en">Elsewhere</span></span>
+        <div class="screen">
         <span class="lbl"><span class="vi">CHUỖI 12</span><span class="en">STREAK 12</span></span>
         <svg class="bug" width="64" height="46" viewBox="0 0 64 46" aria-hidden="true">
           <g transform="translate(-2.2,1.6)" opacity=".88">
@@ -827,12 +989,11 @@
         <div class="flash"></div>
         <div class="bigx">✕</div>
       </div>
-      <p><span class="vi block">Rung. Chớp đỏ. Chuỗi mười hai ngày vừa đứt. Nút <i>chơi lại</i> ngay dưới ngón cái.</span>
-         <span class="en block">Shake. Red flash. A twelve-day streak just broke. A <i>play again</i> button under the thumb.</span></p>
-    </div>
-    <div class="pane ok">
-      <span class="tag"><span class="vi">Ở đây</span><span class="en">Here</span></span>
-      <div class="screen">
+        <p><span class="vi block">Rung. Chớp đỏ. Chuỗi vừa đứt.</span><span class="en block">Shake. Red flash. The streak broke.</span></p>
+      </div>
+      <div class="pane ok">
+        <span class="tag"><span class="vi">Ở đây</span><span class="en">Here</span></span>
+        <div class="screen">
         <span class="lbl"><span class="vi">SÁU CHÂN</span><span class="en">SIX LEGS</span></span>
         <svg class="cut" viewBox="0 0 260 136" preserveAspectRatio="none" aria-hidden="true">
           <path d="M18 104 Q120 22 244 52" stroke="#3B3128" stroke-width="4" fill="none" stroke-linecap="round" stroke-dasharray="300" stroke-dashoffset="0" opacity=".5"/>
@@ -847,31 +1008,37 @@
         </svg>
         <div class="thud"><span class="vi">bịch</span><span class="en">thud</span></div>
       </div>
-      <p><span class="vi block">Mất màu. Rơi. Một tiếng bịch. Hết.</span>
-         <span class="en block">Colour gone. It drops. One small thud. That is all.</span></p>
+        <p><span class="vi block">Mất màu. Rơi. Một tiếng bịch.</span><span class="en block">Colour gone. It drops. One thud.</span></p>
+      </div>
+    </div>
+
+    <div class="chips rise">
+      <span><span class="vi">Chần chừ không bị phạt</span><span class="en">Hesitation never punished</span></span>
+      <span><span class="vi">Bỏ lỡ không mất gì</span><span class="en">Missing costs nothing</span></span>
+      <span><span class="vi">Không có chuỗi để tiếc</span><span class="en">No streak to mourn</span></span>
     </div>
   </div>
-
-  <ul class="tight rise">
-    <li><span class="vi">Chần chừ không bị phạt</span><span class="en">Hesitation is never punished</span></li>
-    <li><span class="vi">Bỏ lỡ một con đúng thì không mất gì</span><span class="en">Missing a right one costs nothing</span></li>
-    <li><span class="vi">Không có chuỗi ngày nào để mà tiếc</span><span class="en">There is no streak to mourn</span></li>
-  </ul>
-  <p class="dim rise" style="font-size:14.5px;margin-top:18px">
-    <span class="vi block">Một lập trường thiết kế, không phải một kết luận khoa học.</span>
-    <span class="en block">A design stance, not a scientific finding.</span>
-  </p>
 </section>
 
-<section class="wrap" id="cachday">
-  <p class="eyebrow rise"><span class="vi">Cách dạy</span><span class="en">How it teaches</span></p>
-  <h2 class="rise"><span class="vi">Không mở bằng định nghĩa. Mở bằng thứ trẻ đếm được.</span><span class="en">Never open with a definition. Open with something countable.</span></h2>
-  <p class="lede rise d1">
-    <span class="vi block">Trẻ <em>nhìn thấy</em> cái luật hiện ra, chứ không được đưa cho cái luật.</span>
-    <span class="en block">The child <em>watches</em> the rule appear, instead of being handed it.</span>
-  </p>
-
-  <div class="paths rise d1">
+<section class="full" id="cachday">
+  <div class="wide">
+    <div class="split">
+      <div class="txt">
+        <p class="eyebrow rise"><span class="vi">Cách dạy</span><span class="en">How it teaches</span></p>
+        <h2 class="rise"><span class="vi">Không mở bằng định nghĩa.</span><span class="en">Never open with a definition.</span></h2>
+        <p class="lede rise d1">
+          <span class="vi block">Trẻ <em>nhìn thấy</em> cái luật hiện ra.</span>
+          <span class="en block">The child <em>watches</em> the rule appear.</span>
+        </p>
+        <div class="src rise d1">
+          <b>1848</b>
+          <p><span class="vi block">Sáu buổi giảng về một cây nến, cho trẻ con.</span>
+             <span class="en block">Six lectures on a candle, for children.</span></p>
+          <cite>Michael Faraday · Royal Institution</cite>
+        </div>
+      </div>
+      <div>
+        <div class="paths rise d1">
     <div class="path dead">
       <span class="tag"><span class="vi">Lối thường</span><span class="en">The usual route</span></span>
       <div class="track">
@@ -887,7 +1054,7 @@
       </div>
     </div>
   </div>
-  <div class="swap rise d1">
+        <div class="swap rise d1">
     <div class="no">
       <b><span class="vi">Bài này không viết</span><span class="en">The lesson never says</span></b>
       <span class="vi block">“Côn trùng là động vật có sáu chân.”</span>
@@ -901,30 +1068,29 @@
       The definition follows, and the child never has to take anyone's word for it.</span>
     </div>
   </div>
-
-  <ul class="tight wide rise">
-    <li><span class="vi"><b>Vì sao nhất định phải thế</b> — không bao giờ là “người ta quy ước thế”</span><span class="en"><b>Why it could not be otherwise</b> — never “that's the convention”</span></li>
-    <li><span class="vi"><b>Bài nào cũng đánh trúng một hiểu lầm</b> trẻ thật sự mắc</span><span class="en"><b>Every lesson hits a misconception</b> children genuinely hold</span></li>
-    <li><span class="vi"><b>112 chặng hoá và sinh, không một chữ thuật ngữ</b> — cái tên đến sau</span><span class="en"><b>112 chemistry and biology stages, zero jargon</b> — the name comes last</span></li>
-  </ul>
-
-  <div class="quote rise">
-    <p><span class="vi">“Hạt rất nhỏ. Những phòng rất nhỏ. Bản chỉ dẫn.”</span><span class="en">“Very tiny grains. Very small rooms. The instruction copy.”</span></p>
-    <cite><span class="vi">Tên gọi trong game, trước khi trẻ gặp chữ <i>nguyên tử</i>, <i>tế bào</i>, <i>gen</i>.
-      Bản mẫu: sáu buổi giảng của Faraday về một cây nến, cho trẻ con, 1848.</span>
-      <span class="en">What they are called in-game, before a child ever meets <i>atom</i>, <i>cell</i>, <i>gene</i>.
-      The model: Faraday's six lectures on a candle, for children, 1848.</span></cite>
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="wrap" id="buoichoi">
-  <p class="eyebrow rise"><span class="vi">Một buổi chơi</span><span class="en">One session</span></p>
-  <h2 class="rise"><span class="vi">Bốn nhịp. Nhịp cuối ở bàn ăn nhà bạn.</span><span class="en">Four beats. The last one is at your dinner table.</span></h2>
+<section class="full" style="background:var(--diep2)">
+  <div class="wide">
+    <div class="stats rise">
+      <div class="stat"><b>700</b><span><span class="vi">loài trong sổ tay</span><span class="en">species in the notebook</span></span></div>
+      <div class="stat"><b>112</b><span><span class="vi">chặng hoá &amp; sinh, không một chữ thuật ngữ</span><span class="en">chemistry &amp; biology stages, zero jargon</span></span></div>
+      <div class="stat"><b>25</b><span><span class="vi">bản nét khắc tay</span><span class="en">hand-carved line plates</span></span></div>
+      <div class="stat"><b>4</b><span><span class="vi">miền, một hệ sông</span><span class="en">regions on one river</span></span></div>
+      <div class="stat"><b>2</b><span><span class="vi">ngôn ngữ, đổi bất cứ lúc nào</span><span class="en">languages, switch anytime</span></span></div>
+    </div>
+  </div>
+</section>
 
-  <div class="loop rise d1">
-    <div class="beat">
-      <span class="no">1</span>
-      <div class="art">
+<section class="full" id="buoichoi">
+  <div class="wide">
+    <p class="eyebrow rise"><span class="vi">Một buổi chơi</span><span class="en">One session</span></p>
+    <h2 class="rise"><span class="vi">Bốn nhịp. Nhịp cuối ở bàn ăn nhà bạn.</span><span class="en">Four beats. The last one is at your table.</span></h2>
+    <div class="loop rise d1">
+      <div class="beat"><span class="no">1</span><div class="art">
         <svg width="112" height="62" viewBox="0 0 112 62" aria-hidden="true">
           <rect x="2" y="2" width="108" height="58" rx="7" fill="#FFFAF0" stroke="#3B3128" stroke-width="3"/>
           <g class="seq" style="--d:0s">
@@ -935,13 +1101,9 @@
           </g>
         </svg>
       </div>
-      <h3><span class="vi">Bài ngắn</span><span class="en">A short lesson</span></h3>
-      <p><span class="vi block">Trang đầu 26 chữ. Cụm sẽ bị hỏi được bôi vệt nắng.</span>
-         <span class="en block">26 words on page one. The phrase to be asked is highlighted.</span></p>
-    </div>
-    <div class="beat">
-      <span class="no">2</span>
-      <div class="art">
+        <h3><span class="vi">Bài ngắn</span><span class="en">A short lesson</span></h3>
+        <p><span class="vi block">Trang đầu 26 chữ.</span><span class="en block">26 words on page one.</span></p></div>
+      <div class="beat"><span class="no">2</span><div class="art">
         <svg width="112" height="62" viewBox="0 0 112 62" aria-hidden="true">
           <rect x="2" y="2" width="108" height="58" rx="7" fill="#F2E3C7" stroke="#3B3128" stroke-width="3"/>
           <g class="seq" style="--d:.5s">
@@ -952,13 +1114,9 @@
           </g>
         </svg>
       </div>
-      <h3><span class="vi">Chặng chơi</span><span class="en">The stage</span></h3>
-      <p><span class="vi block">Hỏi đúng chỗ vừa đọc. Không giảng bài giữa chừng.</span>
-         <span class="en block">It asks what was just read. No explaining mid-play.</span></p>
-    </div>
-    <div class="beat">
-      <span class="no">3</span>
-      <div class="art">
+        <h3><span class="vi">Chặng chơi</span><span class="en">The stage</span></h3>
+        <p><span class="vi block">Hỏi đúng chỗ vừa đọc.</span><span class="en block">It asks what was just read.</span></p></div>
+      <div class="beat"><span class="no">3</span><div class="art">
         <svg width="112" height="62" viewBox="0 0 112 62" aria-hidden="true">
           <rect x="2" y="2" width="108" height="58" rx="7" fill="#FFFAF0" stroke="#3B3128" stroke-width="3"/>
           <g class="seq" style="--d:1s">
@@ -969,13 +1127,9 @@
           </g>
         </svg>
       </div>
-      <h3><span class="vi">Tờ giấy Vì sao</span><span class="en">The Why sheet</span></h3>
-      <p><span class="vi block">Chủ yếu là hình. Chưa tự làm được thì còn úp.</span>
-         <span class="en block">Mostly pictures. Not worked out yet, stays face down.</span></p>
-    </div>
-    <div class="beat home">
-      <span class="no">4</span>
-      <div class="art">
+        <h3><span class="vi">Tờ giấy Vì sao</span><span class="en">The Why sheet</span></h3>
+        <p><span class="vi block">Chưa tự làm được thì còn úp.</span><span class="en block">Not worked out, stays face down.</span></p></div>
+      <div class="beat home"><span class="no">4</span><div class="art">
         <svg width="112" height="62" viewBox="0 0 112 62" aria-hidden="true">
           <rect x="2" y="2" width="108" height="58" rx="7" fill="#FFFAF0" stroke="#3B3128" stroke-width="3"/>
           <g class="seq" style="--d:1.5s">
@@ -985,112 +1139,69 @@
           </g>
         </svg>
       </div>
-      <h3><span class="vi">Mang về hỏi tối nay</span><span class="en">One question for tonight</span></h3>
-      <p><span class="vi block">Một câu hỏi cho bố mẹ. Đây mới là sản phẩm thật.</span>
-         <span class="en block">One question for a parent. That is the real output.</span></p>
+        <h3><span class="vi">Hỏi bố mẹ tối nay</span><span class="en">Ask a parent tonight</span></h3>
+        <p><span class="vi block">Sản phẩm thật của một phiên.</span><span class="en block">The real output of a session.</span></p></div>
     </div>
+    <p class="cycle rise"><span class="rot">↻</span>
+      <span class="vi">RỒI LẠI TỪ ĐẦU, VỚI KHÁI NIỆM KHÁC</span>
+      <span class="en">AND AROUND AGAIN, WITH THE NEXT CONCEPT</span></p>
   </div>
-  <p class="cycle rise"><span class="rot">↻</span>
-    <span class="vi">RỒI LẠI TỪ ĐẦU, VỚI MỘT KHÁI NIỆM KHÁC</span>
-    <span class="en">AND AROUND AGAIN, WITH THE NEXT CONCEPT</span>
-  </p>
 </section>
 
-<section class="wrap" id="coche">
-  <p class="eyebrow rise"><span class="vi">Cơ chế</span><span class="en">The mechanics</span></p>
-  <h2 class="rise"><span class="vi">Mỗi hình hỏi một câu khác.</span><span class="en">Each shape asks a different question.</span></h2>
-  <p class="lede rise d1">
-    <span class="vi block">Nhận ra được không giống nối được. Nối được không giống xếp đúng chiều.
-    Chỗ nào phải nghĩ thì <em>không có đồng hồ</em>.</span>
-    <span class="en block">Recognising is not pairing. Pairing is not getting the direction right.
-    Wherever thought is needed, <em>there is no clock</em>.</span>
-  </p>
-
-  <div class="mech rise d1">
-    <div class="m"><svg viewBox="0 0 190 56" aria-hidden="true">
+<section class="full" id="coche" style="background:var(--diep2)">
+  <div class="wide">
+    <p class="eyebrow rise"><span class="vi">Cơ chế</span><span class="en">The mechanics</span></p>
+    <h2 class="rise"><span class="vi">Mỗi hình hỏi một câu khác.</span><span class="en">Each shape asks a different question.</span></h2>
+    <div class="mech rise d1">
+      <div class="m"><svg viewBox="0 0 190 56" aria-hidden="true">
         <circle cx="30" cy="28" r="17" fill="#6FA98B" stroke="#3B3128" stroke-width="3.4"/>
         <path d="M47 28 h50" stroke="#3B3128" stroke-width="3.4"/>
         <circle cx="72" cy="28" r="7" fill="#F2B93B" stroke="#3B3128" stroke-width="3"/>
         <ellipse cx="118" cy="28" rx="19" ry="16" fill="#EFA9A0" stroke="#3B3128" stroke-width="3.4"/>
-      </svg>
-      <h3><span class="vi">Cặp</span><span class="en">Pairs</span></h3>
-      <p><span class="vi block">Sợi nối có nút. Ốc đi với vỏ ốc — <b>cả hai chiều</b>.</span>
-         <span class="en block">A knotted cord. Snail goes with shell — <b>both ways</b>.</span></p></div>
-    <div class="m"><svg viewBox="0 0 190 56" aria-hidden="true">
+      </svg><h3><span class="vi">Cặp</span><span class="en">Pairs</span></h3>
+        <p><span class="vi block">Ốc đi với vỏ ốc — cả hai chiều.</span><span class="en block">Snail with shell — both ways.</span></p></div>
+      <div class="m"><svg viewBox="0 0 190 56" aria-hidden="true">
         <ellipse cx="28" cy="28" rx="16" ry="13" fill="#F2E3C7" stroke="#3B3128" stroke-width="3.4"/>
         <path d="M50 28 h56 M96 20 l10 8 -10 8" stroke="#E2604A" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M118 28 q22 -18 44 0 q-22 18 -44 0z" fill="#6FA98B" stroke="#3B3128" stroke-width="3.4" stroke-linejoin="round"/>
-      </svg>
-      <h3><span class="vi">Chuỗi</span><span class="en">Chains</span></h3>
-      <p><span class="vi block">Mũi tên. Trứng thành sâu, sâu không thành trứng — <b>chiều là bài học</b>.</span>
-         <span class="en block">An arrow. Eggs become larvae, never back — <b>direction is the lesson</b>.</span></p></div>
-    <div class="m"><svg viewBox="0 0 190 56" aria-hidden="true">
+      </svg><h3><span class="vi">Chuỗi</span><span class="en">Chains</span></h3>
+        <p><span class="vi block">Trứng thành sâu, không ngược lại.</span><span class="en block">Eggs become larvae, never back.</span></p></div>
+      <div class="m"><svg viewBox="0 0 190 56" aria-hidden="true">
         <rect x="6" y="6" width="178" height="44" rx="9" fill="rgba(58,92,147,.14)" stroke="#3A5C93" stroke-width="2.6" stroke-dasharray="7 5"/>
         <circle cx="45" cy="28" r="13" fill="#3A5C93" stroke="#3B3128" stroke-width="3"/>
         <path d="M82 15 h26 v26 h-26z" fill="#3A5C93" stroke="#3B3128" stroke-width="3"/>
         <path d="M145 14 l15 27 h-30z" fill="#3A5C93" stroke="#3B3128" stroke-width="3" stroke-linejoin="round"/>
-      </svg>
-      <h3><span class="vi">Nhóm</span><span class="en">Groups</span></h3>
-      <p><span class="vi block">Cùng một rổ giấy. Ba thứ trông khác hẳn nhau mà vẫn cùng rổ.</span>
-         <span class="en block">One paper colour. Three things that look nothing alike, one basket.</span></p></div>
-    <div class="m"><svg viewBox="0 0 190 56" aria-hidden="true">
+      </svg><h3><span class="vi">Nhóm</span><span class="en">Groups</span></h3>
+        <p><span class="vi block">Khác hẳn nhau mà cùng một rổ.</span><span class="en block">Nothing alike, one basket.</span></p></div>
+      <div class="m"><svg viewBox="0 0 190 56" aria-hidden="true">
         <circle cx="24" cy="40" r="9" fill="#F2B93B" stroke="#3B3128" stroke-width="3"/>
         <path d="M33 36 Q90 4 170 16" stroke="#3B3128" stroke-width="3.4" fill="none" stroke-linecap="round"/>
         <path d="M33 38 Q90 30 168 34" stroke="#C9BCA6" stroke-width="3" fill="none" stroke-dasharray="6 6" stroke-linecap="round"/>
         <path d="M33 42 Q90 54 166 50" stroke="#C9BCA6" stroke-width="3" fill="none" stroke-dasharray="6 6" stroke-linecap="round"/>
-      </svg>
-      <h3><span class="vi">Hỏi</span><span class="en">Predict</span></h3>
-      <p><span class="vi block">Một cảnh, ba đường, một cái đúng. <b>Đoán trước đã, rồi hãy tính.</b></span>
-         <span class="en block">One scene, three paths, one right. <b>Predict first, calculate after.</b></span></p></div>
-    <div class="m"><svg viewBox="0 0 190 56" aria-hidden="true">
+      </svg><h3><span class="vi">Hỏi</span><span class="en">Predict</span></h3>
+        <p><span class="vi block">Đoán trước đã, rồi hãy tính.</span><span class="en block">Predict first, calculate after.</span></p></div>
+      <div class="m"><svg viewBox="0 0 190 56" aria-hidden="true">
         <rect x="58" y="6" width="74" height="44" rx="8" fill="#FFFAF0" stroke="#3B3128" stroke-width="3.4"/>
         <circle cx="95" cy="28" r="12" fill="#EFA9A0" stroke="#3B3128" stroke-width="3"/>
         <g stroke="#C9BCA6" stroke-width="3.4" stroke-linecap="round">
           <circle cx="24" cy="28" r="13" fill="none"/><path d="M24 21 v8 l5 3"/><path d="M14 18 L34 38"/>
         </g>
-      </svg>
-      <h3><span class="vi">Sáng</span><span class="en">Slow light</span></h3>
-      <p><span class="vi block">Một thẻ một lượt, không đồng hồ. Nửa giây chỉ dạy trẻ <i>đoán cho kịp</i>.</span>
-         <span class="en block">One card, no clock. Half a second only teaches <i>guessing in time</i>.</span></p></div>
-    <div class="m"><svg viewBox="0 0 190 56" aria-hidden="true">
+      </svg><h3><span class="vi">Sáng</span><span class="en">Slow light</span></h3>
+        <p><span class="vi block">Một thẻ một lượt. Không đồng hồ.</span><span class="en block">One card at a time. No clock.</span></p></div>
+      <div class="m"><svg viewBox="0 0 190 56" aria-hidden="true">
         <circle cx="42" cy="28" r="13" fill="#E2604A" stroke="#3B3128" stroke-width="3.2"/>
         <circle cx="95" cy="28" r="13" fill="#F2B93B" stroke="#3B3128" stroke-width="3.2"/>
         <circle cx="148" cy="28" r="13" fill="#6FA98B" stroke="#3B3128" stroke-width="3.2"/>
-      </svg>
-      <h3><span class="vi">Lặng &amp; Ngẫm</span><span class="en">Quiet &amp; Ponder</span></h3>
-      <p><span class="vi block">Ba nhịp, không đồng hồ. Không ai bị bấm giờ lúc đang gọi tên cảm xúc.</span>
-         <span class="en block">Three beats, no clock. Nobody is timed while naming a feeling.</span></p></div>
+      </svg><h3><span class="vi">Lặng &amp; Ngẫm</span><span class="en">Quiet &amp; Ponder</span></h3>
+        <p><span class="vi block">Không ai bị bấm giờ lúc gọi tên cảm xúc.</span><span class="en block">Nobody is timed while naming a feeling.</span></p></div>
+    </div>
   </div>
 </section>
 
-<section class="wrap" id="hocgi">
-  <p class="eyebrow rise"><span class="vi">Học cái gì</span><span class="en">What's in it</span></p>
-  <h2 class="rise"><span class="vi">Bốn câu hỏi lớn, hỏi lại mỗi năm một sâu hơn.</span><span class="en">Four large questions, asked again deeper every year.</span></h2>
-  <p class="lede rise d1">
-    <span class="vi block">Không xếp theo môn học. Xếp theo những câu một đứa trẻ thật sự hỏi.</span>
-    <span class="en block">Not organised by school subject. Organised by what a child actually asks.</span>
-  </p>
-  <div class="miens">
-    <div class="mien rise"><span class="dot" style="background:#6FA98B"></span><div>
-      <h3><span class="vi">Miền Đất</span><span class="en">The Land</span></h3>
-      <p><span class="vi block"><i>Thế giới quanh mình làm bằng gì và chạy ra sao?</i> — vật lí, hoá, sinh, cây cỏ, con vật.</span>
-         <span class="en block"><i>What is the world around me made of, and how does it work?</i> — physics, chemistry, biology, plants, animals.</span></p></div></div>
-    <div class="mien rise"><span class="dot" style="background:#7A6248"></span><div>
-      <h3><span class="vi">Miền Người</span><span class="en">The People</span></h3>
-      <p><span class="vi block"><i>Ai đã đi trước, và họ nghĩ gì?</i> — sử Việt, sử thế giới, địa cầu, chữ và tiếng.</span>
-         <span class="en block"><i>Who walked before us, and what were they thinking?</i> — Vietnamese and world history, geography, language.</span></p></div></div>
-    <div class="mien rise"><span class="dot" style="background:#3A5C93"></span><div>
-      <h3><span class="vi">Miền Số</span><span class="en">The Number</span></h3>
-      <p><span class="vi block"><i>Làm sao biết chắc?</i> — số, hình, đo, may rủi, và tiền: ví của mình, giá và trị.</span>
-         <span class="en block"><i>How do we know for sure?</i> — number, shape, measurement, chance, and money: your own wallet, price and value.</span></p></div></div>
-    <div class="mien rise"><span class="dot" style="background:#E2604A"></span><div>
-      <h3><span class="vi">Miền Trong</span><span class="en">The Inward</span></h3>
-      <p><span class="vi block"><i>Mình là ai, và mình chọn thế nào?</i> — cảm xúc, thói quen, sống với người khác,
-        và cách cái đầu của chính mình chạy.</span>
-         <span class="en block"><i>Who am I, and how do I choose?</i> — feelings, habits, living alongside other people,
-        and how one's own mind actually works.</span></p></div></div>
-  </div>
-  <div class="ladder rise d1">
+<section class="full" id="hocgi">
+  <div class="wide">
+    <div class="split flip">
+      <div><div class="ladder rise d1">
     <div class="rung">
       <span class="age">7 – 11</span>
       <h3><span class="vi">Tầng dưới</span><span class="en">The lower deck</span></h3>
@@ -1111,48 +1222,61 @@
         <li>Nhìn Ra Luật</li><li>Giá &amp; Trị</li><li>Giữa Người</li><li>Cái Đầu Của Mình</li>
       </ul>
     </div>
+  </div></div>
+      <div class="txt">
+        <p class="eyebrow rise"><span class="vi">Học cái gì</span><span class="en">What's in it</span></p>
+        <h2 class="rise"><span class="vi">Bốn câu hỏi lớn, hỏi lại mỗi năm một sâu hơn.</span><span class="en">Four large questions, asked deeper every year.</span></h2>
+        <p class="lede rise d1">
+          <span class="vi block">Không xếp theo môn học.</span><span class="en block">Not organised by school subject.</span>
+        </p>
+      </div>
+    </div>
+    <div class="miens">
+    <div class="mien rise"><span class="dot" style="background:#6FA98B"></span><div>
+      <h3><span class="vi">Miền Đất</span><span class="en">The Land</span></h3>
+      <p><span class="vi block"><i>Thế giới quanh mình làm bằng gì và chạy ra sao?</i> — vật lí, hoá, sinh, cây cỏ, con vật.</span>
+         <span class="en block"><i>What is the world around me made of, and how does it work?</i> — physics, chemistry, biology, plants, animals.</span></p></div></div>
+    <div class="mien rise"><span class="dot" style="background:#7A6248"></span><div>
+      <h3><span class="vi">Miền Người</span><span class="en">The People</span></h3>
+      <p><span class="vi block"><i>Ai đã đi trước, và họ nghĩ gì?</i> — sử Việt, sử thế giới, địa cầu, chữ và tiếng.</span>
+         <span class="en block"><i>Who walked before us, and what were they thinking?</i> — Vietnamese and world history, geography, language.</span></p></div></div>
+    <div class="mien rise"><span class="dot" style="background:#3A5C93"></span><div>
+      <h3><span class="vi">Miền Số</span><span class="en">The Number</span></h3>
+      <p><span class="vi block"><i>Làm sao biết chắc?</i> — số, hình, đo, may rủi, và tiền: ví của mình, giá và trị.</span>
+         <span class="en block"><i>How do we know for sure?</i> — number, shape, measurement, chance, and money: your own wallet, price and value.</span></p></div></div>
+    <div class="mien rise"><span class="dot" style="background:#E2604A"></span><div>
+      <h3><span class="vi">Miền Trong</span><span class="en">The Inward</span></h3>
+      <p><span class="vi block"><i>Mình là ai, và mình chọn thế nào?</i> — cảm xúc, thói quen, sống với người khác,
+        và cách cái đầu của chính mình chạy.</span>
+         <span class="en block"><i>Who am I, and how do I choose?</i> — feelings, habits, living alongside other people,
+        and how one's own mind actually works.</span></p></div></div>
   </div>
-
-  <div class="quote rise">
-    <p><span class="vi">“Mã OTP là chìa khoá dùng một lần của tiền nhà mình. Không ngân hàng nào,
-      không công an nào hỏi nó bao giờ — ai hỏi tức là đang đứng ngoài cửa.”</span>
-      <span class="en">“A one-time code is the single-use key to your family's money. No bank and no police
-      officer ever asks for it — anyone who asks is standing outside the door.”</span></p>
-    <cite><span class="vi">Một chặng trong vùng <b>Giữ Tiền</b>. Đây là kiểu câu game không nói vòng.</span>
-      <span class="en">One stage in the <b>Keeping Money</b> area. This is the kind of line the game does not soften.</span></cite>
+    <div class="src rise" style="max-width:56ch">
+      <b><span class="vi">Giữ Tiền</span><span class="en">Keeping Money</span></b>
+      <p><span class="vi block">“Mã OTP là chìa khoá dùng một lần của tiền nhà mình. Không ngân hàng nào,
+        không công an nào hỏi nó bao giờ.”</span>
+        <span class="en block">“A one-time code is the single-use key to your family's money. No bank and no
+        police officer ever asks for it.”</span></p>
+      <cite><span class="vi">một chặng, nguyên văn</span><span class="en">one stage, verbatim</span></cite>
+    </div>
   </div>
 </section>
 
-<section class="wrap" id="nhucau">
-  <p class="eyebrow rise"><span class="vi">Nhu cầu</span><span class="en">Needs</span></p>
-  <h2 class="rise"><span class="vi">Nhận vài cái. Từ chối hẳn một cái.</span><span class="en">It answers a few. It refuses one outright.</span></h2>
-  <p class="lede rise d1">
-    <span class="vi block">Trẻ con có rất nhiều nhu cầu, và không phần mềm nào đáp hết. Đây là những cái
-    game này <em>dám</em> nhận — và cái nó <em>không được phép</em> nhận.</span>
-    <span class="en block">Children have many needs, and no software answers them all. These are the ones this game
-    <em>takes on</em> — and the one it <em>must not</em>.</span>
-  </p>
-
-  <div class="needs rise d1">
-    <div class="need">
-      <div class="top">
-        <svg viewBox="0 0 260 118" aria-hidden="true">
+<section class="full" id="nhucau" style="background:var(--diep2)">
+  <div class="wide">
+    <p class="eyebrow rise"><span class="vi">Nhu cầu</span><span class="en">Needs</span></p>
+    <h2 class="rise"><span class="vi">Nhận vài cái. Từ chối hẳn một cái.</span><span class="en">It answers a few. It refuses one.</span></h2>
+    <div class="needs rise d1">
+      <div class="need"><div class="top"><svg viewBox="0 0 260 118" aria-hidden="true">
           <circle cx="112" cy="56" r="30" fill="none" stroke="#3B3128" stroke-width="6"/>
           <path d="M134 78 L168 104" stroke="#3B3128" stroke-width="8" stroke-linecap="round"/>
           <g class="grow"><ellipse cx="112" cy="56" rx="17" ry="12" fill="#6FA98B" stroke="#3B3128" stroke-width="3.4"/>
             <path d="M112 44 v24 M103 46 l-5 -9 M121 46 l5 -9" stroke="#3B3128" stroke-width="2.6" stroke-linecap="round"/></g>
-        </svg>
-      </div>
-      <div class="body">
-        <span class="kind yes"><span class="vi">Nhận</span><span class="en">Answered</span></span>
-        <h3><span class="vi">Muốn biết</span><span class="en">Wanting to know</span></h3>
-        <p><span class="vi block">Cái nhu cầu gốc của cả game. Mỗi bài mở ra một chỗ trẻ chưa từng nhìn vào.</span>
-           <span class="en block">The root need the whole game runs on. Every lesson opens somewhere they hadn't looked.</span></p>
-      </div>
-    </div>
-
-    <div class="need">
-      <div class="top">
+        </svg></div>
+        <div class="body"><span class="kind yes"><span class="vi">Nhận</span><span class="en">Answered</span></span>
+          <h3><span class="vi">Muốn biết</span><span class="en">Wanting to know</span></h3>
+          <p><span class="vi block">Nhu cầu gốc của cả game.</span><span class="en block">The root need it all runs on.</span></p></div></div>
+      <div class="need"><div class="top">
         <svg viewBox="0 0 260 118" aria-hidden="true">
           <path class="arc" d="M20 96 Q130 10 244 44" stroke="#E2604A" stroke-width="5.5" fill="none" stroke-linecap="round"/>
           <g transform="translate(112,44)"><g class="jolt">
@@ -1165,17 +1289,10 @@
           </g></g>
         </svg>
       </div>
-      <div class="body">
-        <span class="kind yes"><span class="vi">Nhận</span><span class="en">Answered</span></span>
-        <h3><span class="vi">Diễn tập điều dữ dội</span><span class="en">Rehearsing intensity</span></h3>
-        <p><span class="vi block">Có nhanh, có gấp, có ván không qua được. Không cái nào nối vào cơn bực.</span>
-           <span class="en block">Speed, urgency, rounds you don't get through. None of it wired to frustration.</span></p>
-      </div>
-    </div>
-
-    <div class="need">
-      <div class="top">
-        <svg viewBox="0 0 260 118" aria-hidden="true">
+        <div class="body"><span class="kind yes"><span class="vi">Nhận</span><span class="en">Answered</span></span>
+          <h3><span class="vi">Diễn tập điều dữ dội</span><span class="en">Rehearsing intensity</span></h3>
+          <p><span class="vi block">Có gấp, có hỏng. Không nối vào cơn bực.</span><span class="en block">Urgency and breakage. Not wired to frustration.</span></p></div></div>
+      <div class="need"><div class="top"><svg viewBox="0 0 260 118" aria-hidden="true">
           <path d="M40 92 h180" stroke="#C9BCA6" stroke-width="5" stroke-linecap="round"/>
           <g class="climb">
             <rect x="52" y="70" width="44" height="22" rx="4" fill="#F2E3C7" stroke="#3B3128" stroke-width="4"/>
@@ -1184,18 +1301,11 @@
           </g>
           <path d="M186 12 l4.6 9.6 10.4 1.4 -7.6 7.2 1.8 10.4 -9.2 -5 -9.2 5 1.8 -10.4 -7.6 -7.2 10.4 -1.4z"
                 fill="#F2B93B" stroke="#3B3128" stroke-width="3" stroke-linejoin="round"/>
-        </svg>
-      </div>
-      <div class="body">
-        <span class="kind yes"><span class="vi">Nhận</span><span class="en">Answered</span></span>
-        <h3><span class="vi">Làm được thật</span><span class="en">Actually getting good</span></h3>
-        <p><span class="vi block">Con hiếm chỉ ra khi chơi sạch bản. <b>Không gì mở ra bằng xác suất.</b></span>
-           <span class="en block">Rare finds appear only on a clean round. <b>Nothing unlocks by chance.</b></span></p>
-      </div>
-    </div>
-
-    <div class="need">
-      <div class="top">
+        </svg></div>
+        <div class="body"><span class="kind yes"><span class="vi">Nhận</span><span class="en">Answered</span></span>
+          <h3><span class="vi">Làm được thật</span><span class="en">Actually getting good</span></h3>
+          <p><span class="vi block">Không gì mở ra bằng xác suất.</span><span class="en block">Nothing unlocks by chance.</span></p></div></div>
+      <div class="need"><div class="top">
         <svg viewBox="0 0 260 118" aria-hidden="true">
           <rect x="16" y="26" width="94" height="66" rx="9" fill="#F2E3C7" stroke="#3B3128" stroke-width="4"/>
           <rect x="150" y="26" width="94" height="66" rx="9" fill="#F2E3C7" stroke="#3B3128" stroke-width="4"/>
@@ -1204,16 +1314,10 @@
           <circle cx="63" cy="59" r="11" fill="#3A5C93" stroke="#3B3128" stroke-width="3.4"/>
         </svg>
       </div>
-      <div class="body">
-        <span class="kind yes"><span class="vi">Nhận một nửa</span><span class="en">Half answered</span></span>
-        <h3><span class="vi">Được thuộc về</span><span class="en">Belonging</span></h3>
-        <p><span class="vi block">Chế độ hai máy phải nói chuyện mới qua. Nửa còn lại nằm ngoài màn hình.</span>
-           <span class="en block">The two-device mode needs talking to beat. The other half is off the screen.</span></p>
-      </div>
-    </div>
-
-    <div class="need">
-      <div class="top">
+        <div class="body"><span class="kind yes"><span class="vi">Một nửa</span><span class="en">Half</span></span>
+          <h3><span class="vi">Được thuộc về</span><span class="en">Belonging</span></h3>
+          <p><span class="vi block">Nửa còn lại nằm ngoài màn hình.</span><span class="en block">The other half is off the screen.</span></p></div></div>
+      <div class="need"><div class="top">
         <svg viewBox="0 0 260 118" aria-hidden="true">
           <g transform="translate(88,30)"><g class="breathe">
             <g transform="translate(-2.2,1.6)" opacity=".9"><ellipse cx="42" cy="46" rx="40" ry="26" fill="#F2B93B"/></g>
@@ -1226,37 +1330,36 @@
           </g></g>
         </svg>
       </div>
-      <div class="body">
-        <span class="kind no"><span class="vi">Từ chối</span><span class="en">Refused</span></span>
-        <h3><span class="vi">Được yêu thương</span><span class="en">Being loved</span></h3>
-        <p><span class="vi block">Việc của gia đình. Một phần mềm không được nhận việc ấy — <b>kể cả khi nó làm được</b>.</span>
-           <span class="en block">The family's job. Software must not take it on — <b>especially where it could</b>.</span></p>
-      </div>
-    </div>
-
-    <div class="need more">
-      <div class="body">
+        <div class="body"><span class="kind no"><span class="vi">Từ chối</span><span class="en">Refused</span></span>
+          <h3><span class="vi">Được yêu thương</span><span class="en">Being loved</span></h3>
+          <p><span class="vi block">Việc của gia đình, không phải của phần mềm.</span><span class="en block">The family's job, not software's.</span></p></div></div>
+      <div class="need more"><div class="body">
         <h3><span class="vi">Và những cái khác</span><span class="en">And the rest</span></h3>
-        <p><span class="vi block">Được nghỉ, được chán, được ra ngoài, được người lớn để yên. Danh sách này
-          không đầy đủ, và một cái game không nên giả vờ là nó đầy đủ.</span>
-          <span class="en block">Rest, boredom, going outside, being left alone by adults. This list is not complete,
-          and a game should not pretend otherwise.</span></p>
-      </div>
+        <p><span class="vi block">Được nghỉ, được chán, được ra ngoài. Danh sách này không đầy đủ —
+          và một cái game không nên giả vờ là nó đầy đủ.</span>
+          <span class="en block">Rest, boredom, going outside. This list is not complete —
+          and a game should not pretend otherwise.</span></p></div></div>
     </div>
   </div>
 </section>
 
-<section class="wrap" id="meo">
-  <p class="eyebrow rise"><span class="vi">Con mèo</span><span class="en">The cat</span></p>
-  <h2 class="rise"><span class="vi">Nhân vật quan trọng nhất không dạy gì cả.</span><span class="en">The most important character teaches nothing.</span></h2>
-  <p class="lede rise d1">
-    <span class="vi block">Nuôi bằng những con <b>dư</b>. Con đầu tiên của mỗi loài ở lại sổ tay vĩnh viễn —
-    <em>kiến thức không bao giờ bị tiêu đi</em>.</span>
-    <span class="en block">Raised on <b>spares</b>. The first of every species stays in the notebook forever —
-    <em>knowledge is never spent</em>.</span>
-  </p>
-
-  <div class="stages">
+<section class="full" id="meo">
+  <div class="wide">
+    <div class="split">
+      <div class="txt">
+        <p class="eyebrow rise"><span class="vi">Con mèo</span><span class="en">The cat</span></p>
+        <h2 class="rise"><span class="vi">Nhân vật quan trọng nhất không dạy gì cả.</span><span class="en">The most important character teaches nothing.</span></h2>
+        <p class="lede rise d1">
+          <span class="vi block">Nuôi bằng những con <em>dư</em>. Kiến thức không bao giờ bị tiêu đi.</span>
+          <span class="en block">Raised on <em>spares</em>. Knowledge is never spent.</span>
+        </p>
+        <div class="chips rise d1">
+          <span><span class="vi">Không bao giờ đói</span><span class="en">Never hungry</span></span>
+          <span><span class="vi">Không dỗi</span><span class="en">Never sulks</span></span>
+          <span><span class="vi">Đi vắng một tuần về, mèo mừng</span><span class="en">Gone a week? It's delighted</span></span>
+        </div>
+      </div>
+      <div><div class="stages">
     <div class="stage"><svg width="60" height="52" viewBox="0 0 60 52" aria-hidden="true"><g transform="translate(-2.2,1.6)" opacity=".9"><ellipse cx="30" cy="34" rx="20" ry="13" fill="#F2B93B"/></g><ellipse cx="30" cy="34" rx="20" ry="13" stroke="#3B3128" stroke-width="4.6" fill="none"/><path d="M14 32q8 -8 16 -2" stroke="#3B3128" stroke-width="2.6" fill="none"/></svg>
       <b><span class="vi">Cuộn Tròn</span><span class="en">Curled Up</span></b>
       <span><span class="vi">ngủ suốt</span><span class="en">sleeps all day</span></span></div>
@@ -1272,65 +1375,36 @@
     <div class="stage"><svg width="60" height="52" viewBox="0 0 60 52" aria-hidden="true"><g transform="translate(-2.2,1.6)" opacity=".9"><ellipse cx="30" cy="32" rx="19" ry="17" fill="#E2604A"/><path d="M16 20l-3-12 13 7M44 20l3-12-13 7" fill="#E2604A"/></g><ellipse cx="30" cy="32" rx="19" ry="17" stroke="#3B3128" stroke-width="4.6" fill="none"/><path d="M16 20l-3-12 13 7M44 20l3-12-13 7" stroke="#3B3128" stroke-width="3.4" fill="none" stroke-linejoin="round"/><circle cx="23" cy="30" r="2.1" fill="#3B3128"/><circle cx="37" cy="30" r="2.1" fill="#3B3128"/><path d="M24 39q6 5 12 0" stroke="#3B3128" stroke-width="2.6" fill="none"/><path d="M22 14q8 -6 16 0" stroke="#3B3128" stroke-width="3" fill="#F2B93B"/></svg>
       <b><span class="vi">Mèo Đám Cưới</span><span class="en">Wedding Cat</span></b>
       <span><span class="vi">tập đố cuối</span><span class="en">the last set</span></span></div>
-  </div>
-
-  <ul class="tight wide rise" style="margin-top:34px">
-    <li><span class="vi"><b>Mèo không bao giờ đói.</b> Giữ chân trẻ bằng cảm giác tội lỗi là dạy rằng tình cảm là một món nợ</span><span class="en"><b>The cat never gets hungry.</b> Retention built on guilt teaches that affection is a debt</span></li>
-    <li><span class="vi"><b>Đi vắng một tuần về, mèo mừng.</b> Không ốm, không dỗi, không tụt lại</span><span class="en"><b>Back after a week, the cat is delighted.</b> No illness, no sulking, no falling behind</span></li>
-    <li><span class="vi"><b>Mèo ăn thịt.</b> Đưa nó viên ngói thì nó ngửi rồi bỏ đi — bài học thật, không phải lỗi game</span><span class="en"><b>Cats are carnivores.</b> Offer a roof tile and it sniffs, then leaves — a real lesson, not a bug</span></li>
-  </ul>
-</section>
-
-<section class="wrap" id="phuhuynh">
-  <p class="eyebrow rise"><span class="vi">Bảng kiểm</span><span class="en">The checklist</span></p>
-  <h2 class="rise"><span class="vi">Thời gian, tiền, và những thứ game này không làm.</span><span class="en">Time, money, and what this game refuses to do.</span></h2>
-  <p class="lede rise d1">
-    <span class="vi block">Nếu bạn chỉ đọc một mục, đọc mục này.</span>
-    <span class="en block">If you read one section, read this one.</span>
-  </p>
-
-  <div class="cards rise d1">
-    <div class="card">
-      <svg class="ic" width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="12" fill="#F2B93B" stroke="#3B3128" stroke-width="3.4"/><path d="M17 10v7l5 3" stroke="#3B3128" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
-      <h3><span class="vi">45–60 phút là hết</span><span class="en">45–60 minutes, then done</span></h3>
-      <p><span class="vi block">Quá trần vẫn chơi vui, chỉ là không sinh thêm — và <b>game nói thẳng với trẻ</b>.</span>
-         <span class="en block">Past the ceiling it stays fun but stops paying — and <b>it says so to the child</b>.</span></p>
-    </div>
-    <div class="card">
-      <svg class="ic" width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><path d="M4 24h6v6H4zM14 16h6v14h-6zM24 8h6v22h-6z" fill="#6FA98B" stroke="#3B3128" stroke-width="2.6" stroke-linejoin="round"/></svg>
-      <h3><span class="vi">Cày lại không sinh lời</span><span class="en">Grinding pays nothing</span></h3>
-      <p><span class="vi block">Hôm sau quay lại thì lời nhất. <b>Nền kinh tế tự thực thi lặp lại ngắt quãng.</b></span>
-         <span class="en block">Coming back tomorrow pays best. <b>The economy enforces spaced repetition itself.</b></span></p>
-    </div>
-    <div class="card">
-      <svg class="ic" width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="12" fill="#E2604A" stroke="#3B3128" stroke-width="3.4"/><path d="M11 11l12 12M23 11L11 23" stroke="#FBF2E0" stroke-width="3.4" stroke-linecap="round"/></svg>
-      <h3><span class="vi">Không bán gì cả</span><span class="en">Nothing is for sale</span></h3>
-      <p><span class="vi block">Không quảng cáo, không hộp quà, không một thứ gì đổi được bằng tiền thật.</span>
-         <span class="en block">No ads, no loot boxes, nothing inside that real money can buy.</span></p>
+  </div></div>
     </div>
   </div>
-
-  <ul class="tight wide no rise" style="margin-top:28px">
-    <li><span class="vi"><b>Không hộp quà ngẫu nhiên.</b> Con hiếm thưởng cho chơi <i>đúng</i>, không phải chơi <i>lâu</i></span><span class="en"><b>No loot boxes.</b> Rare finds reward playing <i>well</i>, not playing <i>long</i></span></li>
-    <li><span class="vi"><b>Không mua được đường tắt.</b> Đồ phải chế từ nguyên liệu cộng một câu đố đã giải</span><span class="en"><b>No shortcuts for sale.</b> Items need materials plus a puzzle actually solved</span></li>
-    <li><span class="vi"><b>Không bảng xếp hạng chắn đường.</b> Không có ai để thua trên đường chơi chính</span><span class="en"><b>No leaderboard in the way.</b> Nobody to lose to on the main path</span></li>
-    <li><span class="vi"><b>Không tim chờ hồi.</b> Không bắt đợi, cũng không bắt trả tiền để khỏi đợi</span><span class="en"><b>No hearts on a timer.</b> No waiting, and no paying to skip waiting</span></li>
-    <li><span class="vi"><b>Không thú cưng dỗi.</b> Viết ra trước cả dòng code đầu tiên</span><span class="en"><b>No sulking pet.</b> Written down before the first line of code</span></li>
-    <li><span class="vi"><b>Không email, không mật khẩu chữ.</b> Một tên đăng nhập và một mã PIN bốn số</span><span class="en"><b>No email, no text password.</b> A username and a four-digit PIN</span></li>
-  </ul>
 </section>
 
-<section class="wrap" id="cungnhau">
-  <p class="eyebrow rise"><span class="vi">Chơi cùng nhau</span><span class="en">Playing together</span></p>
-  <h2 class="rise"><span class="vi">Một đứa không nhìn thấy luật. Đứa kia đọc được.</span><span class="en">One child cannot see the rule. The other can read it.</span></h2>
-  <p class="lede rise d1">
-    <span class="vi block">Chỗ lẽ ra viết <i>SÁU CHÂN</i> chỉ còn một vệt mực bịt. Luật nằm bên máy kia,
-    trong bài giảng — <em>muốn qua ván thì phải nói với nhau</em>.</span>
-    <span class="en block">Where it should say <i>SIX LEGS</i> there is only a blot of ink. The rule sits on the
-    other screen, inside the lesson — <em>to get through, they have to talk</em>.</span>
-  </p>
+<section class="full dark" id="phuhuynh">
+  <div class="wide">
+    <p class="eyebrow rise"><span class="vi">Bảng kiểm</span><span class="en">The checklist</span></p>
+    <h2 class="rise"><span class="vi">Thời gian, tiền,<br>và những thứ game này không làm.</span><span class="en">Time, money,<br>and what this game refuses to do.</span></h2>
+    <div class="stats rise d1" style="margin-top:38px">
+      <div class="stat"><b>45–60′</b><span><span class="vi">một ngày là hết thưởng — và game nói thẳng với trẻ</span><span class="en">a day and rewards stop — and it tells the child</span></span></div>
+      <div class="stat"><b>0₫</b><span><span class="vi">không quảng cáo, không mua trong game</span><span class="en">no ads, nothing to buy inside</span></span></div>
+      <div class="stat"><b>4</b><span><span class="vi">chữ số PIN — không email, không mật khẩu chữ</span><span class="en">digit PIN — no email, no password</span></span></div>
+    </div>
+    <div class="chips off rise" style="margin-top:34px">
+      <span><span class="vi">✕ hộp quà ngẫu nhiên</span><span class="en">✕ loot boxes</span></span>
+      <span><span class="vi">✕ mua đường tắt</span><span class="en">✕ paid shortcuts</span></span>
+      <span><span class="vi">✕ bảng xếp hạng chắn đường</span><span class="en">✕ leaderboard in the way</span></span>
+      <span><span class="vi">✕ tim chờ hồi</span><span class="en">✕ hearts on a timer</span></span>
+      <span><span class="vi">✕ thú cưng dỗi</span><span class="en">✕ sulking pet</span></span>
+      <span><span class="vi">✕ chuỗi ngày sẽ đứt</span><span class="en">✕ streaks that break</span></span>
+      <span><span class="vi">✕ thông báo gọi về</span><span class="en">✕ notifications pulling back</span></span>
+    </div>
+  </div>
+</section>
 
-  <div class="pair rise d1">
+<section class="full" id="cungnhau">
+  <div class="wide">
+    <div class="split flip">
+      <div><div class="pair rise d1">
     <div class="dev">
       <span class="who"><span class="vi">CHƠI</span><span class="en">PLAY</span></span>
       <div class="blot"></div>
@@ -1355,27 +1429,34 @@
       <span><span class="vi">3 manh mối / ván</span><span class="en">3 clues a round</span></span>
       <span><span class="vi">luật nằm trong bài</span><span class="en">the rule is in the lesson</span></span>
     </div>
+  </div></div>
+      <div class="txt">
+        <p class="eyebrow rise"><span class="vi">Chơi cùng nhau</span><span class="en">Playing together</span></p>
+        <h2 class="rise"><span class="vi">Một đứa không nhìn thấy luật.</span><span class="en">One child cannot see the rule.</span></h2>
+        <p class="lede rise d1">
+          <span class="vi block">Luật nằm bên máy kia. <em>Muốn qua ván thì phải nói với nhau.</em></span>
+          <span class="en block">The rule is on the other screen. <em>To get through, they have to talk.</em></span>
+        </p>
+        <div class="chips rise d1">
+          <span><span class="vi">Mã bốn chữ số</span><span class="en">A four-digit code</span></span>
+          <span><span class="vi">Ván sau đổi vai</span><span class="en">Roles swap</span></span>
+          <span><span class="vi">Không trừ mạng</span><span class="en">Costs no lives</span></span>
+          <span><span class="vi">Linh vật đôi — không lấy được một mình</span><span class="en">A reward you can't earn alone</span></span>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <ul class="tight wide rise" style="margin-top:30px">
-    <li><span class="vi"><b>Mã bốn chữ số</b>, đọc lên cho bạn gõ. Không danh sách bạn bè, không lời mời</span><span class="en"><b>A four-digit code</b>, read aloud for the other to type. No friends list, no invites</span></li>
-    <li><span class="vi"><b>Ván sau đổi vai.</b> Lần đầu tiên trong game này, việc <i>đọc</i> có quyền lực</span><span class="en"><b>Roles swap next round.</b> For once in this game, <i>reading</i> has power</span></li>
-    <li><span class="vi"><b>Không trừ mạng.</b> Một buổi cùng bạn không được đứt vì một đứa hết mạng</span><span class="en"><b>Costs no lives.</b> A session with a friend must not end because one ran out</span></li>
-    <li><span class="vi"><b>Linh vật đôi</b> — phần thưởng duy nhất không lấy được một mình</span><span class="en"><b>The twin mythic</b> — the one reward you cannot earn alone</span></li>
-  </ul>
 </section>
 
-<section class="wrap" id="xuong">
-  <p class="eyebrow rise"><span class="vi">Xưởng — đang dựng</span><span class="en">The Workshop — in progress</span></p>
-  <h2 class="rise"><span class="vi">Lớp học tự làm chặng chơi của mình.</span><span class="en">A classroom builds its own stages.</span></h2>
-  <p class="lede rise d1">
-    <span class="vi block">Cái khuôn bên dưới game không biết gì về côn trùng. Nó chỉ biết một câu lệnh, thẻ đúng,
-    thẻ sai. <em>Đổ bài học nào vào cũng chạy.</em></span>
-    <span class="en block">The mould underneath knows nothing about insects. It knows one instruction, right cards,
-    wrong cards. <em>Pour any lesson in and it runs.</em></span>
-  </p>
-
-  <div class="steps rise d1">
+<section class="full" id="xuong" style="background:var(--diep2)">
+  <div class="wide">
+    <p class="eyebrow rise"><span class="vi">Xưởng — đang dựng</span><span class="en">The Workshop — in progress</span></p>
+    <h2 class="rise"><span class="vi">Lớp học tự làm chặng chơi.</span><span class="en">A classroom builds its own stages.</span></h2>
+    <p class="lede rise d1" style="max-width:42ch">
+      <span class="vi block">Cái khuôn bên dưới không biết gì về côn trùng. <em>Đổ bài học nào vào cũng chạy.</em></span>
+      <span class="en block">The mould underneath knows nothing about insects. <em>Pour any lesson in and it runs.</em></span>
+    </p>
+    <div class="steps rise d1">
     <div class="step">
       <span class="no">1</span>
       <div class="stage">
@@ -1427,79 +1508,84 @@
          <span class="en block">They play on whatever device is in the room. The answer sheet opens at the end.</span></p>
     </div>
   </div>
-
-  <div class="guide rise">
-    <h3><span class="vi">Bốn luật viết thẻ, cho thầy cô</span><span class="en">Four rules for teachers</span></h3>
-    <ul class="tight wide">
-      <li><span class="vi"><b>Câu lệnh không quá bảy chữ.</b> Dài hơn là một câu kiểm tra, không phải luật chơi</span><span class="en"><b>Seven words maximum.</b> Longer is an exam question, not a rule of play</span></li>
-      <li><span class="vi"><b>Một thẻ đúng hoặc sai, không vừa đúng vừa sai.</b> Phải nói <i>tuỳ trường hợp</i> là thẻ hỏng</span><span class="en"><b>Right or wrong, never both.</b> If you must say <i>it depends</i>, the card is broken</span></li>
-      <li><span class="vi"><b>Thẻ sai phải sai vì một lý do.</b> <i>Nhện</i> là thẻ sai tốt; <i>cái ghế</i> thì vô dụng</span><span class="en"><b>A wrong card is wrong for a reason.</b> <i>Spider</i> is good; <i>chair</i> is useless</span></li>
-      <li><span class="vi"><b>Đừng giảng giữa chừng.</b> Lời giải để cuối hiệp, khi trẻ đã tự thấy</span><span class="en"><b>Never explain mid-play.</b> The answer sheet waits for the end of the round</span></li>
-    </ul>
+    <div class="chips rise">
+      <span><span class="vi">Câu lệnh ≤ 7 chữ</span><span class="en">Instruction ≤ 7 words</span></span>
+      <span><span class="vi">Thẻ đúng hoặc sai, không vừa cả hai</span><span class="en">Right or wrong, never both</span></span>
+      <span><span class="vi">Thẻ sai phải sai vì một lý do</span><span class="en">Wrong for a reason, not odd</span></span>
+      <span><span class="vi">Lời giải để cuối hiệp</span><span class="en">Answers wait for the end</span></span>
+    </div>
   </div>
-
-  <p class="dim rise" style="font-size:14.5px;margin-top:22px">
-    <span class="vi block"><b>Chưa mở.</b> Cái khuôn thì đã chạy — hơn bốn trăm chặng hiện tại đều đi qua đúng khuôn đó.
-    Còn thiếu là cái bàn cho thầy cô ngồi vào.</span>
-    <span class="en block"><b>Not open yet.</b> The mould already runs — every one of the four hundred-odd existing stages
-    goes through it. What's missing is the desk a teacher sits at.</span>
-  </p>
 </section>
 
-<section class="wrap" id="ve">
-  <p class="eyebrow rise"><span class="vi">Vẽ thế nào</span><span class="en">How it's drawn</span></p>
-  <h2 class="rise"><span class="vi">Bốn dấu vết của nghề khắc gỗ. Luôn đủ cả bốn.</span><span class="en">Four marks of the woodblock trade. Always all four.</span></h2>
-  <p class="lede rise d1">
-    <span class="vi block">Thiếu một cái là hình lập tức trông như đồ vector sạch <em>đội lốt</em> dân gian.</span>
-    <span class="en block">Drop one and the art instantly reads as clean vector art <em>wearing</em> a folk costume.</span>
-  </p>
-  <div class="marks rise d1">
-    <span><b>1</b><span class="vi">Nét cong theo thớ gỗ</span><span class="en">Lines curve with the grain</span></span>
-    <span><b>2</b><span class="vi">Đường bao ngoài luôn dày nhất</span><span class="en">The outer contour is thickest</span></span>
-    <span><b>3</b><span class="vi">Mực ăn loang — chỉ ở bản màu</span><span class="en">Ink mottles — colour plate only</span></span>
-    <span><b>4</b><span class="vi">Bản màu in lệch bản nét</span><span class="en">Colour printed out of register</span></span>
+<section class="full dark" id="ve">
+  <div class="wide">
+    <div class="split">
+      <div class="txt">
+        <p class="eyebrow rise"><span class="vi">Vẽ thế nào</span><span class="en">How it's drawn</span></p>
+        <h2 class="rise"><span class="vi">Bản màu in trước.<br>Bản nét in sau. Lệch đi một chút.</span><span class="en">Colour plate first.<br>Line plate after. Slightly out of register.</span></h2>
+        <p class="lede rise d1">
+          <span class="vi block">Đúng như thợ khắc Đông Hồ vẫn in. Thiếu một dấu vết là hình lập tức
+          trông như đồ vector <em>đội lốt</em> dân gian.</span>
+          <span class="en block">Exactly how Đông Hồ printers worked. Drop one mark and it reads as vector art
+          <em>wearing</em> a folk costume.</span>
+        </p>
+        <div class="chips rise d1">
+          <span><span class="vi">Nét cong theo thớ gỗ</span><span class="en">Lines curve with the grain</span></span>
+          <span><span class="vi">Đường bao ngoài dày nhất</span><span class="en">Outer contour thickest</span></span>
+          <span><span class="vi">Mực loang — chỉ bản màu</span><span class="en">Ink mottles — colour only</span></span>
+          <span><span class="vi">Lệch bản</span><span class="en">Out of register</span></span>
+        </div>
+      </div>
+      <div class="press">
+        <svg viewBox="0 0 320 250" aria-hidden="true">
+          <g class="plate">
+            <path d="M160 34 Q246 78 224 168 Q160 216 96 168 Q74 78 160 34Z" fill="#E2604A"/>
+            <circle cx="160" cy="118" r="34" fill="#F2B93B"/>
+            <path d="M96 168 L54 214 M224 168 L266 214" stroke="#EFA9A0" stroke-width="16" stroke-linecap="round"/>
+          </g>
+          <g class="ink" fill="none" stroke="#FBF2E0" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M160 34 Q246 78 224 168 Q160 216 96 168 Q74 78 160 34Z" stroke-width="8"/>
+            <circle cx="160" cy="118" r="34" stroke-width="5.5"/>
+            <path d="M96 168 L54 214 M224 168 L266 214" stroke-width="6"/>
+            <path d="M140 110 q10 -12 20 0 M180 110 q10 -12 20 0" stroke-width="4.5"/>
+          </g>
+        </svg>
+      </div>
+    </div>
   </div>
-  <p class="dim rise" style="font-size:14.5px">
-    <span class="vi block">700 loài, 25 bản nét. Màu, tỉ lệ và hoa văn suy ra từ chính mã của loài — cùng mã thì cùng hình, mãi mãi.</span>
-    <span class="en block">700 species, 25 line plates. Colour, scale and pattern derive from the species' own id — same id, same creature, forever.</span>
-  </p>
 </section>
 
 <section class="wrap" id="hoi">
   <p class="eyebrow rise"><span class="vi">Trước khi bạn hỏi</span><span class="en">Before you ask</span></p>
   <h2 class="rise"><span class="vi">Câu phụ huynh nào cũng hỏi.</span><span class="en">The questions every parent asks.</span></h2>
   <dl class="faq rise d1">
-    <div><dt><span class="vi">Mấy tuổi chơi được?</span><span class="en">What ages is it for?</span></dt>
-      <dd><span class="vi block">7–16. Tầng dưới dừng ở “cái này thuộc nhóm nào”; tầng sâu đi tiếp tới “vì sao nhất định phải thế”. Cùng một game, mở dần theo tuổi.</span>
-          <span class="en block">7–16. The lower deck stops at “which group is this”; the deep deck goes on to “why it could not be otherwise”. One game, opening up with age.</span></dd></div>
-    <div><dt><span class="vi">Con tôi sẽ ngồi bao lâu?</span><span class="en">How long will they sit there?</span></dt>
-      <dd><span class="vi block">Khoảng 45–60 phút một ngày là hết phần thưởng. Sau đó game vẫn chơi được, chỉ là nó nói thẳng với trẻ rằng hôm nay đủ rồi.</span>
-          <span class="en block">Roughly 45–60 minutes a day and the rewards run out. It stays playable, but it tells the child plainly that today is done.</span></dd></div>
+    <div><dt><span class="vi">Mấy tuổi?</span><span class="en">What ages?</span></dt>
+      <dd><span class="vi block">7–16. Tầng dưới hỏi “thuộc nhóm nào”, tầng sâu hỏi “vì sao nhất định phải thế”.</span>
+          <span class="en block">7–16. The lower deck asks “which group”, the deep deck asks “why it could not be otherwise”.</span></dd></div>
+    <div><dt><span class="vi">Ngồi bao lâu?</span><span class="en">How long?</span></dt>
+      <dd><span class="vi block">45–60 phút là hết thưởng. Vẫn chơi được, chỉ là game nói thẳng rằng hôm nay đủ rồi.</span>
+          <span class="en block">45–60 minutes and rewards stop. Still playable — it just says today is done.</span></dd></div>
     <div><dt><span class="vi">Có tốn tiền không?</span><span class="en">Does it cost anything?</span></dt>
-      <dd><span class="vi block">Không. Không quảng cáo, không mua trong game, không gói đăng ký. Đây là một bản thử, không phải một sản phẩm đang bán.</span>
-          <span class="en block">No. No ads, no in-game purchases, no subscription. This is a pilot, not something on sale.</span></dd></div>
-    <div><dt><span class="vi">Nghỉ mấy ngày có mất gì không?</span><span class="en">What happens if they stop for a few days?</span></dt>
-      <dd><span class="vi block">Không mất gì. Không có chuỗi ngày, không có thú cưng ốm đi. Nghỉ lâu quay lại thì phần thưởng còn <i>cao hơn</i> — đó là cách nền kinh tế ép việc ôn ngắt quãng.</span>
-          <span class="en block">Nothing. No streaks, no pet that gets sick. Coming back after a break pays <i>more</i> — that is how the economy enforces spaced repetition.</span></dd></div>
-    <div><dt><span class="vi">Cần tài khoản không? Dữ liệu đi đâu?</span><span class="en">Is an account needed? Where does the data go?</span></dt>
-      <dd><span class="vi block">Chơi thử thì không cần. Muốn giữ tiến độ giữa các máy thì tạo một tên đăng nhập và mã PIN bốn số — không email, không mật khẩu chữ. Không một tên đăng nhập nào đi lên phòng chơi chung.</span>
-          <span class="en block">Not to try it. To keep progress across devices, a username and a four-digit PIN — no email, no text password. No username ever travels to a shared room.</span></dd></div>
+      <dd><span class="vi block">Không. Không quảng cáo, không mua trong game, không gói đăng ký.</span>
+          <span class="en block">No. No ads, no purchases, no subscription.</span></dd></div>
+    <div><dt><span class="vi">Nghỉ mấy ngày có mất gì?</span><span class="en">What if they stop for days?</span></dt>
+      <dd><span class="vi block">Không mất gì. Quay lại sau một quãng nghỉ còn được thưởng <i>cao hơn</i>.</span>
+          <span class="en block">Nothing. Coming back after a break pays <i>more</i>.</span></dd></div>
+    <div><dt><span class="vi">Cần tài khoản không?</span><span class="en">Is an account needed?</span></dt>
+      <dd><span class="vi block">Chơi thử thì không. Giữ tiến độ thì một tên đăng nhập và mã PIN bốn số — không email.</span>
+          <span class="en block">Not to try it. To keep progress, a username and a four-digit PIN — no email.</span></dd></div>
     <div><dt><span class="vi">Chơi trên máy gì?</span><span class="en">What does it run on?</span></dt>
-      <dd><span class="vi block">Trình duyệt. iPad cũ, điện thoại, máy tính đều được — hình được nướng sẵn lúc màn hình chờ nên lúc chạy rất nhẹ. Thêm vào Màn hình chính là chạy toàn màn hình.</span>
-          <span class="en block">A browser. An old iPad, a phone, a laptop — sprites are baked at load time so runtime is light. Add to Home Screen and it runs full-screen.</span></dd></div>
-    <div><dt><span class="vi">Tiếng Việt hay tiếng Anh?</span><span class="en">Vietnamese or English?</span></dt>
-      <dd><span class="vi block">Cả hai, đổi được bất cứ lúc nào. Mọi bài giảng và mọi thẻ đều song ngữ.</span>
-          <span class="en block">Both, switchable at any time. Every lesson and every card exists in both.</span></dd></div>
+      <dd><span class="vi block">Trình duyệt. iPad cũ, điện thoại, máy tính đều được.</span>
+          <span class="en block">A browser. An old iPad, a phone, a laptop.</span></dd></div>
     <div><dt><span class="vi">Ai làm cái này?</span><span class="en">Who made this?</span></dt>
-      <dd><span class="vi block">Một người, ở Việt Nam. Đây là bản thử — nếu bạn cho con dùng và thấy chỗ nào hỏng, chán hay sai, nhắn cho tôi. Đó là thứ tôi cần nhất lúc này.</span>
-          <span class="en block">One person, in Vietnam. It is a pilot — if you let your child use it and something is broken, boring or wrong, write to me. That is what I need most.</span></dd></div>
+      <dd><span class="vi block">Một người, ở Việt Nam. Đây là bản thử — thấy chỗ nào hỏng hay chán, nhắn cho tôi.</span>
+          <span class="en block">One person, in Vietnam. It's a pilot — if something is broken or boring, write to me.</span></dd></div>
   </dl>
 
   <div class="ctas rise d1">
     <a class="cta" href="https://luffynguyen.github.io/dongvong-web/">
-      <span class="vi">Cho con thử ngay</span><span class="en">Let them try it</span>
-    </a>
-    <span class="note"><span class="vi">Chạy trong trình duyệt. Không cài, không cần tài khoản để bắt đầu.</span><span class="en">Runs in the browser. No install, no account to start.</span></span>
+      <span class="vi">Cho con thử ngay</span><span class="en">Let them try it</span></a>
+    <span class="note"><span class="vi">Không cài, không cần tài khoản để bắt đầu.</span><span class="en">No install, no account to start.</span></span>
   </div>
 </section>
 
