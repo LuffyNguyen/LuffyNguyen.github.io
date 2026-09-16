@@ -1,0 +1,857 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>An Occasionally True Story</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+  :root {
+    --ground: #FAFAFA;
+    --surface: #F2F2F4;
+    --ink: #1D1D1F;
+    --ink-2: #6E6E73;
+    --ink-3: #A1A1A6;
+    --line: #E3E3E7;
+    --accent: #B4232A;
+    --accent-soft: #F6E6E7;
+    --display: "Inter Tight", "SF Pro Display", -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --body: "Inter", "SF Pro Text", -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0F0F10;
+      --surface: #1A1A1C;
+      --ink: #F5F5F7;
+      --ink-2: #A1A1A6;
+      --ink-3: #6E6E73;
+      --line: #2C2C2E;
+      --accent: #E5484D;
+      --accent-soft: #2A1517;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #0F0F10;
+    --surface: #1A1A1C;
+    --ink: #F5F5F7;
+    --ink-2: #A1A1A6;
+    --ink-3: #6E6E73;
+    --line: #2C2C2E;
+    --accent: #E5484D;
+    --accent-soft: #2A1517;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    padding-inline: 16px;
+    padding-block: 0;
+  }
+  a { color: inherit; text-decoration: none; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+  .wrap { max-width: 720px; margin: 0 auto; }
+
+  /* ---------- pages ---------- */
+  .page {
+    padding-block: 96px 72px;
+    border-bottom: 1px solid var(--line);
+  }
+  .page:last-child { border-bottom: 0; }
+  .eyebrow {
+    font-family: var(--body);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 28px;
+  }
+  .eyebrow .num {
+    font-family: var(--display);
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+  }
+  .eyebrow .sep { width: 24px; height: 1px; background: var(--line); }
+  h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; }
+  h1 {
+    font-size: clamp(44px, 8vw, 72px);
+    font-weight: 700;
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+  }
+  h2 {
+    font-size: clamp(34px, 5.5vw, 48px);
+    font-weight: 600;
+    line-height: 1.06;
+    letter-spacing: -0.025em;
+    margin-bottom: 20px;
+  }
+  h3 {
+    font-size: 21px;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    margin: 44px 0 12px;
+  }
+  .lede {
+    font-size: 21px;
+    line-height: 1.45;
+    color: var(--ink-2);
+    margin: 0 0 40px;
+    text-wrap: pretty;
+  }
+  p { margin: 0 0 20px; text-wrap: pretty; }
+  strong { font-weight: 600; }
+  em { font-style: italic; }
+  .small { font-size: 14px; color: var(--ink-2); }
+
+  /* ---------- cover ---------- */
+  .cover { padding-block: 120px 80px; }
+  .cover .sub {
+    font-size: 22px;
+    line-height: 1.4;
+    color: var(--ink-2);
+    margin: 28px 0 56px;
+    max-width: 600px;
+  }
+  .meta {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    border-top: 1px solid var(--line);
+    padding-top: 20px;
+    margin-bottom: 64px;
+  }
+  .meta div { font-size: 13px; color: var(--ink-2); line-height: 1.5; }
+  .meta div b { display: block; color: var(--ink); font-weight: 600; font-family: var(--display); font-size: 15px; letter-spacing: -0.01em; }
+  .toc { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+  .toc li { border-bottom: 1px solid var(--line); }
+  .toc a {
+    display: grid;
+    grid-template-columns: 40px 1fr auto;
+    gap: 16px;
+    align-items: baseline;
+    padding: 14px 0;
+    transition: color .15s ease;
+  }
+  .toc a:hover { color: var(--accent); }
+  .toc .n { font-family: var(--display); font-size: 13px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  .toc .t { font-family: var(--display); font-weight: 500; font-size: 17px; letter-spacing: -0.01em; }
+  .toc .k { font-size: 12px; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.06em; }
+
+  /* ---------- show / history ---------- */
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+    margin: 40px 0;
+    background: var(--surface);
+  }
+  .compare > div { padding: 24px 24px 20px; }
+  .compare > div + div { border-left: 1px solid var(--line); }
+  .compare .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .compare .tag svg { width: 14px; height: 14px; }
+  .compare .show .tag { color: var(--accent); }
+  .compare .hist .tag { color: var(--ink); }
+  .compare p { font-size: 15.5px; line-height: 1.55; margin-bottom: 12px; }
+  .compare p:last-child { margin-bottom: 0; }
+  @media (max-width: 560px) {
+    .compare { grid-template-columns: 1fr; }
+    .compare > div + div { border-left: 0; border-top: 1px solid var(--line); }
+  }
+
+  /* ---------- pull quote ---------- */
+  .pull {
+    font-family: var(--display);
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: -0.015em;
+    margin: 44px 0;
+    padding-left: 22px;
+    border-left: 2px solid var(--accent);
+    text-wrap: balance;
+  }
+  .pull small { display: block; font-family: var(--body); font-size: 13px; font-weight: 500; color: var(--ink-2); margin-top: 10px; letter-spacing: 0; }
+
+  /* ---------- fact strip ---------- */
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 36px 0;
+  }
+  .facts div { border-top: 1px solid var(--ink); padding-top: 12px; }
+  .facts b { display: block; font-family: var(--display); font-size: 30px; font-weight: 600; letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+  .facts span { font-size: 13px; color: var(--ink-2); display: block; margin-top: 6px; line-height: 1.4; }
+  @media (max-width: 560px) { .facts { grid-template-columns: 1fr 1fr; } .meta { grid-template-columns: 1fr 1fr; } }
+
+  /* ---------- timeline ---------- */
+  .timeline { list-style: none; margin: 36px 0; padding: 0; position: relative; }
+  .timeline::before { content: ""; position: absolute; left: 6px; top: 8px; bottom: 8px; width: 1px; background: var(--line); }
+  .timeline li { position: relative; padding-left: 36px; margin-bottom: 26px; }
+  .timeline li::before { content: ""; position: absolute; left: 0; top: 7px; width: 13px; height: 13px; border-radius: 50%; background: var(--ink); }
+  .timeline li.show::before { background: var(--accent); }
+  .timeline .y { font-family: var(--display); font-weight: 600; font-size: 15px; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+  .timeline .d { font-size: 15.5px; color: var(--ink-2); line-height: 1.5; margin-top: 2px; }
+  .timeline .d b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- table ---------- */
+  .tablewrap { overflow-x: auto; margin: 32px 0; }
+  table { border-collapse: collapse; width: 100%; font-size: 15px; }
+  th, td { text-align: left; padding: 12px 12px 12px 0; border-bottom: 1px solid var(--line); vertical-align: top; line-height: 1.45; }
+  th { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); font-weight: 600; }
+  td:first-child { font-weight: 600; white-space: nowrap; }
+
+  /* ---------- sources ---------- */
+  .sources { list-style: none; padding: 0; margin: 24px 0 0; border-top: 1px solid var(--line); }
+  .sources li { padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 14.5px; line-height: 1.5; color: var(--ink-2); }
+  .sources li b { color: var(--ink); font-weight: 600; }
+  .sources a { color: var(--accent); }
+
+  .foot {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 64px;
+    font-size: 12px;
+    color: var(--ink-3);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- evidence labels ---------- */
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 999px; white-space: nowrap; line-height: 1.4;
+  }
+  .chip svg { width: 9px; height: 9px; }
+  .chip.fact { background: var(--ink); color: var(--ground); }
+  .chip.conj { background: var(--accent-soft); color: var(--accent); }
+  .chip.opin { background: var(--surface); color: var(--ink-2); border: 1px solid var(--line); }
+  .legend { display: flex; flex-wrap: wrap; gap: 14px 22px; margin: 20px 0 8px; }
+  .legend div { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--ink-2); }
+
+  .ledger { margin: 44px 0 0; border-top: 1px solid var(--ink); padding-top: 14px; }
+  .ledger h4 {
+    font-family: var(--body); font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink-2); margin: 0 0 6px; display: flex; justify-content: space-between; gap: 12px;
+  }
+  .ledger h4 span:last-child { font-weight: 500; letter-spacing: 0.04em; color: var(--ink-3); }
+  .ledger table { font-size: 14px; }
+  .ledger th, .ledger td { padding: 10px 10px 10px 0; }
+  .ledger td:first-child { font-weight: 500; white-space: normal; min-width: 200px; }
+  .ledger td:nth-child(2) { white-space: nowrap; }
+  .ledger td:last-child { color: var(--ink-2); font-size: 13.5px; }
+  .conf { display: flex; align-items: center; gap: 10px; min-width: 120px; }
+  .conf i { display: block; flex: 1; height: 4px; border-radius: 2px; background: var(--line); overflow: hidden; }
+  .conf i b { display: block; height: 100%; width: 0; background: var(--ink); border-radius: 2px; transition: width 1.1s cubic-bezier(.2,.7,.2,1); }
+  .conf i b.c { background: var(--accent); }
+  .conf i b.o { background: var(--ink-3); }
+  .conf em { font-style: normal; font-family: var(--display); font-weight: 600; font-size: 13px; font-variant-numeric: tabular-nums; min-width: 34px; text-align: right; }
+  .conf.in i b { width: var(--w); }
+  .srcnote { font-size: 13.5px; color: var(--ink-2); margin-top: 14px; }
+
+  /* ---------- motion ---------- */
+  .progress { position: fixed; top: env(safe-area-inset-top, 0px); left: 0; height: 2px; width: 0; background: var(--accent); z-index: 10; transition: width .12s linear; }
+  html.js .rv { opacity: 0; transform: translateY(22px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1); transition-delay: var(--d, 0s); }
+  html.js .rv.l { transform: translateX(-28px); }
+  html.js .rv.r { transform: translateX(28px); }
+  html.js .rv.in { opacity: 1; transform: none; }
+  html.js .compare.rv > .show { transform: translateX(-22px); opacity: 0; transition: all .8s cubic-bezier(.2,.7,.2,1) .1s; }
+  html.js .compare.rv > .hist { transform: translateX(22px); opacity: 0; transition: all .8s cubic-bezier(.2,.7,.2,1) .25s; }
+  html.js .compare.rv.in > .show, html.js .compare.rv.in > .hist { transform: none; opacity: 1; }
+  html.js .pull.rv { border-left-color: transparent; }
+  html.js .pull.rv.in { border-left-color: var(--accent); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1), border-color .6s ease .5s; }
+  html.js .timeline.rv::before { transform: scaleY(0); transform-origin: top; transition: transform 1.6s cubic-bezier(.2,.7,.2,1) .2s; }
+  html.js .timeline.rv.in::before { transform: scaleY(1); }
+  html.js .timeline.rv li { opacity: 0; transform: translateX(-10px); transition: opacity .6s ease, transform .6s ease; }
+  html.js .timeline.rv li::before { transform: scale(0); transition: transform .4s cubic-bezier(.3,1.4,.5,1); }
+  html.js .timeline.rv.in li { opacity: 1; transform: none; }
+  html.js .timeline.rv.in li::before { transform: scale(1); }
+  html.js .tablewrap.rv tbody tr { opacity: 0; transform: translateY(8px); transition: opacity .5s ease, transform .5s ease; }
+  html.js .tablewrap.rv.in tbody tr { opacity: 1; transform: none; }
+  html.js .toc li { opacity: 0; transform: translateY(10px); animation: rise .7s cubic-bezier(.2,.7,.2,1) forwards; }
+  html.js .cover > .eyebrow, html.js .cover > h1, html.js .cover > .sub, html.js .cover > .meta, html.js .cover > p, html.js .cover > .legend {
+    opacity: 0; transform: translateY(18px); animation: rise .9s cubic-bezier(.2,.7,.2,1) forwards;
+  }
+  html.js .cover > h1 { animation-delay: .08s; }
+  html.js .cover > .sub { animation-delay: .22s; }
+  html.js .cover > .meta { animation-delay: .36s; }
+  html.js .cover > p { animation-delay: .5s; }
+  html.js .cover > .legend { animation-delay: .6s; }
+  html.js .eyebrow .sep { width: 0; transition: width .8s ease .3s; }
+  html.js .eyebrow.in .sep, html.js .cover .eyebrow .sep { width: 24px; }
+  .toc a .k { transition: transform .25s ease, color .25s ease; }
+  .toc a:hover .k { transform: translateX(-4px); color: var(--accent); }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    html.js .rv, html.js .rv > *, html.js .timeline.rv li, html.js .timeline.rv li::before, html.js .timeline.rv::before,
+    html.js .tablewrap.rv tbody tr, html.js .toc li, html.js .cover > * , html.js .eyebrow .sep { opacity: 1 !important; transform: none !important; animation: none !important; transition: none !important; width: auto; }
+    .conf i b { transition: none; width: var(--w); }
+    .progress { display: none; }
+  }
+
+  @media print {
+    body { background: #fff; color: #000; font-size: 11.5pt; padding: 0; }
+    .page { page-break-after: always; break-after: page; border-bottom: 0; padding-block: 0 24pt; min-height: 0; }
+    .page:last-child { page-break-after: auto; }
+    .cover { padding-top: 0; }
+    .compare { background: #fff; }
+    .toc a:hover { color: inherit; }
+    .progress { display: none; }
+    html.js .rv, html.js .rv > *, html.js .timeline.rv li, html.js .tablewrap.rv tbody tr, html.js .toc li, html.js .cover > * { opacity: 1 !important; transform: none !important; animation: none !important; }
+    .conf i b { width: var(--w); }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+<script>document.documentElement.classList.add('js');</script>
+<div class="progress" aria-hidden="true"></div>
+</head>
+<body>
+
+<main class="wrap">
+
+<!-- ============================ PAGE 1 ============================ -->
+<section class="page cover" id="p1">
+  <p class="eyebrow"><span class="num">01 / 10</span><span class="sep"></span>An essay in ten pages</p>
+  <h1>An Occasionally True Story</h1>
+  <p class="sub">Catherine the Great, the Russia she left behind, and how Hulu's <em>The Great</em> managed to get her right by getting almost everything wrong.</p>
+
+  <div class="meta">
+    <div><b>Subject</b>Catherine II of Russia, 1729–1796</div>
+    <div><b>Counter-text</b><em>The Great</em>, Hulu, 2020–2023</div>
+    <div><b>Frame</b>The long road to 1914</div>
+  </div>
+
+  <p>In 2020 a television comedy opened with a title card that read <strong>"An Occasionally True Story."</strong> By the second season the card had been revised to <strong>"An Almost Entirely Untrue Story,"</strong> which was both a joke and a confession. Tony McNamara's <em>The Great</em> takes the best-documented woman of the eighteenth century and rebuilds her life as a farce: a teenage German bride, a husband who is a violent toddler in a tailcoat, a court that punches, poisons and shouts <em>Huzzah</em> at every opportunity.</p>
+  <p>The strange thing is that the show is often closer to the historical Catherine than the solemn biopics that preceded it. Not in the facts, which it cheerfully mangles, but in the shape of her: a foreigner who decided to become more Russian than the Russians, an Enlightenment reader who ran an autocracy, a woman whose reputation was written by the people she defeated.</p>
+  <p>This essay does three things. It sets the record straight on the big beats the show borrows. It follows the threads Catherine's reign left dangling until they snap in the world of 1914. And it argues that "occasionally true" is not a bad standard for how any of us remember the past.</p>
+
+  <p class="small" style="margin: 40px 0 20px;">A note on dates: Russia used the Julian calendar until 1918, eleven days behind the Western Gregorian calendar in the 1700s. Dates below are given in the modern (Gregorian) style unless marked <em>OS</em>.</p>
+
+
+  <div class="legend" aria-label="How claims are labelled">
+    <div><span class="chip fact">Fact</span>documented in primary sources or agreed by the standard biographies</div>
+    <div><span class="chip conj">Conjecture</span>rests on one interested witness, a late copy, or gossip; plausible, unproven</div>
+    <div><span class="chip opin">Opinion</span>an interpretation, mine or a historian's, that evidence can support but not settle</div>
+  </div>
+  <p class="small" style="margin: 6px 0 20px;">Every page ends with an evidence ledger: each key claim, its label, a confidence score (how much I would bet on it standing up to a specialist) and the source it comes from. The show is never a source.</p>
+
+  <ol class="toc">
+    <li style="animation-delay:0.61s"><a href="#p2"><span class="n">02</span><span class="t">A German girl named Sophie</span><span class="k">Origins</span></a></li>
+    <li style="animation-delay:0.67s"><a href="#p3"><span class="n">03</span><span class="t">The husband nobody agrees on</span><span class="k">Peter III</span></a></li>
+    <li style="animation-delay:0.73s"><a href="#p4"><span class="n">04</span><span class="t">The seventeen years the show skips</span><span class="k">Waiting</span></a></li>
+    <li style="animation-delay:0.79s"><a href="#p5"><span class="n">05</span><span class="t">Eight days in July</span><span class="k">The coup</span></a></li>
+    <li style="animation-delay:0.85s"><a href="#p6"><span class="n">06</span><span class="t">Enlightenment as performance</span><span class="k">Ideas</span></a></li>
+    <li style="animation-delay:0.91s"><a href="#p7"><span class="n">07</span><span class="t">The map she drew</span><span class="k">Empire</span></a></li>
+    <li style="animation-delay:0.97s"><a href="#p8"><span class="n">08</span><span class="t">The myths, and who wrote them</span><span class="k">Reputation</span></a></li>
+    <li style="animation-delay:1.03s"><a href="#p9"><span class="n">09</span><span class="t">From Catherine to 1914</span><span class="k">Pre-war</span></a></li>
+    <li style="animation-delay:1.09s"><a href="#p10"><span class="n">10</span><span class="t">Why wrong can be right</span><span class="k">Closing</span></a></li>
+  </ol>
+</section>
+
+<!-- ============================ PAGE 2 ============================ -->
+<section class="page" id="p2">
+  <p class="eyebrow rv"><span class="num">02 / 10</span><span class="sep"></span>Origins</p>
+  <h2 class="rv">A German girl named Sophie</h2>
+  <p class="lede rv">The most Russian ruler since Peter the Great was born in Prussia, spoke German at home, and arrived in Russia at fourteen with a wardrobe her mother had to borrow money to buy.</p>
+
+  <p class="rv">Sophie Friederike Auguste von Anhalt-Zerbst was born on 2 May 1729 in Stettin, a Baltic port that was Prussian then and is Szczecin, Poland, today. Her father, Christian August, was a minor prince who worked as a Prussian general and governor; her mother, Johanna Elisabeth of Holstein-Gottorp, was ambitious, well connected and, by every account including her daughter's, cold. The family was aristocratic and nearly broke. In the marriage market of small German courts, Sophie was a reasonable prospect: good blood, no money, and a useful cousin.</p>
+  <p class="rv">The cousin was Karl Peter Ulrich of Holstein-Gottorp, a boy whose mother had been the daughter of Peter the Great. In 1742 his aunt, Empress Elizabeth of Russia, named him heir and dragged him to St Petersburg. Two years later Elizabeth invited Sophie and her mother for inspection. They travelled in the middle of winter, in an ordinary carriage, under false names. Sophie was fourteen.</p>
+  <p class="rv">What followed was the first act of self-invention in a life full of them. Within months she had learned enough Russian to be understood, converted from Lutheranism to Orthodoxy, and taken a new name: Yekaterina Alekseyevna, Catherine. She later claimed she studied Russian at night, barefoot on the cold floor, and caught pneumonia for it; when the doctors despaired, she asked for an Orthodox priest instead of the Lutheran pastor her mother wanted. Whether the story is true is beside the point. It was the story she wanted told, and it worked. Elizabeth, who had loathed Johanna within weeks, adored the daughter.</p>
+  <p class="rv">Johanna, meanwhile, was caught passing intelligence to Frederick II of Prussia and was expelled from Russia in 1745. Catherine never saw her again.</p>
+
+  <div class="compare rv">
+    <div class="show">
+      <span class="tag"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>In the show</span>
+      <p>Catherine arrives as a starry-eyed young woman with a suitcase of Enlightenment books, already fluent, already a bride, and meets Peter for the first time on her wedding day. Her mother Joanna (Gillian Anderson) turns up in Season 2, seduces Peter, and dies falling out of a window.</p>
+    </div>
+    <div class="hist">
+      <span class="tag"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v18l-7-4-7 4V4z"/></svg>In history</span>
+      <p>Sophie was fourteen, spoke no Russian, and had known Peter since a family visit when she was ten. The Voltaire came later. The mother came with her, was expelled for spying, and died in Paris in 1760, six years before the show's Joanna could have fallen out of anything.</p>
+    </div>
+  </div>
+
+  <p class="rv">One thing the show gets exactly right is the tone of the arrival: a German provincial walking into a court that regarded Germans as either servants or spies, and deciding on the spot that she would out-Russian all of them. Your friend's line in the chat, that a German became Russia's "the Great", is the whole plot in seven words.</p>
+
+  <div class="ledger rv">
+    <h4><span>Evidence ledger</span><span>Page 02</span></h4>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Claim</th><th>Status</th><th>Confidence</th><th>Source</th></tr></thead>
+        <tbody>
+        <tr><td>Born 2 May 1729 in Stettin to Christian August of Anhalt-Zerbst and Johanna Elisabeth of Holstein-Gottorp</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:99%"><i><b class=""></b></i><em>99%</em></span></td><td>Massie, ch. 1; de Madariaga 1990</td></tr>
+        <tr><td>Arrived in Russia at fourteen, in winter, travelling under a false name</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:95%"><i><b class=""></b></i><em>95%</em></span></td><td>Massie; Catherine's memoirs, corroborated by Elizabeth's court correspondence</td></tr>
+        <tr><td>Converted and renamed Yekaterina Alekseyevna in June 1744</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:99%"><i><b class=""></b></i><em>99%</em></span></td><td>Court records; every biography</td></tr>
+        <tr><td>Studied Russian barefoot at night and caught pneumonia; asked for an Orthodox priest</td><td><span class="chip conj">Conjecture</span></td><td><span class="conf" style="--w:40%"><i><b class="c"></b></i><em>40%</em></span></td><td>Catherine's memoirs only; told decades later by the person it flatters</td></tr>
+        <tr><td>Johanna expelled in 1745 for intriguing on Frederick II's behalf</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:90%"><i><b class=""></b></i><em>90%</em></span></td><td>de Madariaga 1981; Bestuzhev's intercepted correspondence</td></tr>
+        <tr><td>Johanna died in Paris in 1760 and never saw Catherine again</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:95%"><i><b class=""></b></i><em>95%</em></span></td><td>Massie, ch. 15</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="srcnote">The memoirs are the sole witness for most of the childhood colour. Where a story exists only there, it is marked conjecture no matter how often biographies repeat it.</p>
+  </div>
+  <div class="foot"><span>An Occasionally True Story</span><span>Page 02</span></div>
+</section>
+
+<!-- ============================ PAGE 3 ============================ -->
+<section class="page" id="p3">
+  <p class="eyebrow rv"><span class="num">03 / 10</span><span class="sep"></span>Peter III</p>
+  <h2 class="rv">The husband nobody agrees on</h2>
+  <p class="lede rv">Nicholas Hoult's Peter is a spoiled, murderous child who is also, occasionally, the most honest person in the room. The real Peter III has been fighting the same caricature for 260 years.</p>
+
+  <p class="rv">Almost everything the popular imagination knows about Peter III comes from one source: Catherine's memoirs, written years after she had him deposed and, very probably, killed. In them he is a drunk, a coward, a boy who played with toy soldiers in the marital bed and once court-martialled and hanged a rat for eating a cardboard fortress. Biographers repeated it because it was vivid and because the person telling it was, after all, there.</p>
+  <p class="rv">Historians have since tried to separate the man from the memoir. Some of the indictment holds. Peter was raised in Kiel to be Duke of Holstein and never wanted Russia; he preferred German, Lutheranism, and the Prussian army he idolised. He drank heavily. He humiliated Catherine in public and kept a mistress, Elizaveta Vorontsova, whom he seems to have intended to marry. He told everyone within earshot that he would send his wife to a convent.</p>
+  <p class="rv">But the six months he actually reigned, from January to July 1762, look nothing like the record of an idiot. He issued the <strong>Manifesto on the Freedom of the Nobility</strong>, releasing Russian nobles from compulsory state service for the first time since Peter the Great, a measure so popular that Catherine kept it. He abolished the <strong>Secret Chancellery</strong>, the political police that had run on denunciation and torture. He moved to secularise church lands, cut the salt tax, and forbade the killing of serfs by their owners. In the space of a season he did more legislating than many tsars managed in decades.</p>
+  <p class="rv">He also made two catastrophic mistakes. First, he pulled Russia out of the Seven Years' War at the exact moment it was winning, handing occupied East Prussia back to his hero Frederick II and signing an alliance with him. The army, which had bled for Berlin, was livid. Second, he prepared a new war against Denmark over Schleswig, a quarrel that mattered to Holstein and to no one else in Russia. The Guards regiments, who would have had to fight it, were the people Catherine turned to in July.</p>
+
+  <div class="compare rv">
+    <div class="show">
+      <span class="tag"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>In the show</span>
+      <p>Peter is the <em>son</em> of Peter the Great, whose portraits and preserved mother haunt the palace. He is emperor already when Catherine arrives, has been for years, and runs Russia by whim, war with Sweden, and the occasional bear.</p>
+    </div>
+    <div class="hist">
+      <span class="tag"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v18l-7-4-7 4V4z"/></svg>In history</span>
+      <p>Peter was the <em>grandson</em> of Peter the Great, through a daughter he barely remembered. He was a Grand Duke for eighteen years and emperor for 186 days. Russia did fight Sweden under Catherine, but in 1788–90, long after Peter was dead.</p>
+    </div>
+  </div>
+
+  <p class="pull rv">The show's Peter is a monster who might have been a good man with better parents. The historical Peter may have been a decent legislator with a terrible personality. The two are not as far apart as they look.<small>The point the farce lands that the biographies miss</small></p>
+
+  <div class="ledger rv">
+    <h4><span>Evidence ledger</span><span>Page 03</span></h4>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Claim</th><th>Status</th><th>Confidence</th><th>Source</th></tr></thead>
+        <tbody>
+        <tr><td>Peter was Peter the Great's grandson via Anna Petrovna, born in Kiel in 1728</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:99%"><i><b class=""></b></i><em>99%</em></span></td><td>Genealogical record; Leonard 1993</td></tr>
+        <tr><td>Reigned 5 January – 9 July 1762 (186 days)</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:99%"><i><b class=""></b></i><em>99%</em></span></td><td>Official dates; all sources</td></tr>
+        <tr><td>Manifesto on the Freedom of the Nobility, 18 Feb 1762 OS, retained by Catherine</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:99%"><i><b class=""></b></i><em>99%</em></span></td><td>Text of the manifesto; de Madariaga 1981</td></tr>
+        <tr><td>Abolished the Secret Chancellery</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:95%"><i><b class=""></b></i><em>95%</em></span></td><td>Decree of Feb 1762; Leonard 1993</td></tr>
+        <tr><td>Withdrew from the Seven Years' War and returned East Prussia to Frederick II</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:99%"><i><b class=""></b></i><em>99%</em></span></td><td>Treaty of St Petersburg, 5 May 1762</td></tr>
+        <tr><td>Prepared a war on Denmark over Schleswig</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:95%"><i><b class=""></b></i><em>95%</em></span></td><td>Diplomatic dispatches; Massie, ch. 31</td></tr>
+        <tr><td>Court-martialled and hanged a rat; toy soldiers in the marital bed</td><td><span class="chip conj">Conjecture</span></td><td><span class="conf" style="--w:35%"><i><b class="c"></b></i><em>35%</em></span></td><td>Catherine's memoirs only; no second witness</td></tr>
+        <tr><td>Forbade landowners from killing serfs</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:70%"><i><b class=""></b></i><em>70%</em></span></td><td>Leonard 1993 cites the decree; scope and enforcement disputed</td></tr>
+        <tr><td>Peter was a capable legislator undone by personality, not an idiot</td><td><span class="chip opin">Opinion</span></td><td><span class="conf" style="--w:60%"><i><b class="o"></b></i><em>60%</em></span></td><td>Leonard 1993 (the revisionist case) vs. Massie and the memoir tradition</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="foot"><span>An Occasionally True Story</span><span>Page 03</span></div>
+</section>
+
+<!-- ============================ PAGE 4 ============================ -->
+<section class="page" id="p4">
+  <p class="eyebrow rv"><span class="num">04 / 10</span><span class="sep"></span>Waiting</p>
+  <h2 class="rv">The seventeen years the show skips</h2>
+  <p class="lede rv">In Season 1, Catherine goes from wedding to coup in roughly a year. In life it took her seventeen, most of them under the eye of a woman the show turns into a comic aunt.</p>
+
+  <p class="rv">The show's Elizabeth, played by Belinda Bromilow, is a dotty, sexually liberated relative who wanders the palace with a pet butterfly collection and dispenses wisdom nobody asked for. The historical Elizabeth Petrovna was the reigning <strong>Empress of Russia</strong> from 1741 until January 1762, the daughter of Peter the Great, who had seized the throne in her own Guards-backed coup and who controlled every hour of Catherine's life for the entire period the show compresses.</p>
+  <p class="rv">Consider what the compression erases. Catherine married Peter on 21 August 1745 (OS), at sixteen. The marriage was not consummated for years; the couple were incompatible, and Peter was probably as frightened as she was. Elizabeth, who needed an heir and blamed Catherine for the delay, had the young Grand Duchess's servants replaced, her friends dismissed, her letters read. When a son, Paul, was finally born in 1754, Elizabeth took the baby away within minutes and raised him herself. Catherine saw him rarely. Whether Paul's father was Peter or Catherine's lover Sergei Saltykov is a question her own memoirs pointedly refuse to close, which is itself a kind of answer, or a kind of revenge.</p>
+  <p class="rv">What Catherine did with the seventeen years is the part of her life that made her. She read: Tacitus, Montesquieu, Voltaire, Bayle's dictionary, the entire <em>Encyclopédie</em> as it appeared. She learned the mechanics of a court: whose favour was for sale, which Guards officers drank where, what the English ambassador wanted. She cultivated allies methodically, from the chancellor Bestuzhev to the Orlov brothers. And she waited, which by her own later account did not come naturally.</p>
+  <p class="rv">By the time Elizabeth died on 5 January 1762, Catherine had been in Russia longer than she had lived in Germany, had a Russian son, and had a network that the new emperor, her husband, had spent eighteen years failing to build. He had six months left.</p>
+
+  <div class="facts rv">
+    <div><b data-count="17">17</b><span>years between Catherine's marriage and her coup</span></div>
+    <div><b data-count="186">186</b><span>days Peter III reigned</span></div>
+    <div><b data-count="1">1</b><span>Season the show needs to cover both</span></div>
+  </div>
+
+  <div class="compare rv">
+    <div class="show">
+      <span class="tag"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>In the show</span>
+      <p>Catherine is handed a lover, Leo Voronsky, by Peter himself as a gift. She plots with a bureaucrat named Orlo and a demoted maid, Marial. Her pregnancy with Paul is the engine of Season 2.</p>
+    </div>
+    <div class="hist">
+      <span class="tag"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v18l-7-4-7 4V4z"/></svg>In history</span>
+      <p>Leo is fiction. "Orlo" is a nod to Grigory Orlov, who was no bureaucrat but an artillery officer, her lover, and the man whose brothers did the actual work of the coup. Paul was eight years old and living with Elizabeth when his mother took the throne.</p>
+    </div>
+  </div>
+
+  <div class="ledger rv">
+    <h4><span>Evidence ledger</span><span>Page 04</span></h4>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Claim</th><th>Status</th><th>Confidence</th><th>Source</th></tr></thead>
+        <tbody>
+        <tr><td>Married 21 August 1745 OS, Catherine aged sixteen</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:99%"><i><b class=""></b></i><em>99%</em></span></td><td>Court records; all biographies</td></tr>
+        <tr><td>Elizabeth reigned 1741–1762 after her own Guards-backed coup</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:99%"><i><b class=""></b></i><em>99%</em></span></td><td>Standard histories</td></tr>
+        <tr><td>Marriage unconsummated for several years</td><td><span class="chip conj">Conjecture</span></td><td><span class="conf" style="--w:70%"><i><b class="c"></b></i><em>70%</em></span></td><td>Memoirs plus contemporary diplomatic gossip; no medical record</td></tr>
+        <tr><td>Elizabeth took Paul from Catherine at birth in 1754 and raised him</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:90%"><i><b class=""></b></i><em>90%</em></span></td><td>Memoirs, corroborated by court accounts and Paul's own later resentment</td></tr>
+        <tr><td>Paul's biological father was Sergei Saltykov, not Peter</td><td><span class="chip conj">Conjecture</span></td><td><span class="conf" style="--w:45%"><i><b class="c"></b></i><em>45%</em></span></td><td>Memoirs imply it without saying so; Paul's strong resemblance to Peter argues the other way</td></tr>
+        <tr><td>Catherine read Montesquieu, Voltaire, Bayle, Tacitus during these years</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:90%"><i><b class=""></b></i><em>90%</em></span></td><td>Memoirs and her later citations; book purchase records</td></tr>
+        <tr><td>By 1762 she had spent longer in Russia (18 years) than in Germany (14)</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:99%"><i><b class=""></b></i><em>99%</em></span></td><td>Arithmetic</td></tr>
+        <tr><td>Waiting seventeen years is what made her, not the coup</td><td><span class="chip opin">Opinion</span></td><td><span class="conf" style="--w:70%"><i><b class="o"></b></i><em>70%</em></span></td><td>This essay; Massie and Dixon make versions of the same argument</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="foot"><span>An Occasionally True Story</span><span>Page 04</span></div>
+</section>
+
+<!-- ============================ PAGE 5 ============================ -->
+<section class="page" id="p5">
+  <p class="eyebrow rv"><span class="num">05 / 10</span><span class="sep"></span>The coup</p>
+  <h2 class="rv">Eight days in July</h2>
+  <p class="lede rv">The real coup was faster, quieter and stranger than the show's. It took a morning to win the throne and just over a week to lose a husband.</p>
+
+  <p class="rv">On the morning of <strong>9 July 1762</strong> (28 June OS), Alexei Orlov woke Catherine at the palace of Peterhof, told her that one of the conspirators had been arrested, and drove her to St Petersburg. There, regiment by regiment, the Guards swore allegiance to her. The Izmailovsky came first, then the Semyonovsky, then the Preobrazhensky. By afternoon the Senate and the Synod had done the same and Catherine was proclaimed sovereign empress in her own right, not regent for her son. She then put on a Guards uniform, borrowed a sword-knot from a young officer named Grigory Potemkin, and rode at the head of fourteen thousand troops towards Peter.</p>
+  <p class="rv">Peter, at Oranienbaum with his mistress and a few hundred Holstein soldiers, dithered. Field Marshal Münnich urged him to sail to Kronstadt and rally the fleet; by the time he tried, Kronstadt had already declared for Catherine. He wrote to his wife proposing to share power. She did not reply. He wrote again offering to abdicate if he could keep his mistress, his dog and his violin. She sent him an abdication to sign. He signed it. Frederick the Great, who had a lot to lose, remarked that Peter had let himself be dethroned "like a child being sent to bed."</p>
+  <p class="rv">Peter was taken to the estate of Ropsha under the guard of Alexei Orlov. On <strong>17 July</strong>, eight days after the coup, he was dead. The court announced "hemorrhoidal colic." Diplomats in St Petersburg found this implausible, since Peter was thirty-four, and reports of bruising around the neck circulated almost at once. A letter attributed to Alexei Orlov, known only from a copy made decades later by Fyodor Rostopchin after the original was reportedly burned, describes a drunken quarrel at dinner with Prince Baryatinsky and adds that "before we could separate them, he was dead," begging Catherine's forgiveness. Whether the letter is genuine, whether the death was ordered, whether it was a brawl that went too far: none of it has been settled. What is settled is that Catherine never punished anyone for it and made Alexei Orlov a count.</p>
+
+  <div class="compare rv">
+    <div class="show">
+      <span class="tag"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>In the show</span>
+      <p>The coup closes Season 1 with a palace shoot-out. Peter survives as a captive husband for two more seasons, gradually falls in love with his wife, and finally rides onto a frozen lake in Season 3 and goes through the ice. A Cossack lookalike, Pugachev, both played by Hoult, carries on the confusion.</p>
+    </div>
+    <div class="hist">
+      <span class="tag"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v18l-7-4-7 4V4z"/></svg>In history</span>
+      <p>No shots were fired. Peter was dead within eight days of losing the throne and Catherine never remarried. The lookalike is the show's cleverest theft: the real Yemelyan Pugachev, a Don Cossack, did claim in 1773 to be Peter III miraculously escaped, and a quarter of Russia briefly believed him.</p>
+    </div>
+  </div>
+
+  <p class="rv">The comparison is unfair to the show in one respect. The historical coup is dramatically inert because it worked; the interesting question, what happens to a marriage when one spouse has deposed the other and both are still alive, is one history refused to run. McNamara ran the experiment. Three seasons of a captive emperor and an empress who cannot decide whether to execute him or sleep with him are what you get when you let Peter live, and the answer the show gives, that they would have destroyed each other, is more or less what Catherine's own contemporaries assumed too.</p>
+
+  <div class="ledger rv">
+    <h4><span>Evidence ledger</span><span>Page 05</span></h4>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Claim</th><th>Status</th><th>Confidence</th><th>Source</th></tr></thead>
+        <tbody>
+        <tr><td>Coup began the morning of 9 July 1762; Izmailovsky, Semyonovsky, Preobrazhensky swore in turn</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:95%"><i><b class=""></b></i><em>95%</em></span></td><td>Catherine's own account to Poniatowski; Guards records; de Madariaga</td></tr>
+        <tr><td>Catherine rode out in Guards uniform with c. 14,000 troops</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:90%"><i><b class=""></b></i><em>90%</em></span></td><td>Multiple eyewitness accounts; numbers vary 12–14k</td></tr>
+        <tr><td>Potemkin lent her a sword-knot that day</td><td><span class="chip conj">Conjecture</span></td><td><span class="conf" style="--w:50%"><i><b class="c"></b></i><em>50%</em></span></td><td>Court anecdote first recorded later; Montefiore treats it as probable</td></tr>
+        <tr><td>Peter asked to keep his mistress, his dog and his violin</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:75%"><i><b class=""></b></i><em>75%</em></span></td><td>Reported in diplomatic dispatches at the time; wording varies</td></tr>
+        <tr><td>Frederick II: Peter let himself be dethroned like a child sent to bed</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:80%"><i><b class=""></b></i><em>80%</em></span></td><td>Frederick's correspondence, widely quoted; exact phrasing differs by translation</td></tr>
+        <tr><td>Official cause of death: hemorrhoidal colic</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:99%"><i><b class=""></b></i><em>99%</em></span></td><td>Manifesto of 7 July 1762 OS</td></tr>
+        <tr><td>Bruising around the neck reported by contemporaries</td><td><span class="chip conj">Conjecture</span></td><td><span class="conf" style="--w:65%"><i><b class="c"></b></i><em>65%</em></span></td><td>Diplomatic reports and later accounts; the body was displayed with a high collar</td></tr>
+        <tr><td>The Orlov confession letter is genuine</td><td><span class="chip conj">Conjecture</span></td><td><span class="conf" style="--w:50%"><i><b class="c"></b></i><em>50%</em></span></td><td>Known only from Rostopchin's copy; original reportedly burned by Paul; some Russian historians call it a forgery</td></tr>
+        <tr><td>Peter was killed by Catherine's supporters</td><td><span class="chip conj">Conjecture</span></td><td><span class="conf" style="--w:80%"><i><b class="c"></b></i><em>80%</em></span></td><td>Circumstantial: custody, timing, the reward to Alexei Orlov</td></tr>
+        <tr><td>Catherine ordered the killing</td><td><span class="chip conj">Conjecture</span></td><td><span class="conf" style="--w:40%"><i><b class="c"></b></i><em>40%</em></span></td><td>No document; historians split. She profited, which is not the same as proof</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="foot"><span>An Occasionally True Story</span><span>Page 05</span></div>
+</section>
+
+<!-- ============================ PAGE 6 ============================ -->
+<section class="page" id="p6">
+  <p class="eyebrow rv"><span class="num">06 / 10</span><span class="sep"></span>Ideas</p>
+  <h2 class="rv">Enlightenment as performance</h2>
+  <p class="lede rv">The show's Catherine wants to give Russia schools, printing presses and science. So did the real one. The gap is in what she was willing to give up to do it, which was almost nothing.</p>
+
+  <p class="rv">Catherine's correspondence with <strong>Voltaire</strong> began in 1763 and ran until his death in 1778. It was flattering on both sides and useful to both: Voltaire got an empress who quoted him, Catherine got Europe's most famous writer telling Europe that Russia was civilised now. They never met. In 1765 she bought <strong>Diderot's</strong> entire library when he was short of money, left the books in his house, and paid him a salary as its librarian, fifty years in advance. In 1773 he came to St Petersburg and lectured her for five months on how to reform Russia; she listened, said his ideas would look wonderful on paper, and reminded him that she wrote "on human skin, which is ticklish and irritable."</p>
+  <p class="rv">The <em>Nakaz</em>, or Instruction, of 1767 is the document that shows what she meant. It is a 526-article manifesto drawn largely from Montesquieu and Beccaria, proposing rule of law, limits on torture, religious tolerance and a defined role for the nobility. She summoned a Legislative Commission of some 560 elected deputies from every estate except the serfs to turn it into a law code. They met for eighteen months, argued, and were dismissed when war with Turkey began. No code came of it. Catherine kept the text in print and let the applause in Paris do the rest.</p>
+  <p class="rv">Where she acted rather than wrote, the record is better. In October 1768, with smallpox a routine killer at every level of society, she had the English physician Thomas Dimsdale inoculate her and her son Paul in secret, then announced it, made Dimsdale a baron, and set up inoculation clinics across the empire. In 1764 she founded the <strong>Smolny Institute</strong>, the first state school for girls in Russia, and bought the 225 paintings that became the <strong>Hermitage</strong>. She wrote comedies and comic operas, edited a satirical journal, and in 1783 allowed private printing presses, then spent the 1790s shutting the ones that printed the wrong things, after the French Revolution had shown her where Enlightenment could end.</p>
+
+  <div class="compare rv">
+    <div class="show">
+      <span class="tag"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>In the show</span>
+      <p>Catherine fights the court for a girls' school and a press, gets herself variolated against smallpox to shame the sceptics, and hosts Voltaire at the palace in Season 2 where he turns out to be a dirty-minded old man who adores her.</p>
+    </div>
+    <div class="hist">
+      <span class="tag"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v18l-7-4-7 4V4z"/></svg>In history</span>
+      <p>School, press and inoculation are all real, though spread over twenty years rather than one season. Voltaire never set foot in Russia. The "dirty-minded old man who adores her" is, on the evidence of the letters, a fair summary.</p>
+    </div>
+  </div>
+
+  <p class="pull rv">"You philosophers are fortunate. You write on paper, which is smooth and patient. I, poor empress, write on human skin."<small>Catherine to Diderot, as reported by the French envoy Ségur; possibly polished in the retelling, which is true of most of her best lines</small></p>
+
+  <div class="ledger rv">
+    <h4><span>Evidence ledger</span><span>Page 06</span></h4>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Claim</th><th>Status</th><th>Confidence</th><th>Source</th></tr></thead>
+        <tbody>
+        <tr><td>Corresponded with Voltaire 1763–1778; they never met</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:99%"><i><b class=""></b></i><em>99%</em></span></td><td>The letters survive; Voltaire never left Ferney for Russia</td></tr>
+        <tr><td>Bought Diderot's library in 1765, left it with him, paid him as librarian in advance</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:95%"><i><b class=""></b></i><em>95%</em></span></td><td>Diderot's correspondence; de Madariaga</td></tr>
+        <tr><td>Diderot spent about five months in St Petersburg, 1773–74</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:95%"><i><b class=""></b></i><em>95%</em></span></td><td>Diderot's own notes; Massie</td></tr>
+        <tr><td>The "paper vs. human skin" line</td><td><span class="chip conj">Conjecture</span></td><td><span class="conf" style="--w:55%"><i><b class="c"></b></i><em>55%</em></span></td><td>Reported by Ségur in memoirs written decades later; in character, unverifiable</td></tr>
+        <tr><td>Nakaz of 1767, c. 526 articles, largely from Montesquieu and Beccaria</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:90%"><i><b class=""></b></i><em>90%</em></span></td><td>Text of the Nakaz; article count varies with supplements</td></tr>
+        <tr><td>Legislative Commission of c. 560 deputies, dismissed as the Turkish war began</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:90%"><i><b class=""></b></i><em>90%</em></span></td><td>de Madariaga 1981</td></tr>
+        <tr><td>Inoculated by Thomas Dimsdale, October 1768; Dimsdale made a baron</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:99%"><i><b class=""></b></i><em>99%</em></span></td><td>Dimsdale's own account; imperial decree</td></tr>
+        <tr><td>Smolny Institute 1764; Hermitage begun with 225 Gotzkowsky paintings 1764</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:95%"><i><b class=""></b></i><em>95%</em></span></td><td>Institutional records</td></tr>
+        <tr><td>Private presses allowed 1783, curtailed in the 1790s</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:95%"><i><b class=""></b></i><em>95%</em></span></td><td>Decrees of 1783 and 1796; Radishchev and Novikov cases</td></tr>
+        <tr><td>Her Enlightenment was largely performance for a European audience</td><td><span class="chip opin">Opinion</span></td><td><span class="conf" style="--w:65%"><i><b class="o"></b></i><em>65%</em></span></td><td>Dixon 2009 leans this way; de Madariaga gives her more credit</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="foot"><span>An Occasionally True Story</span><span>Page 06</span></div>
+</section>
+
+<!-- ============================ PAGE 7 ============================ -->
+<section class="page" id="p7">
+  <p class="eyebrow rv"><span class="num">07 / 10</span><span class="sep"></span>Empire</p>
+  <h2 class="rv">The map she drew</h2>
+  <p class="lede rv">The show treats Russia as one big, chaotic palace. The actual Russia of 1796 was about 200,000 square miles bigger than the one of 1762, and the new parts are where the twentieth century's wars would be fought.</p>
+
+  <p class="rv">Catherine inherited an empire with no secure southern coast and a Poland on its western border that was large, weak and electing its kings. She left one with a Black Sea fleet, a Crimean naval base, and no Poland at all.</p>
+  <p class="rv"><strong>The south.</strong> The first Russo-Turkish war of her reign, 1768–74, ended with the Treaty of Küçük Kaynarca: Crimea was detached from the Ottoman Empire as a nominally independent khanate, Russian merchant ships gained free passage through the Straits, and Russia won a vaguely worded right to speak for Orthodox Christians in Ottoman lands, a clause that would be stretched for the next 140 years. In 1783 <strong>Grigory Potemkin</strong>, her lover, probable secret husband and most capable partner, annexed Crimea outright and founded Sevastopol. A second war in 1787–92 confirmed it all. Odessa was founded in 1794. Around 1782 Catherine and Joseph II of Austria sketched the <strong>Greek Project</strong>: partition the Ottoman Empire and restore a Byzantine state at Constantinople under her second grandson, whom she had named Constantine for exactly that purpose. It never happened. It never quite went away either.</p>
+  <p class="rv"><strong>The west.</strong> In 1764 Catherine put her former lover Stanisław Poniatowski on the Polish throne, expecting a client. Poland tried to reform instead. In three partitions, 1772, 1793 and 1795, Russia, Prussia and Austria carved the country up until nothing was left; Russia took the largest share, the eastern half. Poniatowski abdicated and died in St Petersburg on a Russian pension. Poland would not reappear on a map until 1918.</p>
+  <p class="rv"><strong>The inside.</strong> The price was paid by the peasantry. Catherine extended serfdom to Ukraine in 1783, gave away hundreds of thousands of state peasants to favourites as private serfs, and in the Charter to the Nobility of 1785 guaranteed the gentry the rights she had so far only promised. When the Cossack <strong>Yemelyan Pugachev</strong> raised the Volga and Urals in 1773 under the name of Peter III, promising freedom from serfdom, the rebellion took two years and a real army to crush. He was executed in Moscow in January 1775. Catherine had the Yaik river renamed so no one would remember where it started.</p>
+
+  <div class="tablewrap rv">
+    <table>
+      <thead><tr><th>Year</th><th>Gain</th><th>What it set up</th></tr></thead>
+      <tbody>
+        <tr><td>1772</td><td>First partition of Poland</td><td>The "Polish question", 1795–1918</td></tr>
+        <tr><td>1774</td><td>Küçük Kaynarca: access to the Black Sea, protection clause</td><td>The Eastern Question; the Crimean War; the Balkans</td></tr>
+        <tr><td>1783</td><td>Crimea annexed, Sevastopol founded</td><td>The Black Sea Fleet; 1854; 1942; 2014</td></tr>
+        <tr><td>1785</td><td>Charter to the Nobility</td><td>Serfdom locked in until 1861</td></tr>
+        <tr><td>1795</td><td>Third partition; Poland erased</td><td>Russia's western frontier of 1914</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="compare rv">
+    <div class="show">
+      <span class="tag"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>In the show</span>
+      <p>War is something that happens off-screen to Sweden and to the Ottomans in Season 3, mostly so that General Velementov can be drunk about it. Potemkin does not exist. Pugachev is Peter's face on a peasant's body.</p>
+    </div>
+    <div class="hist">
+      <span class="tag"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v18l-7-4-7 4V4z"/></svg>In history</span>
+      <p>The wars were the reign. Potemkin ran the entire south of the empire for a decade. Pugachev looked nothing like Peter, which did not stop tens of thousands from following him.</p>
+    </div>
+  </div>
+
+  <div class="ledger rv">
+    <h4><span>Evidence ledger</span><span>Page 07</span></h4>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Claim</th><th>Status</th><th>Confidence</th><th>Source</th></tr></thead>
+        <tbody>
+        <tr><td>Territory grew by roughly 200,000 square miles under Catherine</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:70%"><i><b class=""></b></i><em>70%</em></span></td><td>Commonly cited figure; estimates vary with how Poland is counted</td></tr>
+        <tr><td>Küçük Kaynarca 1774: Crimea detached, Black Sea access, Orthodox clause</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:95%"><i><b class=""></b></i><em>95%</em></span></td><td>Treaty text</td></tr>
+        <tr><td>The Orthodox clause underwrote Russian claims for the next 140 years</td><td><span class="chip opin">Opinion</span></td><td><span class="conf" style="--w:75%"><i><b class="o"></b></i><em>75%</em></span></td><td>Standard reading of the Eastern Question; Ottoman scholars argue the clause was narrower than Russia claimed</td></tr>
+        <tr><td>Crimea annexed and Sevastopol founded, 1783</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:99%"><i><b class=""></b></i><em>99%</em></span></td><td>Manifesto of April 1783</td></tr>
+        <tr><td>Catherine and Potemkin secretly married, c. 1774</td><td><span class="chip conj">Conjecture</span></td><td><span class="conf" style="--w:60%"><i><b class="c"></b></i><em>60%</em></span></td><td>Letters in which she calls him husband; no record of a ceremony</td></tr>
+        <tr><td>Greek Project c. 1782; grandson named Constantine for the purpose</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:85%"><i><b class=""></b></i><em>85%</em></span></td><td>Catherine's letter to Joseph II, Sept 1782</td></tr>
+        <tr><td>Poniatowski installed 1764; partitions 1772, 1793, 1795</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:99%"><i><b class=""></b></i><em>99%</em></span></td><td>Treaty record</td></tr>
+        <tr><td>Serfdom extended to Ukraine 1783; hundreds of thousands of state peasants given to favourites</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:80%"><i><b class=""></b></i><em>80%</em></span></td><td>de Madariaga; the running total is an estimate</td></tr>
+        <tr><td>Pugachev claimed to be Peter III; executed Moscow, January 1775; Yaik renamed Ural</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:95%"><i><b class=""></b></i><em>95%</em></span></td><td>Trial record; decree of 1775</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="foot"><span>An Occasionally True Story</span><span>Page 07</span></div>
+</section>
+
+<!-- ============================ PAGE 8 ============================ -->
+<section class="page" id="p8">
+  <p class="eyebrow rv"><span class="num">08 / 10</span><span class="sep"></span>Reputation</p>
+  <h2 class="rv">The myths, and who wrote them</h2>
+  <p class="lede rv">The show's official excuse is that it is "occasionally true." Most of what people believe about Catherine is not true at all, and those stories had authors with motives.</p>
+
+  <h3 class="rv">The horse</h3>
+  <p class="rv">Catherine died of a stroke on 17 November 1796, at sixty-seven, collapsing in her dressing room and dying the next evening in bed. The story that she was crushed by a horse being lowered onto her, or any variant, appears in no contemporary Russian source. It surfaces in French and German gossip after her death, in a Europe that had spent a generation writing pornographic pamphlets about powerful women, Marie Antoinette above all. It survives because it is memorable, and because it does what such stories are for: it turns a woman who ran an empire into a punchline about appetite.</p>
+
+  <h3 class="rv">The lovers</h3>
+  <p class="rv">The documented count is around a dozen across forty-four years, most of them long relationships that ended with pensions, estates and a title. Orlov lasted twelve years, Potemkin the rest of her life in one form or another, and the last, Platon Zubov, was twenty-two when she was sixty. She was open about them, which in an eighteenth-century monarch was the actual scandal; kings kept mistresses as a matter of course, and nobody counted Louis XV's. Catherine's own line was that she could not live a day without love. The pamphleteers' number, in the hundreds, is a number, not a record.</p>
+
+  <h3 class="rv">Potemkin villages</h3>
+  <p class="rv">In 1787 Catherine toured the newly annexed south with Joseph II in tow, and the Saxon envoy Georg von Helbig later wrote that Potemkin had built painted facades along the Dnieper to fake prosperity. Historians who have gone through the accounts find real towns, real fleets at Sevastopol, and a great deal of theatrical staging that no one at the time mistook for anything else. The phrase outlived the facts and became a permanent metaphor, which would have pleased Potemkin, who understood theatre.</p>
+
+  <h3 class="rv">The memoirs</h3>
+  <p class="rv">The most powerful myth-maker of all was Catherine herself. Her memoirs, unfinished and unpublished in her lifetime, were locked away by Paul, circulated in manuscript, and printed by the exile Alexander Herzen in 1859. Everything the world believes about Peter III's rat, his toy soldiers and his cowardice comes from them. They are brilliant, funny and self-serving, the account of a woman who had already won explaining why she had deserved to. <em>The Great</em> takes its cue from that voice more than from any biography; its Catherine narrates her own rise as a comedy in which the men are ridiculous, which is the memoirs' exact register.</p>
+
+  <div class="compare rv">
+    <div class="show">
+      <span class="tag"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>In the show</span>
+      <p>The final scene of Season 3 is Catherine instructing her court, line by line, on the official story of everything that has happened. The joke is that this is where the series has been heading all along.</p>
+    </div>
+    <div class="hist">
+      <span class="tag"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v18l-7-4-7 4V4z"/></svg>In history</span>
+      <p>That is the memoirs. She wrote the official story herself, over decades, and it worked for two centuries. The show's last scene is the truest thing in it.</p>
+    </div>
+  </div>
+
+  <div class="ledger rv">
+    <h4><span>Evidence ledger</span><span>Page 08</span></h4>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Claim</th><th>Status</th><th>Confidence</th><th>Source</th></tr></thead>
+        <tbody>
+        <tr><td>Died of a stroke, 17 November 1796, in her bed</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:99%"><i><b class=""></b></i><em>99%</em></span></td><td>Physicians' record; Rostopchin and Zubov accounts</td></tr>
+        <tr><td>The horse story appears in no contemporary Russian source</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:90%"><i><b class=""></b></i><em>90%</em></span></td><td>Absence in the record; Dixon 2009; Massie's afterword</td></tr>
+        <tr><td>The horse story was seeded by French and German pamphleteers after her death</td><td><span class="chip conj">Conjecture</span></td><td><span class="conf" style="--w:70%"><i><b class="c"></b></i><em>70%</em></span></td><td>Origin never traced to one text; the pattern matches the anti-Marie-Antoinette libels</td></tr>
+        <tr><td>Around twelve documented favourites over 44 years</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:85%"><i><b class=""></b></i><em>85%</em></span></td><td>The list of official favourites is well established; the number depends on who counts</td></tr>
+        <tr><td>Zubov was 22 when she was 60</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:95%"><i><b class=""></b></i><em>95%</em></span></td><td>Birth dates</td></tr>
+        <tr><td>Helbig's account is the source of the Potemkin-village phrase</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:85%"><i><b class=""></b></i><em>85%</em></span></td><td>Helbig, 1797–1800 serial biography</td></tr>
+        <tr><td>The 1787 tour was theatre, not fraud</td><td><span class="chip opin">Opinion</span></td><td><span class="conf" style="--w:75%"><i><b class="o"></b></i><em>75%</em></span></td><td>Panchenko; Montefiore 2000</td></tr>
+        <tr><td>Memoirs suppressed by Paul, printed by Herzen in London, 1859</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:99%"><i><b class=""></b></i><em>99%</em></span></td><td>Publication history</td></tr>
+        <tr><td>The show borrows the memoirs' voice more than any biography</td><td><span class="chip opin">Opinion</span></td><td><span class="conf" style="--w:70%"><i><b class="o"></b></i><em>70%</em></span></td><td>This essay</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="foot"><span>An Occasionally True Story</span><span>Page 08</span></div>
+</section>
+
+<!-- ============================ PAGE 9 ============================ -->
+<section class="page" id="p9">
+  <p class="eyebrow rv"><span class="num">09 / 10</span><span class="sep"></span>Pre-war</p>
+  <h2 class="rv">From Catherine to 1914</h2>
+  <p class="lede rv">If you are studying the world before the First World War, Catherine is not background. Four of the pressures that broke the Russian Empire in 1914–17 are hers.</p>
+
+  <p class="rv"><strong>The Polish frontier.</strong> The partitions gave Russia a western border with no natural line and a large, Catholic, resentful population that rose in 1830 and 1863. The Eastern Front of 1914 was fought across partitioned Poland: Tannenberg and the Masurian Lakes lie in the East Prussia that Peter III handed back to Frederick in 1762, and the Russian retreat of 1915 ran through the territory Catherine took in 1793 and 1795. Poland's re-emergence in 1918 was, from Petrograd's point of view, the partitions being reversed.</p>
+  <p class="rv"><strong>The Straits.</strong> Küçük Kaynarca's clause about Orthodox Christians is the seed of the Eastern Question: a century of Russia claiming a right to intervene in the Ottoman Balkans, of Britain and France pushing back, of the Crimean War fought at Sevastopol in 1854–55. In July 1914 Russia mobilised to protect Serbia, an Orthodox state whose independence it had sponsored under that same logic. In March 1915 Britain and France secretly promised Petrograd Constantinople and the Straits if the Allies won. It was Catherine's Greek Project, drafted 130 years late, and the revolution cancelled it.</p>
+  <p class="rv"><strong>The peasants.</strong> The serfdom Catherine hardened was not abolished until 1861, and then on terms that left peasants paying redemption for land they thought was theirs. Land hunger drove the risings of 1905 and the soldiers' desertions of 1917. The state's answer, from the <em>Nakaz</em> to the last Duma, was the one Catherine had given Diderot: reform on paper, autocracy on skin.</p>
+  <p class="rv"><strong>The German empress.</strong> Catherine was a German princess who spent seventeen years turning herself into something Russians would accept, and the effort held. In 1894 another German princess, Alix of Hesse, married Nicholas II and became Alexandra Feodorovna. She never made the effort, or never could. By 1915 she was <em>nemka</em>, "the German woman", in every barracks and bread queue, suspected of steering the war for Berlin. The dynasty was, technically, the House of Holstein-Gottorp-Romanov, the Holstein half courtesy of Peter III; its founding empress had proven that being German was survivable in Russia if you performed Russianness hard enough. Its last empress proved the converse.</p>
+
+  <ol class="timeline rv">
+    <li><span class="y">1762</span><div class="d">Peter III returns East Prussia to Frederick II; Catherine takes the throne.</div></li>
+    <li><span class="y">1763</span><div class="d">Manifesto inviting foreign settlers; the <b>Volga Germans</b> arrive, to be treated as an enemy population in 1915 and deported in 1941.</div></li>
+    <li><span class="y">1774</span><div class="d">Küçük Kaynarca. Russia enters the Black Sea and the Ottoman Christians' affairs.</div></li>
+    <li><span class="y">1783</span><div class="d">Crimea annexed. Sevastopol founded.</div></li>
+    <li><span class="y">1795</span><div class="d">Poland erased. Russia's 1914 western frontier is drawn.</div></li>
+    <li><span class="y">1854</span><div class="d"><b>Crimean War.</b> Britain and France besiege Sevastopol to stop Russia at the Straits.</div></li>
+    <li><span class="y">1861</span><div class="d">Serfdom abolished, on terms that keep the land question open.</div></li>
+    <li><span class="y">1894</span><div class="d">Alix of Hesse becomes Alexandra Feodorovna.</div></li>
+    <li><span class="y">1914</span><div class="d">Russia mobilises for Orthodox Serbia. Tannenberg is fought on the ground Peter III gave away.</div></li>
+    <li><span class="y">1915</span><div class="d">The Constantinople Agreement promises Russia the Straits. Catherine's Greek Project, at last, on paper.</div></li>
+    <li><span class="y">1917</span><div class="d">The dynasty Catherine secured ends. Poland, the Baltics and Finland leave the map she drew.</div></li>
+  </ol>
+
+  <div class="ledger rv">
+    <h4><span>Evidence ledger</span><span>Page 09</span></h4>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Claim</th><th>Status</th><th>Confidence</th><th>Source</th></tr></thead>
+        <tbody>
+        <tr><td>Tannenberg and the Masurian Lakes lie in East Prussia, Russian-occupied 1758–62 and returned by Peter III</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:95%"><i><b class=""></b></i><em>95%</em></span></td><td>Map; Treaty of St Petersburg 1762</td></tr>
+        <tr><td>1763 manifesto invited foreign settlers; Volga Germans faced liquidation laws in 1915 and deportation in 1941</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:95%"><i><b class=""></b></i><em>95%</em></span></td><td>Manifesto of 22 July 1763; 1915 laws; 1941 decree</td></tr>
+        <tr><td>Constantinople Agreement, March 1915, promised Russia the Straits</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:99%"><i><b class=""></b></i><em>99%</em></span></td><td>Published by the Bolsheviks, November 1917</td></tr>
+        <tr><td>Russia mobilised in July 1914 in defence of Serbia</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:99%"><i><b class=""></b></i><em>99%</em></span></td><td>Standard histories</td></tr>
+        <tr><td>The Straits obsession of 1914 descends from Küçük Kaynarca and the Greek Project</td><td><span class="chip opin">Opinion</span></td><td><span class="conf" style="--w:70%"><i><b class="o"></b></i><em>70%</em></span></td><td>Lieven 2015 makes the long-lineage case; others stress 19th-century causes</td></tr>
+        <tr><td>Serfdom's terms in 1861 fed 1905 and 1917</td><td><span class="chip opin">Opinion</span></td><td><span class="conf" style="--w:65%"><i><b class="o"></b></i><em>65%</em></span></td><td>Mainstream but contested; industrial and wartime causes weigh at least as much</td></tr>
+        <tr><td>Alexandra was called nemka and suspected of pro-German sympathy</td><td><span class="chip fact">Fact</span></td><td><span class="conf" style="--w:90%"><i><b class=""></b></i><em>90%</em></span></td><td>Police and Duma reports 1915–17; Lieven</td></tr>
+        <tr><td>Catherine's success and Alexandra's failure both turned on performing Russianness</td><td><span class="chip opin">Opinion</span></td><td><span class="conf" style="--w:70%"><i><b class="o"></b></i><em>70%</em></span></td><td>This essay; Dixon on Catherine, Lieven on Alexandra</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="foot"><span>An Occasionally True Story</span><span>Page 09</span></div>
+</section>
+
+<!-- ============================ PAGE 10 ============================ -->
+<section class="page" id="p10">
+  <p class="eyebrow rv"><span class="num">10 / 10</span><span class="sep"></span>Closing</p>
+  <h2 class="rv">Why wrong can be right</h2>
+  <p class="lede rv">A show that invents a lover, kills the wrong people, and moves a coup by seventeen years has no business being useful to a student of history. It is anyway, for one reason.</p>
+
+  <p class="rv"><em>The Great</em> is not a dramatisation of Catherine's reign. It is a dramatisation of Catherine's <em>problem</em>: how a person with ideas takes power in a place that does not want them, and what the ideas turn into once she has it. Every historical liberty serves that. Peter lives so the show can keep asking whether she is any better than him. Elizabeth becomes a comic aunt so that Catherine's only rival for the throne is her husband, not a reigning empress with a secret police. Voltaire visits so that Enlightenment can be a character in the room rather than a stack of letters. Pugachev gets Peter's face so that the question "who is the real emperor?" is literal.</p>
+  <p class="rv">The real Catherine would have recognised the technique, because it was hers. She rearranged her own past in the memoirs, staged her empire for foreign visitors, and let Voltaire tell Europe a Russia that did not quite exist yet. The show's title cards, "occasionally true" and then "almost entirely untrue," are a more honest version of what she was doing when she called her first six months on the throne a restoration of order.</p>
+  <p class="rv">For the student, then, three uses. First, the show is a very good map of the myths, which is the first thing you need before you can see past them. Second, its Catherine is the memoirs' Catherine, witty and unreliable, and reading her that way is the correct way to read the memoirs. Third, and most of all, it keeps in view the thing the textbooks flatten: that the Russia of 1914, with its Polish frontier, its Black Sea obsession, its unfinished peasant question and its German empress, was a country somebody built, on purpose, in thirty-four years, out of a court that ran on vodka and rumour. The show gets the vodka and the rumour right. The rest is on the map.</p>
+
+  <p class="pull rv">Occasionally true is what history is, once it has passed through the people who survived it.<small>Which is not a defence of the show so much as an observation about the memoirs</small></p>
+
+  <h3 class="rv">Sources, and how far to trust each</h3>
+  <p class="rv small">Type tells you what kind of evidence it is; the score is how much weight this essay puts on it when sources disagree. Nothing in the show counts as evidence about the eighteenth century; it is evidence only about the show.</p>
+  <div class="tablewrap rv">
+    <table>
+      <thead><tr><th>Source</th><th>Type</th><th>Weight</th><th>Used for</th></tr></thead>
+      <tbody>
+        <tr><td>Catherine II, <em>Memoirs</em> (Cruse &amp; Hoogenboom trans., 2005)</td><td>Primary, partisan</td><td><span class="conf" style="--w:45%"><i><b class="c"></b></i><em>45%</em></span></td><td>Her childhood, the marriage, Peter's character. Vivid and self-serving; every uncorroborated story from here is marked conjecture.</td></tr>
+        <tr><td>Isabel de Madariaga, <em>Russia in the Age of Catherine the Great</em> (1981); <em>Catherine the Great: A Short History</em> (1990)</td><td>Scholarly, archival</td><td><span class="conf" style="--w:95%"><i><b></b></i><em>95%</em></span></td><td>The Nakaz, the Legislative Commission, the partitions, serfdom figures. The reference when sources conflict.</td></tr>
+        <tr><td>Robert K. Massie, <em>Catherine the Great: Portrait of a Woman</em> (2011)</td><td>Narrative biography</td><td><span class="conf" style="--w:80%"><i><b></b></i><em>80%</em></span></td><td>Chronology of the seventeen years, the coup day by day. Leans on the memoirs more than de Madariaga does.</td></tr>
+        <tr><td>Simon Dixon, <em>Catherine the Great</em> (2009)</td><td>Scholarly biography</td><td><span class="conf" style="--w:90%"><i><b></b></i><em>90%</em></span></td><td>How the myths were made; her image management; the Enlightenment-as-performance argument.</td></tr>
+        <tr><td>Carol S. Leonard, <em>Reform and Regicide: The Reign of Peter III</em> (1993)</td><td>Scholarly, revisionist</td><td><span class="conf" style="--w:75%"><i><b></b></i><em>75%</em></span></td><td>Peter III's legislation. The case for the defence; deliberately one-sided, used with that in mind.</td></tr>
+        <tr><td>Simon Sebag Montefiore, <em>Prince of Princes: The Life of Potemkin</em> (2000)</td><td>Narrative biography</td><td><span class="conf" style="--w:75%"><i><b></b></i><em>75%</em></span></td><td>Potemkin, the secret marriage, the 1787 tour, the sword-knot anecdote.</td></tr>
+        <tr><td>Dominic Lieven, <em>Towards the Flame</em> (2015)</td><td>Scholarly, diplomatic history</td><td><span class="conf" style="--w:90%"><i><b></b></i><em>90%</em></span></td><td>The Straits, Poland and the dynasty on the road to 1914. Page 9 leans on him.</td></tr>
+        <tr><td>Tony McNamara (creator), <em>The Great</em>, Hulu, 2020–2023</td><td>Fiction</td><td><span class="conf" style="--w:0%"><i><b class="o"></b></i><em>0%</em></span></td><td>What the show does, not what happened. Cancellation: <a href="https://variety.com/2023/tv/news/the-great-canceled-3-seasons-hulu-1235708497/">Variety</a>. Title cards: <a href="https://screenrant.com/great-season-2-true-story-historical-accuracy-changes/">Screen Rant</a>, <a href="https://collider.com/the-great-historical-accuracy-stupidity-why-its-good/">Collider</a>.</td></tr>
+        <tr><td>Web summaries of Peter III's death (<a href="https://www.unofficialroyalty.com/assassination-of-peter-iii-emperor-of-all-russia-1762/">Unofficial Royalty</a> and similar)</td><td>Tertiary</td><td><span class="conf" style="--w:40%"><i><b class="o"></b></i><em>40%</em></span></td><td>Cross-checking the Orlov letter wording and the official cause of death. Convenient, not authoritative.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="rv small">Confidence scores are the author's, not the sources'. A 99 means the claim is on the calendar; a 50 means two serious historians would argue about it over dinner; below 40 means it survives because it is a good story.</p>
+
+  <div class="foot"><span>An Occasionally True Story</span><span>Page 10</span></div>
+</section>
+
+</main>
+
+<script>
+(function () {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var bar = document.querySelector('.progress');
+  function progress() {
+    if (!bar) return;
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (h > 0 ? Math.min(100, window.scrollY / h * 100) : 0) + '%';
+  }
+  window.addEventListener('scroll', progress, { passive: true });
+  progress();
+
+  function count(el) {
+    var to = parseInt(el.getAttribute('data-count'), 10);
+    if (reduce || isNaN(to)) { el.textContent = to; return; }
+    var t0 = null, dur = 1100;
+    function step(ts) {
+      if (!t0) t0 = ts;
+      var k = Math.min(1, (ts - t0) / dur);
+      k = 1 - Math.pow(1 - k, 3);
+      el.textContent = Math.round(to * k);
+      if (k < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  var items = document.querySelectorAll('.rv, .conf');
+  if (!('IntersectionObserver' in window) || reduce) {
+    items.forEach(function (el) { el.classList.add('in'); });
+    document.querySelectorAll('[data-count]').forEach(count);
+    return;
+  }
+  var stagger = new WeakMap();
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      var el = e.target;
+      // stagger siblings that enter together
+      var key = el.parentNode;
+      var now = performance.now();
+      var st = stagger.get(key);
+      if (!st || now - st.t > 300) { st = { t: now, n: 0 }; stagger.set(key, st); }
+      el.style.setProperty('--d', (st.n++ * 0.08) + 's');
+      el.classList.add('in');
+      el.querySelectorAll('[data-count]').forEach(count);
+      el.querySelectorAll('.conf').forEach(function (c) { c.classList.add('in'); });
+      io.unobserve(el);
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+  items.forEach(function (el) { io.observe(el); });
+
+  // timeline rows and table rows stagger inside their container
+  document.querySelectorAll('.timeline.rv li').forEach(function (li, i) { li.style.transitionDelay = (0.25 + i * 0.12) + 's'; });
+  document.querySelectorAll('.tablewrap.rv tbody tr').forEach(function (tr, i) { tr.style.transitionDelay = (0.1 + i * 0.07) + 's'; });
+})();
+</script>
+</body>
+</html>
