@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Vùng sống</title>
+<meta name="description" content="Hiểu Cơ Thể: năm vùng sống trên bản đồ Việt Nam, cơ chế Bắt, bốn cuộc vượt ranh, bàn soi và kế hoạch các phiên.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+  :root {
+    --ground: #FAFAFA;
+    --surface: #F2F2F4;
+    --card: #FFFFFF;
+    --ink: #1D1D1F;
+    --ink-2: #6E6E73;
+    --ink-3: #8E8E93;
+    --line: #E3E3E7;
+    --accent: #2E6B4F;
+    --accent-soft: #E6F0EA;
+    --display: "Inter Tight", "SF Pro Display", -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --body: "Inter", "SF Pro Text", -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0F0F10;
+      --surface: #1A1A1C;
+      --card: #1C1C1E;
+      --ink: #F5F5F7;
+      --ink-2: #A1A1A6;
+      --ink-3: #8E8E93;
+      --line: #2C2C2E;
+      --accent: #6BC596;
+      --accent-soft: #15261D;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #0F0F10;
+    --surface: #1A1A1C;
+    --card: #1C1C1E;
+    --ink: #F5F5F7;
+    --ink-2: #A1A1A6;
+    --ink-3: #8E8E93;
+    --line: #2C2C2E;
+    --accent: #6BC596;
+    --accent-soft: #15261D;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    padding-inline: 16px;
+    overflow-x: hidden;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+  .wrap { max-width: 760px; margin: 0 auto; }
+  .wide { max-width: 1040px; margin: 0 auto; }
+
+  /* ---------- hero ---------- */
+  header.hero { padding-block: 96px 40px; }
+  .eyebrow {
+    font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink-2); margin: 0 0 20px; display: flex; gap: 12px; align-items: center;
+  }
+  .eyebrow .num { color: var(--accent); }
+  h1, h2, h3 { font-family: var(--display); letter-spacing: -0.02em; margin: 0; }
+  h1 { font-size: clamp(40px, 7vw, 72px); line-height: 1.04; font-weight: 700; max-width: 14ch; }
+  .lede { font-size: clamp(19px, 2.2vw, 22px); line-height: 1.5; color: var(--ink-2); margin: 24px 0 0; max-width: 36em; }
+  .meta { font-size: 14px; color: var(--ink-3); margin-top: 24px; }
+  figure.shot { margin: 48px auto 0; }
+  figure.shot img { width: 100%; height: auto; display: block; border-radius: 18px; background: var(--surface); }
+  figure.shot figcaption { font-size: 14px; color: var(--ink-2); margin-top: 12px; text-align: center; }
+
+  nav.toc { padding-block: 32px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  nav.toc ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px 24px; }
+  nav.toc a { color: var(--ink); font-size: 15px; }
+  nav.toc span { color: var(--ink-3); font-variant-numeric: tabular-nums; margin-right: 8px; }
+
+  /* ---------- sections ---------- */
+  section { padding-block: 88px 24px; }
+  h2 { font-size: clamp(30px, 4.4vw, 44px); line-height: 1.1; font-weight: 700; margin-bottom: 20px; }
+  h3 { font-size: 21px; line-height: 1.3; font-weight: 600; margin: 40px 0 12px; }
+  p { margin: 0 0 16px; }
+  .muted { color: var(--ink-2); }
+  .small { font-size: 15px; }
+  strong { font-weight: 600; }
+  em { font-style: italic; }
+  .quote { font-family: var(--display); font-size: 21px; line-height: 1.45; color: var(--ink); border-left: 2px solid var(--accent); padding-left: 20px; margin: 28px 0; }
+
+  /* ---------- cards & grids ---------- */
+  .grid { display: grid; gap: 16px; margin-top: 28px; }
+  .g2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .g3 { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+  .card { background: var(--card); border-radius: 18px; padding: 24px; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+  :root[data-theme="dark"] .card { box-shadow: none; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .card { box-shadow: none; } }
+  .card h3 { margin: 0 0 8px; font-size: 19px; }
+  .card p { font-size: 15px; color: var(--ink-2); margin: 0 0 8px; }
+  .card p:last-child { margin-bottom: 0; }
+  .tag { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; color: var(--accent); background: var(--accent-soft); padding: 3px 10px; border-radius: 999px; margin-bottom: 12px; }
+  .tag.grey { color: var(--ink-2); background: var(--surface); }
+  .place { font-size: 14px; color: var(--ink); font-weight: 500; margin: 12px 0 0; }
+
+  /* decisions */
+  .decisions { list-style: none; padding: 0; margin: 28px 0 0; counter-reset: d; }
+  .decisions li { display: grid; grid-template-columns: 40px 1fr; gap: 12px; padding: 18px 0; border-top: 1px solid var(--line); }
+  .decisions li:last-child { border-bottom: 1px solid var(--line); }
+  .decisions li::before { counter-increment: d; content: counter(d); font-family: var(--display); font-weight: 600; font-size: 20px; color: var(--accent); }
+  .decisions b { display: block; font-weight: 600; }
+  .decisions div > span { color: var(--ink-2); font-size: 15px; }
+
+  /* zoom diagram */
+  .zoom { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 12px; align-items: stretch; margin-top: 32px; }
+  .zoom > .arr { align-self: center; }
+  .zoom .lvl { background: var(--card); border-radius: 18px; padding: 20px; display: flex; flex-direction: column; }
+  .zoom .lvl .n { font-family: var(--display); font-size: 13px; color: var(--accent); font-weight: 600; letter-spacing: 0.04em; }
+  .zoom .lvl b { font-family: var(--display); font-size: 19px; font-weight: 600; display: block; margin-top: 4px; }
+  .zoom .lvl span { font-size: 14px; color: var(--ink-2); }
+  .zoom .lvl svg.bg { width: 32px; height: 32px; fill: var(--accent); margin-bottom: 16px; }
+  .zoom .arr { width: 20px; height: 20px; fill: var(--ink-3); }
+  @media (max-width: 720px) {
+    .zoom { grid-template-columns: 1fr; }
+    .zoom .arr { transform: rotate(90deg); justify-self: center; }
+  }
+
+  /* loop */
+  .loop { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 28px 0; }
+  .loop .step { background: var(--card); border-radius: 999px; padding: 8px 16px; font-size: 15px; font-weight: 500; }
+  .loop .step.hi { background: var(--accent); color: var(--ground); }
+  .loop svg { width: 14px; height: 14px; fill: var(--ink-3); }
+
+  /* tables */
+  .table-wrap { overflow-x: auto; margin-top: 24px; -webkit-overflow-scrolling: touch; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  th, td { text-align: left; vertical-align: top; padding: 14px 16px 14px 0; border-top: 1px solid var(--line); }
+  th { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-2); border-top: 0; padding-top: 0; }
+  td:first-child { font-weight: 600; white-space: nowrap; }
+  td .muted { font-size: 14px; }
+  @media (max-width: 600px) {
+    table.stack thead { display: none; }
+    table.stack tr { display: block; padding: 16px 0; border-top: 1px solid var(--line); }
+    table.stack td { display: block; border: 0; padding: 2px 0; white-space: normal; }
+    table.stack td[data-k]::before { content: attr(data-k); display: block; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); margin-top: 8px; }
+  }
+
+  /* steps */
+  ol.walk { padding: 0; margin: 28px 0 0; list-style: none; counter-reset: w; }
+  ol.walk li { position: relative; padding: 0 0 22px 48px; }
+  ol.walk li::before { counter-increment: w; content: counter(w); position: absolute; left: 0; top: 0; width: 30px; height: 30px; border-radius: 50%; background: var(--surface); color: var(--ink); font-family: var(--display); font-weight: 600; font-size: 14px; display: grid; place-items: center; }
+  ol.walk li b { font-weight: 600; }
+
+  /* waves */
+  .waves { list-style: none; padding: 0; margin: 28px 0 0; }
+  .waves li { display: grid; grid-template-columns: 110px 1fr; gap: 16px; padding: 16px 0; border-top: 1px solid var(--line); font-size: 15px; }
+  .waves li.d { grid-template-columns: 1fr; color: var(--ink-2); font-size: 14px; padding: 10px 0 10px 126px; border-top: 1px dashed var(--line); }
+  .waves li > b { font-family: var(--display); font-weight: 600; }
+  .waves .done { color: var(--accent); font-weight: 600; }
+  @media (max-width: 600px) {
+    .waves li { grid-template-columns: 1fr; gap: 4px; }
+    .waves li.d { padding-left: 0; }
+  }
+
+  .next { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin-top: 28px; }
+  .next ol { margin: 8px 0 0; padding-left: 20px; font-size: 15px; }
+  .next li { margin-bottom: 10px; }
+  .next li::marker { color: var(--accent); font-weight: 600; }
+
+  /* i button */
+  .t { white-space: nowrap; }
+  button.i {
+    -webkit-appearance: none; appearance: none; border: 0; background: none; padding: 0; margin: 0 0 0 2px;
+    width: 26px; height: 26px; display: inline-grid; place-items: center; vertical-align: -6px; cursor: pointer;
+    position: relative; color: var(--ink-3);
+  }
+  button.i::after { content: ""; position: absolute; inset: -9px; }
+  button.i svg { width: 17px; height: 17px; fill: currentColor; }
+  button.i:hover, button.i[aria-expanded="true"] { color: var(--accent); }
+  #tip {
+    position: absolute; z-index: 10; max-width: 280px; background: var(--card); color: var(--ink);
+    border-radius: 14px; padding: 14px 16px; font-size: 15px; line-height: 1.5;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.12), 0 0 0 1px var(--line);
+    opacity: 0; transform: translateY(4px); transition: opacity .16s ease, transform .16s ease; pointer-events: none;
+  }
+  #tip.on { opacity: 1; transform: none; pointer-events: auto; }
+  #tip b { display: block; font-family: var(--display); font-weight: 600; margin-bottom: 4px; }
+  @media (prefers-reduced-motion: reduce) { #tip { transition: none; } }
+
+  footer { padding-block: 72px 96px; color: var(--ink-3); font-size: 14px; border-top: 1px solid var(--line); margin-top: 88px; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="ic-i" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 5.25a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5ZM13.25 17h-2.5v-6h2.5v6Z"/></symbol>
+  <symbol id="ic-arr" viewBox="0 0 24 24"><path d="M13.3 5.3a1 1 0 0 1 1.4 0l6 6a1 1 0 0 1 0 1.4l-6 6a1 1 0 0 1-1.4-1.4L17.6 13H4a1 1 0 1 1 0-2h13.6l-4.3-4.3a1 1 0 0 1 0-1.4Z"/></symbol>
+  <symbol id="ic-map" viewBox="0 0 24 24"><path d="M8.2 3.1a1 1 0 0 1 .7 0l6.1 2.3 5.6-2.1A1 1 0 0 1 22 4.2v14.4a1 1 0 0 1-.6.9l-6 2.3a1 1 0 0 1-.7 0l-6.1-2.3-5.6 2.1A1 1 0 0 1 2 20.6V6.2a1 1 0 0 1 .6-.9l5.6-2.2Z"/></symbol>
+  <symbol id="ic-home" viewBox="0 0 24 24"><path d="M11.3 2.3a1 1 0 0 1 1.4 0l9 8.5A1 1 0 0 1 21 12.5h-1.5V20a1 1 0 0 1-1 1H15v-5.5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1V21H5.5a1 1 0 0 1-1-1v-7.5H3a1 1 0 0 1-.7-1.7l9-8.5Z"/></symbol>
+  <symbol id="ic-fish" viewBox="0 0 24 24"><path d="M2.2 7.4a1 1 0 0 1 1.3-.2L7 9.6C8.9 7.6 11.6 6 14.5 6 18.8 6 22 9.7 22 12s-3.2 6-7.5 6c-2.9 0-5.6-1.6-7.5-3.6l-3.5 2.4a1 1 0 0 1-1.5-1.1L3.3 12 2 8.3a1 1 0 0 1 .2-.9ZM16.5 10.5a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5Z"/></symbol>
+</svg>
+
+<header class="hero wrap">
+  <p class="eyebrow"><span class="num">Hiểu Cơ Thể</span><span>Doc 29 · bản đọc</span></p>
+  <h1>Năm vùng sống trên bản đồ Việt Nam</h1>
+  <p class="lede">Mỗi vùng là một bức tranh động như Ao làng: con vật sống theo nếp, em ngồi nấp và <em>bắt vào sổ</em> những việc chúng làm. Bắt đủ thì mở được bản khắc. Đi qua các vùng, em nhặt dấu của bốn cuộc vượt ranh trong lịch sử sự sống.</p>
+  <p class="meta">Cập nhật 06/10/2026 · nguồn: <code>docs/29-ke-hoach-tong.md</code>, <code>docs/29-vung-song.md</code></p>
+</header>
+
+<figure class="shot wide">
+  <img src="ao-trua.jpg" width="1600" height="1133" alt="Ao làng lúc trưa: cá rô, cá chép, ếch trên lá sen, ốc trên cuống sen, bụi lau bên trái để nấp.">
+  <figcaption>Ao làng lúc trưa, bản đang chạy. Mọi vùng mới dựng theo khuôn này.</figcaption>
+</figure>
+
+<nav class="toc wrap" aria-label="Mục lục">
+  <ol>
+    <li><a href="#chot"><span>01</span>Sáu câu đã chốt</a></li>
+    <li><a href="#ban-do"><span>02</span>Bản đồ và ba tầng phóng</a></li>
+    <li><a href="#vung"><span>03</span>Năm vùng sống</a></li>
+    <li><a href="#bat"><span>04</span>Bắt</a></li>
+    <li><a href="#hang"><span>05</span>Bốn hạng</a></li>
+    <li><a href="#vuot-ranh"><span>06</span>Bốn cuộc vượt ranh</a></li>
+    <li><a href="#truyen"><span>07</span>Cốt truyện vùng mới</a></li>
+    <li><a href="#buoi"><span>08</span>Một buổi chơi</a></li>
+    <li><a href="#ban-soi"><span>09</span>Bàn soi</a></li>
+    <li><a href="#ke-hoach"><span>10</span>Kế hoạch các phiên</a></li>
+    <li><a href="#chu"><span>11</span>Chữ không dùng</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<section id="chot" class="wrap">
+  <p class="eyebrow"><span class="num">01</span>Đã chốt ngày 06/10/2026</p>
+  <h2>Sáu câu đã chốt</h2>
+  <ol class="decisions">
+    <li><div><b>Gọi là <span class="t">Vùng sống<button class="i" data-term="vung-song" aria-label="Giải thích: Vùng sống" aria-expanded="false"><svg><use href="#ic-i"/></svg></button></span></b><span>Biển · Nước lợ · Nước ngọt · Đất liền · Tán rừng. Chữ nào có định nghĩa trong game đều có nút i như trang này.</span></div></li>
+    <li><div><b>Nút tên là <span class="t">Bắt<button class="i" data-term="bat" aria-label="Giải thích: Bắt" aria-expanded="false"><svg><use href="#ic-i"/></svg></button></span></b><span>Bắt vào sổ, không bắt ra khỏi cảnh. Con thật ở lại.</span></div></li>
+    <li><div><b>Làm phần nào trước cũng được</b><span>Miễn mỗi phiên ghi lại và không dẫm chân phiên khác: có bảng phiên, bảng giữ tệp, phiên gom deploy.</span></div></li>
+    <li><div><b>Thêm hạng <code>to</code></b><span>Con mang dấu vượt ranh mở một hai tờ, không cần vẽ đủ sáu lớp.</span></div></li>
+    <li><div><b>Không bắt buộc cảnh chết</b><span>Rùa con chỉ một câu đếm: nhiều con nở, ít con lớn tới lúc đẻ.</span></div></li>
+    <li><div><b>Bản đồ là bản đồ Việt Nam</b><span>Có núi, sông, biển, Hoàng Sa, Trường Sa. Phóng vào từng vùng là một bức tranh động.</span></div></li>
+  </ol>
+  <p class="muted small" style="margin-top:20px">Thêm một làn: <strong>bàn soi</strong>, công cụ làm song song để theo dõi game (mục 09).</p>
+</section>
+
+<section id="ban-do" class="wrap">
+  <p class="eyebrow"><span class="num">02</span>Bản đồ</p>
+  <h2>Từ dải đất, phóng vào một cái ao</h2>
+  <p>Mở game là bản đồ Việt Nam khắc gỗ trên giấy điệp: núi phía tây, sông Hồng và sông Mê Kông, Biển Đông, quần đảo Hoàng Sa và Trường Sa. Mỗi vùng sống là một chấm trên đất thật. Chạm một chấm, máy quay phóng vào trong chưa tới một giây, bản đồ nhoà thành tranh.</p>
+  <div class="zoom">
+    <div class="lvl"><svg class="bg"><use href="#ic-map"/></svg><span class="n">TẦNG 1</span><b>Bản đồ Việt Nam</b><span>Chấm vùng, vệt mực vượt ranh, <em>Đang vẽ</em> ở vùng chưa dựng</span></div>
+    <svg class="arr" aria-hidden="true"><use href="#ic-arr"/></svg>
+    <div class="lvl"><svg class="bg"><use href="#ic-home"/></svg><span class="n">TẦNG 2</span><b>Vùng</b><span>Làng em: Ao, Ruộng, Sân, Nhà, Đất. Chính là trang Làng hôm nay</span></div>
+    <svg class="arr" aria-hidden="true"><use href="#ic-arr"/></svg>
+    <div class="lvl"><svg class="bg"><use href="#ic-fish"/></svg><span class="n">TẦNG 3</span><b>Cảnh động</b><span>Hệ sinh thái chạy được, có nấp, có Bắt, có biến cố</span></div>
+  </div>
+  <p class="small muted" style="margin-top:20px">Bản đồ là địa lý, không là bậc thang: không vùng nào <em>cao hơn</em> vùng nào. Đường vượt ranh vẽ hai chiều. Nút về thu từng tầng. Không khoá vùng theo thứ tự.</p>
+</section>
+
+<section id="vung" class="wide">
+  <div class="wrap" style="margin:0 auto">
+    <p class="eyebrow"><span class="num">03</span>Vùng và chỗ</p>
+    <h2>Năm vùng sống</h2>
+    <p>Mỗi vùng có một <strong>nơi chủ</strong>: hệ sinh thái chạy được, cốt truyện riêng, dạy một ý về đàn. Chỗ trên bản đồ là đề xuất; phiên thiết kế chốt theo loài có thật ở đó.</p>
+  </div>
+  <div class="grid g3">
+    <div class="card"><span class="tag">Đã có</span><h3>Nước ngọt</h3><p>Ao làng, Ruộng. Ý về đàn: khác nhau trong đàn, con hợp để lại nhiều con hơn.</p><p class="place">Làng em · đồng bằng sông Hồng, gần làng tranh Đông Hồ</p></div>
+    <div class="card"><span class="tag">Dựng đầu tiên</span><h3><span class="t">Nước lợ<button class="i" data-term="nuoc-lo" aria-label="Giải thích: Nước lợ" aria-expanded="false"><svg><use href="#ic-i"/></svg></button></span></h3><p>Cửa sông, rừng ngập mặn. Gánh hai cuộc vượt ranh cùng lúc. Triều lên xuống là đồng hồ sẵn có.</p><p class="place">Cà Mau, Cần Giờ hay Xuân Thuỷ</p></div>
+    <div class="card"><span class="tag grey">Sau Cửa sông</span><h3>Biển</h3><p>Thảm cỏ biển, rạn, bãi cát. Ý về đàn: sinh ra nhiều hơn số sống được.</p><p class="place">Côn Đảo · bãi rùa xanh lên đẻ</p></div>
+    <div class="card"><span class="tag grey">Sau Biển</span><h3>Tán rừng</h3><p>Rừng nhiều tầng, cây sung chín. Ý về đàn: nhiều nhánh, cùng một lối.</p><p class="place">Cúc Phương hay Cát Tiên</p></div>
+    <div class="card"><span class="tag grey">Giữ như cũ</span><h3>Đất liền</h3><p>Chưa có nơi chủ. Đất, Gỗ mục, Sân, Nhà giữ kiểu nơi chung.</p><p class="place">Làng em</p></div>
+    <div class="card"><span class="tag grey">Để dành</span><h3>Núi</h3><p>Hoàng Liên Sơn, Trường Sơn: vẽ trên bản đồ, chưa là vùng.</p><p class="place">Phía tây và tây bắc</p></div>
+  </div>
+</section>
+
+<section id="bat" class="wrap">
+  <p class="eyebrow"><span class="num">04</span>Cơ chế chính</p>
+  <h2>Bắt: kiểu Pokémon, mà con vật ở lại</h2>
+  <p>Em ngồi <span class="t">nấp<button class="i" data-term="nap" aria-label="Giải thích: Nấp" aria-expanded="false"><svg><use href="#ic-i"/></svg></button></span>. Lúc một con đang làm việc đặc trưng của nó, nút <strong>Bắt</strong> hiện cạnh nó, tên việc nhỏ bên dưới (<em>đớp khí</em>). Em bấm: tờ giấy điệp bay tới, in dáng ấy, bay vào sổ. Con không dừng, không giật mình.</p>
+  <div class="loop" aria-label="Vòng Bắt">
+    <span class="step">Tới</span><svg aria-hidden="true"><use href="#ic-arr"/></svg>
+    <span class="step">Nấp</span><svg aria-hidden="true"><use href="#ic-arr"/></svg>
+    <span class="step">Xem, sổ ghi</span><svg aria-hidden="true"><use href="#ic-arr"/></svg>
+    <span class="step hi">Bắt ba nét</span><svg aria-hidden="true"><use href="#ic-arr"/></svg>
+    <span class="step">Bản khắc</span><svg aria-hidden="true"><use href="#ic-arr"/></svg>
+    <span class="step">Bàn mổ</span><svg aria-hidden="true"><use href="#ic-arr"/></svg>
+    <span class="step">Bàn so, triện</span>
+  </div>
+  <p>Mỗi con có ba <span class="t">nét<button class="i" data-term="net" aria-label="Giải thích: Nét" aria-expanded="false"><svg><use href="#ic-i"/></svg></button></span>, mỗi nét là một việc của cơ thể: thở, ăn, đi, đẻ, lẩn. Đủ ba nét thì Thầy khắc xong <span class="t">bản khắc<button class="i" data-term="ban-khac" aria-label="Giải thích: Bản khắc" aria-expanded="false"><svg><use href="#ic-i"/></svg></button></span>, và con hạng <code>mo</code> hay <code>to</code> lên được bàn mổ. Ít nhất một nét là dấu vượt ranh nếu con ấy có dấu.</p>
+  <p class="quote">Bắt vào sổ thôi, con ấy vẫn ở lại ao. Đủ ba nét thì ta khắc nó vào gỗ, rồi mở gỗ ra xem.</p>
+  <div class="grid g2">
+    <div class="card"><h3>Lấy của Pokémon</h3><p>Sổ riêng từng vùng. Con đã thấy hiện bóng, con đã bắt đủ hiện bản in. Nhiệm vụ xem con làm việc X. Bắt đúng lúc. Rình, nấp, con vật sợ người.</p></div>
+    <div class="card"><h3>Bỏ</h3><p>Con này tiến hoá thành con kia (cái bẫy của Spore). Hiếm, huyền thoại, lấp lánh. Nhốt, đấu, mang theo. Nhiều bản sao. Bắt hụt: nút chỉ hiện khi bắt được.</p></div>
+  </div>
+  <p class="small muted" style="margin-top:20px">Sổ ghi <em>“Đã bắt 4 / 9 con ở Cửa sông”</em>, số xám, không thanh tiến độ. Con dở ghi <em>“2 / 3 nét”</em>.</p>
+</section>
+
+<section id="hang" class="wrap">
+  <p class="eyebrow"><span class="num">05</span>Theo giá vẽ</p>
+  <h2>Bốn hạng</h2>
+  <p>Một con mở đủ sáu lớp tốn vài nghìn dòng mã hình. Năm vùng, mỗi vùng chín con, thì không ai vẽ nổi. Nên mỗi con một hạng.</p>
+  <div class="table-wrap">
+    <table class="stack">
+      <thead><tr><th>Hạng</th><th>Sau khi bắt đủ</th><th>Dùng cho</th></tr></thead>
+      <tbody>
+        <tr><td><code>mo</code></td><td data-k="Sau khi bắt đủ">Mở đủ các <span class="t">tờ<button class="i" data-term="to" aria-label="Giải thích: Tờ" aria-expanded="false"><svg><use href="#ic-i"/></svg></button></span> lớp trên bàn mổ</td><td data-k="Dùng cho">1 con mỗi vùng</td></tr>
+        <tr><td><code>to</code> <span class="tag" style="margin:0 0 0 6px">mới</span></td><td data-k="Sau khi bắt đủ">Mở một hai tờ mang dấu: tờ Xương của vây cá heo, tờ Thở của cá thòi lòi</td><td data-k="Dùng cho">2–3 con mang dấu mỗi vùng</td></tr>
+        <tr><td><code>soi</code></td><td data-k="Sau khi bắt đủ">Kính lúp phóng vật sống</td><td data-k="Dùng cho">Côn trùng, cây, vi sinh</td></tr>
+        <tr><td><code>nen</code></td><td data-k="Sau khi bắt đủ">Chạm, Thầy kể một câu</td><td data-k="Dùng cho">Con đi ngang</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="vuot-ranh" class="wrap">
+  <p class="eyebrow"><span class="num">06</span>Trục tiến hoá</p>
+  <h2>Bốn cuộc vượt ranh</h2>
+  <p>Trục chạy xuyên các vùng, thay cho thứ tự màn. Mỗi cuộc xảy ra nhiều lần, ở nhiều nhánh, theo cả hai chiều. Game nói điều ấy bằng chính số <span class="t">dấu vượt ranh<button class="i" data-term="dau" aria-label="Giải thích: Dấu vượt ranh" aria-expanded="false"><svg><use href="#ic-i"/></svg></button></span>: mỗi cuộc cần dấu từ ít nhất hai nhánh. Đủ dấu thì <span class="t">bóng tổ tiên<button class="i" data-term="bong" aria-label="Giải thích: Bóng tổ tiên" aria-expanded="false"><svg><use href="#ic-i"/></svg></button></span> hiện, kèm một dấu hỏi ở chỗ khoa học chưa biết.</p>
+  <div class="table-wrap">
+    <table class="stack">
+      <thead><tr><th>Cuộc</th><th>Dấu trên con hôm nay</th><th>Bóng</th><th>Dấu hỏi</th></tr></thead>
+      <tbody>
+        <tr><td>Biển → nước ngọt</td><td data-k="Dấu">Tôm càng xanh: con non nở ở nước lợ. Cá chình: lớn ở sông, đẻ ngoài biển</td><td data-k="Bóng"><span class="muted">không cần</span></td><td data-k="Dấu hỏi"><span class="muted">Cá đầu tiên sống ở biển nông hay nước ngọt</span></td></tr>
+        <tr><td>Nước → cạn</td><td data-k="Dấu">Cá rô đớp khí. Cá thòi lòi chống vây trên bùn. Ếch nửa đời dưới nước. Cua còng lên bãi</td><td data-k="Bóng"><em>Tiktaalik</em>, ~375 triệu năm</td><td data-k="Dấu hỏi"><span class="muted">Dấu chân ở Ba Lan cũ hơn ~20 triệu năm</span></td></tr>
+        <tr><td>Cạn → trời</td><td data-k="Dấu">Chuồn chuồn. Gà: lông có trước khi bay. Dơi: cánh là bàn tay. Thằn lằn bay, sóc bay: lượn</td><td data-k="Bóng"><em>Archaeopteryx</em>, ~150 triệu năm</td><td data-k="Dấu hỏi"><span class="muted">Dơi bay từ đâu</span></td></tr>
+        <tr><td>Cạn → biển</td><td data-k="Dấu">Cá heo ngoi thở, xương tay trong vây. Rùa biển lên cát đẻ. Bò biển cho con bú. Cỏ biển: cây có hoa quay lại biển</td><td data-k="Bóng"><em>Pakicetus</em>, ~50 triệu năm</td><td data-k="Dấu hỏi"><span class="muted">—</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small muted" style="margin-top:20px">Ba điều mỗi cuộc phải cho thấy: hai chiều, nhiều lần, đồ cũ sửa lại (phổi có trước khi lên cạn, lông có trước khi bay). Mỗi dấu là một claim có nguồn đã duyệt; chưa duyệt thì dấu không hiện.</p>
+</section>
+
+<section id="truyen" class="wide">
+  <div class="wrap" style="margin:0 auto">
+    <p class="eyebrow"><span class="num">07</span>Nháp, phiên thiết kế viết tiếp</p>
+    <h2>Cốt truyện ba vùng mới</h2>
+    <p>Mỗi vùng là một mùa, có một <span class="t">biến cố<button class="i" data-term="bien-co" aria-label="Giải thích: Biến cố" aria-expanded="false"><svg><use href="#ic-i"/></svg></button></span> tự nhiên chắc chắn xảy ra, không lỗi của ai. Thầy nói ít hơn vùng trước.</p>
+  </div>
+  <div class="grid g3">
+    <div class="card"><span class="tag">Cửa sông</span><h3>Triều rút</h3><p>Triều rút, bãi bùn lộ ra: cá thòi lòi chống vây bò ra, cua còng ra ăn, cá khác lùi theo nước.</p><p>Đêm trăng, tôm mẹ xuống cửa sông. Tôm non ngược sông về ruộng ao.</p><p><em>“Lúc triều rút, bãi bùn đầy mồi mà chỉ vài con ra được.”</em></p></div>
+    <div class="card"><span class="tag">Biển</span><h3>Đêm rùa lên bãi</h3><p>Cá heo phun hơi, rùa ngoi, cá thì không. Rùa mẹ bò lên cát, đào ổ, đẻ trứng có vỏ, về biển.</p><p>Bàn so đầu tiên đặt <span class="t">hội tụ<button class="i" data-term="hoi-tu" aria-label="Giải thích: Hội tụ" aria-expanded="false"><svg><use href="#ic-i"/></svg></button></span> (cá heo, cá mập) cạnh <span class="t">cùng gốc<button class="i" data-term="cung-goc" aria-label="Giải thích: Cùng gốc" aria-expanded="false"><svg><use href="#ic-i"/></svg></button></span> (vây cá heo, tay em).</p></div>
+    <div class="card"><span class="tag">Tán rừng</span><h3>Chạng vạng mùa sung</h3><p>Sung chín. Dơi ra khỏi hốc cây, chồn bay lượn giữa hai thân. Em xếp mọi con vào <em>lượn</em> và <em>đập cánh</em>, rồi theo chất làm cánh.</p><p><em>“Không ai dạy ai bay.”</em></p></div>
+  </div>
+</section>
+
+<section id="buoi" class="wrap">
+  <p class="eyebrow"><span class="num">08</span>20–30 phút</p>
+  <h2>Một buổi chơi, từ lúc mở tới lúc tắt</h2>
+  <ol class="walk">
+    <li><b>Bản đồ Việt Nam.</b> Làng em in mực đậm, vùng khác nét chì, vùng chưa dựng ghi <em>Đang vẽ</em>.</li>
+    <li><b>Phóng vào Làng em.</b> Bản đồ nhoà thành trang Làng: Ao, Ruộng, Sân, Nhà, Đất.</li>
+    <li><b>Phóng vào Ao.</b> Bức tranh động. Thanh trên: nút về, tên nơi, buổi. Dock: Sổ tay, Kính lúp.</li>
+    <li><b>Nấp.</b> Chạm bụi lau. Con vật quên em, sống theo nếp.</li>
+    <li><b>Bắt nét đầu.</b> Cá rô ngoi lên đớp khí, nút Bắt hiện. Thầy nói một câu, chỉ lần này.</li>
+    <li><b>Mở sổ, mặt Đã bắt.</b> Cá rô <em>1 / 3 nét</em>. Nút i cạnh chữ <em>nét</em>.</li>
+    <li><b>Bắt đủ.</b> Bản khắc cá rô in mực. Nét đớp khí mang dấu: trang Vượt ranh có ô đầu, bản đồ có vệt mực nhỏ.</li>
+    <li><b>Mở bản khắc.</b> Bàn mổ: tìm mê lộ, nhận <span class="t">triện<button class="i" data-term="trien" aria-label="Giải thích: Triện" aria-expanded="false"><svg><use href="#ic-i"/></svg></button></span>.</li>
+    <li><b>Bàn so.</b> Cá rô cạnh cá chép: sợi chỉ cùng gốc.</li>
+    <li><b>Biến cố.</b> Mùa khô ở Ao: một ý về đàn.</li>
+    <li><b>Câu bỏ ngỏ.</b> <em>“Cá mà ra khỏi nước được à?”</em> Chạm: bản đồ thu nhỏ, chấm Cửa sông sáng.</li>
+    <li><b>Cửa sông.</b> Triều rút, bắt cá thòi lòi chống vây. Đủ dấu từ hai nhánh: bóng <em>Tiktaalik</em> hiện, kèm dấu hỏi.</li>
+    <li><b>Về.</b> Cảnh, vùng, bản đồ. Sổ giữ hết.</li>
+  </ol>
+  <p class="small muted">Nhịp mong muốn: nét đầu trong 60–90 giây sau khi nấp, bản khắc đầu trong 5 phút, dấu vượt ranh đầu trong buổi đầu. Đo khi chơi thử (T14).</p>
+</section>
+
+<section id="ban-soi" class="wrap">
+  <p class="eyebrow"><span class="num">09</span>Game editor</p>
+  <h2>Bàn soi, làm song song</h2>
+  <p>Hai công cụ, hai người dùng. Mỗi vùng mới phải chạy trên bàn soi trước khi lên tay em.</p>
+  <div class="grid g2">
+    <div class="card"><span class="tag">T15 · trong repo, chỉ dev</span><h3>Bàn soi cảnh</h3><p>Mở một cảnh đang chạy, có lớp soi: con nào ở đâu, trạng thái gì, đích, chỗ nấp, cửa sổ Bắt, mực nước.</p><p>Dừng, ×8, ×60, nhảy buổi, gây biến cố. Bảng phủ nét: ô nào tối sau một ngày game là nét em không bao giờ bắt được. Đo nhịp thưởng. Hồ sơ giả. Sửa số rồi ghi YAML.</p></div>
+    <div class="card"><span class="tag grey">T16 · Bàn giấy</span><h3>Người chơi thật</h3><p>Tab Hiểu Cơ Thể trong Bàn giấy, cạnh Đồng Vọng. Ai chơi, tới vùng nào, bắt bao nhiêu, dấu nào, kẹt ở đâu.</p><p>Chỉ đọc, đi qua đủ ba lớp khoá như hàm cũ.</p></div>
+  </div>
+</section>
+
+<section id="ke-hoach" class="wrap">
+  <p class="eyebrow"><span class="num">10</span>Cho các phiên Claude Code</p>
+  <h2>Kế hoạch: sáu làn, sáu đợt</h2>
+  <div class="table-wrap">
+    <table class="stack">
+      <thead><tr><th>Làn</th><th>Gồm</th></tr></thead>
+      <tbody>
+        <tr><td>A · Lõi Bắt</td><td data-k="Gồm">T01 soát Ao · T02 luật Bắt · T03 nút Bắt, sổ Đã bắt · T04 hạng <code>to</code> · T05 dấu vượt ranh · T17 nút i</td></tr>
+        <tr><td>B · Động cơ</td><td data-k="Gồm">T06 động cơ hệ sinh thái chung</td></tr>
+        <tr><td>C · Bản đồ</td><td data-k="Gồm">T18 vẽ bản đồ Việt Nam · T13 bản đồ trong game, phóng, bóng tổ tiên</td></tr>
+        <tr><td>D · Tranh</td><td data-k="Gồm">P1 kho và bản khắc · P2 nướng tranh · tranh từng vùng</td></tr>
+        <tr><td>E · Vùng mới</td><td data-k="Gồm">Cửa sông T07 → T08 + T09 → T10 · Biển T11 · Tán rừng T12</td></tr>
+        <tr><td>F · Bàn soi</td><td data-k="Gồm">T15 bàn soi cảnh · T16 Bàn giấy</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Các đợt</h3>
+  <ul class="waves">
+    <li><b>Đợt 0</b><span>T01 soát Ao <span class="done">xong</span> · T06 động cơ <span class="done">xong</span> · P1 kho tranh</span></li>
+    <li><b>Đợt 1</b><span>T18 vẽ bản đồ · P2 nướng tranh · T07 thiết kế Cửa sông · T15a bàn soi Ao · T17 nút i</span></li>
+    <li class="d">Gom, deploy: bản sửa Ao</li>
+    <li><b>Đợt 2</b><span>T02 luật Bắt → T03 nút Bắt · T04 hạng to · T08 + T09 Cửa sông · T15b</span></li>
+    <li class="d">Gom, deploy: Bắt lên tay em ở Ao</li>
+    <li><b>Đợt 3</b><span>T05 dấu vượt ranh · T13 bản đồ trong game · T10 Cửa sông (a)(b) · T16 Bàn giấy</span></li>
+    <li class="d">Gom, deploy: bản đồ Việt Nam, Vượt ranh</li>
+    <li><b>Đợt 4</b><span>T10 (c)(d) · T14 chơi thử, quyết giữ hay sửa Bắt</span></li>
+    <li class="d">Gom, deploy: Cửa sông</li>
+    <li><b>Đợt 5</b><span>T11 Biển và T12 Tán rừng, hai vùng song song được</span></li>
+  </ul>
+  <p class="small muted" style="margin-top:16px">Thứ tự trong một đợt không quan trọng. Thứ tự giữa các đợt có lý do: T03 cần luật của T02, T13 cần tranh bản đồ và vùng, T10 cần động cơ, Bắt, hạng <code>to</code>, tri thức và tranh.</p>
+
+  <h3>Mở phiên nào tiếp</h3>
+  <div class="next">
+    <div class="card"><h3>Vẽ</h3><ol><li><strong>T18 · vẽ bản đồ Việt Nam.</strong> Không giữ tệp chung với ai.</li><li><strong>P2 · nướng tranh</strong> nếu chưa mở, để tranh mới xuất thẳng theo luật nướng.</li><li><strong>T09 · vẽ Cửa sông</strong>, sau khi T07 có danh sách tranh.</li></ol></div>
+    <div class="card"><h3>Lối chơi lên tay em</h3><ol><li><strong>T02 · luật Bắt</strong>, mở được ngay.</li><li><strong>T03 · nút Bắt</strong>: phiên này deploy lần đầu Bắt.</li><li><strong>D · gom, deploy</strong> khi cây sạch, để bản sửa Ao của T01 lên.</li></ol></div>
+  </div>
+
+  <h3>Giao thức không dẫm chân</h3>
+  <ol class="walk">
+    <li><b>Nhận việc.</b> Đọc bảng phiên ở đầu <code>29-tien-do.md</code>. Tệp mình cần có phiên khác giữ thì chọn việc khác.</li>
+    <li><b>Giữ chỗ.</b> Thêm dòng <code>ĐANG · T03 · giữ: … · giờ</code>, commit riêng dòng ấy.</li>
+    <li><b>Bước nhỏ.</b> Mỗi bước một commit, chỉ stage tệp mình giữ, ghi <em>còn dở gì</em>.</li>
+    <li><b>Đụng tệp người khác:</b> không sửa, ghi vào <code>29-cau-hoi.md</code>.</li>
+    <li><b>Xong.</b> Đổi dòng thành <code>XONG</code>. Cây sạch thì deploy, không thì ghi <code>chờ D</code>.</li>
+    <li><b>Hết context.</b> Phiên mới dán <em>“Tiếp T03”</em>, đọc mục tiến độ, làm bước kế.</li>
+  </ol>
+</section>
+
+<section id="chu" class="wrap">
+  <p class="eyebrow"><span class="num">11</span>Luật chữ</p>
+  <h2>Chữ không dùng</h2>
+  <div class="table-wrap">
+    <table class="stack">
+      <thead><tr><th>Không nói</th><th>Vì sao</th><th>Nói thay</th></tr></thead>
+      <tbody>
+        <tr><td><em>đang tiến hoá thành</em></td><td data-k="Vì sao">Con hôm nay không đi đâu cả</td><td data-k="Nói thay"><em>sống được ở cả hai nơi</em></td></tr>
+        <tr><td><em>mắt xích còn thiếu</em></td><td data-k="Vì sao">Cây không phải xích</td><td data-k="Nói thay"><em>một họ hàng xa</em></td></tr>
+        <tr><td><em>để thích nghi</em></td><td data-k="Vì sao">Nói như có mục đích</td><td data-k="Nói thay"><em>những con có … thì …</em></td></tr>
+        <tr><td><em>tổ tiên của cá thòi lòi</em></td><td data-k="Vì sao">Không loài hôm nay nào là tổ tiên ai</td><td data-k="Nói thay"><span class="t"><em>tổ tiên chung</em><button class="i" data-term="to-tien-chung" aria-label="Giải thích: Tổ tiên chung" aria-expanded="false"><svg><use href="#ic-i"/></svg></button></span></td></tr>
+        <tr><td><em>cao hơn, tiến bộ hơn</em></td><td data-k="Vì sao">Bản đồ là địa lý, không là bậc thang</td><td data-k="Nói thay">—</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+</main>
+
+<footer class="wrap">
+  Bản đọc của <code>docs/29-ke-hoach-tong.md</code> và <code>docs/29-vung-song.md</code> trong repo Hiểu Cơ Thể. Khi hai chỗ nói khác nhau, repo đúng.
+</footer>
+
+<div id="tip" role="dialog" aria-live="polite"></div>
+
+<script>
+(function () {
+  var T = {
+    'vung-song': ['Vùng sống', 'Một kiểu chỗ ở có nước, đất, nắng giống nhau. Nhiều nơi khác nhau có thể cùng một vùng sống.'],
+    'nuoc-lo': ['Nước lợ', 'Nước pha giữa nước sông và nước biển, ở chỗ sông đổ ra biển. Mặn nhiều hay ít theo con nước.'],
+    'nap': ['Nấp', 'Ngồi yên sau bụi cây. Con vật quên em đi, và sống như lúc không có ai.'],
+    'bat': ['Bắt', 'Bắt vào sổ: in lại con vật đúng lúc nó đang làm một việc. Con thật vẫn ở lại.'],
+    'net': ['Nét', 'Một việc em đã tận mắt thấy con vật làm. Đủ ba nét thì có bản khắc.'],
+    'ban-khac': ['Bản khắc', 'Hình con vật khắc trên gỗ rồi in ra giấy. Mở bản khắc là xem bên trong con vật.'],
+    'to': ['Tờ', 'Một lớp của bản khắc: da, cơ, xương, ruột… Có con mở được đủ tờ, có con chỉ một hai tờ.'],
+    'cung-goc': ['Cùng gốc', 'Hai bộ phận có chung một gốc từ tổ tiên chung, dù hôm nay trông khác nhau.'],
+    'hoi-tu': ['Hội tụ', 'Hai nhánh xa nhau mà làm ra cái giống nhau, mỗi nhánh tự làm lấy.'],
+    'dau': ['Dấu vượt ranh', 'Một điều trên cơ thể con vật hôm nay cho thấy họ hàng của nó từng đổi chỗ sống, như từ nước lên cạn.'],
+    'bong': ['Bóng tổ tiên', 'Hình mờ của một con sống rất lâu trước đây, dựng lại từ hoá thạch. Không ai biết chắc nó trông thế nào.'],
+    'to-tien-chung': ['Tổ tiên chung', 'Một loài xưa mà hai loài hôm nay cùng sinh ra từ đó. Không loài hôm nay nào là tổ tiên của loài kia.'],
+    'bien-co': ['Biến cố', 'Một chuyện tự nhiên chắc chắn xảy ra ở vùng ấy: triều rút, rùa lên bãi, mùa khô.'],
+    'trien': ['Triện', 'Dấu em nhận khi tìm ra một bộ phận trên bàn mổ.']
+  };
+  var tip = document.getElementById('tip');
+  var open = null;
+
+  function close() {
+    if (!open) return;
+    open.setAttribute('aria-expanded', 'false');
+    tip.classList.remove('on');
+    open = null;
+  }
+
+  function place(btn) {
+    var r = btn.getBoundingClientRect();
+    var w = Math.min(280, document.documentElement.clientWidth - 32);
+    tip.style.width = w + 'px';
+    var left = r.left + window.scrollX + r.width / 2 - w / 2;
+    var min = 16 + window.scrollX, max = window.scrollX + document.documentElement.clientWidth - 16 - w;
+    left = Math.max(min, Math.min(max, left));
+    var top = r.bottom + window.scrollY + 8;
+    tip.style.left = left + 'px';
+    tip.style.top = top + 'px';
+    var h = tip.offsetHeight;
+    if (r.bottom + 8 + h > window.innerHeight - 8 && r.top - 8 - h > 8) {
+      tip.style.top = (r.top + window.scrollY - 8 - h) + 'px';
+    }
+  }
+
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('button.i');
+    if (btn) {
+      e.preventDefault();
+      if (open === btn) { close(); return; }
+      close();
+      var t = T[btn.dataset.term];
+      if (!t) return;
+      tip.innerHTML = '';
+      var b = document.createElement('b'); b.textContent = t[0];
+      tip.appendChild(b);
+      tip.appendChild(document.createTextNode(t[1]));
+      tip.setAttribute('aria-label', t[0]);
+      place(btn);
+      tip.classList.add('on');
+      btn.setAttribute('aria-expanded', 'true');
+      open = btn;
+      return;
+    }
+    if (!tip.contains(e.target)) close();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && open) { var b = open; close(); b.focus(); }
+  });
+  window.addEventListener('resize', function () { if (open) place(open); });
+})();
+</script>
+</body>
+</html>
