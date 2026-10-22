@@ -1,0 +1,1168 @@
+<!doctype html>
+<html lang="vi" data-lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Mặt Trăng khóa mặt</title>
+<meta name="description" content="Lực thủy triều, khóa thủy triều và vì sao Mặt Trăng lùi xa — giải thích bằng hình cắt giấy tương tác. Tidal forces and tidal locking, explained in interactive paper cut-outs.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+<script>
+  (function () {
+    var l = 'vi';
+    try {
+      var q = new URLSearchParams(location.search).get('lang');
+      l = (q === 'en' || q === 'vi') ? q : (localStorage.getItem('mt-lang') || 'vi');
+    } catch (e) {}
+    document.documentElement.dataset.lang = l;
+    document.documentElement.lang = l;
+  })();
+</script>
+<style>
+  :root {
+    --ground: #F6F3EC;
+    --surface: #EEE9DE;
+    --card: #FFFFFF;
+    --ink: #1D1D1F;
+    --ink-2: #66635C;
+    --ink-3: #8A867D;
+    --line: #E2DCCF;
+    --accent: #D9692F;
+    --accent-ink: #B4531F;
+    --accent-soft: #F8E6D8;
+    --well: #E6E0D3;
+    --night: #1A2140;
+    --display: "Inter Tight", "SF Pro Display", -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --body: "Inter", "SF Pro Text", -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #111320;
+      --surface: #1A1D2C;
+      --card: #1C1F2E;
+      --ink: #F3EFE6;
+      --ink-2: #ABA698;
+      --ink-3: #8C8779;
+      --line: #2A2E40;
+      --accent: #F08A4B;
+      --accent-ink: #F6A473;
+      --accent-soft: #2E2119;
+      --well: #2A2E40;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #111320;
+    --surface: #1A1D2C;
+    --card: #1C1F2E;
+    --ink: #F3EFE6;
+    --ink-2: #ABA698;
+    --ink-3: #8C8779;
+    --line: #2A2E40;
+    --accent: #F08A4B;
+    --accent-ink: #F6A473;
+    --accent-soft: #2E2119;
+    --well: #2A2E40;
+    color-scheme: dark;
+  }
+
+  :root[data-lang="en"] body [lang="vi"],
+  :root[data-lang="vi"] body [lang="en"] { display: none !important; }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    padding-inline: 16px;
+    overflow-x: hidden;
+  }
+  a { color: var(--accent-ink); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+  .wrap { max-width: 760px; margin: 0 auto; }
+  .wide { max-width: 1040px; margin: 0 auto; }
+
+  /* ---------- top bar ---------- */
+  .bar {
+    position: sticky; top: 0; z-index: 10;
+    margin-inline: -16px; padding: 10px 16px;
+    background: color-mix(in srgb, var(--ground) 88%, transparent);
+    backdrop-filter: saturate(1.4) blur(12px); -webkit-backdrop-filter: saturate(1.4) blur(12px);
+  }
+  .bar .wide { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .brand { font-family: var(--display); font-weight: 600; font-size: 15px; letter-spacing: -0.01em; color: var(--ink); display: flex; align-items: center; gap: 8px; }
+  .brand svg { width: 18px; height: 18px; fill: var(--accent); }
+  .seg { display: inline-flex; background: var(--well); border-radius: 999px; padding: 3px; gap: 2px; flex-wrap: wrap; }
+  .seg button {
+    font: inherit; font-size: 14px; font-weight: 500; color: var(--ink-2);
+    border: 0; background: transparent; border-radius: 999px; padding: 6px 14px; cursor: pointer; min-height: 32px;
+  }
+  .seg button[aria-pressed="true"] { background: var(--card); color: var(--ink); box-shadow: 0 1px 2px rgba(0,0,0,0.08); }
+  .seg.lang button { padding: 4px 12px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; }
+
+  /* ---------- hero ---------- */
+  header.hero { padding-block: 40px 56px; }
+  .hero .wide { display: grid; gap: 32px; align-items: center; grid-template-columns: 1fr; }
+  @media (min-width: 900px) {
+    .hero .wide { grid-template-columns: 1.4fr 1fr; min-height: calc(100dvh - 140px); }
+  }
+  .eyebrow {
+    font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink-2); margin: 0 0 20px; display: flex; gap: 12px; align-items: center;
+  }
+  .eyebrow .num { color: var(--accent-ink); }
+  h1, h2, h3 { font-family: var(--display); letter-spacing: -0.02em; margin: 0; }
+  h1 { font-size: clamp(36px, 4.6vw, 56px); line-height: 1.1; font-weight: 700; text-wrap: balance; }
+  .lede { font-size: clamp(18px, 2vw, 21px); line-height: 1.5; color: var(--ink-2); margin: 22px 0 0; max-width: 34em; }
+  .cta { margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .btn {
+    font: inherit; font-size: 15px; font-weight: 600; border: 0; cursor: pointer;
+    background: var(--accent); color: #fff; border-radius: 999px; padding: 11px 20px; min-height: 44px;
+    display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+  }
+  .btn:hover { text-decoration: none; filter: brightness(1.05); }
+  .btn:active { transform: translateY(1px); }
+  .btn svg { width: 16px; height: 16px; fill: currentColor; }
+  .btn.ghost { background: var(--well); color: var(--ink); }
+  .btn[disabled] { opacity: .5; cursor: default; }
+  .meta { font-size: 14px; color: var(--ink-3); }
+
+  /* ---------- paper scenes ---------- */
+  .scene {
+    position: relative; margin: 28px 0 0; border-radius: 22px; overflow: hidden;
+    background: var(--night); aspect-ratio: var(--ar, 16 / 9);
+    box-shadow: 0 1px 2px rgba(20, 24, 48, 0.08), 0 8px 28px rgba(20, 24, 48, 0.10);
+    touch-action: pan-y;
+  }
+  .scene > svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .scene::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .22; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+  .hero-scene { aspect-ratio: 1 / 1; margin: 0; max-width: 560px; justify-self: center; width: 100%; }
+  @media (max-width: 899px) { .hero-scene { aspect-ratio: 4 / 3; } }
+
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: center; margin-top: 18px; }
+  .range { display: grid; gap: 4px; flex: 1 1 260px; font-size: 14px; color: var(--ink-2); }
+  .range b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .range .lbl { display: flex; justify-content: space-between; gap: 12px; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 30px; background: transparent; margin: 0; cursor: pointer; }
+  input[type=range]::-webkit-slider-runnable-track { height: 6px; border-radius: 3px; background: var(--well); }
+  input[type=range]::-moz-range-track { height: 6px; border-radius: 3px; background: var(--well); }
+  input[type=range]::-moz-range-progress { height: 6px; border-radius: 3px; background: var(--accent); }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%; background: var(--accent); margin-top: -9px; border: 3px solid var(--card); box-shadow: 0 1px 4px rgba(0,0,0,0.25); }
+  input[type=range]::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: var(--accent); border: 3px solid var(--card); box-shadow: 0 1px 4px rgba(0,0,0,0.25); }
+  .icon-btn {
+    width: 44px; height: 44px; border-radius: 50%; border: 0; cursor: pointer;
+    background: var(--well); color: var(--ink); display: inline-grid; place-items: center; flex: none;
+  }
+  .icon-btn svg { width: 18px; height: 18px; fill: currentColor; }
+  .readout {
+    margin: 16px 0 0; padding: 14px 18px; background: var(--card); border-radius: 14px;
+    font-size: 15px; line-height: 1.55; color: var(--ink); min-height: 3.2em;
+  }
+  .readout b { font-variant-numeric: tabular-nums; }
+
+  /* ---------- sections ---------- */
+  nav.toc { padding-block: 28px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  nav.toc ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px 24px; }
+  nav.toc a { color: var(--ink); font-size: 15px; }
+  nav.toc span.n { color: var(--ink-3); font-variant-numeric: tabular-nums; margin-right: 8px; }
+  section.ch { padding-block: 88px 8px; }
+  h2 { font-size: clamp(30px, 4.4vw, 46px); line-height: 1.12; font-weight: 700; margin-bottom: 22px; text-wrap: balance; }
+  h3 { font-size: 19px; line-height: 1.3; font-weight: 600; margin: 0 0 8px; }
+  p { margin: 0 0 16px; }
+  .muted { color: var(--ink-2); }
+  strong { font-weight: 600; }
+  .grid { display: grid; gap: 16px; margin-top: 28px; }
+  .g2 { grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); }
+  .card { background: var(--card); border-radius: 18px; padding: 22px 24px; }
+  .card p { font-size: 15px; color: var(--ink-2); margin: 0 0 8px; }
+  .card p:last-child { margin-bottom: 0; }
+  .card .big { font-family: var(--display); font-size: 34px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); line-height: 1.1; margin-bottom: 6px; }
+  .note { font-size: 15px; color: var(--ink-2); border-left: 2px solid var(--accent); padding-left: 16px; margin: 24px 0 0; }
+  .cap { font-size: 13px; color: var(--ink-3); margin-top: 10px; }
+  .next { margin-top: 96px; padding: 40px 28px; background: var(--card); border-radius: 22px; }
+  .tag { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; color: var(--accent-ink); background: var(--accent-soft); padding: 3px 10px; border-radius: 999px; margin-bottom: 14px; }
+  .sources { padding-block: 72px 24px; font-size: 14px; color: var(--ink-2); }
+  .sources ol { padding-left: 20px; margin: 12px 0 0; }
+  .sources li { margin-bottom: 6px; overflow-wrap: anywhere; }
+  footer { padding-block: 32px 64px; font-size: 13px; color: var(--ink-3); border-top: 1px solid var(--line); margin-top: 40px; }
+
+  /* svg text */
+  .scene text { font-family: var(--body); fill: #F3E9D2; font-size: 17px; font-weight: 500; }
+  .scene text.sm { font-size: 14px; fill: #C9C0AA; }
+  .scene text.lbl { font-size: 15px; font-weight: 600; letter-spacing: .02em; }
+  .scene .tap { cursor: pointer; }
+  @media (max-width: 560px) {
+    .scene text { font-size: 22px; }
+    .scene text.sm { font-size: 19px; }
+    .scene text.lbl { font-size: 20px; }
+  }
+
+  /* hero motion */
+  @keyframes bob { 0%,100% { transform: translateX(0); } 50% { transform: translateX(-14px); } }
+  @keyframes bob2 { 0%,100% { transform: translateX(-10px); } 50% { transform: translateX(6px); } }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  .w1 { animation: bob 7s ease-in-out infinite; }
+  .w2 { animation: bob2 9s ease-in-out infinite; }
+  .w3 { animation: bob 11s ease-in-out infinite; }
+  .fl { animation: float 8s ease-in-out infinite; }
+  @media (prefers-reduced-motion: reduce) { .w1, .w2, .w3, .fl { animation: none; } }
+</style>
+</head>
+<body>
+
+<!-- Bộ lọc giấy dùng chung: bóng mềm giữa các lớp, mép cắt hơi gồ ghề. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="pc" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#070A1A" flood-opacity=".45"/>
+    </filter>
+    <filter id="pcs" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#070A1A" flood-opacity=".4"/>
+    </filter>
+    <filter id="cut" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency=".03" numOctaves="2" seed="7" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/>
+      <feDropShadow in="d" dx="0" dy="4" stdDeviation="4" flood-color="#070A1A" flood-opacity=".42"/>
+    </filter>
+  </defs>
+</svg>
+
+<div class="bar">
+  <div class="wide">
+    <a class="brand" href="#top"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 14.4A9.6 9.6 0 1 1 9.6 2.4a7.6 7.6 0 0 0 12 12Z"/></svg>
+      <span lang="vi">Mặt Trăng</span><span lang="en">The Moon</span></a>
+    <div class="seg lang" role="group" aria-label="Ngôn ngữ / Language">
+      <button type="button" data-l="vi" aria-pressed="true">VI</button>
+      <button type="button" data-l="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</div>
+
+<header class="hero" id="top">
+  <div class="wide">
+    <div>
+      <p class="eyebrow"><span class="num" lang="vi">Phần 1</span><span class="num" lang="en">Part 1</span>
+        <span lang="vi">Khóa thủy triều</span><span lang="en">Tidal locking</span></p>
+      <h1><span lang="vi">Vì sao ta chỉ thấy một mặt của Mặt Trăng</span><span lang="en">Why we only ever see one side of the Moon</span></h1>
+      <p class="lede" lang="vi">Một lực kéo không đều làm nước biển phồng lên, phanh Trái Đất lại, đẩy Mặt Trăng lùi xa mỗi năm vài centimét, và một ngày nào đó sẽ xóa sổ nhật thực toàn phần. Tám cảnh cắt giấy, bạn tự kéo, tự xem.</p>
+      <p class="lede" lang="en">An uneven pull raises the oceans, brakes the Earth, pushes the Moon a few centimetres farther every year, and will one day end total solar eclipses. Eight paper cut-out scenes you can pull and push yourself.</p>
+      <div class="cta">
+        <a class="btn" href="#c1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4a1 1 0 0 1 1 1v11.6l4.3-4.3a1 1 0 1 1 1.4 1.4l-6 6a1 1 0 0 1-1.4 0l-6-6a1 1 0 1 1 1.4-1.4L11 16.6V5a1 1 0 0 1 1-1Z"/></svg>
+          <span lang="vi">Bắt đầu</span><span lang="en">Start</span></a>
+        <span class="meta" lang="vi">Dựa trên phần giải thích của Neil deGrasse Tyson · khoảng 15 phút</span>
+        <span class="meta" lang="en">Based on Neil deGrasse Tyson's explanation · about 15 minutes</span>
+      </div>
+    </div>
+    <figure class="scene hero-scene" id="hero" aria-hidden="true"></figure>
+  </div>
+</header>
+
+<nav class="toc wide" aria-label="Mục lục">
+  <ol>
+    <li><a href="#c1"><span class="n">01</span><span lang="vi">Lực thủy triều</span><span lang="en">Tidal force</span></a></li>
+    <li><a href="#c2"><span class="n">02</span><span lang="vi">Khóa thủy triều</span><span lang="en">Tidal locking</span></a></li>
+    <li><a href="#c3"><span class="n">03</span><span lang="vi">Bướu nước đứng yên</span><span lang="en">The bulge stays put</span></a></li>
+    <li><a href="#c4"><span class="n">04</span><span lang="vi">Phanh và cú kéo</span><span lang="en">Brake and sling</span></a></li>
+    <li><a href="#c5"><span class="n">05</span><span lang="vi">Khóa kép</span><span lang="en">Double lock</span></a></li>
+    <li><a href="#c6"><span class="n">06</span><span lang="vi">Gương trên Mặt Trăng</span><span lang="en">Mirrors on the Moon</span></a></li>
+    <li><a href="#c7"><span class="n">07</span><span lang="vi">Nhật thực sẽ hết</span><span lang="en">The end of eclipses</span></a></li>
+    <li><a href="#c8"><span class="n">08</span><span lang="vi">Ngày đang dài ra</span><span lang="en">Longer days</span></a></li>
+  </ol>
+</nav>
+
+<main>
+
+<!-- ============ 1 ============ -->
+<section class="ch wrap" id="c1">
+  <p class="eyebrow"><span class="num">01</span><span lang="vi">Lực thủy triều</span><span lang="en">Tidal force</span></p>
+  <h2><span lang="vi">Mặt Trăng kéo, nhưng kéo không đều</span><span lang="en">The Moon pulls, but not evenly</span></h2>
+  <p lang="vi">Mặt Trăng hút cả Trái Đất, nhưng phía gần nó bị hút mạnh hơn tâm, còn phía xa bị hút yếu hơn tâm. <strong>Lực thủy triều</strong> chính là phần chênh lệch đó.</p>
+  <p lang="en">The Moon pulls on the whole Earth, but the near side is pulled harder than the centre and the far side less hard. The <strong>tidal force</strong> is that difference.</p>
+  <p lang="vi">Bấm "Phần chênh lệch" để trừ đi lực ở tâm. Còn lại hai nhóm mũi tên chĩa ra hai phía: Trái Đất bị kéo giãn dọc theo đường nối với Mặt Trăng. Nước biển, thứ dễ chảy nhất, phồng lên thành <strong>hai bướu</strong>: một bướu hướng về Mặt Trăng, một bướu ở phía đối diện.</p>
+  <p lang="en">Tap "The difference" to subtract the pull at the centre. What is left points outward on both sides: the Earth is stretched along the line to the Moon. The oceans, the most fluid part, rise into <strong>two bulges</strong>: one facing the Moon and one on the opposite side.</p>
+  <figure class="scene" id="s1" style="--ar: 16 / 9"></figure>
+  <div class="controls">
+    <label class="range"><span class="lbl"><span><span lang="vi">Mặt Trăng gần hay xa</span><span lang="en">Moon near or far</span></span><b id="s1dv"></b></span>
+      <input type="range" id="s1d" min="0" max="100" value="45"></label>
+    <div class="seg" id="s1m" role="group">
+      <button type="button" data-v="raw" aria-pressed="true"><span lang="vi">Lực hút</span><span lang="en">Pull</span></button>
+      <button type="button" data-v="diff" aria-pressed="false"><span lang="vi">Phần chênh lệch</span><span lang="en">The difference</span></button>
+    </div>
+  </div>
+  <p class="readout" id="s1r" aria-live="polite"></p>
+  <p class="note" lang="vi">Trong hình, Mặt Trăng đặt rất gần để dễ thấy. Thật ra nó cách xa khoảng 60 lần bán kính Trái Đất, nên mặt gần chỉ bị hút mạnh hơn tâm khoảng 3%. Ngoài đại dương mở, bướu nước cao chưa tới một mét.</p>
+  <p class="note" lang="en">The Moon is drawn very close here so the effect is visible. In reality it sits about 60 Earth radii away, so the near side is pulled only about 3% harder than the centre. In the open ocean the bulge is less than a metre high.</p>
+</section>
+
+<!-- ============ 2 ============ -->
+<section class="ch wrap" id="c2">
+  <p class="eyebrow"><span class="num">02</span><span lang="vi">Khóa thủy triều</span><span lang="en">Tidal locking</span></p>
+  <h2><span lang="vi">Quay đồng bộ, không phải đứng yên</span><span lang="en">Spinning in sync, not standing still</span></h2>
+  <p lang="vi">Trái Đất nặng gấp khoảng 81 lần Mặt Trăng, nên lực thủy triều của Trái Đất lên Mặt Trăng mạnh hơn nhiều so với chiều ngược lại. Nó kéo khối đá Mặt Trăng hơi dài ra theo hướng Trái Đất.</p>
+  <p lang="en">The Earth is about 81 times as massive as the Moon, so its tidal pull on the Moon is far stronger than the other way round. It stretches the rocky Moon slightly along the line to the Earth.</p>
+  <p lang="vi">Khi Mặt Trăng còn tự quay nhanh, phần phình ấy liên tục bị quay lệch đi, và Trái Đất cứ kéo nó về. Cái kéo ấy phanh Mặt Trăng lại tới khi nó tự quay một vòng mất đúng bằng một vòng quanh Trái Đất: <strong>27,3 ngày</strong>. Từ đó phần phình chỉ thẳng vào ta, và mặt có lá cờ cam không bao giờ quay đi.</p>
+  <p lang="en">While the Moon still spun fast, that bulge kept being carried out of line, and the Earth kept tugging it back. The tug braked the Moon until one spin took exactly as long as one orbit: <strong>27.3 days</strong>. Since then the bulge points straight at us, and the face with the orange flag never turns away.</p>
+  <figure class="scene" id="s2" style="--ar: 16 / 9"></figure>
+  <div class="controls">
+    <button class="icon-btn" type="button" data-play="s2" aria-label="Tạm dừng / Pause"></button>
+    <label class="range"><span class="lbl"><span><span lang="vi">Tự quay mấy vòng trong một vòng quỹ đạo</span><span lang="en">Spins per orbit</span></span><b id="s2v"></b></span>
+      <input type="range" id="s2r" min="0" max="60" value="40"></label>
+    <button class="btn" type="button" id="s2go"><span lang="vi">Để thủy triều phanh</span><span lang="en">Let the tides brake it</span></button>
+  </div>
+  <p class="readout" id="s2t" aria-live="polite"></p>
+  <p class="note" lang="vi">Kéo thanh trượt về 0 để thấy một điều hay bị hiểu lầm: nếu Mặt Trăng không tự quay, ta vẫn lần lượt thấy đủ mọi mặt. Và vì quỹ đạo hơi bầu dục, hơi nghiêng, Mặt Trăng "lắc" nhẹ, nên theo thời gian ta thấy được khoảng 59% bề mặt của nó.</p>
+  <p class="note" lang="en">Drag the slider to 0 for a common misconception: a Moon that did not spin at all would show us every side in turn. And because its orbit is slightly oval and tilted, the Moon wobbles a little, so over time we see about 59% of its surface.</p>
+</section>
+
+<!-- ============ 3 ============ -->
+<section class="ch wrap" id="c3">
+  <p class="eyebrow"><span class="num">03</span><span lang="vi">Bướu nước đứng yên</span><span lang="en">The bulge stays put</span></p>
+  <h2><span lang="vi">Nước không chạy vào bờ. Bờ chạy qua nước.</span><span lang="en">The water doesn't come in. The shore goes through it.</span></h2>
+  <p lang="vi">Hai bướu nước gần như đứng yên theo hướng Mặt Trăng. Cái quay là Trái Đất: mỗi ngày một vòng, mang bạn đi qua bướu thứ nhất, qua chỗ nước thấp, qua bướu thứ hai, rồi lại chỗ nước thấp.</p>
+  <p lang="en">The two bulges stay roughly lined up with the Moon. What turns is the Earth: once a day it carries you through the first bulge, a low, the second bulge, and another low.</p>
+  <p lang="vi">Đứng trên bãi biển, bạn thấy nước "lên" rồi "xuống". Thật ra bạn đang được chở vào rồi ra khỏi chỗ nước phồng. Vì Mặt Trăng cũng đi tiếp trên quỹ đạo, Trái Đất mất khoảng <strong>24 giờ 50 phút</strong> mới đuổi kịp, nên hai lần nước lớn cách nhau chừng 12 giờ 25 phút.</p>
+  <p lang="en">On a beach you see the water "come in" and "go out". Really, you are being carried into and out of the bulge. Because the Moon also moves along its orbit, the Earth needs about <strong>24 hours 50 minutes</strong> to catch up, so high tides come roughly 12 hours 25 minutes apart.</p>
+  <figure class="scene" id="s3" style="--ar: 16 / 9"></figure>
+  <figure class="scene" id="s3b" style="--ar: 800 / 190; margin-top: 12px"></figure>
+  <div class="controls">
+    <button class="icon-btn" type="button" data-play="s3" aria-label="Tạm dừng / Pause"></button>
+    <div class="seg" id="s3s" role="group">
+      <button type="button" data-v="1" aria-pressed="false"><span lang="vi">Chậm</span><span lang="en">Slow</span></button>
+      <button type="button" data-v="3" aria-pressed="true"><span lang="vi">Vừa</span><span lang="en">Medium</span></button>
+      <button type="button" data-v="8" aria-pressed="false"><span lang="vi">Nhanh</span><span lang="en">Fast</span></button>
+    </div>
+  </div>
+  <p class="readout" id="s3t" aria-live="off"></p>
+  <p class="note" lang="vi">Bờ biển thật rắc rối hơn: lục địa chắn đường nước, đáy biển nông sâu khác nhau, Mặt Trời cũng góp một phần thủy triều. Ở Vịnh Bắc Bộ, phần lớn các ngày chỉ có một lần nước lớn và một lần nước ròng, gọi là nhật triều.</p>
+  <p class="note" lang="en">Real coasts are messier: continents block the water, the sea floor varies in depth, and the Sun adds its own smaller tide. In the Gulf of Tonkin, most days have only one high and one low tide, a so-called diurnal tide.</p>
+</section>
+
+<!-- ============ 4 ============ -->
+<section class="ch wrap" id="c4">
+  <p class="eyebrow"><span class="num">04</span><span lang="vi">Phanh và cú kéo</span><span lang="en">Brake and sling</span></p>
+  <h2><span lang="vi">Trái Đất chậm lại, Mặt Trăng lùi xa</span><span lang="en">The Earth slows, the Moon drifts away</span></h2>
+  <p lang="vi">Trái Đất tự quay nhanh hơn nhiều so với Mặt Trăng đi trên quỹ đạo: một ngày so với gần một tháng. Ma sát kéo bướu nước đi theo chiều quay, nên bướu không nằm ngay dưới Mặt Trăng mà <strong>lệch lên trước</strong> một chút.</p>
+  <p lang="en">The Earth spins much faster than the Moon orbits: one day versus almost a month. Friction drags the bulge along with the spin, so it does not sit right under the Moon but slightly <strong>ahead</strong> of it.</p>
+  <p lang="vi">Hai việc xảy ra cùng lúc. Mặt Trăng kéo bướu lùi lại: đó là <strong>cái phanh</strong> làm Trái Đất quay chậm dần. Khối nước thừa ở bướu kéo Mặt Trăng về phía trước: Mặt Trăng được tiếp thêm đà, nên leo lên quỹ đạo cao hơn. Mô-men động lượng không mất đi, chỉ chuyển chỗ: Trái Đất mất bao nhiêu, Mặt Trăng nhận bấy nhiêu.</p>
+  <p lang="en">Two things happen at once. The Moon pulls the bulge back: that is <strong>the brake</strong> that slows the Earth's spin. The extra mass in the bulge pulls the Moon forward: the Moon gains speed and climbs to a higher orbit. Angular momentum is not lost, only moved: what the Earth gives up, the Moon gains.</p>
+  <figure class="scene" id="s4" style="--ar: 16 / 10"></figure>
+  <div class="controls">
+    <label class="range"><span class="lbl"><span><span lang="vi">Bướu lệch lên trước (phóng đại)</span><span lang="en">Bulge lead angle (exaggerated)</span></span><b id="s4av"></b></span>
+      <input type="range" id="s4a" min="0" max="25" value="14"></label>
+    <label class="range"><span class="lbl"><span><span lang="vi">Tua về tương lai</span><span lang="en">Fast-forward</span></span><b id="s4tv"></b></span>
+      <input type="range" id="s4t" min="0" max="1000" step="10" value="0"></label>
+  </div>
+  <p class="readout" id="s4r" aria-live="polite"></p>
+  <div class="grid g2">
+    <div class="card">
+      <div class="big">3,8 cm</div>
+      <p lang="vi">Mỗi năm Mặt Trăng lùi xa chừng đó, xấp xỉ tốc độ móng tay mọc. Video nói 1,5 inch, cùng một con số.</p>
+      <p lang="en">That is how far the Moon recedes each year, about as fast as your fingernails grow. The video says 1.5 inches: same number.</p>
+    </div>
+    <div class="card">
+      <div class="big">~16 m</div>
+      <p lang="vi">Chênh lệch thủy triều ở Vịnh Fundy (Canada), lớn nhất thế giới: lòng vịnh dài, hẹp, dồn nước lên. Ma sát của nước ở những vùng biển nông như vậy chính là má phanh của Trái Đất.</p>
+      <p lang="en">The tidal range in Canada's Bay of Fundy, the largest on Earth: the long, narrow bay piles the water up. Friction in shallow seas like this is where the Earth's brake pads are.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5 ============ -->
+<section class="ch wrap" id="c5">
+  <p class="eyebrow"><span class="num">05</span><span lang="vi">Khóa kép</span><span lang="en">Double lock</span></p>
+  <h2><span lang="vi">Điểm dừng cuối: hai bên nhìn nhau mãi</span><span lang="en">The end state: face to face, forever</span></h2>
+  <p lang="vi">Nếu cứ thế mãi, Trái Đất sẽ chậm tới khi một ngày dài bằng một tháng. Lúc đó Trái Đất không còn kéo bướu đi trước: bướu thẳng hàng với Mặt Trăng, phanh nhả, Mặt Trăng thôi lùi xa. Đó là <strong>khóa thủy triều kép</strong>.</p>
+  <p lang="en">If this went on forever, the Earth would slow until a day lasted as long as a month. Then the Earth no longer drags the bulge ahead: it lines up with the Moon, the brake lets go and the Moon stops receding. That is a <strong>double tidal lock</strong>.</p>
+  <p lang="vi">Một nửa Trái Đất sẽ thấy Mặt Trăng treo yên một chỗ trên trời, nửa kia không bao giờ thấy nó. Thủy triều do Mặt Trăng ngừng lên xuống: nước phồng đứng yên trên đầu những người ở dưới bướu.</p>
+  <p lang="en">Half the Earth would see the Moon hanging in one spot in the sky; the other half would never see it. Moon tides would stop rising and falling: the bulge would just sit over whoever lives under it.</p>
+  <figure class="scene" id="s5" style="--ar: 16 / 9"></figure>
+  <div class="controls">
+    <button class="icon-btn" type="button" data-play="s5" aria-label="Tạm dừng / Pause"></button>
+    <label class="range"><span class="lbl"><span><span lang="vi">Tua tới rất xa</span><span lang="en">Fast-forward, very far</span></span><b id="s5v"></b></span>
+      <input type="range" id="s5f" min="0" max="100" value="0"></label>
+  </div>
+  <p class="readout" id="s5t" aria-live="polite"></p>
+  <div class="grid g2">
+    <div class="card">
+      <div class="big">≈ 47 <span lang="vi">ngày</span><span lang="en">days</span></div>
+      <p lang="vi">Độ dài ước tính của cả một ngày lẫn một tháng khi khóa kép. Quá trình mất hàng chục tỷ năm, lâu hơn nhiều so với khoảng 5 tỷ năm Mặt Trời còn giữ dạng hiện tại, nên có thể nó không bao giờ kịp xảy ra.</p>
+      <p lang="en">The estimated length of both a day and a month once doubly locked. Getting there would take tens of billions of years, far longer than the roughly 5 billion the Sun has left in its current form, so it may never happen.</p>
+    </div>
+    <div class="card">
+      <div class="big">Pluto · Charon</div>
+      <p lang="vi">Ví dụ đã có sẵn: Pluto và vệ tinh Charon luôn quay cùng một mặt vào nhau, mỗi vòng 6,4 ngày.</p>
+      <p lang="en">A pair that is already there: Pluto and its moon Charon always show each other the same face, turning once every 6.4 days.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6 ============ -->
+<section class="ch wrap" id="c6">
+  <p class="eyebrow"><span class="num">06</span><span lang="vi">Gương trên Mặt Trăng</span><span lang="en">Mirrors on the Moon</span></p>
+  <h2><span lang="vi">Đo bằng một tấm gương và một tia laser</span><span lang="en">Measured with a mirror and a laser</span></h2>
+  <p lang="vi">Năm 1969, phi hành đoàn Apollo 11 đặt lên Mặt Trăng một dãy <strong>gương phản xạ góc</strong>. Apollo 14, 15 và hai xe tự hành Lunokhod của Liên Xô mang thêm bốn dãy nữa.</p>
+  <p lang="en">In 1969 the Apollo 11 crew left an array of <strong>corner reflectors</strong> on the Moon. Apollo 14, 15 and the two Soviet Lunokhod rovers added four more.</p>
+  <p lang="vi">Gương phản xạ góc gồm ba mặt gương vuông góc với nhau, nên ánh sáng vào từ hướng nào cũng bị dội về đúng hướng đó. Hình dưới là bản hai chiều với hai mặt gương: chỉnh tia tới bao nhiêu, tia về vẫn song song.</p>
+  <p lang="en">A corner reflector is three mirrors at right angles, so light that enters from any direction is sent straight back the way it came. Below is a two-mirror, two-dimensional version: tilt the incoming beam however you like and the return beam stays parallel.</p>
+  <figure class="scene" id="s6" style="--ar: 800 / 380"></figure>
+  <div class="controls">
+    <label class="range"><span class="lbl"><span><span lang="vi">Góc tia tới</span><span lang="en">Beam angle</span></span><b id="s6av"></b></span>
+      <input type="range" id="s6a" min="-22" max="22" value="7"></label>
+    <label class="range"><span class="lbl"><span><span lang="vi">Vị trí tia</span><span lang="en">Beam position</span></span><b></b></span>
+      <input type="range" id="s6y" min="0" max="100" value="30"></label>
+  </div>
+  <p lang="vi" style="margin-top:40px">Các đài quan sát bắn một xung laser lên, đếm thời gian ánh sáng đi và về, nhân với tốc độ ánh sáng rồi chia đôi. Ngày nay sai số chỉ cỡ milimét, đủ để thấy Mặt Trăng lùi xa từng năm.</p>
+  <p lang="en" style="margin-top:40px">Observatories fire a laser pulse, time the round trip, multiply by the speed of light and halve it. Today the error is down to millimetres, enough to watch the Moon recede year by year.</p>
+  <figure class="scene" id="s6b" style="--ar: 800 / 220"></figure>
+  <div class="controls">
+    <button class="btn" type="button" id="s6go"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><span lang="vi">Bắn laser</span><span lang="en">Fire the laser</span></button>
+  </div>
+  <p class="readout" id="s6t" aria-live="polite"></p>
+  <p class="note" lang="vi">Tới Mặt Trăng, chùm laser đã loe rộng hàng km. Trong khoảng 10<sup>17</sup> photon bắn đi, thường chỉ vài photon quay về được tới kính thiên văn, nên phải bắn hàng nghìn xung và cộng lại.</p>
+  <p class="note" lang="en">By the time it reaches the Moon the beam is kilometres wide. Of roughly 10<sup>17</sup> photons sent out, usually only a handful make it back to the telescope, so thousands of pulses are fired and added up.</p>
+</section>
+
+<!-- ============ 7 ============ -->
+<section class="ch wrap" id="c7">
+  <p class="eyebrow"><span class="num">07</span><span lang="vi">Nhật thực sẽ hết</span><span lang="en">The end of eclipses</span></p>
+  <h2><span lang="vi">Ta đang sống trong một thời khắc đặc biệt</span><span lang="en">We live in a special moment</span></h2>
+  <p lang="vi">Mặt Trời to hơn Mặt Trăng khoảng 400 lần, và cũng ở xa hơn khoảng 400 lần. Nhờ trùng hợp đó, hai đĩa trên trời trông gần bằng nhau, và Mặt Trăng vừa khít che kín Mặt Trời.</p>
+  <p lang="en">The Sun is about 400 times wider than the Moon and also about 400 times farther away. Thanks to that coincidence the two discs look almost the same size, and the Moon can just cover the Sun.</p>
+  <p lang="vi">Mặt Trăng lùi xa thì đĩa của nó nhỏ dần. Kéo thanh trượt để tua: tới một lúc, kể cả khi Mặt Trăng ở gần nhất và Mặt Trời ở xa nhất, nó cũng không che hết được nữa. Chỉ còn <strong>nhật thực hình khuyên</strong>, một vòng lửa quanh đĩa tối.</p>
+  <p lang="en">As the Moon recedes its disc shrinks. Drag the slider forward: at some point, even with the Moon at its closest and the Sun at its farthest, it can no longer cover the Sun completely. Only <strong>annular eclipses</strong> remain, a ring of fire around a dark disc.</p>
+  <figure class="scene" id="s7" style="--ar: 800 / 400"></figure>
+  <div class="controls">
+    <button class="icon-btn" type="button" data-play="s7" aria-label="Tạm dừng / Pause"></button>
+    <label class="range"><span class="lbl"><span><span lang="vi">Tua về tương lai</span><span lang="en">Fast-forward</span></span><b id="s7v"></b></span>
+      <input type="range" id="s7f" min="0" max="1500" step="10" value="0"></label>
+  </div>
+  <p class="readout" id="s7t" aria-live="polite"></p>
+  <p class="note" lang="vi">Video nói khoảng 1,2 tỷ năm. Tính đơn giản với tốc độ 3,8 cm/năm hôm nay (như thanh trượt này) thì mốc đó vào khoảng 600 triệu năm. Con số thật phụ thuộc vào việc tốc độ lùi xa sẽ thay đổi ra sao, nên các ước tính chênh nhau.</p>
+  <p class="note" lang="en">The video says about 1.2 billion years. A simple calculation at today's 3.8 cm a year (which is what this slider does) puts it closer to 600 million. The real date depends on how the recession rate changes, so estimates differ.</p>
+</section>
+
+<!-- ============ 8 ============ -->
+<section class="ch wrap" id="c8">
+  <p class="eyebrow"><span class="num">08</span><span lang="vi">Ngày đang dài ra</span><span lang="en">Longer days</span></p>
+  <h2><span lang="vi">Mỗi thế kỷ, một ngày dài thêm vài mili giây</span><span lang="en">Every century, the day grows a few milliseconds</span></h2>
+  <p lang="vi">Trái Đất bị phanh, nên ngày dài ra một chút: trung bình khoảng <strong>1,8 mili giây mỗi thế kỷ</strong>, đo được nhờ ghi chép nhật thực cổ của Babylon, Trung Hoa, Hy Lạp và Ả Rập. Hóa thạch kể cùng câu chuyện: vân tăng trưởng của san hô kỷ Devon, khoảng 380 triệu năm trước, gợi ý một năm khi ấy có chừng 400 ngày, mỗi ngày chừng 22 giờ.</p>
+  <p lang="en">Because the Earth is being braked, the day gets slightly longer: on average about <strong>1.8 milliseconds per century</strong>, measured from ancient eclipse records kept in Babylon, China, Greece and the Arab world. Fossils tell the same story: growth bands in Devonian corals, some 380 million years old, suggest a year then had about 400 days of roughly 22 hours.</p>
+  <p lang="vi">Đồng hồ nguyên tử thì không chậm lại. Để giờ hành chính khớp với Trái Đất, từ năm 1972 người ta chèn <strong>giây nhuận</strong> vào cuối ngày 30/6 hoặc 31/12. Đã có 27 giây nhuận. Chạm vào từng chấm để xem ngày.</p>
+  <p lang="en">Atomic clocks do not slow down. To keep civil time in step with the planet, since 1972 a <strong>leap second</strong> has been inserted at the end of 30 June or 31 December when needed. There have been 27. Tap a dot to see its date.</p>
+  <figure class="scene" id="s8" style="--ar: 800 / 200"></figure>
+  <p class="readout" id="s8t" aria-live="polite"></p>
+  <p lang="vi" style="margin-top:40px">Cộng dồn qua hàng nghìn năm, mili giây thành hàng giờ. Kéo về một năm xưa: nếu tính nhật thực như thể Trái Đất luôn quay đều, dải tối sẽ rơi lệch hàng nghìn km so với nơi người xưa thật sự ghi lại.</p>
+  <p lang="en" style="margin-top:40px">Added up over thousands of years, milliseconds become hours. Drag back to an ancient year: if you computed an eclipse as though the Earth had always spun at today's rate, the shadow would land thousands of kilometres from where people actually recorded it.</p>
+  <figure class="scene" id="s8b" style="--ar: 800 / 210"></figure>
+  <div class="controls">
+    <label class="range"><span class="lbl"><span><span lang="vi">Năm</span><span lang="en">Year</span></span><b id="s8yv"></b></span>
+      <input type="range" id="s8y" min="-720" max="2000" step="10" value="-720"></label>
+  </div>
+  <p class="readout" id="s8u" aria-live="polite"></p>
+  <p class="note" lang="vi">Giây nhuận không chỉ do thủy triều: băng tan, lõi Trái Đất và gió cũng làm tốc độ quay dao động, và vài năm gần đây Trái Đất còn quay nhanh lên đôi chút. Năm 2022, Đại hội Cân đo Quốc tế quyết định ngừng chèn giây nhuận chậm nhất từ năm 2035.</p>
+  <p class="note" lang="en">Leap seconds are not only about tides: melting ice, the Earth's core and the winds also make the spin wobble, and in the last few years the Earth has even sped up slightly. In 2022 the General Conference on Weights and Measures decided to stop adding leap seconds by 2035.</p>
+</section>
+
+<section class="wrap">
+  <div class="next">
+    <span class="tag" lang="vi">Phần 2 · đang làm</span><span class="tag" lang="en">Part 2 · in progress</span>
+    <h2 style="margin-bottom:14px"><span lang="vi">Tuần trăng, và cách loài người đếm thời gian</span><span lang="en">Moon phases, and how people learned to count time</span></h2>
+    <p class="muted" lang="vi">Vì sao trăng khuyết rồi tròn. Những vạch khắc trên xương hàng chục nghìn năm trước. Lịch Babylon, Ai Cập, Julius, Gregory, Hijri. Và vì sao âm lịch Việt Nam thật ra là âm dương lịch, với tháng nhuận và 24 tiết khí.</p>
+    <p class="muted" lang="en">Why the Moon waxes and wanes. Tally marks carved on bones tens of thousands of years ago. The Babylonian, Egyptian, Julian, Gregorian and Hijri calendars. And why the Vietnamese "lunar" calendar is really lunisolar, with leap months and 24 solar terms.</p>
+  </div>
+</section>
+
+<section class="sources wrap" id="nguon">
+  <h3><span lang="vi">Nguồn</span><span lang="en">Sources</span></h3>
+  <ol>
+    <li>Neil deGrasse Tyson, phần giải thích về khóa thủy triều và Mặt Trăng lùi xa (video, 0:00–13:00).</li>
+    <li><a href="https://en.wikipedia.org/wiki/Tidal_force">Tidal force</a> · <a href="https://en.wikipedia.org/wiki/Tidal_locking">Tidal locking</a> · <a href="https://en.wikipedia.org/wiki/Tidal_acceleration">Tidal acceleration</a> — Wikipedia</li>
+    <li><a href="https://en.wikipedia.org/wiki/Libration">Libration</a> (59% bề mặt) — Wikipedia</li>
+    <li><a href="https://en.wikipedia.org/wiki/Bay_of_Fundy">Bay of Fundy</a> — Wikipedia</li>
+    <li><a href="https://en.wikipedia.org/wiki/Lunar_Laser_Ranging_experiments">Lunar Laser Ranging experiments</a> — Wikipedia</li>
+    <li><a href="https://en.wikipedia.org/wiki/Pluto">Pluto</a> (Charon, 6,4 ngày) — Wikipedia</li>
+    <li><a href="https://en.wikipedia.org/wiki/Solar_eclipse">Solar eclipse</a> — Wikipedia</li>
+    <li><a href="https://en.wikipedia.org/wiki/Leap_second">Leap second</a> (27 lần, 1972–2016; quyết định CGPM 2022) — Wikipedia</li>
+    <li><a href="https://en.wikipedia.org/wiki/%CE%94T_(timekeeping)">ΔT (timekeeping)</a>, parabol Morrison &amp; Stephenson 2004: ΔT ≈ −20 + 32·u² giây, u = (năm − 1820)/100 — Wikipedia</li>
+    <li>Wells, J. W. (1963). <a href="https://doi.org/10.1038/197948a0">Coral growth and geochronometry</a>. Nature 197, 948–950.</li>
+  </ol>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <span lang="vi">Hình minh họa không theo tỉ lệ. Những gì gắn chữ "phóng đại" hoặc "mô hình đơn giản" là để dễ thấy, không phải số đo.</span>
+  <span lang="en">Illustrations are not to scale. Anything marked "exaggerated" or "simple model" is there for clarity, not as a measurement.</span>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var D = Math.PI / 180;
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var LANG = document.documentElement.dataset.lang || 'vi';
+  var T = function (vi, en) { return LANG === 'en' ? en : vi; };
+  var hooks = [];
+  var fmt = function (n, d) {
+    return n.toLocaleString(LANG === 'en' ? 'en-US' : 'vi-VN', { minimumFractionDigits: d || 0, maximumFractionDigits: d || 0 });
+  };
+  var clamp = function (v, a, b) { return Math.max(a, Math.min(b, v)); };
+  var wrapA = function (a) { a = (a + Math.PI) % (2 * Math.PI); if (a < 0) a += 2 * Math.PI; return a - Math.PI; };
+
+  // ---------- ngôn ngữ ----------
+  var langBtns = document.querySelectorAll('.seg.lang button');
+  function setLang(l) {
+    LANG = l;
+    document.documentElement.dataset.lang = l;
+    document.documentElement.lang = l;
+    langBtns.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.l === l ? 'true' : 'false'); });
+    try { localStorage.setItem('mt-lang', l); } catch (e) {}
+    hooks.forEach(function (f) { f(); });
+  }
+  langBtns.forEach(function (b) { b.addEventListener('click', function () { setLang(b.dataset.l); }); });
+  langBtns.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.l === LANG ? 'true' : 'false'); });
+
+  // ---------- vẽ giấy ----------
+  var C = {
+    night: '#1A2140', n2: '#1F2850', n3: '#25305C', n4: '#2C3968',
+    cream: '#F3E9D2', crater: '#DCCDA9', sea: '#4A93B5', deep: '#2B5F84', land: '#86AE6E', land2: '#6E9758',
+    orange: '#F08A4B', orange2: '#E0703A', grey: '#9FA6C2', sand: '#E6D2A2'
+  };
+  // Hạt giống cố định: sao rơi cùng chỗ mỗi lần tải.
+  function rnd(seed) { var s = seed; return function () { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; }; }
+  function stars(w, h, n, seed) {
+    var r = rnd(seed), out = '';
+    for (var i = 0; i < n; i++) {
+      var x = r() * w, y = r() * h, s = 1.5 + r() * 3.2, o = .35 + r() * .5;
+      out += '<path d="M' + x + ',' + (y - s) + 'L' + (x + s * .3) + ',' + (y - s * .3) + 'L' + (x + s) + ',' + y + 'L' + (x + s * .3) + ',' + (y + s * .3) + 'L' + x + ',' + (y + s) + 'L' + (x - s * .3) + ',' + (y + s * .3) + 'L' + (x - s) + ',' + y + 'L' + (x - s * .3) + ',' + (y - s * .3) + 'Z" fill="' + C.cream + '" opacity="' + o.toFixed(2) + '"/>';
+    }
+    return out;
+  }
+  function night(w, h, seed) {
+    var m = Math.max(w, h);
+    return '<rect width="' + w + '" height="' + h + '" fill="' + C.night + '"/>' +
+      '<g filter="url(#cut)"><circle cx="' + w * .5 + '" cy="' + h * .55 + '" r="' + m * .62 + '" fill="' + C.n2 + '"/>' +
+      '<circle cx="' + w * .5 + '" cy="' + h * .55 + '" r="' + m * .45 + '" fill="' + C.n3 + '"/></g>' +
+      stars(w, h, Math.round(w * h / 9000), seed);
+  }
+  function svgEl(fig, vb, cls) {
+    var s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    s.setAttribute('viewBox', vb); s.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+    if (cls) s.setAttribute('class', cls);
+    s.setAttribute('aria-hidden', 'true');
+    fig.appendChild(s); return s;
+  }
+  var LAND = [
+    'M-0.62,-0.38C-0.45,-0.62 -0.12,-0.66 0.02,-0.5C0.14,-0.36 -0.02,-0.2 -0.16,-0.12C-0.3,-0.04 -0.34,0.12 -0.5,0.1C-0.68,0.06 -0.76,-0.18 -0.62,-0.38Z',
+    'M0.18,0.22C0.34,0.1 0.58,0.16 0.62,0.34C0.66,0.52 0.48,0.66 0.3,0.62C0.16,0.58 0.02,0.44 0.18,0.22Z',
+    'M0.36,-0.42C0.46,-0.5 0.6,-0.42 0.56,-0.3C0.52,-0.2 0.38,-0.22 0.36,-0.42Z',
+    'M-0.42,0.36C-0.3,0.3 -0.16,0.4 -0.2,0.54C-0.26,0.66 -0.44,0.62 -0.48,0.5C-0.5,0.44 -0.48,0.4 -0.42,0.36Z'
+  ];
+  function earth(cx, cy, R, id) {
+    return '<g transform="translate(' + cx + ',' + cy + ')"><circle r="' + R + '" fill="' + C.deep + '"/>' +
+      '<g' + (id ? ' id="' + id + '"' : '') + ' transform="scale(' + R + ')">' +
+      LAND.map(function (d, i) { return '<path d="' + d + '" fill="' + (i % 2 ? C.land2 : C.land) + '"/>'; }).join('') + '</g></g>';
+  }
+  function moonArt(r) {
+    return '<circle r="' + r + '" fill="' + C.cream + '"/>' +
+      '<circle cx="' + (-.32 * r) + '" cy="' + (-.22 * r) + '" r="' + (.24 * r) + '" fill="' + C.crater + '"/>' +
+      '<circle cx="' + (.26 * r) + '" cy="' + (.2 * r) + '" r="' + (.17 * r) + '" fill="' + C.crater + '"/>' +
+      '<circle cx="' + (-.06 * r) + '" cy="' + (.46 * r) + '" r="' + (.1 * r) + '" fill="' + C.crater + '"/>';
+  }
+  function arrow(x1, y1, x2, y2, head) {
+    var dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy);
+    if (L < 2.5) return '';
+    var ux = dx / L, uy = dy / L, h = Math.min(head || 11, L * .6);
+    var bx = x2 - ux * h, by = y2 - uy * h, px = -uy * h * .55, py = ux * h * .55;
+    return 'M' + x1.toFixed(1) + ',' + y1.toFixed(1) + 'L' + bx.toFixed(1) + ',' + by.toFixed(1) +
+      'M' + x2.toFixed(1) + ',' + y2.toFixed(1) + 'L' + (bx + px).toFixed(1) + ',' + (by + py).toFixed(1) + 'L' + (bx - px).toFixed(1) + ',' + (by - py).toFixed(1) + 'Z';
+  }
+  function txt(x, y, cls, anchor, id) {
+    return '<text x="' + x + '" y="' + y + '"' + (cls ? ' class="' + cls + '"' : '') + ' text-anchor="' + (anchor || 'middle') + '"' + (id ? ' id="' + id + '"' : '') + '></text>';
+  }
+  function say(svg, map) {
+    var f = function () { for (var k in map) { var el = svg.querySelector('#' + k); if (el) el.textContent = T(map[k][0], map[k][1]); } };
+    hooks.push(f); f();
+  }
+
+  // Vòng lặp chỉ chạy khi cảnh nằm trong màn hình.
+  var playing = {};
+  function loop(el, tick) {
+    var vis = false, last = 0, raf = 0;
+    function f(now) {
+      raf = 0; if (!vis) return;
+      var dt = Math.min(.05, (now - last) / 1000); last = now;
+      tick(dt); raf = requestAnimationFrame(f);
+    }
+    new IntersectionObserver(function (es) {
+      vis = es[0].isIntersecting;
+      if (vis && !raf) { last = performance.now(); raf = requestAnimationFrame(f); }
+    }, { rootMargin: '80px' }).observe(el);
+  }
+  var ICON_PLAY = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+  var ICON_PAUSE = '<svg viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>';
+  document.querySelectorAll('[data-play]').forEach(function (b) {
+    var k = b.dataset.play; playing[k] = !reduce;
+    var draw = function () { b.innerHTML = playing[k] ? ICON_PAUSE : ICON_PLAY; b.setAttribute('aria-label', playing[k] ? T('Tạm dừng', 'Pause') : T('Chạy', 'Play')); };
+    b.addEventListener('click', function () { playing[k] = !playing[k]; draw(); });
+    hooks.push(draw); draw();
+  });
+  function segment(id, cb) {
+    var g = document.getElementById(id), bs = g.querySelectorAll('button');
+    bs.forEach(function (b) {
+      b.addEventListener('click', function () {
+        bs.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+        cb(b.dataset.v);
+      });
+    });
+  }
+
+  // ================= HERO =================
+  (function () {
+    var fig = $('#hero'), s = svgEl(fig, '0 0 600 600', '');
+    var wave = function (y, a, k, ph) {
+      var d = 'M-60,' + y;
+      for (var x = -60; x <= 660; x += 20) d += 'L' + x + ',' + (y + Math.sin(x * k + ph) * a).toFixed(1);
+      return d + 'L660,620L-60,620Z';
+    };
+    s.innerHTML = night(600, 600, 11) +
+      '<g class="fl"><g filter="url(#cut)"><circle cx="370" cy="210" r="132" fill="' + C.n4 + '"/></g>' +
+      '<g filter="url(#pc)" transform="translate(370,210)">' + moonArt(104) + '</g>' +
+      '<g filter="url(#pcs)" transform="translate(370,210)"><path d="M98,-14L142,0L98,14Z" fill="' + C.orange + '"/></g></g>' +
+      '<g filter="url(#cut)" class="w3"><path d="' + wave(420, 12, .018, 0) + '" fill="#2E4F7C"/></g>' +
+      '<g filter="url(#cut)" class="w2"><path d="' + wave(462, 14, .022, 1.4) + '" fill="#3A6C99"/></g>' +
+      '<g filter="url(#cut)" class="w1"><path d="' + wave(508, 12, .026, 2.6) + '" fill="' + C.sea + '"/></g>' +
+      '<g filter="url(#cut)"><path d="M-20,620L-20,540C60,520 120,548 190,560C240,568 270,600 300,620Z" fill="' + C.sand + '"/></g>' +
+      '<g filter="url(#pcs)"><path d="M92,548L92,500" stroke="' + C.cream + '" stroke-width="4"/><path d="M92,500L122,511L92,522Z" fill="' + C.orange + '"/></g>';
+  })();
+
+  // ================= 1. Lực thủy triều =================
+  (function () {
+    var fig = $('#s1');
+    svgEl(fig, '0 0 800 450').innerHTML = night(800, 450, 3);
+    var s = svgEl(fig, '0 0 800 450');
+    var EX = 250, EY = 225, R = 96;
+    s.innerHTML =
+      '<g filter="url(#pc)"><ellipse id="s1sea" cx="' + EX + '" cy="' + EY + '" fill="' + C.sea + '"/></g>' +
+      '<g filter="url(#pc)">' + earth(EX, EY, R) + '</g>' +
+      '<g id="s1v" fill="' + C.cream + '" stroke="' + C.cream + '" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"></g>' +
+      '<g id="s1moon" filter="url(#pc)">' + moonArt(36) + '</g>' +
+      txt(EX, 395, 'lbl', 'middle', 's1e') + txt(0, 0, 'lbl', 'middle', 's1ml') + txt(784, 432, 'sm', 'end', 's1sc');
+    say(s, { s1e: ['Trái Đất', 'Earth'], s1ml: ['Mặt Trăng', 'Moon'], s1sc: ['không theo tỉ lệ', 'not to scale'] });
+    var sea = $('#s1sea', s), vg = $('#s1v', s), moon = $('#s1moon', s), ml = $('#s1ml', s);
+    var mode = 'raw', slider = $('#s1d');
+    var pts = [];
+    for (var k = 0; k < 8; k++) pts.push([EX + R * Math.cos(k * 45 * D), EY + R * Math.sin(k * 45 * D)]);
+    pts.push([EX, EY]);
+    function upd() {
+      var mx = 530 + (+slider.value / 100) * 245, dc = mx - EX;
+      moon.setAttribute('transform', 'translate(' + mx + ',' + EY + ')');
+      ml.setAttribute('x', mx); ml.setAttribute('y', EY + 66);
+      var st = 24 * Math.pow(280 / dc, 3);
+      sea.setAttribute('rx', R + 8 + st); sea.setAttribute('ry', R + 8 - st * .45);
+      var sc = 52 * dc * dc, gcx = 1 / (dc * dc), d = '';
+      pts.forEach(function (p, i) {
+        var dx = mx - p[0], dy = EY - p[1], L = Math.hypot(dx, dy), g = 1 / (L * L * L);
+        var vx = dx * g, vy = dy * g;
+        if (mode === 'diff') { vx = (vx - gcx) * sc * 1.7; vy = vy * sc * 1.7; }
+        else { vx *= sc; vy *= sc; }
+        var l = Math.hypot(vx, vy);
+        if (l > 125) { vx *= 125 / l; vy *= 125 / l; }
+        d += arrow(p[0], p[1], p[0] + vx, p[1] + vy);
+        d += 'M' + (p[0] + 4) + ',' + p[1] + 'A4,4 0 1 0 ' + (p[0] - 4) + ',' + p[1] + 'A4,4 0 1 0 ' + (p[0] + 4) + ',' + p[1] + 'Z';
+      });
+      vg.innerHTML = '<path d="' + d + '"/>';
+      var col = mode === 'diff' ? C.orange : C.cream;
+      vg.setAttribute('fill', col); vg.setAttribute('stroke', col);
+      var near = Math.pow(dc / (dc - R), 2), far = Math.pow(dc / (dc + R), 2);
+      $('#s1dv').textContent = T('≈ ' + fmt(dc / R, 1) + ' bán kính Trái Đất', '≈ ' + fmt(dc / R, 1) + ' Earth radii');
+      $('#s1r').innerHTML = mode === 'raw'
+        ? T('Mọi điểm đều bị hút về phía Mặt Trăng. Mặt gần bị hút mạnh hơn tâm <b>' + fmt((near - 1) * 100) + '%</b>, mặt xa yếu hơn tâm <b>' + fmt((1 - far) * 100) + '%</b>.',
+            'Every point is pulled toward the Moon. The near side feels <b>' + fmt((near - 1) * 100) + '%</b> more pull than the centre, the far side <b>' + fmt((1 - far) * 100) + '%</b> less.')
+        : T('Trừ đi lực ở tâm: phía gần bị kéo về Mặt Trăng, phía xa bị "bỏ lại" phía sau, hai bên hông bị ép vào. Đó là lý do có <b>hai</b> bướu nước chứ không phải một.',
+            'Subtract the pull at the centre: the near side is drawn toward the Moon, the far side is "left behind", and the sides are squeezed in. That is why there are <b>two</b> bulges, not one.');
+    }
+    slider.addEventListener('input', upd);
+    segment('s1m', function (v) { mode = v; upd(); });
+    hooks.push(upd); upd();
+  })();
+
+  // ================= 2. Khóa thủy triều =================
+  (function () {
+    var fig = $('#s2');
+    svgEl(fig, '0 0 800 450').innerHTML = night(800, 450, 5);
+    var s = svgEl(fig, '0 0 800 450');
+    var EX = 330, EY = 225, OR = 168;
+    s.innerHTML =
+      '<circle cx="' + EX + '" cy="' + EY + '" r="' + OR + '" fill="none" stroke="' + C.cream + '" stroke-opacity=".22" stroke-width="2" stroke-dasharray="2 8" stroke-linecap="round"/>' +
+      '<g filter="url(#pc)">' + earth(EX, EY, 58, 's2land') + '</g>' +
+      '<g id="s2moon" filter="url(#pc)"><g id="s2spin"><ellipse rx="38" ry="31" fill="' + C.cream + '"/>' +
+      '<circle cx="-12" cy="-8" r="8" fill="' + C.crater + '"/><circle cx="10" cy="10" r="6" fill="' + C.crater + '"/>' +
+      '<path d="M34,-9L56,0L34,9Z" fill="' + C.orange + '"/></g></g>' +
+      // Ô nhỏ: Mặt Trăng nhìn từ Trái Đất.
+      '<g transform="translate(690,330)"><g filter="url(#cut)"><circle r="78" fill="' + C.n4 + '"/></g>' +
+      '<defs><clipPath id="s2clip"><circle r="46"/></clipPath></defs>' +
+      '<g filter="url(#pc)"><circle r="46" fill="' + C.cream + '"/></g>' +
+      '<g clip-path="url(#s2clip)"><g id="s2face"><circle cx="-14" cy="-10" r="9" fill="' + C.crater + '"/><circle cx="14" cy="12" r="7" fill="' + C.crater + '"/>' +
+      '<path id="s2flag" d="M-10,-30L10,-30L0,-12Z" fill="' + C.orange + '"/></g></g>' +
+      txt(0, -90, 'sm', 'middle', 's2in') + '</g>' +
+      txt(EX, EY + 92, 'lbl', 'middle', 's2e');
+    say(s, { s2in: ['Nhìn từ Trái Đất', 'Seen from Earth'], s2e: ['Trái Đất', 'Earth'] });
+    var moon = $('#s2moon', s), spin = $('#s2spin', s), face = $('#s2face', s), land = $('#s2land', s);
+    var slider = $('#s2r'), go = $('#s2go');
+    var phi = 0, psi = Math.PI * .3, ratio = 4, auto = 0, earthA = 0, seen = 0, total = 0;
+    function setRatio(r) { ratio = r; slider.value = Math.round(r * 10); label(); }
+    function label() {
+      $('#s2v').textContent = T(fmt(ratio, 1) + ' vòng', fmt(ratio, 1) + (ratio === 1 ? ' spin' : ' spins'));
+    }
+    slider.addEventListener('input', function () { auto = 0; ratio = +slider.value / 10; label(); });
+    go.addEventListener('click', function () {
+      if (Math.abs(ratio - 1) < .01) setRatio(5);
+      auto = 1; if (!playing.s2) $('[data-play="s2"]').click();
+    });
+    hooks.push(label); label();
+    function render() {
+      var mx = EX + OR * Math.cos(phi), my = EY - OR * Math.sin(phi);
+      moon.setAttribute('transform', 'translate(' + mx.toFixed(1) + ',' + my.toFixed(1) + ')');
+      spin.setAttribute('transform', 'rotate(' + (-psi / D).toFixed(2) + ')');
+      land.setAttribute('transform', 'rotate(' + (-earthA / D).toFixed(1) + ') scale(58)');
+      var a = wrapA(psi - (phi + Math.PI));
+      // Mặt có cờ nằm ở góc a so với hướng nhìn từ Trái Đất; chiếu lên đĩa thành độ lệch ngang.
+      var vis = Math.cos(a);
+      face.setAttribute('transform', 'translate(' + (-Math.sin(a) * 34).toFixed(1) + ',0)');
+      face.style.opacity = vis > 0 ? 1 : .0;
+      var txtEl = $('#s2t');
+      var locked = Math.abs(ratio - 1) < .01 && Math.abs(a) < .05;
+      var msg;
+      if (locked) msg = T('<b>Đã khóa.</b> Mặt Trăng tự quay một vòng đúng bằng một vòng quanh Trái Đất, nên mặt có cờ luôn hướng về ta.',
+        '<b>Locked.</b> The Moon spins once per orbit, so the flagged face always points at us.');
+      else if (ratio < .05) msg = T('<b>Không tự quay</b>, nhưng ta vẫn lần lượt thấy mọi mặt. Khóa thủy triều không có nghĩa là đứng yên.',
+        '<b>Not spinning</b>, yet we still see every side in turn. Tidal locking does not mean standing still.');
+      else msg = T('Tự quay <b>' + fmt(ratio, 1) + '</b> vòng mỗi vòng quỹ đạo: phần phình bị quay lệch khỏi Trái Đất, và mặt có cờ lúc hiện lúc khuất' + (auto ? '. Thủy triều đang phanh…' : '.'),
+        'Spinning <b>' + fmt(ratio, 1) + '</b> times per orbit: the bulge is carried out of line with the Earth, and the flagged face comes and goes' + (auto ? '. The tides are braking it…' : '.'));
+      if (txtEl.dataset.m !== msg) { txtEl.innerHTML = msg; txtEl.dataset.m = msg; }
+    }
+    loop(fig, function (dt) {
+      if (playing.s2) {
+        var w = .5;
+        phi += w * dt; earthA += w * 6 * dt;
+        if (auto) {
+          var r = 1 + (ratio - 1) * Math.exp(-.7 * dt);
+          if (Math.abs(r - 1) < .015) { r = 1; auto = 0; }
+          ratio = r; slider.value = Math.round(r * 10); label();
+        }
+        psi += ratio * w * dt;
+        // Gần đồng bộ thì mô-men thủy triều kéo phần phình về thẳng hàng với Trái Đất.
+        if (Math.abs(ratio - 1) < .01) psi += wrapA(phi + Math.PI - psi) * Math.min(1, 1.6 * dt);
+      }
+      render();
+    });
+    hooks.push(render);
+  })();
+
+  // ================= 3. Bướu nước đứng yên =================
+  (function () {
+    var fig = $('#s3');
+    svgEl(fig, '0 0 800 450').innerHTML = night(800, 450, 9);
+    var s = svgEl(fig, '0 0 800 450');
+    var EX = 300, EY = 225, R = 100, LUNAR = 24 + 50 / 60;
+    s.innerHTML =
+      '<g filter="url(#pc)"><ellipse cx="' + EX + '" cy="' + EY + '" rx="' + (R + 34) + '" ry="' + (R + 6) + '" fill="' + C.sea + '"/></g>' +
+      '<g filter="url(#pc)">' + earth(EX, EY, R, 's3land') + '</g>' +
+      '<g id="s3pin" filter="url(#pcs)"><path d="M0,0L0,-30" stroke="' + C.cream + '" stroke-width="3.5"/><path d="M0,-30L20,-23L0,-16Z" fill="' + C.orange + '"/><circle r="5" fill="' + C.orange + '"/></g>' +
+      '<g filter="url(#pc)" transform="translate(660,225)">' + moonArt(30) + '</g>' +
+      txt(660, 290, 'lbl', 'middle', 's3ml') + txt(EX, 395, 'lbl', 'middle', 's3e') +
+      txt(EX + R + 46, EY - 64, 'sm', 'start', 's3b1') + txt(784, 432, 'sm', 'end', 's3sc');
+    say(s, { s3ml: ['Mặt Trăng', 'Moon'], s3e: ['Trái Đất, nhìn từ cực Bắc', 'Earth, seen from the North Pole'], s3b1: ['bướu nước', 'tidal bulge'], s3sc: ['khung hình quay theo Mặt Trăng', 'frame turns with the Moon'] });
+    var land = $('#s3land', s), pin = $('#s3pin', s);
+
+    var fb = $('#s3b');
+    svgEl(fb, '0 0 800 190').innerHTML = '<rect width="800" height="190" fill="' + C.night + '"/>' + stars(300, 110, 8, 21);
+    var b = svgEl(fb, '0 0 800 190');
+    b.innerHTML =
+      '<g filter="url(#pc)"><path id="s3w" fill="' + C.sea + '"/></g>' +
+      '<g filter="url(#cut)"><path d="M0,190L0,170C80,160 150,120 230,92C255,84 280,80 300,80L300,190Z" fill="' + C.sand + '"/></g>' +
+      '<g filter="url(#pcs)"><path d="M262,84L262,44" stroke="' + C.cream + '" stroke-width="3.5"/><path d="M262,44L284,52L262,60Z" fill="' + C.orange + '"/></g>' +
+      txt(16, 28, 'sm', 'start', 's3bt') +
+      '<rect x="320" y="0" width="480" height="190" fill="' + C.n2 + '"/>' +
+      '<path d="M340,95L780,95" stroke="' + C.cream + '" stroke-opacity=".2" stroke-width="1.5" stroke-dasharray="3 6"/>' +
+      '<path id="s3c" fill="none" stroke="' + C.sea + '" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>' +
+      '<g id="s3ticks"></g><circle id="s3dot" r="7" fill="' + C.orange + '" filter="url(#pcs)"/>' +
+      txt(340, 28, 'sm', 'start', 's3ct') + txt(780, 180, 'sm', 'end', 's3cn');
+    say(b, { s3bt: ['Ở bãi biển', 'On the beach'], s3ct: ['Mực nước ở lá cờ, 48 giờ qua', 'Water level at the flag, last 48 hours'], s3cn: ['bây giờ', 'now'] });
+    var wpath = $('#s3w', b), cpath = $('#s3c', b), dot = $('#s3dot', b), ticks = $('#s3ticks', b);
+    var hours = 30, speed = 3, a0 = 150 * D;
+    segment('s3s', function (v) { speed = +v; });
+    var angAt = function (h) { return a0 + 2 * Math.PI * h / LUNAR; };     // ngược chiều kim đồng hồ khi nhìn từ cực Bắc
+    var lvl = function (h) { return Math.cos(2 * angAt(h)); };
+    function render() {
+      var a = angAt(hours);
+      land.setAttribute('transform', 'rotate(' + (-(a - a0) / D).toFixed(2) + ') scale(' + R + ')');
+      var px = EX + R * Math.cos(a), py = EY - R * Math.sin(a);
+      pin.setAttribute('transform', 'translate(' + px.toFixed(1) + ',' + py.toFixed(1) + ') rotate(' + (90 - a / D).toFixed(1) + ')');
+      var w = lvl(hours), y = 128 - w * 34;
+      wpath.setAttribute('d', 'M0,' + y.toFixed(1) + 'L300,' + y.toFixed(1) + 'L300,190L0,190Z');
+      var d = '', tk = '';
+      for (var i = 0; i <= 96; i++) {
+        var h = hours - 48 + i * .5, x = 340 + i * (440 / 96), yy = 95 - lvl(h) * 52;
+        d += (i ? 'L' : 'M') + x.toFixed(1) + ',' + yy.toFixed(1);
+      }
+      // Đánh dấu các lần nước lớn trong 48 giờ.
+      var k0 = Math.ceil((hours - 48) / (LUNAR / 2) - a0 / Math.PI), n = 0;
+      for (var k = k0; ; k++) {
+        var hh = (k * Math.PI - 2 * a0) / (4 * Math.PI) * LUNAR;
+        hh = (k * Math.PI - 2 * a0) / (2 * Math.PI) * (LUNAR / 2) ;
+        if (hh > hours) break;
+        if (hh >= hours - 48) { var xx = 340 + (hh - hours + 48) / 48 * 440; tk += '<path d="M' + xx.toFixed(1) + ',36L' + xx.toFixed(1) + ',46" stroke="' + C.cream + '" stroke-width="2.5"/>'; n++; }
+        if (k - k0 > 12) break;
+      }
+      cpath.setAttribute('d', d); ticks.innerHTML = tk;
+      dot.setAttribute('cx', 780); dot.setAttribute('cy', (95 - w * 52).toFixed(1));
+      var day = Math.floor(hours / 24) + 1, hm = hours % 24, H = Math.floor(hm), M = Math.floor((hm - H) * 60);
+      var rising = lvl(hours + .05) > w;
+      $('#s3t').innerHTML = T('Ngày <b>' + day + '</b>, <b>' + String(H).padStart(2, '0') + ':' + String(M).padStart(2, '0') + '</b>. Ở lá cờ, nước đang <b>' + (rising ? 'lên' : 'xuống') + '</b>. Mỗi vạch trên biểu đồ là một lần nước lớn: cứ khoảng 12 giờ 25 phút một lần.',
+        'Day <b>' + day + '</b>, <b>' + String(H).padStart(2, '0') + ':' + String(M).padStart(2, '0') + '</b>. At the flag the tide is <b>' + (rising ? 'coming in' : 'going out') + '</b>. Each tick on the chart is a high tide: one roughly every 12 hours 25 minutes.');
+    }
+    loop(fig, function (dt) { if (playing.s3) hours += dt * speed; render(); });
+    hooks.push(render);
+  })();
+
+  // ================= 4. Phanh và cú kéo =================
+  (function () {
+    var fig = $('#s4');
+    svgEl(fig, '0 0 800 500').innerHTML = night(800, 500, 13);
+    var s = svgEl(fig, '0 0 800 500');
+    var EX = 230, EY = 220, R = 88;
+    s.innerHTML =
+      '<path d="' + (function () { var p = 'M', r0 = R + 40; for (var i = 0; i <= 20; i++) { var a = (200 + i * 5) * D; p += (i ? 'L' : '') + (EX + r0 * Math.cos(a)).toFixed(1) + ',' + (EY - r0 * Math.sin(a)).toFixed(1); } return p; })() +
+      '" fill="none" stroke="' + C.cream + '" stroke-opacity=".7" stroke-width="3" stroke-linecap="round"/>' +
+      '<path id="s4spinhead" fill="' + C.cream + '" fill-opacity=".7"/>' +
+      '<g id="s4seaG" filter="url(#pc)"><ellipse cx="' + EX + '" cy="' + EY + '" rx="' + (R + 34) + '" ry="' + (R + 6) + '" fill="' + C.sea + '"/></g>' +
+      '<g filter="url(#pc)">' + earth(EX, EY, R) + '</g>' +
+      '<g id="s4f" stroke-linejoin="round" stroke-linecap="round"></g>' +
+      '<g id="s4moon" filter="url(#pc)">' + moonArt(30) + '</g>' +
+      txt(0, 0, 'sm', 'middle', 's4vel') + txt(0, 0, 'sm', 'start', 's4tan') + txt(0, 0, 'sm', 'middle', 's4brk') +
+      txt(EX - R - 40, EY - R - 40, 'sm', 'middle', 's4sp') +
+      // Cán cân mô-men động lượng.
+      '<g transform="translate(40,412)">' + txt(0, -14, 'sm', 'start', 's4led') +
+      '<rect width="720" height="34" rx="8" fill="' + C.n2 + '"/>' +
+      '<rect id="s4be" height="34" rx="8" fill="' + C.sea + '" filter="url(#pcs)"/>' +
+      '<rect id="s4bm" height="34" rx="8" fill="' + C.cream + '" filter="url(#pcs)"/>' +
+      '<text id="s4le" x="0" y="62" class="sm"></text><text id="s4lm" y="62" class="sm" text-anchor="end"></text></g>';
+    say(s, { s4vel: ['Mặt Trăng đi lên', 'Moon moving'], s4tan: ['kéo tới trước', 'forward tug'], s4brk: ['phanh', 'brake'], s4sp: ['Trái Đất quay', 'Earth spins'], s4led: ['Mô-men động lượng (tổng không đổi)', 'Angular momentum (total stays fixed)'] });
+    var head = $('#s4spinhead', s);
+    (function () { var r0 = R + 40, a = 300 * D, x = EX + r0 * Math.cos(a), y = EY - r0 * Math.sin(a); head.setAttribute('d', arrow(x - 12 * Math.sin(a), y - 12 * Math.cos(a), x + 3 * Math.sin(a), y + 3 * Math.cos(a), 14)); })();
+    var seaG = $('#s4seaG', s), fg = $('#s4f', s), moon = $('#s4moon', s);
+    var aS = $('#s4a'), tS = $('#s4t');
+    // Số liệu: L quay Trái Đất ≈ 5,86e33, L quỹ đạo Mặt Trăng ≈ 2,88e34 kg·m²/s.
+    var LE0 = 5.86, LM0 = 28.8;
+    function upd() {
+      var del = +aS.value, t = +tS.value;
+      var a = 384400 + 38 * t, LM = LM0 * Math.sqrt(a / 384400), LE = LE0 - (LM - LM0), day = 24 * LE0 / LE;
+      var mx = 610 + 80 * (t / 1000), my = EY;
+      moon.setAttribute('transform', 'translate(' + mx + ',' + my + ')');
+      seaG.setAttribute('transform', 'rotate(' + (-del) + ' ' + EX + ' ' + EY + ')');
+      var bx = EX + (R + 26) * Math.cos(del * D), by = EY - (R + 26) * Math.sin(del * D);
+      var ux = bx - mx, uy = by - my, L = Math.hypot(ux, uy); ux /= L; uy /= L;
+      var pull = 120, rx = ux * pull, ty = uy * pull * 4;
+      var d1 = arrow(mx - 34, my, mx - 34 + rx, my, 12);
+      var d2 = arrow(mx, my - 34, mx, my - 34 + ty, 13);
+      var vel = arrow(mx + 50, my + 30, mx + 50, my - 40, 12);
+      var brk = Math.sin(del * D) * 260;
+      var d3 = arrow(bx, by, bx + Math.sin(del * D) * brk * .55, by + Math.cos(del * D) * brk * .55, 12);
+      fg.innerHTML =
+        '<path d="' + vel + '" fill="' + C.cream + '" stroke="' + C.cream + '" stroke-width="3" stroke-dasharray="0" opacity=".55"/>' +
+        '<path d="M' + bx.toFixed(1) + ',' + by.toFixed(1) + 'L' + mx + ',' + my + '" stroke="' + C.orange + '" stroke-opacity=".45" stroke-width="2" stroke-dasharray="4 6"/>' +
+        '<path d="' + d1 + '" fill="' + C.grey + '" stroke="' + C.grey + '" stroke-width="3"/>' +
+        (del > 0 ? '<path d="' + d2 + '" fill="' + C.orange + '" stroke="' + C.orange + '" stroke-width="5" filter="url(#pcs)"/>' : '') +
+        (del > 0 ? '<path d="' + d3 + '" fill="' + C.orange + '" stroke="' + C.orange + '" stroke-width="4" filter="url(#pcs)"/>' : '') +
+        '<circle cx="' + bx.toFixed(1) + '" cy="' + by.toFixed(1) + '" r="6" fill="' + C.orange + '"/>';
+      var vl = $('#s4vel', s); vl.setAttribute('x', mx + 50); vl.setAttribute('y', my + 58);
+      var tl = $('#s4tan', s); tl.setAttribute('x', mx + 14); tl.setAttribute('y', my - 34 + ty / 2); tl.style.display = del > 0 ? '' : 'none';
+      var bl = $('#s4brk', s); bl.setAttribute('x', bx + 30); bl.setAttribute('y', by + 42 * Math.cos(del * D) + 6); bl.style.display = del > 3 ? '' : 'none';
+      var tot = LE0 + LM0, wE = 720 * LE / tot;
+      $('#s4be', s).setAttribute('width', wE.toFixed(1));
+      var bm = $('#s4bm', s); bm.setAttribute('x', (wE + 4).toFixed(1)); bm.setAttribute('width', (716 - wE).toFixed(1));
+      $('#s4le', s).textContent = T('Trái Đất quay ' + fmt(LE / tot * 100) + '%', 'Earth spin ' + fmt(LE / tot * 100) + '%');
+      var lm = $('#s4lm', s); lm.setAttribute('x', 720); lm.textContent = T('Quỹ đạo Mặt Trăng ' + fmt(LM / tot * 100) + '%', 'Moon orbit ' + fmt(LM / tot * 100) + '%');
+      $('#s4av').textContent = del + '°';
+      $('#s4tv').textContent = t === 0 ? T('hôm nay', 'today') : T('+' + fmt(t) + ' triệu năm', '+' + fmt(t) + ' million yrs');
+      var r = $('#s4r');
+      if (del === 0) r.innerHTML = T('Bướu thẳng hàng với Mặt Trăng: lực kéo không có thành phần tới trước, không có phanh. Đây chính là trạng thái khóa kép ở chương 5.',
+        'The bulge lines up with the Moon: the pull has no forward part and there is no brake. This is the double lock of chapter 5.');
+      else r.innerHTML = T('Mũi tên cam đứng là phần kéo tới trước (phóng đại 4 lần), mũi tên xám là phần kéo vào tâm. ' +
+        (t ? 'Sau <b>' + fmt(t) + ' triệu năm</b>, nếu giữ tốc độ 3,8 cm/năm: Mặt Trăng cách <b>' + fmt(a) + ' km</b>, một ngày dài khoảng <b>' + fmt(day, 1) + ' giờ</b> (mô hình đơn giản, chỉ tính Mặt Trăng).' : 'Hôm nay Mặt Trăng cách trung bình <b>384.400 km</b>. Tua thanh trượt dưới để xem mô-men động lượng chuyển chỗ.'),
+        'The upright orange arrow is the forward tug (exaggerated 4×), the grey one the pull toward the centre. ' +
+        (t ? 'After <b>' + fmt(t) + ' million years</b> at a steady 3.8 cm a year: the Moon is <b>' + fmt(a) + ' km</b> away and a day lasts about <b>' + fmt(day, 1) + ' hours</b> (simple model, Moon only).' : 'Today the Moon averages <b>384,400 km</b> away. Drag the lower slider to watch angular momentum change hands.'));
+    }
+    aS.addEventListener('input', upd); tS.addEventListener('input', upd);
+    hooks.push(upd); upd();
+  })();
+
+  // ================= 5. Khóa kép =================
+  (function () {
+    var fig = $('#s5');
+    svgEl(fig, '0 0 800 450').innerHTML = night(800, 450, 17);
+    var s = svgEl(fig, '0 0 800 450');
+    var EX = 250, EY = 225, R = 92;
+    s.innerHTML =
+      '<g id="s5seaG" filter="url(#pc)"><ellipse cx="' + EX + '" cy="' + EY + '" rx="' + (R + 32) + '" ry="' + (R + 6) + '" fill="' + C.sea + '"/></g>' +
+      '<g filter="url(#pc)">' + earth(EX, EY, R, 's5land') + '</g>' +
+      '<g id="s5pin" filter="url(#pcs)"><path d="M0,0L0,-28" stroke="' + C.cream + '" stroke-width="3.5"/><path d="M0,-28L19,-21L0,-14Z" fill="' + C.orange + '"/><circle r="5" fill="' + C.orange + '"/></g>' +
+      '<g id="s5moon" filter="url(#pc)"><g>' + moonArt(28) + '<path d="M24,-8L42,0L24,8Z" fill="' + C.orange + '" transform="rotate(180)"/></g></g>' +
+      // Thước mực nước ở lá cờ.
+      '<g transform="translate(740,110)"><rect x="-14" y="0" width="28" height="200" rx="8" fill="' + C.n2 + '"/>' +
+      '<rect id="s5lv" x="-14" width="28" rx="8" fill="' + C.sea + '" filter="url(#pcs)"/>' + txt(0, -16, 'sm', 'middle', 's5g') + '</g>' +
+      txt(EX, 395, 'lbl', 'middle', 's5e');
+    say(s, { s5g: ['mực nước', 'water'], s5e: ['Trái Đất', 'Earth'] });
+    var seaG = $('#s5seaG', s), land = $('#s5land', s), pin = $('#s5pin', s), moon = $('#s5moon', s), lv = $('#s5lv', s);
+    var fS = $('#s5f'), ang = 120 * D;
+    function f() { return +fS.value / 100; }
+    function render() {
+      var k = f(), lag = 12 * (1 - k), md = 300 + 110 * k;
+      seaG.setAttribute('transform', 'rotate(' + (-lag) + ' ' + EX + ' ' + EY + ')');
+      moon.setAttribute('transform', 'translate(' + (EX + md) + ',' + EY + ')');
+      land.setAttribute('transform', 'rotate(' + (-ang / D).toFixed(2) + ') scale(' + R + ')');
+      var pa = ang + 70 * D, px = EX + R * Math.cos(pa), py = EY - R * Math.sin(pa);
+      pin.setAttribute('transform', 'translate(' + px.toFixed(1) + ',' + py.toFixed(1) + ') rotate(' + (90 - pa / D).toFixed(1) + ')');
+      var w = Math.cos(2 * (pa - lag * D)), h = 100 + w * 80;
+      lv.setAttribute('y', (200 - h).toFixed(1)); lv.setAttribute('height', h.toFixed(1));
+      $('#s5v').textContent = k === 0 ? T('hôm nay', 'today') : k === 1 ? T('hàng chục tỷ năm', 'tens of billions of yrs') : T('chậm dần…', 'slowing…');
+      var r = $('#s5t'), m;
+      if (k === 0) m = T('<b>Hôm nay:</b> Trái Đất quay một vòng mỗi ngày, Mặt Trăng một vòng mỗi 27,3 ngày. Bướu nước bị kéo lên trước, nước ở lá cờ lên xuống liên tục.',
+        '<b>Today:</b> the Earth spins once a day, the Moon orbits once every 27.3 days. The bulge is dragged ahead, and the water at the flag keeps rising and falling.');
+      else if (k < 1) m = T('Trái Đất quay chậm dần, bướu nước lùi dần về thẳng hàng, Mặt Trăng xa dần. (Minh họa, không theo tỉ lệ thời gian.)',
+        'The Earth spins slower, the bulge slides back into line, the Moon drifts out. (Illustration, time not to scale.)');
+      else m = T('<b>Khóa kép.</b> Một ngày dài bằng một tháng, khoảng 47 ngày hôm nay. Lá cờ trên Trái Đất và lá cờ trên Mặt Trăng chĩa vào nhau mãi; mực nước đứng yên.',
+        '<b>Double lock.</b> A day lasts as long as a month, about 47 of today\'s days. The flag on the Earth and the flag on the Moon point at each other forever; the water level stops moving.');
+      if (r.dataset.m !== m) { r.innerHTML = m; r.dataset.m = m; }
+    }
+    fS.addEventListener('input', render);
+    loop(fig, function (dt) {
+      var k = f();
+      if (playing.s5) {
+        if (k < 1) ang += dt * 1.6 * Math.pow(1 - k, 1.4);
+        else ang += wrapA(-70 * D - ang) * Math.min(1, 2 * dt);   // dừng hẳn với lá cờ hướng thẳng vào Mặt Trăng
+      }
+      render();
+    });
+    hooks.push(render);
+  })();
+
+  // ================= 6a. Gương phản xạ góc =================
+  (function () {
+    var fig = $('#s6');
+    svgEl(fig, '0 0 800 380').innerHTML = night(800, 380, 23);
+    var s = svgEl(fig, '0 0 800 380');
+    var Cx = 650, Cy = 190, M = [[Cx, Cy, 500, 40], [Cx, Cy, 500, 340]];
+    s.innerHTML =
+      '<g filter="url(#cut)"><path d="M' + Cx + ',' + Cy + 'L500,40L470,40L470,340L500,340Z" fill="' + C.n4 + '"/></g>' +
+      '<g filter="url(#pc)"><path d="M500,40L' + Cx + ',' + Cy + 'L500,340" fill="none" stroke="#C9D3E8" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"/></g>' +
+      '<g id="s6r" stroke-linejoin="round" stroke-linecap="round" fill="none"></g>' +
+      '<g filter="url(#pcs)"><rect x="18" y="0" width="30" height="380" fill="' + C.n2 + '"/></g>' +
+      txt(575, 30, 'sm', 'middle', 's6m') + txt(60, 30, 'sm', 'start', 's6in') + txt(60, 368, 'sm', 'start', 's6out');
+    say(s, { s6m: ['hai gương vuông góc', 'two mirrors at 90°'], s6in: ['tia tới', 'incoming'], s6out: ['tia về', 'returning'] });
+    var rg = $('#s6r', s), aS = $('#s6a'), yS = $('#s6y');
+    function hit(px, py, dx, dy, m) {
+      var ex = m[2] - m[0], ey = m[3] - m[1], den = dx * ey - dy * ex;
+      if (Math.abs(den) < 1e-9) return null;
+      var t = ((m[0] - px) * ey - (m[1] - py) * ex) / den, u = ((m[0] - px) * dy - (m[1] - py) * dx) / den;
+      return (t > 1e-6 && u >= 0 && u <= 1) ? t : null;
+    }
+    function upd() {
+      var a = +aS.value * D, y0 = 100 + (+yS.value / 100) * 180;
+      var px = 48, py = y0, dx = Math.cos(a), dy = -Math.sin(a), segs = [[px, py]], last = -1;
+      for (var n = 0; n < 4; n++) {
+        var best = null, bi = -1;
+        M.forEach(function (m, i) { if (i === last) return; var t = hit(px, py, dx, dy, m); if (t !== null && (best === null || t < best)) { best = t; bi = i; } });
+        if (best === null) break;
+        px += dx * best; py += dy * best; segs.push([px, py]); last = bi;
+        var m = M[bi], ex = m[2] - m[0], ey = m[3] - m[1], L = Math.hypot(ex, ey), nx = -ey / L, ny = ex / L, dot = dx * nx + dy * ny;
+        dx -= 2 * dot * nx; dy -= 2 * dot * ny;
+      }
+      var tEnd = dx < 0 ? (48 - px) / dx : 400;
+      var ex2 = px + dx * tEnd, ey2 = py + dy * tEnd;
+      var din = 'M' + segs.map(function (p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }).join('L');
+      rg.innerHTML =
+        '<path d="' + din + '" stroke="' + C.orange + '" stroke-width="5" filter="url(#pcs)"/>' +
+        '<path d="M' + px.toFixed(1) + ',' + py.toFixed(1) + 'L' + ex2.toFixed(1) + ',' + ey2.toFixed(1) + '" stroke="' + C.cream + '" stroke-width="4" stroke-dasharray="10 8"/>' +
+        '<path d="' + arrow(segs[0][0] + dx * 0 + 120 * Math.cos(a), segs[0][1] - 120 * Math.sin(a), segs[0][0] + 150 * Math.cos(a), segs[0][1] - 150 * Math.sin(a), 16) + '" fill="' + C.orange + '" stroke="' + C.orange + '" stroke-width="5"/>' +
+        (segs.length > 2 ? '<path d="' + arrow(ex2 + (px - ex2) * .55, ey2 + (py - ey2) * .55, ex2 + (px - ex2) * .48, ey2 + (py - ey2) * .48, 16) + '" fill="' + C.cream + '" stroke="' + C.cream + '" stroke-width="4"/>' : '');
+      $('#s6av').textContent = (+aS.value > 0 ? '+' : '') + aS.value + '°';
+    }
+    aS.addEventListener('input', upd); yS.addEventListener('input', upd); upd();
+  })();
+
+  // ================= 6b. Bắn laser =================
+  (function () {
+    var fig = $('#s6b');
+    svgEl(fig, '0 0 800 220').innerHTML = night(800, 220, 29);
+    var s = svgEl(fig, '0 0 800 220');
+    s.innerHTML =
+      '<g filter="url(#pc)">' + earth(80, 110, 62) + '</g>' +
+      '<g filter="url(#pc)" transform="translate(735,110)">' + moonArt(20) + '<rect x="-24" y="-5" width="7" height="10" fill="#C9D3E8"/></g>' +
+      '<path d="M142,110L711,110" stroke="' + C.cream + '" stroke-opacity=".18" stroke-width="2" stroke-dasharray="2 8"/>' +
+      '<rect id="s6p" y="106" width="46" height="8" rx="4" fill="' + C.orange + '" filter="url(#pcs)" opacity="0"/>' +
+      '<text id="s6clk" x="400" y="62" text-anchor="middle" style="font-size:30px;font-weight:600;font-variant-numeric:tabular-nums"></text>' +
+      txt(400, 200, 'sm', 'middle', 's6sc');
+    say(s, { s6sc: ['khoảng cách không theo tỉ lệ (thật xa gấp ~30 lần đường kính Trái Đất)', 'distance not to scale (really ~30 Earth diameters)'] });
+    var p = $('#s6p', s), clk = $('#s6clk', s), btn = $('#s6go'), RT = 2.5645, t = -1;
+    function show() {
+      if (t < 0) {
+        clk.textContent = '0' + (LANG === 'en' ? '.' : ',') + '000 s';
+        $('#s6t').innerHTML = T('Bấm "Bắn laser". Đồng hồ chạy theo thời gian thật.', 'Press "Fire the laser". The clock runs in real time.');
+        return;
+      }
+      var tt = Math.min(t, RT), x = tt < RT / 2 ? 142 + (tt / (RT / 2)) * 523 : 665 - ((tt - RT / 2) / (RT / 2)) * 523;
+      p.setAttribute('x', x.toFixed(1)); p.setAttribute('opacity', t < RT ? 1 : 0);
+      clk.textContent = fmt(tt, 3) + ' s';
+      if (t >= RT) $('#s6t').innerHTML = T('Ánh sáng đi và về mất <b>' + fmt(RT, 2) + ' giây</b>. 299.792 km/s × ' + fmt(RT, 2) + ' s ÷ 2 ≈ <b>384.400 km</b> tới Mặt Trăng.',
+        'The round trip took <b>' + fmt(RT, 2) + ' seconds</b>. 299,792 km/s × ' + fmt(RT, 2) + ' s ÷ 2 ≈ <b>384,400 km</b> to the Moon.');
+      else $('#s6t').innerHTML = T(tt < RT / 2 ? 'Xung laser đang bay lên…' : 'Dội lại từ gương, đang quay về…', tt < RT / 2 ? 'The pulse is on its way up…' : 'Bounced off the mirror, coming back…');
+    }
+    var start = 0, raf = 0;
+    function f(now) { t = (now - start) / 1000; show(); if (t < RT) raf = requestAnimationFrame(f); else { btn.disabled = false; raf = 0; } }
+    btn.addEventListener('click', function () { if (raf) return; btn.disabled = true; start = performance.now(); raf = requestAnimationFrame(f); });
+    hooks.push(show); show();
+  })();
+
+  // ================= 7. Nhật thực =================
+  (function () {
+    var fig = $('#s7');
+    var s = svgEl(fig, '0 0 800 400');
+    var SX = 400, SY = 180, SR = 112, THS = 0.5242;  // Mặt Trời lúc xa nhất (độ)
+    var rays = '';
+    for (var i = 0; i < 16; i++) { var a = i * 22.5 * D, b = a + 7 * D, c = a - 7 * D; rays += 'M' + (SX + 125 * Math.cos(b)).toFixed(1) + ',' + (SY + 125 * Math.sin(b)).toFixed(1) + 'L' + (SX + 158 * Math.cos(a)).toFixed(1) + ',' + (SY + 158 * Math.sin(a)).toFixed(1) + 'L' + (SX + 125 * Math.cos(c)).toFixed(1) + ',' + (SY + 125 * Math.sin(c)).toFixed(1) + 'Z'; }
+    var cor = '';
+    for (i = 0; i < 24; i++) { a = i * 15 * D + .1; var l = 150 + (i % 3) * 22; cor += 'M' + (SX + 108 * Math.cos(a + .1)).toFixed(1) + ',' + (SY + 108 * Math.sin(a + .1)).toFixed(1) + 'L' + (SX + l * Math.cos(a)).toFixed(1) + ',' + (SY + l * Math.sin(a)).toFixed(1) + 'L' + (SX + 108 * Math.cos(a - .1)).toFixed(1) + ',' + (SY + 108 * Math.sin(a - .1)).toFixed(1) + 'Z'; }
+    s.innerHTML =
+      '<rect id="s7sky" width="800" height="400"/>' +
+      '<g id="s7stars" opacity="0">' + stars(800, 300, 30, 31) + '</g>' +
+      '<g id="s7rays" filter="url(#pc)"><path d="' + rays + '" fill="#F6B567"/></g>' +
+      '<g id="s7cor" opacity="0"><path d="' + cor + '" fill="#F3E9D2" opacity=".85"/><circle cx="' + SX + '" cy="' + SY + '" r="' + (SR + 14) + '" fill="#F3E9D2" opacity=".5"/></g>' +
+      '<g filter="url(#pc)"><circle cx="' + SX + '" cy="' + SY + '" r="' + SR + '" fill="#F4A24C"/><circle cx="' + SX + '" cy="' + SY + '" r="' + (SR * .78) + '" fill="#F7B864"/></g>' +
+      '<g filter="url(#pc)"><circle id="s7m" cy="' + SY + '" fill="#202A4E"/></g>';
+    var top = svgEl(fig, '0 0 800 400');
+    top.innerHTML =
+      '<g filter="url(#cut)"><path d="M-20,420L-20,330C80,300 160,318 250,334C330,348 380,316 470,312C560,308 640,340 820,318L820,420Z" fill="#2A3A5E"/></g>' +
+      '<g filter="url(#cut)"><path d="M-20,420L-20,362C120,346 220,372 330,370C450,368 560,352 820,372L820,420Z" fill="#33496F"/></g>' +
+      txt(780, 388, 'sm', 'end', 's7c');
+    say(top, { s7c: ['Mặt Trăng lúc gần nhất, Mặt Trời lúc xa nhất', 'Moon at its closest, Sun at its farthest'] });
+    var sky = $('#s7sky', s), st = $('#s7stars', s), co = $('#s7cor', s), mo = $('#s7m', s), rayG = $('#s7rays', s);
+    var fS = $('#s7f'), ph = -1.2;
+    function overlap(r1, r2, d) {
+      if (d >= r1 + r2) return 0;
+      if (d <= Math.abs(r1 - r2)) return Math.PI * Math.min(r1, r2) * Math.min(r1, r2);
+      return r1 * r1 * Math.acos((d * d + r1 * r1 - r2 * r2) / (2 * d * r1)) + r2 * r2 * Math.acos((d * d + r2 * r2 - r1 * r1) / (2 * d * r2)) -
+        .5 * Math.sqrt((-d + r1 + r2) * (d + r1 - r2) * (d - r1 + r2) * (d + r1 + r2));
+    }
+    var mix = function (a, b, k) { var p = function (h, i) { return parseInt(h.substr(i, 2), 16); }; var o = '#'; for (var i = 1; i < 7; i += 2) o += Math.round(p(a, i) + (p(b, i) - p(a, i)) * k).toString(16).padStart(2, '0'); return o; };
+    var last = '';
+    function render() {
+      var t = +fS.value, dP = 356500 + 38 * t, thM = 2 * Math.atan(1737.4 / dP) / D, mr = SR * thM / THS;
+      var sn = Math.sin(ph), mx = SX + 330 * (sn < 0 ? -1 : 1) * Math.pow(Math.abs(sn), 1.7);
+      mo.setAttribute('cx', mx.toFixed(1)); mo.setAttribute('r', mr.toFixed(1));
+      var cov = overlap(SR, mr, Math.abs(mx - SX)) / (Math.PI * SR * SR);
+      var dark = Math.pow(cov, 6);
+      sky.setAttribute('fill', mix('#86AFCF', '#141A33', dark));
+      st.setAttribute('opacity', (dark * .9).toFixed(2));
+      var total = cov > .9995;
+      co.setAttribute('opacity', total ? 1 : 0);
+      rayG.setAttribute('opacity', (1 - dark).toFixed(2));
+      $('#s7v').textContent = t === 0 ? T('hôm nay', 'today') : T('+' + fmt(t) + ' triệu năm', '+' + fmt(t) + ' million yrs');
+      var can = thM >= THS;
+      var m = T('Đĩa Mặt Trăng lớn nhất <b>' + fmt(thM, 3) + '°</b>, đĩa Mặt Trời nhỏ nhất <b>' + fmt(THS, 3) + '°</b>. ' +
+        (can ? 'Mặt Trăng vẫn to hơn <b>' + fmt((thM / THS - 1) * 100, 1) + '%</b>: <b>nhật thực toàn phần vẫn còn</b>.' : '<b>Hết nhật thực toàn phần</b>: kể cả lúc thuận lợi nhất, chỉ còn vòng lửa hình khuyên.') +
+        (t ? ' Mặt Trăng (lúc gần nhất) cách <b>' + fmt(dP) + ' km</b>.' : ''),
+        'Largest Moon disc <b>' + fmt(thM, 3) + '°</b>, smallest Sun disc <b>' + fmt(THS, 3) + '°</b>. ' +
+        (can ? 'The Moon is still <b>' + fmt((thM / THS - 1) * 100, 1) + '%</b> larger: <b>total eclipses are still possible</b>.' : '<b>No more total eclipses</b>: even at best, only a ring of fire remains.') +
+        (t ? ' The Moon at its closest is <b>' + fmt(dP) + ' km</b> away.' : ''));
+      if (m !== last) { $('#s7t').innerHTML = m; last = m; }
+    }
+    fS.addEventListener('input', render);
+    loop(fig, function (dt) { if (playing.s7) ph += dt * .45; render(); });
+    hooks.push(function () { last = ''; render(); });
+  })();
+
+  // ================= 8a. Giây nhuận =================
+  (function () {
+    var L = ['1972-06-30', '1972-12-31', '1973-12-31', '1974-12-31', '1975-12-31', '1976-12-31', '1977-12-31', '1978-12-31', '1979-12-31',
+      '1981-06-30', '1982-06-30', '1983-06-30', '1985-06-30', '1987-12-31', '1989-12-31', '1990-12-31', '1992-06-30', '1993-06-30',
+      '1994-06-30', '1995-12-31', '1997-06-30', '1998-12-31', '2005-12-31', '2008-12-31', '2012-06-30', '2015-06-30', '2016-12-31'];
+    var fig = $('#s8');
+    svgEl(fig, '0 0 800 200').innerHTML = night(800, 200, 37);
+    var s = svgEl(fig, '0 0 800 200');
+    var X = function (y) { return 50 + (y - 1970) / (2026 - 1970) * 700; };
+    var axis = '<path d="M40,150L760,150" stroke="' + C.cream + '" stroke-opacity=".4" stroke-width="2"/>';
+    [1970, 1980, 1990, 2000, 2010, 2020].forEach(function (y) { axis += '<path d="M' + X(y) + ',150L' + X(y) + ',158" stroke="' + C.cream + '" stroke-opacity=".5" stroke-width="2"/><text x="' + X(y) + '" y="182" class="sm" text-anchor="middle">' + y + '</text>'; });
+    var dots = '', cnt = {};
+    L.forEach(function (d, i) {
+      var y = +d.slice(0, 4), frac = d.slice(5, 7) === '06' ? .5 : 1, k = cnt[y] = (cnt[y] || 0) + 1;
+      dots += '<circle class="tap" tabindex="0" data-i="' + i + '" cx="' + X(y + frac - .25).toFixed(1) + '" cy="' + (150 - 18 - (k - 1) * 22) + '" r="8" fill="' + C.orange + '" filter="url(#pcs)"/>';
+    });
+    s.innerHTML = axis + dots + txt(40, 34, 'sm', 'start', 's8h');
+    say(s, { s8h: ['Mỗi chấm là một giây nhuận', 'Each dot is one leap second'] });
+    var cur = 26;
+    function show() {
+      var d = L[cur], dd = d.slice(8, 10), mm = d.slice(5, 7), yy = d.slice(0, 4);
+      s.querySelectorAll('circle.tap').forEach(function (c) { c.setAttribute('fill', +c.dataset.i === cur ? C.cream : C.orange); });
+      $('#s8t').innerHTML = T('Giây nhuận thứ <b>' + (cur + 1) + '</b>/27: chèn sau 23:59:59 ngày <b>' + (+dd) + '/' + (+mm) + '/' + yy + '</b>, đồng hồ hiện 23:59:60 rồi mới sang ngày mới.' + (cur === 26 ? ' Đây là lần gần nhất.' : ''),
+        'Leap second <b>' + (cur + 1) + '</b> of 27: added after 23:59:59 on <b>' + new Date(d + 'T12:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }) + '</b>; clocks showed 23:59:60 before the new day began.' + (cur === 26 ? ' This is the most recent one.' : ''));
+    }
+    s.addEventListener('click', function (e) { var c = e.target.closest('circle.tap'); if (c) { cur = +c.dataset.i; show(); } });
+    s.addEventListener('keydown', function (e) { var c = e.target.closest('circle.tap'); if (c && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); cur = +c.dataset.i; show(); } });
+    s.removeAttribute('aria-hidden');
+    hooks.push(show); show();
+  })();
+
+  // ================= 8b. ΔT =================
+  (function () {
+    var fig = $('#s8b');
+    svgEl(fig, '0 0 800 210').innerHTML = night(800, 210, 41);
+    var s = svgEl(fig, '0 0 800 210');
+    var X = function (lon) { return 50 + (lon + 180) / 360 * 700; };
+    var band = '<g filter="url(#cut)"><rect x="50" y="78" width="700" height="56" rx="10" fill="' + C.n4 + '"/></g>';
+    [-180, -90, 0, 90, 180].forEach(function (l) { band += '<text x="' + X(l) + '" y="160" class="sm" text-anchor="middle">' + (l === 0 ? '0°' : Math.abs(l) + '°' + (l < 0 ? 'W' : 'E')) + '</text>'; });
+    var city = function (lon, id) { return '<g filter="url(#pcs)"><circle cx="' + X(lon) + '" cy="106" r="5" fill="' + C.cream + '"/></g>' + txt(X(lon), 70, 'sm', 'middle', id); };
+    s.innerHTML = band + city(0, 's8lo') + city(106, 's8hn') +
+      '<g filter="url(#pc)"><circle cx="' + X(44.4) + '" cy="106" r="11" fill="' + C.orange + '"/></g>' + txt(X(44.4), 194, 'lbl', 'middle', 's8bb') +
+      '<path id="s8arc" fill="none" stroke="' + C.orange + '" stroke-width="3" stroke-dasharray="5 6"/>' +
+      '<g id="s8calc" filter="url(#pc)"><circle cy="106" r="11" fill="none" stroke="' + C.cream + '" stroke-width="4"/></g>' + txt(0, 194, 'lbl', 'middle', 's8cl') +
+      txt(40, 34, 'sm', 'start', 's8h2');
+    say(s, { s8lo: ['London', 'London'], s8hn: ['Hà Nội', 'Hanoi'], s8bb: ['Babylon', 'Babylon'], s8cl: ['nếu tính sai', 'if computed naively'], s8h2: ['Kinh độ dải nhật thực', 'Longitude of the eclipse track'] });
+    var yS = $('#s8y'), calc = $('#s8calc', s), cl = $('#s8cl', s), arc = $('#s8arc', s);
+    function upd() {
+      var y = +yS.value, u = (y - 1820) / 100, uNow = (2025 - 1820) / 100;
+      var dT = -20 + 32 * u * u, shift = dT / 86400 * 360, lod = 1.752 * (uNow - u);
+      // Bỏ qua ΔT là coi Trái Đất đã quay nhiều hơn thật, nên dải tối tính ra nằm lệch về phía tây.
+      var lon = 44.4 - shift, cx = X(Math.max(-180, lon));
+      calc.setAttribute('transform', 'translate(' + cx.toFixed(1) + ',0)');
+      cl.setAttribute('x', cx.toFixed(1)); cl.style.display = shift > 6 ? '' : 'none';
+      arc.setAttribute('d', 'M' + X(44.4) + ',94Q' + ((X(44.4) + cx) / 2).toFixed(1) + ',' + (94 - Math.min(60, shift)).toFixed(1) + ' ' + cx.toFixed(1) + ',94');
+      var yr = y < 0 ? T(-y + ' TCN', -y + ' BC') : y === 0 ? '0' : String(y);
+      $('#s8yv').textContent = yr;
+      var hh = Math.floor(dT / 3600), mm = Math.round((dT % 3600) / 60);
+      $('#s8u').innerHTML = T('Năm <b>' + yr + '</b>: Trái Đất "chậm" hơn đồng hồ đều khoảng <b>' + (hh ? hh + ' giờ ' : '') + mm + ' phút</b>, tức lệch <b>' + fmt(shift) + '° kinh độ</b> (~' + fmt(shift * 111.3) + ' km ở xích đạo). Một ngày khi ấy ngắn hơn hôm nay khoảng <b>' + fmt(Math.max(0, lod)) + ' mili giây</b>.',
+        'Year <b>' + yr + '</b>: the Earth lags a uniform clock by about <b>' + (hh ? hh + ' h ' : '') + mm + ' min</b>, a shift of <b>' + fmt(shift) + '° of longitude</b> (~' + fmt(shift * 111.3) + ' km at the equator). A day back then was about <b>' + fmt(Math.max(0, lod)) + ' ms</b> shorter than today.');
+    }
+    yS.addEventListener('input', upd);
+    hooks.push(upd); upd();
+  })();
+})();
+</script>
+</body>
+</html>
