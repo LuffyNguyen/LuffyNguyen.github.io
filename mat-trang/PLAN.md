@@ -36,46 +36,26 @@ Ghi chú trung thực đã đưa vào trang:
 
 ---
 
-## Phần 2 — Tuần trăng, thời gian và lịch (CHƯA LÀM)
+## Phần 2 — Tuần trăng, thời gian và lịch (ĐÃ LÀM, 22/10/2026)
 
-Thêm vào cùng `index.html`, sau chương 8, thay khối "Phần 2 sắp có". Mỗi dữ kiện phải tra lại
-bằng web search và gắn link nguồn (quy tắc §6 của repo agent).
+Không nhét vào `index.html` nữa mà tách thành **cây trang** kiểu blog: trang gốc Phần 1 có khối
+"Phần 2" dẫn vào trang chủ đề, mỗi trang lá có thẻ "Đọc tiếp" ở cuối và sơ đồ cây đánh dấu
+"Bạn đang ở đây". Cây khai báo một chỗ (`TREE` trong `giay.js`), thêm trang = thêm một nút.
 
-### 9. Vì sao có tuần trăng
-- Cảnh cắt giấy nhìn từ trên: Mặt Trời bên trái, Trái Đất giữa, Mặt Trăng chạy quỹ đạo; nửa sáng
-  luôn quay về Mặt Trời. Ô nhỏ "nhìn từ Trái Đất" vẽ hình trăng tương ứng (khuyết, bán nguyệt, rằm).
-- Thanh trượt ngày 0 → 29,5; nhãn mùng 1, mùng 8, rằm, 23.
-- Tháng giao hội 29,53 ngày vs tháng thiên văn 27,32 ngày: hoạt hình cho thấy vì sao phải chạy
-  thêm ~2,2 ngày (Trái Đất đã đi một đoạn quanh Mặt Trời).
-- Vì sao không tháng nào cũng có nhật/nguyệt thực: quỹ đạo nghiêng ~5°, nút giao.
+```
+/mat-trang/                         Phần 1 · Khóa thủy triều
+└── /mat-trang/lich/                Phần 2 · Tuần trăng và lịch (trang chủ đề, "hôm nay âm lịch")
+    ├── tuan-trang/                 01 · Vì sao trăng khuyết rồi tròn (tuần trăng, 29,53 vs 27,32, thực)
+    ├── dem-trang/                  02 · Những người đầu tiên đếm trăng (Lebombo/Ishango = giả thuyết, Warren Field)
+    ├── ba-kieu-lich/               03 · Âm, dương, âm dương (Meton, Tết/Ramadan/Giáng sinh, Julius → Gregory)
+    └── am-lich-viet-nam/           04 · 24 tiết khí, tháng nhuận, QĐ 121-CP, Tết 1985 lệch cả tháng, máy đổi ngày
+```
 
-### 10. Con người đếm Mặt Trăng — dòng thời gian
-Dòng thời gian ngang cuộn được, mỗi mốc là một tấm giấy cắt; ghi rõ mốc nào còn tranh cãi.
-- Xương Lebombo (~43.000 năm), xương Ishango (~20.000 năm): vạch khắc có thể là đếm ngày trăng —
-  **ghi là giả thuyết**.
-- Warren Field, Scotland (~10.000 năm): dãy hố được cho là "lịch" theo Mặt Trăng (nghiên cứu 2013).
-- Ai Cập: lịch dân sự 365 ngày (12 × 30 + 5), gắn với lúc sao Sirius mọc trước bình minh và lũ sông Nile.
-- Babylon: lịch âm dương, tháng bắt đầu khi thấy trăng non; ghi chép nhật thực (nối lại chương 8).
-- Chu kỳ Meton: 19 năm ≈ 235 tháng (Meton, 432 TCN; Babylon dùng trước đó).
-- La Mã: lịch Julius (45 TCN, năm nhuận 4 năm/lần) → Gregory (1582, bỏ 10 ngày).
-- Hồi giáo: lịch Hijri thuần âm, 354/355 ngày, Ramadan trôi qua các mùa.
-- Trung Hoa / Việt Nam: âm lịch thực chất là **âm dương lịch** — tháng theo trăng, năm theo 24
-  tiết khí, tháng nhuận khi một tháng không chứa trung khí.
-- Việt Nam tính lịch theo múi giờ UTC+7 (từ 1967–1968): Tết Mậu Thân 1968 miền Bắc và miền Nam
-  lệch một ngày; năm 1985 Tết Việt Nam sớm hơn Trung Quốc một tháng. **Tra lại ngày cụ thể trước khi đăng.**
-
-### 11. Lịch âm, lịch dương, lịch âm dương — bàn so sánh
-- Ba vòng giấy đồng tâm: 12 tháng trăng = 354,37 ngày vs năm Mặt Trời 365,24 ngày; khoảng hụt
-  ~11 ngày/năm cộng dồn.
-- Tương tác: chọn kiểu lịch, tua 1–19 năm, xem Tết / Ramadan / Giáng sinh trôi hay đứng so với mùa.
-- Máy đổi ngày dương → âm đơn giản (thuật toán Hồ Ngọc Đức, có mã nguồn mở — kiểm tra giấy phép
-  trước khi nhúng).
-
-### 12. Kết + nguồn
-- Nối hai phần: thủy triều làm ngày dài ra → ngày xưa ngắn hơn → lịch cổ phải hiệu chỉnh ΔT.
-- Danh sách nguồn đầy đủ (Wikipedia + bài gốc khi có).
-
-### Kiểm tra trước khi xong phần 2
-- Chụp màn 430 px và 1440 px (skill `playwright-cli`), cả sáng/tối, cả VI/EN.
-- Không tràn ngang trên mobile; mọi thanh trượt dùng được bằng ngón tay.
-- Commit (tiếng Việt không dấu) và `git push origin main`.
+- Dùng chung: `giay.css` (vỏ + bộ đổi ngày), `giay.js` (`window.MT`: sân khấu, cắt giấy, cây),
+  `lich/amlich.js` (`window.AL`: Sóc, kinh độ Mặt Trời, đổi âm ↔ dương, can chi; chạy được cả
+  trong Node để kiểm). Bộ tính tự viết lại theo Meeus + phương pháp Hồ Ngọc Đức, không chép mã
+  của ông (giấy phép chỉ cho dùng cá nhân, phi thương mại).
+- Đã kiểm bằng Node: Tết UTC+7 vs UTC+8 chỉ khác nhau năm 1968, 1969, 1985, 2007, 2030, 2053
+  trong 1968–2100; nhuận 1984 (CN tháng 10) / 1985 (VN tháng 2); Tết 2027 = 6/2.
+- Ảnh chụp 430 px + 1440 px từng trang: không lỗi console, không tràn ngang, ~60 fps.
+- Còn mở: số liệu tuần trăng/thực tính gần đúng (Meeus rút gọn), có thể lệch vài phút.

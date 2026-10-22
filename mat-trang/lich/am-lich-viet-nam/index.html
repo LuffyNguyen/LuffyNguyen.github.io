@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="vi" data-lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Âm lịch Việt Nam</title>
+<meta name="description" content="24 tiết khí, tháng nhuận, và vì sao Tết ở Việt Nam đôi khi sớm hơn Trung Quốc một ngày, có năm cả một tháng. 24 solar terms, leap months, and why Vietnam's Tết sometimes comes a day, or a month, before China's.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+<script>
+  (function () {
+    var l = 'vi';
+    try {
+      var q = new URLSearchParams(location.search).get('lang');
+      l = (q === 'en' || q === 'vi') ? q : (localStorage.getItem('mt-lang') || 'vi');
+    } catch (e) {}
+    document.documentElement.dataset.lang = l;
+    document.documentElement.lang = l;
+  })();
+</script>
+<link rel="stylesheet" href="/mat-trang/giay.css">
+</head>
+<body>
+
+<div class="bar">
+  <div class="wide">
+    <nav class="crumbs" aria-label="Đường dẫn / Breadcrumb">
+      <a class="brand" href="/mat-trang/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 14.4A9.6 9.6 0 1 1 9.6 2.4a7.6 7.6 0 0 0 12 12Z"/></svg>
+        <span lang="vi">Mặt Trăng</span><span lang="en">The Moon</span></a>
+      <span class="sep" aria-hidden="true">/</span>
+      <a href="/mat-trang/lich/"><span lang="vi">Lịch</span><span lang="en">Calendars</span></a>
+      <span class="sep last" aria-hidden="true">/</span>
+      <span class="here"><span lang="vi">Âm lịch Việt Nam</span><span lang="en">The Vietnamese calendar</span></span>
+    </nav>
+    <div class="seg lang" role="group" aria-label="Ngôn ngữ / Language">
+      <button type="button" data-l="vi" aria-pressed="true">VI</button>
+      <button type="button" data-l="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</div>
+
+<header class="hero act" id="top">
+  <div class="stage">
+    <div class="bg" id="hero" aria-hidden="true"></div>
+    <div class="tcard seen">
+      <p class="eyebrow"><span class="num" lang="vi">Phần 2 · 04</span><span class="num" lang="en">Part 2 · 04</span>
+        <span lang="vi">Âm lịch Việt Nam</span><span lang="en">The Vietnamese calendar</span></p>
+      <h1><span lang="vi">Một lịch tính cho giờ Hà Nội</span><span lang="en">A calendar computed for Hanoi time</span></h1>
+      <p class="lede" lang="vi">Âm lịch Việt Nam và Trung Quốc dùng chung luật: tháng bắt đầu ngày có Sóc, tháng nhuận xét theo trung khí. Khác nhau đúng một giờ múi giờ, và một giờ đó đủ để Tết lệch một ngày, có năm cả một tháng.</p>
+      <p class="lede" lang="en">The Vietnamese and Chinese calendars share the same rules: a month starts on the day of the new moon, and leap months follow the solar terms. They differ by one hour of time zone, and that hour is enough to move Tết by a day, and one year by a whole month.</p>
+      <div class="cta">
+        <a class="btn" href="#c1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4a1 1 0 0 1 1 1v11.6l4.3-4.3a1 1 0 1 1 1.4 1.4l-6 6a1 1 0 0 1-1.4 0l-6-6a1 1 0 1 1 1.4-1.4L11 16.6V5a1 1 0 0 1 1-1Z"/></svg>
+          <span lang="vi">Bắt đầu</span><span lang="en">Start</span></a>
+        <a class="btn ghost" href="#doi"><span lang="vi">Đổi ngày âm dương</span><span lang="en">Convert a date</span></a>
+      </div>
+    </div>
+    <p class="hint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 3.2a.8.8 0 0 1 1.1-.7l13 6.2a.8.8 0 0 1-.1 1.5l-5.6 1.7-2.6 5.4a.8.8 0 0 1-1.5-.1Z"/></svg>
+      <span lang="vi">Rê ngang để đổi năm</span><span lang="en">Move sideways to change the year</span></p>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ 1 ============ -->
+<section class="ch" id="c1">
+  <div class="act">
+    <div class="stage">
+      <div class="bg" aria-hidden="true"></div>
+      <div class="vis"><div class="fit">
+        <figure class="scene" id="s1" data-bg="stage" style="--ar: 16 / 9"></figure>
+      </div></div>
+      <div class="dock">
+        <div class="controls">
+          <button class="icon-btn" type="button" data-play="s1"></button>
+          <label class="range"><span class="lbl"><span><span lang="vi">Ngày trong năm 2026</span><span lang="en">Day of 2026</span></span><b id="s1dv"></b></span>
+            <input type="range" id="s1d" min="0" max="364" step="1" value="0"></label>
+        </div>
+        <p class="readout" id="s1r" aria-live="polite"></p>
+      </div>
+    </div>
+    <div class="story">
+      <div class="tcard">
+        <p class="eyebrow"><span class="num">01</span><span lang="vi">24 tiết khí</span><span lang="en">24 solar terms</span></p>
+        <h2><span lang="vi">Phần "dương" trong âm lịch</span><span lang="en">The solar half of the lunar calendar</span></h2>
+        <p lang="vi">Vòng tròn là đường đi của Mặt Trời trong một năm, chia làm 24 tiết khí, mỗi tiết 15°. Mười hai điểm ở các bội của 30° (vạch dài) gọi là <strong>trung khí</strong>. Đông chí, ở 270°, là một trong số đó.</p>
+        <p lang="en">The circle is the Sun's path over a year, split into 24 solar terms of 15° each. The twelve at multiples of 30° (long ticks) are the <strong>principal terms</strong>. The winter solstice, at 270°, is one of them.</p>
+      </div>
+      <div class="tcard">
+        <p lang="vi">Tiết khí đi theo Mặt Trời, nên năm nào cũng rơi vào gần cùng ngày dương lịch. Còn tháng âm bắt đầu vào ngày có điểm <strong>Sóc</strong>, lúc Mặt Trăng nằm giữa Trái Đất và Mặt Trời, tính theo giờ địa phương. Không ai phải ra ngoài nhìn trăng non.</p>
+        <p lang="en">The terms follow the Sun, so they land on nearly the same Gregorian date every year. A lunar month, though, starts on the day of the <strong>new moon</strong>, when the Moon passes between the Earth and the Sun, counted in local time. Nobody has to go out and look for the crescent.</p>
+      </div>
+      <div class="tcard">
+        <p class="note" lang="vi">Kéo thanh trượt và xem hai đồng hồ cùng chạy: Mặt Trời quanh vòng tiết khí, Mặt Trăng ở giữa qua từng tuần trăng.</p>
+        <p class="note" lang="en">Drag the slider and watch both clocks run: the Sun round the ring of terms, the Moon in the middle through its phases.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2 ============ -->
+<section class="ch" id="c2">
+  <div class="act">
+    <div class="stage">
+      <div class="bg" aria-hidden="true"></div>
+      <div class="vis"><div class="fit">
+        <figure class="scene" id="s2" data-bg="stage" style="--ar: 16 / 9"></figure>
+      </div></div>
+      <div class="dock">
+        <div class="controls">
+          <button class="icon-btn" type="button" data-play="s2"></button>
+          <label class="range"><span class="lbl"><span><span lang="vi">Tết năm</span><span lang="en">Tết of</span></span><b id="s2yv"></b></span>
+            <input type="range" id="s2y" min="1980" max="2035" step="1" value="1985"></label>
+        </div>
+        <p class="readout" id="s2r" aria-live="polite"></p>
+      </div>
+    </div>
+    <div class="story">
+      <div class="tcard">
+        <p class="eyebrow"><span class="num">02</span><span lang="vi">Tháng nhuận</span><span lang="en">Leap months</span></p>
+        <h2><span lang="vi">Tháng không có trung khí</span><span lang="en">The month without a principal term</span></h2>
+        <p lang="vi">Luật gốc: Đông chí phải nằm trong tháng 11. Nếu từ tháng 11 năm này tới tháng 11 năm sau có 13 lần Sóc, thì có một tháng thừa. Tháng đầu tiên không chứa trung khí nào là tháng nhuận, và mang số của tháng đứng trước nó.</p>
+        <p lang="en">The basic rule: the winter solstice must fall in month 11. If there are 13 new moons from one month 11 to the next, there is one month too many. The first month that contains no principal term becomes the leap month, and takes the number of the month before it.</p>
+      </div>
+      <div class="tcard">
+        <p lang="vi">Hai hàng trên hình dùng cùng luật, chỉ khác múi giờ. Năm 1984 Trung Quốc có tháng 10 nhuận, Việt Nam thì không. Kết quả: Tết Ất Sửu ở Việt Nam là <strong>21/1/1985</strong>, ở Trung Quốc là <strong>20/2/1985</strong>, cách nhau cả một tháng. Việt Nam nhuận tháng 2 năm 1985 (21/3 tới 19/4), và từ đó hai lịch khớp lại.</p>
+        <p lang="en">Both rows in the picture use the same rule, only the time zone differs. In 1984 China had a leap month 10 and Vietnam did not. So Tết in Vietnam fell on <strong>21 January 1985</strong>, and in China on <strong>20 February 1985</strong>, a whole month apart. Vietnam then had a leap month 2 in 1985 (21 March to 19 April), after which the two calendars agreed again.</p>
+      </div>
+      <div class="tcard">
+        <p class="note" lang="vi">Mỗi ô là một tháng âm, đặt theo ngày dương lịch. Ô đậm là tháng Giêng, ô cam là tháng nhuận, chấm giữa hai hàng là các trung khí.</p>
+        <p class="note" lang="en">Each box is a lunar month, placed on the Gregorian dates. The pale box is month 1, the orange box is a leap month, and the dots between the rows are the principal terms.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3 ============ -->
+<section class="ch" id="c3">
+  <div class="act">
+    <div class="stage">
+      <div class="bg" aria-hidden="true"></div>
+      <div class="vis"><div class="fit">
+        <figure class="scene" id="s3" data-bg="stage" style="--ar: 16 / 9"></figure>
+      </div></div>
+      <div class="dock">
+        <div class="controls">
+          <button class="icon-btn" type="button" data-play="s3"></button>
+          <div class="seg" id="s3k" role="group">
+            <button type="button" data-v="0" aria-pressed="false">1968</button>
+            <button type="button" data-v="1" aria-pressed="false">1969</button>
+            <button type="button" data-v="2" aria-pressed="true">2007</button>
+            <button type="button" data-v="3" aria-pressed="false">2030</button>
+            <button type="button" data-v="4" aria-pressed="false">2053</button>
+          </div>
+        </div>
+        <p class="readout" id="s3r" aria-live="polite"></p>
+      </div>
+    </div>
+    <div class="story">
+      <div class="tcard">
+        <p class="eyebrow"><span class="num">03</span><span lang="vi">Một giờ</span><span lang="en">One hour</span></p>
+        <h2><span lang="vi">Khi Sóc rơi vào khoảng 23 giờ</span><span lang="en">When the new moon falls just before midnight</span></h2>
+        <p lang="vi">Ngày 8/8/1967, Hội đồng Chính phủ ra Quyết định 121-CP: dùng giờ múi thứ 7 (UTC+7) làm giờ chính thức, và âm lịch từ đó tính theo giờ này, thay vì theo lịch Trung Quốc vốn tính cho UTC+8.</p>
+        <p lang="en">On 8 August 1967 the Government Council issued Decision 121-CP: the 7th time zone (UTC+7) became official time, and from then on the lunar calendar was computed for it, instead of following the Chinese calendar, which is computed for UTC+8.</p>
+      </div>
+      <div class="tcard">
+        <p lang="vi">Nếu điểm Sóc rơi vào khoảng 16 tới 17 giờ UTC, thì ở Hà Nội đã là gần nửa đêm, còn ở Bắc Kinh đã sang ngày mới. Tháng âm hai nước bắt đầu lệch nhau một ngày. Gặp đúng tháng Giêng, Tết lệch một ngày. Năm 1968, miền Bắc ăn Tết ngày 29/1, miền Nam (lúc đó vẫn theo UTC+8) ăn Tết ngày 30/1.</p>
+        <p lang="en">If the new moon falls between about 16:00 and 17:00 UTC, it is just before midnight in Hanoi and already the next day in Beijing. The two lunar months start a day apart. When that month is the first month, Tết moves by a day. In 1968, the North celebrated Tết on 29 January and the South (still on UTC+8 then) on 30 January.</p>
+      </div>
+      <div class="tcard">
+        <p class="note" lang="vi">Từ 1968 tới 2100, bộ tính trên trang này chỉ thấy sáu năm Tết hai nước khác ngày: 1968, 1969, 1985, 2007, 2030 và 2053. Giờ Sóc tính bằng công thức rút gọn của Meeus, có thể lệch vài phút.</p>
+        <p class="note" lang="en">From 1968 to 2100, this page's code finds only six years in which Tết differs between the two countries: 1968, 1969, 1985, 2007, 2030 and 2053. New-moon times come from Meeus's shortened formula and may be off by a few minutes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="conv wrap" id="doi">
+  <span class="tag" lang="vi">Công cụ</span><span class="tag" lang="en">Tool</span>
+  <h2><span lang="vi">Tự đổi ngày</span><span lang="en">Convert a date yourself</span></h2>
+  <p class="lede" lang="vi">Cùng bộ tính đã vẽ các hình trên trang. Đổi sang UTC+8 để xem lịch Trung Quốc cho cùng ngày.</p>
+  <p class="lede" lang="en">The same code that drew the pictures on this page. Switch to UTC+8 to see the Chinese calendar for the same day.</p>
+  <div class="seg" id="ctz" role="group" aria-label="Múi giờ / Time zone">
+    <button type="button" data-v="7" aria-pressed="true"><span lang="vi">Việt Nam · UTC+7</span><span lang="en">Vietnam · UTC+7</span></button>
+    <button type="button" data-v="8" aria-pressed="false"><span lang="vi">Trung Quốc · UTC+8</span><span lang="en">China · UTC+8</span></button>
+  </div>
+  <div class="cgrid">
+    <div class="cbox">
+      <h3><span lang="vi">Dương lịch sang âm lịch</span><span lang="en">Gregorian to lunar</span></h3>
+      <label class="fld"><span><span lang="vi">Ngày dương lịch</span><span lang="en">Gregorian date</span></span>
+        <input type="date" id="cd" min="1900-01-01" max="2100-12-31"></label>
+      <p class="cout" id="co1" aria-live="polite"></p>
+    </div>
+    <div class="cbox">
+      <h3><span lang="vi">Âm lịch sang dương lịch</span><span lang="en">Lunar to Gregorian</span></h3>
+      <div class="row3">
+        <label class="fld"><span><span lang="vi">Ngày</span><span lang="en">Day</span></span><input type="number" id="ld" min="1" max="30" inputmode="numeric"></label>
+        <label class="fld"><span><span lang="vi">Tháng</span><span lang="en">Month</span></span><input type="number" id="lm" min="1" max="12" inputmode="numeric"></label>
+        <label class="fld"><span><span lang="vi">Năm</span><span lang="en">Year</span></span><input type="number" id="ly" min="1900" max="2100" inputmode="numeric"></label>
+      </div>
+      <label class="chk"><input type="checkbox" id="ll"><span><span lang="vi">Tháng nhuận</span><span lang="en">Leap month</span></span></label>
+      <p class="cout" id="co2" aria-live="polite"></p>
+    </div>
+  </div>
+  <p class="note" lang="vi">Trước năm 1968, lịch Việt Nam theo bảng tính cho UTC+8, nên với những năm đó hãy chọn UTC+8. Bộ tính dùng được trong khoảng 1900 tới 2100.</p>
+  <p class="note" lang="en">Before 1968 the Vietnamese calendar followed tables computed for UTC+8, so pick UTC+8 for those years. The code works for 1900 to 2100.</p>
+</section>
+
+<section class="branch wrap">
+  <div data-next="am-lich-viet-nam"></div>
+  <div data-tree="am-lich-viet-nam"></div>
+</section>
+
+<section class="sources wrap" id="nguon">
+  <h3><span lang="vi">Nguồn</span><span lang="en">Sources</span></h3>
+  <ol>
+    <li><a href="https://vi.wikipedia.org/wiki/Ti%E1%BA%BFt_kh%C3%AD">Tiết khí</a> — Wikipedia tiếng Việt · <a href="https://en.wikipedia.org/wiki/Solar_term">Solar term</a> — Wikipedia</li>
+    <li><a href="https://en.wikipedia.org/wiki/Chinese_calendar">Chinese calendar</a> — Wikipedia · Helmer Aslaksen, <a href="https://www.gwern.net/doc/science/2010-aslaksen.pdf"><em>The Mathematics of the Chinese Calendar</em></a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Vietnamese_calendar">Vietnamese calendar</a> — Wikipedia</li>
+    <li><a href="https://thuvienphapluat.vn/van-ban/Linh-vuc-khac/Quyet-dinh-121-CP-tinh-lich-quan-ly-lich-cua-Nha-nuoc-18212.aspx">Quyết định 121-CP ngày 8/8/1967</a> — Thư viện Pháp luật</li>
+    <li><a href="https://vnexpress.net/lich-sai-do-dich-sach-trung-quoc-2814087.html">Lịch sai do dịch sách Trung Quốc</a> — VnExpress · <a href="https://www.rfa.org/vietnamese/in_depth/WhyVietnameseLunarCalendarDiffersFromChina_GMinh-20070207.html">Vì sao âm lịch Việt Nam khác Trung Quốc</a> — RFA</li>
+    <li><a href="https://lists.iana.org/hyperkitty/list/tz@iana.org/message/LP343ZE3RZSV2V3IBP3RBODT4ZAXMIRX/">Lịch sử múi giờ Việt Nam</a> — danh sách thư tz của IANA</li>
+    <li>Hồ Ngọc Đức, phương pháp tính âm lịch Việt Nam (<a href="https://web.archive.org/web/20250123093939/http://www.informatik.uni-leipzig.de/~duc/amlich/calrules.html">bản lưu trên Wayback Machine</a>). Jean Meeus, <em>Astronomical Algorithms</em>, 2nd ed. (1998).</li>
+  </ol>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <span lang="vi">Hình minh họa không theo tỉ lệ. Mọi ngày âm trên trang tính bằng bộ tính riêng của trang, viết lại theo phương pháp Hồ Ngọc Đức.</span>
+  <span lang="en">Illustrations are not to scale. Every lunar date on this page comes from the site's own code, rewritten from Hồ Ngọc Đức's method.</span>
+</footer>
+
+<script src="/mat-trang/giay.js"></script>
+<script src="/mat-trang/lich/amlich.js"></script>
+<script>
+(function () {
+  'use strict';
+  var M = window.MT, AL = window.AL, $ = M.$, T = M.T, hooks = M.hooks, clamp = M.clamp, C = M.C,
+    night = M.night, svgEl = M.svgEl, txt = M.txt, say = M.say, loop = M.loop, playing = M.playing, SYN = M.SYN;
+  var RAD = Math.PI / 180;
+  function f1(v) { return v.toFixed(1); }
+  function pt(cx, cy, r, a) { return [cx + r * Math.sin(a * RAD), cy - r * Math.cos(a * RAD)]; }
+  function dm(d) { return d[0] + '/' + d[1]; }
+  function dmy(d) { return d[0] + '/' + d[1] + '/' + d[2]; }
+  var WD = [['Chủ nhật', 'Sunday'], ['Thứ hai', 'Monday'], ['Thứ ba', 'Tuesday'], ['Thứ tư', 'Wednesday'], ['Thứ năm', 'Thursday'], ['Thứ sáu', 'Friday'], ['Thứ bảy', 'Saturday']];
+  var MO = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  function longDate(d) { var w = WD[(AL.jd(d[0], d[1], d[2]) + 1) % 7]; return T(w[0] + ', ' + dmy(d), w[1] + ' ' + d[0] + ' ' + MO[d[1] - 1] + ' ' + d[2]); }
+  function yearName(y) { var c = AL.canChi(y); return T(c[0][0] + ' ' + c[1][0], c[0][0] + ' ' + c[1][0] + ' (' + c[1][1] + ')'); }
+  var TERM = [['Xuân phân', 'Spring Equinox'], ['Thanh minh', 'Clear and Bright'], ['Cốc vũ', 'Grain Rain'], ['Lập hạ', 'Start of Summer'], ['Tiểu mãn', 'Grain Full'], ['Mang chủng', 'Grain in Ear'],
+    ['Hạ chí', 'Summer Solstice'], ['Tiểu thử', 'Minor Heat'], ['Đại thử', 'Major Heat'], ['Lập thu', 'Start of Autumn'], ['Xử thử', 'End of Heat'], ['Bạch lộ', 'White Dew'],
+    ['Thu phân', 'Autumn Equinox'], ['Hàn lộ', 'Cold Dew'], ['Sương giáng', 'Frost Descends'], ['Lập đông', 'Start of Winter'], ['Tiểu tuyết', 'Minor Snow'], ['Đại tuyết', 'Major Snow'],
+    ['Đông chí', 'Winter Solstice'], ['Tiểu hàn', 'Minor Cold'], ['Đại hàn', 'Major Cold'], ['Lập xuân', 'Start of Spring'], ['Vũ thủy', 'Rain Water'], ['Kinh trập', 'Insects Awaken']];
+  // Tuổi trăng (ngày) lúc trưa giờ Việt Nam của ngày Julius j.
+  function moonAge(j) {
+    var J = j - 7 / 24, k = Math.floor((J - 2415021.077) / 29.530588853);
+    while (AL.newMoon(k + 1) <= J) k++;
+    while (AL.newMoon(k) > J) k--;
+    return J - AL.newMoon(k);
+  }
+  var now = new Date(Date.now() + 7 * 36e5), TODAY = [now.getUTCDate(), now.getUTCMonth() + 1, now.getUTCFullYear()];
+
+  // ================= HERO =================
+  // Đèn lồng treo, đung đưa; rê ngang để chọn năm, nhãn cho biết Tết năm đó rơi vào ngày nào.
+  (function () {
+    var head = $('#top'), bg = $('#hero'), y = TODAY[2], aim = null, t = 0, acc = 0;
+    var s = M.backdrop(bg, function (W, H, land) {
+      var L = land ? Math.min(W, H) * .062 : W * .082, xs = land ? [.55, .64, .73, .82, .91] : [.1, .3, .5, .7, .9],
+        drops = [.16, .3, .2, .34, .18], cx = land ? W * .73 : W * .5, ty = land ? H * .78 : H * .45,
+        fs = land ? Math.max(16, H * .028) : Math.max(15, W * .04), g = '';
+      xs.forEach(function (fx, i) {
+        var x = W * fx, S = H * drops[i] * (land ? 1 : .5), r = L * (i % 2 ? .82 : 1), c = i % 2 ? C.orange2 : C.orange, by = S + r * 1.08;
+        g += '<g class="ln" data-x="' + f1(x) + '" data-p="' + (i * 1.3) + '" transform="translate(' + f1(x) + ',0)">' +
+          '<path d="M0,-4L0,' + f1(S) + '" stroke="' + C.crater + '" stroke-opacity=".55" stroke-width="2"/>' +
+          '<g filter="url(#pc)">' +
+          '<rect x="' + f1(-r * .42) + '" y="' + f1(S) + '" width="' + f1(r * .84) + '" height="' + f1(r * .24) + '" rx="' + f1(r * .06) + '" fill="' + C.crater + '"/>' +
+          '<ellipse cx="0" cy="' + f1(by) + '" rx="' + f1(r) + '" ry="' + f1(r * .9) + '" fill="' + c + '"/>' +
+          '<ellipse cx="0" cy="' + f1(by) + '" rx="' + f1(r * .5) + '" ry="' + f1(r * .9) + '" fill="none" stroke="' + C.night + '" stroke-opacity=".16" stroke-width="' + f1(r * .05) + '"/>' +
+          '<rect x="' + f1(-r * .36) + '" y="' + f1(by + r * .78) + '" width="' + f1(r * .72) + '" height="' + f1(r * .2) + '" rx="' + f1(r * .06) + '" fill="' + C.crater + '"/>' +
+          '<path d="M0,' + f1(by + r * .98) + 'L0,' + f1(by + r * 1.6) + '" stroke="' + C.orange2 + '" stroke-width="' + f1(r * .1) + '" stroke-linecap="round"/></g></g>';
+      });
+      return M.skyAt(W, H, cx, land ? H * .35 : H * .18, 31, H * .9) + g +
+        '<text id="hy" x="' + f1(cx) + '" y="' + f1(ty) + '" text-anchor="middle" style="font: 600 ' + (fs * 2).toFixed(0) + 'px Inter Tight, Inter, sans-serif; fill: ' + C.cream + '"></text>' +
+        '<text id="hs" x="' + f1(cx) + '" y="' + f1(ty + fs * 1.7) + '" text-anchor="middle" style="font: 500 ' + fs.toFixed(0) + 'px Inter, sans-serif; fill: ' + C.grey + '"></text>';
+    });
+    function label() {
+      var a = $('#hy', s), b = $('#hs', s); if (!a) return;
+      a.textContent = T('Tết ', 'Tết ') + yearName(y);
+      b.textContent = longDate(AL.toSolar(1, 1, y, 0, 7));
+    }
+    function sway() {
+      s.querySelectorAll('.ln').forEach(function (g) {
+        var a = Math.sin(t * 1.25 + +g.dataset.p) * 2.4;
+        g.setAttribute('transform', 'translate(' + g.dataset.x + ',0) rotate(' + a.toFixed(2) + ')');
+      });
+    }
+    hooks.push(label); label();
+    addEventListener('resize', function () { setTimeout(label, 200); });
+    function point(e) {
+      var r = bg.getBoundingClientRect();
+      aim = Math.round(2000 + clamp((e.clientX - r.left) / r.width, 0, 1) * 50);
+      if (aim !== y) { y = aim; label(); }
+    }
+    head.addEventListener('pointermove', point);
+    head.addEventListener('pointerdown', point);
+    head.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') aim = null; });
+    if (M.reduce) return;
+    loop(head, function (dt) {
+      t += dt; sway();
+      if (aim !== null) return;
+      acc += dt; if (acc < 1.6) return; acc = 0;
+      y = y >= 2050 ? 2000 : y + 1; label();
+    });
+  })();
+
+  // ================= 1. 24 tiết khí =================
+  (function () {
+    var fig = $('#s1');
+    svgEl(fig, '0 0 800 450').innerHTML = night(800, 450, 12);
+    var s = svgEl(fig, '0 0 800 450');
+    var CX = 270, CY = 230, R = 128, PX = 560, J0 = AL.jd(1, 1, 2026);
+    var ticks = '';
+    for (var i = 0; i < 24; i++) {
+      var a = i * 15 - 270, maj = i % 2 === 0, p = pt(CX, CY, R - (maj ? 15 : 8), a), q = pt(CX, CY, R + (maj ? 15 : 8), a);
+      ticks += '<path d="M' + f1(p[0]) + ',' + f1(p[1]) + 'L' + f1(q[0]) + ',' + f1(q[1]) + '" stroke="' + (maj ? C.sand : C.grey) + '" stroke-width="' + (maj ? 3 : 2) + '" stroke-linecap="round"/>';
+    }
+    s.innerHTML =
+      '<circle cx="' + CX + '" cy="' + CY + '" r="' + R + '" stroke="' + C.n4 + '" stroke-width="22" fill="none"/>' + ticks +
+      txt(CX, CY - R - 30, 'sm', 'middle', 's1c0') + txt(CX + R + 26, CY + 5, 'sm', 'start', 's1c1') +
+      txt(CX, CY + R + 42, 'sm', 'middle', 's1c2') + txt(CX - R - 26, CY + 5, 'sm', 'end', 's1c3') +
+      '<g transform="translate(' + CX + ',' + CY + ')"><g filter="url(#pc)">' + M.moonDisc(0, 50, 's1m') + '</g></g>' +
+      '<circle id="s1s" r="13" fill="' + C.orange + '"/>' +
+      txt(PX, 112, 'sm', 'start', 's1a') + '<text id="s1t" class="lbl" x="' + PX + '" y="150" style="font-size:28px"></text>' + txt(PX, 178, 'sm', 'start', 's1k') +
+      txt(PX, 248, 'sm', 'start', 's1b') + '<text id="s1l" class="lbl" x="' + PX + '" y="290" style="font-size:36px"></text>' + txt(PX, 318, 'sm', 'start', 's1y') +
+      '<text id="s1g" class="lbl" x="' + PX + '" y="388" style="font-size:20px"></text>';
+    say(s, { s1c0: ['Đông chí', 'Winter Solstice'], s1c1: ['Xuân phân', 'Spring Equinox'], s1c2: ['Hạ chí', 'Summer Solstice'], s1c3: ['Thu phân', 'Autumn Equinox'],
+      s1a: ['tiết khí', 'solar term'], s1b: ['âm lịch', 'lunar date'] });
+    var sun = $('#s1s', s), mp = $('#s1mp', s), sl = $('#s1d'), out = $('#s1r'), dv = $('#s1dv');
+    var d = clamp(AL.jd(TODAY[0], TODAY[1], 2026) - J0, 0, 364);
+    if (TODAY[2] !== 2026) d = 0;
+    sl.value = d;
+    function upd() {
+      var j = J0 + d, g = AL.fromJd(j), lam = AL.sunDeg(j, 7), ti = Math.floor(lam / 15) % 24, L = AL.toLunar(g[0], g[1], g[2], 7);
+      var p = pt(CX, CY, R, lam - 270); sun.setAttribute('cx', f1(p[0])); sun.setAttribute('cy', f1(p[1]));
+      if (mp) mp.setAttribute('d', M.phase(moonAge(j) / SYN, 50));
+      $('#s1t', s).textContent = T(TERM[ti][0], TERM[ti][1]);
+      $('#s1k', s).textContent = T('kinh độ ', 'longitude ') + Math.floor(lam) + '°' + (ti % 2 === 0 ? T(' · trung khí', ' · principal term') : '');
+      $('#s1l', s).textContent = L[0] + '/' + L[1] + (L[3] ? T(' nhuận', ' leap') : '');
+      $('#s1y', s).textContent = T('năm ', 'year ') + yearName(L[2]);
+      $('#s1g', s).textContent = T('dương lịch ', 'Gregorian ') + dmy(g);
+      dv.textContent = dm(g);
+      out.innerHTML = T('<b>' + dmy(g) + '</b>: Mặt Trời ở kinh độ <b>' + Math.floor(lam) + '°</b>, trong tiết <b>' + TERM[ti][0] + '</b>. Âm lịch: ngày <b>' + L[0] + ' tháng ' + L[1] + (L[3] ? ' nhuận' : '') + '</b> năm ' + yearName(L[2]) + '.',
+        '<b>' + d2en(g) + '</b>: the Sun is at longitude <b>' + Math.floor(lam) + '°</b>, in the term <b>' + TERM[ti][1] + '</b>. Lunar date: <b>day ' + L[0] + ' of month ' + L[1] + (L[3] ? ' (leap)' : '') + '</b>, year ' + yearName(L[2]) + '.');
+    }
+    function d2en(g) { return g[0] + ' ' + MO[g[1] - 1] + ' ' + g[2]; }
+    sl.addEventListener('input', function () { d = +sl.value; upd(); });
+    hooks.push(upd); upd();
+    var acc = 0;
+    loop(fig, function (dt) {
+      if (!playing.s1) return;
+      acc += dt; if (acc < .09) return; acc = 0;
+      d = d >= 364 ? 0 : d + 1; sl.value = d; upd();
+    });
+  })();
+
+  // ================= 2. Tháng nhuận, hai múi giờ =================
+  (function () {
+    var fig = $('#s2');
+    svgEl(fig, '0 0 800 450').innerHTML = night(800, 450, 17);
+    var s = svgEl(fig, '0 0 800 450');
+    var X0 = 40, X1 = 770, RY = [104, 262], BH = 56, MY = 214, TZ = [7, 8];
+    s.innerHTML = '<g id="s2g"></g>' + txt(X0, RY[0] - 14, 'lbl', 'start', 's2h0') + txt(X0, RY[1] - 14, 'lbl', 'start', 's2h1');
+    say(s, { s2h0: ['Việt Nam · UTC+7', 'Vietnam · UTC+7'], s2h1: ['Trung Quốc · UTC+8', 'China · UTC+8'] });
+    var G = $('#s2g', s), sl = $('#s2y'), out = $('#s2r'), yv = $('#s2yv'), Y = +sl.value, cache = {};
+    function build(Y) {
+      if (cache[Y]) return cache[Y];
+      var js = AL.jd(1, 10, Y - 1), je = AL.jd(1, 1, Y + 1), k = (X1 - X0) / (je - js), X = function (j) { return X0 + (j - js) * k; };
+      var h = '', leaps = [[], []], tet = [];
+      // Trục tháng dương lịch.
+      for (var m = 0; m <= 15; m++) {
+        var mm = (9 + m) % 12 + 1, yy = Y - 1 + Math.floor((9 + m) / 12), jm = AL.jd(1, mm, yy), x = X(jm);
+        if (jm > je) break;
+        h += '<path d="M' + f1(x) + ',372l0,10" stroke="' + C.grey + '" stroke-width="2"/>';
+        if (jm < je) h += '<text class="sm" text-anchor="middle" x="' + f1(x + 15 * k) + '" y="400">' + T('T' + mm, MO[mm - 1].slice(0, 3)) + '</text>';
+        if (mm === 1 && x < X1 - 30) h += '<text class="sm" x="' + f1(x + 4) + '" y="428">' + yy + '</text>';
+      }
+      h += '<path d="M' + X0 + ',372L' + X1 + ',372" stroke="' + C.n4 + '" stroke-width="2"/>';
+      // Trung khí: ngày Mặt Trời sang cung 30° mới.
+      h += '<path d="M' + X0 + ',' + MY + 'L' + X1 + ',' + MY + '" stroke="' + C.n4 + '" stroke-width="2"/>';
+      var prev = AL.sunSector(js, 7);
+      for (var j = js + 1; j <= je; j++) {
+        var sc = AL.sunSector(j, 7);
+        if (sc !== prev) {
+          var xd = X(j);
+          if (sc === 9) h += '<path d="M' + f1(xd) + ',' + (RY[0] - 6) + 'L' + f1(xd) + ',' + (RY[0] + BH + 6) + 'M' + f1(xd) + ',' + (MY + 10) + 'L' + f1(xd) + ',' + (MY + 20) + 'M' + f1(xd) + ',' + (RY[1] - 6) + 'L' + f1(xd) + ',' + (RY[1] + BH + 6) + '" stroke="' + C.cream + '" stroke-opacity=".5" stroke-width="2" stroke-dasharray="3 5"/>' +
+            '<text class="sm" text-anchor="middle" x="' + f1(xd) + '" y="' + (MY - 12) + '">' + T('Đông chí', 'Solstice') + '</text>';
+          h += '<circle cx="' + f1(xd) + '" cy="' + MY + '" r="' + (sc === 9 ? 7 : 5) + '" fill="' + C.sand + '"/>';
+        }
+        prev = sc;
+      }
+      // Các tháng âm của từng hàng.
+      TZ.forEach(function (tz, r) {
+        var ry = RY[r], kk = Math.floor((js - 2415021.077) / 29.530588853) - 1;
+        for (var n = 0; n < 20; n++, kk++) {
+          var a = AL.newMoonDay(kk, tz), b = AL.newMoonDay(kk + 1, tz);
+          if (b <= js) continue;
+          if (a >= je) break;
+          var g = AL.fromJd(a), L = AL.toLunar(g[0], g[1], g[2], tz), xa = Math.max(X0, X(a)), xb = Math.min(X1, X(b)), w = xb - xa - 3;
+          var fill = L[3] ? C.orange : L[1] === 1 ? C.sand : C.n4, ink = L[3] || L[1] === 1 ? C.night : C.cream;
+          if (L[3]) leaps[r].push([L[1], g, AL.fromJd(b - 1)]);
+          if (L[1] === 1 && !L[3] && g[2] === Y) tet[r] = g;
+          if (w <= 2) continue;
+          h += '<rect x="' + f1(xa + 1.5) + '" y="' + ry + '" width="' + f1(w) + '" height="' + BH + '" rx="6" fill="' + fill + '"/>';
+          if (w > 16) {
+            h += '<text class="lbl" text-anchor="middle" x="' + f1(xa + 1.5 + w / 2) + '" y="' + (ry + (L[3] ? 27 : 35)) + '" style="fill:' + ink + '">' + L[1] + '</text>';
+            if (L[3]) h += '<text class="sm" text-anchor="middle" x="' + f1(xa + 1.5 + w / 2) + '" y="' + (ry + 46) + '" style="fill:' + ink + '">' + T('nhuận', 'leap') + '</text>';
+          }
+        }
+      });
+      return (cache[Y] = { h: h, leaps: leaps, tet: tet });
+    }
+    function lp(list) {
+      return list.length ? list.map(function (e) { return T('tháng ' + e[0] + ' nhuận (' + dm(e[1]) + '/' + e[1][2] + ' – ' + dm(e[2]) + '/' + e[2][2] + ')', 'leap month ' + e[0] + ' (' + dm(e[1]) + '/' + e[1][2] + ' – ' + dm(e[2]) + '/' + e[2][2] + ')'); }).join(', ') : T('không có', 'none');
+    }
+    function upd() {
+      var B = build(Y), a = B.tet[0], b = B.tet[1];
+      G.innerHTML = B.h;
+      yv.textContent = Y;
+      var gap = a && b ? AL.jd(b[0], b[1], b[2]) - AL.jd(a[0], a[1], a[2]) : 0;
+      out.innerHTML = T('Tết <b>' + Y + '</b>: Việt Nam <b>' + dm(a) + '</b>, Trung Quốc <b>' + dm(b) + '</b>' + (gap ? ', lệch ' + gap + ' ngày.' : ', cùng ngày.') + ' Tháng nhuận trong khung: Việt Nam ' + lp(B.leaps[0]) + '; Trung Quốc ' + lp(B.leaps[1]) + '.',
+        'Tết <b>' + Y + '</b>: Vietnam <b>' + dm(a) + '</b>, China <b>' + dm(b) + '</b>' + (gap ? ', ' + gap + ' days apart.' : ', the same day.') + ' Leap months in view: Vietnam ' + lp(B.leaps[0]) + '; China ' + lp(B.leaps[1]) + '.');
+    }
+    sl.addEventListener('input', function () { Y = +sl.value; upd(); });
+    hooks.push(function () { cache = {}; upd(); }); upd();
+    var acc = 0;
+    loop(fig, function (dt) {
+      if (!playing.s2) return;
+      acc += dt; if (acc < (Y === 1985 ? 4 : 1.4)) return; acc = 0;
+      Y = Y >= 2035 ? 1980 : Y + 1; sl.value = Y; upd();
+    });
+  })();
+
+  // ================= 3. Một giờ =================
+  (function () {
+    var fig = $('#s3');
+    svgEl(fig, '0 0 800 450').innerHTML = night(800, 450, 27);
+    var s = svgEl(fig, '0 0 800 450');
+    var X0 = 50, X1 = 750, SPAN = 20, PH = (X1 - X0) / SPAN, RY = [150, 290], BH = 60, YRS = [1968, 1969, 2007, 2030, 2053], ci = 2;
+    s.innerHTML = '<g id="s3g"></g>' + txt(X0, RY[0] - 16, 'lbl', 'start', 's3h0') + txt(X0, RY[1] - 16, 'lbl', 'start', 's3h1') +
+      '<path d="M400,92L400,' + (RY[1] + BH + 22) + '" stroke="' + C.orange + '" stroke-width="4" stroke-linecap="round"/>' +
+      '<circle cx="400" cy="84" r="10" fill="' + C.orange + '"/>' + txt(416, 90, 'lbl', 'start', 's3n') +
+      '<text id="s3t0" class="lbl" x="410" y="' + (RY[0] + BH + 26) + '"></text><text id="s3t1" class="lbl" x="410" y="' + (RY[1] + BH + 26) + '"></text>';
+    say(s, { s3h0: ['Hà Nội · UTC+7', 'Hanoi · UTC+7'], s3h1: ['Bắc Kinh · UTC+8', 'Beijing · UTC+8'], s3n: ['Sóc', 'New moon'] });
+    var G = $('#s3g', s), out = $('#s3r');
+    function hm(J, tz) { var h = ((J + tz / 24 + .5) % 1) * 24, m = Math.round(h * 60); return Math.floor(m / 60) % 24 + ':' + String(m % 60).padStart(2, '0'); }
+    function upd() {
+      var y = YRS[ci], tv = AL.toSolar(1, 1, y, 0, 7), jv = AL.jd(tv[0], tv[1], tv[2]), k = Math.floor((jv - 2415021.077) / 29.530588853);
+      while (AL.newMoonDay(k, 7) < jv) k++;
+      while (AL.newMoonDay(k, 7) > jv) k--;
+      var t = AL.newMoon(k), w0 = t - SPAN / 48, X = function (J) { return X0 + (J - w0) * 24 * PH; }, h = '', days = [];
+      [7, 8].forEach(function (tz, r) {
+        var ry = RY[r], m0 = Math.floor(t + tz / 24 - .5) + .5;
+        for (var n = -1; n <= 1; n++) {
+          var a = m0 + n - tz / 24, b = a + 1, xa = Math.max(X0, X(a)), xb = Math.min(X1, X(b));
+          if (xb - xa < 2) continue;
+          var g = AL.fromJd(m0 + n + .5), on = t >= a && t < b;
+          if (on) days[r] = g;
+          h += '<rect x="' + f1(xa + 2) + '" y="' + ry + '" width="' + f1(xb - xa - 4) + '" height="' + BH + '" rx="8" fill="' + (on ? C.sand : C.n4) + '"/>';
+          if (xb - xa > 90) h += '<text class="lbl" text-anchor="middle" x="' + f1((xa + xb) / 2) + '" y="' + (ry + 37) + '" style="fill:' + (on ? C.night : C.cream) + '">' + T('ngày ', '') + dm(g) + '</text>';
+          if (X(a) > X0 && X(a) < X1) h += '<text class="sm" text-anchor="' + (X(a) < 400 ? 'end' : 'start') + '" x="' + f1(X(a) + (X(a) < 400 ? -8 : 8)) + '" y="' + (ry - 10) + '">0:00</text>';
+        }
+        for (var i = Math.ceil((w0 + tz / 24) * 24); i <= (w0 + tz / 24) * 24 + SPAN; i++) {
+          var x = X(i / 24 - tz / 24);
+          h += '<path d="M' + f1(x) + ',' + (ry + BH + 4) + 'l0,' + (i % 6 ? 5 : 10) + '" stroke="' + C.grey + '" stroke-width="2"/>';
+        }
+      });
+      G.innerHTML = h;
+      $('#s3t0', s).textContent = hm(t, 7); $('#s3t1', s).textContent = hm(t, 8);
+      var a = days[0], b = days[1];
+      out.innerHTML = T('Tết ' + y + ': Sóc lúc <b>' + hm(t, 7) + '</b> giờ Hà Nội ngày ' + dm(a) + ', tức <b>' + hm(t, 8) + '</b> giờ Bắc Kinh ngày ' + dm(b) + '. Mùng 1 Tết ở Việt Nam là <b>' + dm(a) + '</b>, ở Trung Quốc là <b>' + dm(b) + '</b>.' + (y < 1975 ? ' Năm đó miền Nam vẫn theo UTC+8, nên ăn Tết cùng ngày với Trung Quốc.' : ''),
+        'Tết ' + y + ': the new moon falls at <b>' + hm(t, 7) + '</b> Hanoi time on ' + dm(a) + ', which is <b>' + hm(t, 8) + '</b> Beijing time on ' + dm(b) + '. Day 1 of the year is <b>' + dm(a) + '</b> in Vietnam and <b>' + dm(b) + '</b> in China.' + (y < 1975 ? ' The South was still on UTC+8 then, so it kept Tết on the same day as China.' : ''));
+    }
+    M.segment('s3k', function (v) { ci = +v; upd(); });
+    hooks.push(upd); upd();
+    var acc = 0, bs = $('#s3k').querySelectorAll('button');
+    loop(fig, function (dt) {
+      if (!playing.s3) return;
+      acc += dt; if (acc < 3.4) return; acc = 0;
+      ci = (ci + 1) % YRS.length;
+      bs.forEach(function (b, i) { b.setAttribute('aria-pressed', i === ci ? 'true' : 'false'); });
+      upd();
+    });
+  })();
+
+  // ================= Đổi ngày =================
+  (function () {
+    var tz = 7, cd = $('#cd'), ld = $('#ld'), lm = $('#lm'), ly = $('#ly'), ll = $('#ll'), o1 = $('#co1'), o2 = $('#co2');
+    cd.value = TODAY[2] + '-' + String(TODAY[1]).padStart(2, '0') + '-' + String(TODAY[0]).padStart(2, '0');
+    ld.value = 15; lm.value = 8; ly.value = TODAY[2];
+    function one() {
+      var p = cd.value.split('-').map(Number);
+      if (p.length !== 3 || !p[0] || p[0] < 1900 || p[0] > 2100) { o1.className = 'cout bad'; o1.textContent = T('Chọn một ngày từ 1900 tới 2100.', 'Pick a date between 1900 and 2100.'); return; }
+      var L = AL.toLunar(p[2], p[1], p[0], tz);
+      o1.className = 'cout';
+      o1.innerHTML = T('Ngày ' + L[0] + ' tháng ' + L[1] + (L[3] ? ' nhuận' : '') + ' năm ' + yearName(L[2]), 'Day ' + L[0] + ' of ' + (L[3] ? 'leap ' : '') + 'month ' + L[1] + ', year ' + yearName(L[2])) +
+        '<small>' + longDate([p[2], p[1], p[0]]) + '</small>';
+    }
+    function two() {
+      var d = Math.round(+ld.value), m = Math.round(+lm.value), y = Math.round(+ly.value), lp = ll.checked;
+      o2.className = 'cout bad';
+      if (!(d >= 1 && d <= 30 && m >= 1 && m <= 12 && y >= 1900 && y <= 2099)) { o2.textContent = T('Ngày 1–30, tháng 1–12, năm 1900–2099.', 'Day 1–30, month 1–12, year 1900–2099.'); return; }
+      var r = AL.toSolar(d, m, y, lp ? 1 : 0, tz);
+      if (!r) { var lm2 = AL.leapMonth(y, tz); o2.textContent = T('Năm âm ' + y + ' không có tháng ' + m + ' nhuận.' + (lm2 ? ' Năm đó nhuận tháng ' + lm2 + '.' : ' Năm đó không có tháng nhuận.'), 'Lunar year ' + y + ' has no leap month ' + m + '.' + (lm2 ? ' That year the leap month is ' + lm2 + '.' : ' That year has no leap month.')); return; }
+      var back = AL.toLunar(r[0], r[1], r[2], tz);
+      if (back[0] !== d) { o2.textContent = T('Tháng này chỉ có 29 ngày.', 'This month has only 29 days.'); return; }
+      o2.className = 'cout';
+      o2.innerHTML = longDate(r) + '<small>' + T('năm ', 'year ') + yearName(y) + '</small>';
+    }
+    cd.addEventListener('input', one);
+    [ld, lm, ly, ll].forEach(function (e) { e.addEventListener('input', two); });
+    M.segment('ctz', function (v) { tz = +v; one(); two(); });
+    hooks.push(function () { one(); two(); }); one(); two();
+  })();
+
+  M.stage();
+})();
+</script>
+</body>
+</html>

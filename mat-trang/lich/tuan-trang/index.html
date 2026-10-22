@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="vi" data-lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Vì sao trăng khuyết rồi tròn</title>
+<meta name="description" content="Tuần trăng, tháng thiên văn 27,3 ngày và tháng giao hội 29,5 ngày, và vì sao không tháng nào cũng có nhật thực. Moon phases, the 27.3- and 29.5-day months, and why eclipses are not monthly.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+<script>
+  (function () {
+    var l = 'vi';
+    try {
+      var q = new URLSearchParams(location.search).get('lang');
+      l = (q === 'en' || q === 'vi') ? q : (localStorage.getItem('mt-lang') || 'vi');
+    } catch (e) {}
+    document.documentElement.dataset.lang = l;
+    document.documentElement.lang = l;
+  })();
+</script>
+<link rel="stylesheet" href="/mat-trang/giay.css">
+</head>
+<body>
+
+<div class="bar">
+  <div class="wide">
+    <nav class="crumbs" aria-label="Đường dẫn / Breadcrumb">
+      <a class="brand" href="/mat-trang/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 14.4A9.6 9.6 0 1 1 9.6 2.4a7.6 7.6 0 0 0 12 12Z"/></svg>
+        <span lang="vi">Mặt Trăng</span><span lang="en">The Moon</span></a>
+      <span class="sep" aria-hidden="true">/</span>
+      <a href="/mat-trang/lich/"><span lang="vi">Lịch</span><span lang="en">Calendars</span></a>
+      <span class="sep last" aria-hidden="true">/</span>
+      <span class="here"><span lang="vi">Tuần trăng</span><span lang="en">Phases</span></span>
+    </nav>
+    <div class="seg lang" role="group" aria-label="Ngôn ngữ / Language">
+      <button type="button" data-l="vi" aria-pressed="true">VI</button>
+      <button type="button" data-l="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</div>
+
+<header class="hero act" id="top">
+  <div class="stage">
+    <div class="bg" id="hero" aria-hidden="true"></div>
+    <div class="tcard seen">
+      <p class="eyebrow"><span class="num" lang="vi">Phần 2 · 01</span><span class="num" lang="en">Part 2 · 01</span>
+        <span lang="vi">Tuần trăng</span><span lang="en">Phases</span></p>
+      <h1><span lang="vi">Vì sao trăng khuyết rồi tròn</span><span lang="en">Why the Moon waxes and wanes</span></h1>
+      <p class="lede" lang="vi">Mặt Trăng không đổi hình. Cái đổi là góc ta nhìn vào nửa được Mặt Trời chiếu sáng. Ba cảnh: tuần trăng, hai loại tháng, và vì sao nhật thực hiếm hơn trăng mới rất nhiều.</p>
+      <p class="lede" lang="en">The Moon does not change shape. What changes is the angle from which we see its sunlit half. Three scenes: the phases, two kinds of month, and why eclipses are far rarer than new moons.</p>
+      <div class="cta">
+        <a class="btn" href="#c1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4a1 1 0 0 1 1 1v11.6l4.3-4.3a1 1 0 1 1 1.4 1.4l-6 6a1 1 0 0 1-1.4 0l-6-6a1 1 0 1 1 1.4-1.4L11 16.6V5a1 1 0 0 1 1-1Z"/></svg>
+          <span lang="vi">Bắt đầu</span><span lang="en">Start</span></a>
+        <span class="meta" lang="vi">Ba cảnh · khoảng 8 phút</span><span class="meta" lang="en">Three scenes · about 8 minutes</span>
+      </div>
+    </div>
+    <p class="hint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 3.2a.8.8 0 0 1 1.1-.7l13 6.2a.8.8 0 0 1-.1 1.5l-5.6 1.7-2.6 5.4a.8.8 0 0 1-1.5-.1Z"/></svg>
+      <span lang="vi">Rê chuột qua các tuần trăng</span><span lang="en">Move your pointer across the phases</span></p>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ 1 ============ -->
+<section class="ch" id="c1">
+  <div class="act">
+    <div class="stage">
+      <div class="bg" aria-hidden="true"></div>
+      <div class="vis"><div class="fit">
+        <figure class="scene" id="s1" data-bg="stage" style="--ar: 16 / 9"></figure>
+      </div></div>
+      <div class="dock">
+        <div class="controls">
+          <button class="icon-btn" type="button" data-play="s1"></button>
+          <label class="range"><span class="lbl"><span><span lang="vi">Tuổi trăng (ngày sau trăng mới)</span><span lang="en">Moon's age (days since new moon)</span></span><b id="s1av"></b></span>
+            <input type="range" id="s1a" min="0" max="29.5" step="0.1" value="3.5"></label>
+        </div>
+        <p class="readout" id="s1t" aria-live="polite"></p>
+      </div>
+    </div>
+    <div class="story">
+      <div class="tcard">
+        <p class="eyebrow"><span class="num">01</span><span lang="vi">Tuần trăng</span><span lang="en">Phases</span></p>
+        <h2><span lang="vi">Mặt Trăng lúc nào cũng sáng một nửa</span><span lang="en">Half the Moon is always lit</span></h2>
+        <p lang="vi">Mặt Trời luôn chiếu sáng nửa Mặt Trăng quay về phía nó, như chiếu nửa Trái Đất đang là ban ngày. Thứ thay đổi là vị trí của Mặt Trăng trên quỹ đạo, nên phần sáng quay về phía ta lúc nhiều lúc ít.</p>
+        <p lang="en">The Sun always lights the half of the Moon that faces it, just as it lights the daytime half of the Earth. What changes is where the Moon sits on its orbit, so more or less of the lit half faces us.</p>
+      </div>
+      <div class="tcard">
+        <p lang="vi">Khi Mặt Trăng nằm giữa Mặt Trời và Trái Đất, nửa sáng quay đi hết: <strong>trăng mới</strong>, tức ngày sóc, mùng 1 âm lịch. Một phần tư vòng sau là <strong>thượng huyền</strong>, sáng nửa bên phải. Khi nó sang hẳn phía bên kia, nửa sáng quay về ta: <strong>trăng tròn</strong>, quanh rằm (thường ngày 15 hoặc 16).</p>
+        <p lang="en">When the Moon is between the Sun and the Earth, its lit half faces away: a <strong>new moon</strong>, the first day of the lunar month. A quarter turn later comes the <strong>first quarter</strong>, lit on the right. When it reaches the far side, the lit half faces us: a <strong>full moon</strong>, around day 15 or 16.</p>
+      </div>
+      <div class="tcard">
+        <p lang="vi">Mỗi ngày Mặt Trăng đi thêm chừng 12° so với hướng Mặt Trời, nên nó mọc muộn hơn hôm trước trung bình khoảng 50 phút. Trăng tròn mọc lúc hoàng hôn; trăng thượng huyền mọc khoảng giữa trưa.</p>
+        <p lang="en">Each day the Moon moves about 12° farther from the Sun's direction, so it rises about 50 minutes later than the day before, on average. A full moon rises at sunset; a first-quarter moon rises around noon.</p>
+      </div>
+      <div class="tcard">
+        <p class="note" lang="vi">Bóng Trái Đất không tạo ra tuần trăng. Bóng đó chỉ phủ lên Mặt Trăng khi có nguyệt thực, và lúc ấy trăng luôn đang tròn. Hình vẽ cho người ở Bắc bán cầu; ở Nam bán cầu, trăng khuyết lật ngược.</p>
+        <p class="note" lang="en">The Earth's shadow does not cause the phases. It only falls on the Moon during a lunar eclipse, and the Moon is always full then. Drawn for the northern hemisphere; south of the equator the crescent is flipped.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2 ============ -->
+<section class="ch" id="c2">
+  <div class="act">
+    <div class="stage">
+      <div class="bg" aria-hidden="true"></div>
+      <div class="vis"><div class="fit">
+        <figure class="scene" id="s2" data-bg="stage" style="--ar: 16 / 9"></figure>
+      </div></div>
+      <div class="dock">
+        <div class="controls">
+          <button class="icon-btn" type="button" data-play="s2"></button>
+          <label class="range"><span class="lbl"><span><span lang="vi">Ngày kể từ trăng mới</span><span lang="en">Days since new moon</span></span><b id="s2tv"></b></span>
+            <input type="range" id="s2t" min="0" max="30" step="0.05" value="0"></label>
+          <div class="seg" id="s2j" role="group">
+            <button type="button" data-v="27.321661" aria-pressed="false"><span lang="vi">27,3 ngày</span><span lang="en">27.3 days</span></button>
+            <button type="button" data-v="29.530589" aria-pressed="false"><span lang="vi">29,5 ngày</span><span lang="en">29.5 days</span></button>
+          </div>
+        </div>
+        <p class="readout" id="s2r" aria-live="polite"></p>
+      </div>
+    </div>
+    <div class="story">
+      <div class="tcard">
+        <p class="eyebrow"><span class="num">02</span><span lang="vi">Hai loại tháng</span><span lang="en">Two kinds of month</span></p>
+        <h2><span lang="vi">27,3 ngày hay 29,5 ngày?</span><span lang="en">27.3 days or 29.5 days?</span></h2>
+        <p lang="vi">So với các vì sao, Mặt Trăng đi hết một vòng quanh Trái Đất trong <strong>27,32 ngày</strong>: tháng thiên văn. Nhưng trong lúc đó Trái Đất cũng đi được một đoạn quanh Mặt Trời, nên Mặt Trăng phải đi thêm hơn hai ngày nữa mới thẳng hàng với Mặt Trời trở lại.</p>
+        <p lang="en">Measured against the stars, the Moon goes once around the Earth in <strong>27.32 days</strong>: the sidereal month. But meanwhile the Earth has moved along its own orbit, so the Moon needs a little over two more days to line up with the Sun again.</p>
+      </div>
+      <div class="tcard">
+        <p lang="vi">Từ trăng mới tới trăng mới mất <strong>29,53 ngày</strong>: tháng giao hội. Lịch đi theo con số này, vì tuần trăng đi theo nó. Bấm hai nút để so: ở 27,3 ngày, Mặt Trăng về đúng hướng ngôi sao nhưng chưa tới hướng Mặt Trời.</p>
+        <p lang="en">New moon to new moon takes <strong>29.53 days</strong>: the synodic month. Calendars follow this number because the phases do. Tap the two buttons to compare: at 27.3 days the Moon is back in line with the star but not yet with the Sun.</p>
+        <p class="muted" lang="vi">Gọn trong một phép tính: 1/27,32 − 1/365,25 = 1/29,53.</p>
+        <p class="muted" lang="en">In one line: 1/27.32 − 1/365.25 = 1/29.53.</p>
+      </div>
+      <div class="tcard">
+        <p class="note" lang="vi">Ở <a href="/mat-trang/#c2">Phần 1</a>, Mặt Trăng tự quay một vòng cũng mất 27,3 ngày, đúng bằng tháng thiên văn. Đó là khóa thủy triều: nó quay đúng nhịp với quỹ đạo, nên luôn chìa cùng một mặt về phía ta.</p>
+        <p class="note" lang="en">In <a href="/mat-trang/#c2">Part 1</a>, the Moon also takes 27.3 days to spin once, exactly one sidereal month. That is tidal locking: its spin keeps pace with its orbit, so it always shows us the same face.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3 ============ -->
+<section class="ch" id="c3">
+  <div class="act">
+    <div class="stage">
+      <div class="bg" aria-hidden="true"></div>
+      <div class="vis"><div class="fit">
+        <figure class="scene" id="s3" data-bg="stage" style="--ar: 16 / 9"></figure>
+      </div></div>
+      <div class="dock">
+        <div class="controls">
+          <button class="icon-btn" type="button" data-play="s3"></button>
+          <label class="range"><span class="lbl"><span><span lang="vi">Lần trăng mới thứ</span><span lang="en">New moon number</span></span><b id="s3nv"></b></span>
+            <input type="range" id="s3n" min="0" max="35" step="1" value="2"></label>
+        </div>
+        <p class="readout" id="s3r" aria-live="polite"></p>
+      </div>
+    </div>
+    <div class="story">
+      <div class="tcard">
+        <p class="eyebrow"><span class="num">03</span><span lang="vi">Nhật thực, nguyệt thực</span><span lang="en">Eclipses</span></p>
+        <h2><span lang="vi">Vì sao không tháng nào cũng có nhật thực</span><span lang="en">Why there is not an eclipse every month</span></h2>
+        <p lang="vi">Quỹ đạo Mặt Trăng nghiêng khoảng <strong>5,1°</strong> so với mặt phẳng Trái Đất đi quanh Mặt Trời. Phần lớn các lần trăng mới, Mặt Trăng lướt qua phía trên hoặc phía dưới, và bóng của nó trượt khỏi Trái Đất.</p>
+        <p lang="en">The Moon's orbit is tilted about <strong>5.1°</strong> to the plane of the Earth's orbit around the Sun. At most new moons the Moon passes above or below, and its shadow misses the Earth.</p>
+      </div>
+      <div class="tcard">
+        <p lang="vi">Nhật thực chỉ xảy ra khi trăng mới rơi gần một trong hai điểm giao giữa hai mặt phẳng. Cứ khoảng <strong>173 ngày</strong> Mặt Trời lại đi qua gần một điểm giao: đó là một mùa thực, có ít nhất một nhật thực và một nguyệt thực, có khi ba lần thực.</p>
+        <p lang="en">A solar eclipse only happens when a new moon falls near one of the two points where the planes cross. About every <strong>173 days</strong> the Sun passes near one of those points: an eclipse season, with at least one solar and one lunar eclipse, sometimes three eclipses in all.</p>
+      </div>
+      <div class="tcard">
+        <p lang="vi">Đường nối hai điểm giao cũng xoay chậm, nên hai mùa thực cách nhau 173,3 ngày chứ không phải nửa năm, và một "năm thực" chỉ dài 346,6 ngày. Bấm chạy để xem các chấm cam dồn dần về phía đầu năm.</p>
+        <p lang="en">The line joining the two crossing points also turns slowly, so eclipse seasons come 173.3 days apart rather than half a year, and an "eclipse year" lasts only 346.6 days. Press play and watch the orange dots creep earlier each year.</p>
+      </div>
+      <div class="tcard">
+        <p class="note" lang="vi">Hình phóng đại độ nghiêng và dùng ngưỡng gần đúng (1,5° cho nhật thực, 1° cho nguyệt thực). Đây là mô hình đơn giản, không phải lịch nhật thực thật.</p>
+        <p class="note" lang="en">The tilt is exaggerated and the thresholds are rough (1.5° for a solar eclipse, 1° for a lunar one). This is a simple model, not a real eclipse table.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="branch wrap">
+  <div data-next="tuan-trang"></div>
+  <div data-tree="tuan-trang"></div>
+</section>
+
+<section class="sources wrap" id="nguon">
+  <h3><span lang="vi">Nguồn</span><span lang="en">Sources</span></h3>
+  <ol>
+    <li><a href="https://en.wikipedia.org/wiki/Lunar_phase">Lunar phase</a> — Wikipedia</li>
+    <li><a href="https://en.wikipedia.org/wiki/Lunar_month">Lunar month</a> (tháng giao hội 29,530589 ngày, tháng thiên văn 27,321661 ngày) — Wikipedia</li>
+    <li><a href="https://en.wikipedia.org/wiki/Orbit_of_the_Moon">Orbit of the Moon</a> (độ nghiêng 5,145°) — Wikipedia</li>
+    <li><a href="https://en.wikipedia.org/wiki/Eclipse_season">Eclipse season</a> (173,31 ngày; năm thực 346,62 ngày) — Wikipedia</li>
+  </ol>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <span lang="vi">Hình minh họa không theo tỉ lệ. Những gì gắn chữ "phóng đại" hoặc "mô hình đơn giản" là để dễ thấy, không phải số đo.</span>
+  <span lang="en">Illustrations are not to scale. Anything marked "exaggerated" or "simple model" is there for clarity, not as a measurement.</span>
+</footer>
+
+<script src="/mat-trang/giay.js"></script>
+<script>
+(function () {
+  'use strict';
+  var M = window.MT, $ = M.$, D = M.D, T = M.T, hooks = M.hooks, fmt = M.fmt, clamp = M.clamp, C = M.C,
+    night = M.night, svgEl = M.svgEl, earth = M.earth, txt = M.txt, say = M.say, loop = M.loop, playing = M.playing, SYN = M.SYN;
+  var LIT = function (r) { return '<circle r="' + r + '" fill="#2B3462"/><path d="M0,' + -r + 'A' + r + ',' + r + ' 0 0 0 0,' + r + 'Z" fill="' + C.cream + '"/>'; };
+
+  // ================= HERO =================
+  // Tám tuần trăng xếp thành vòng cung; trăng gần con trỏ nhất phóng to lên.
+  (function () {
+    var head = $('#top'), bg = $('#hero'), P = [], aim = null, sc = [1, 1, 1, 1, 1, 1, 1, 1];
+    var s = M.backdrop(bg, function (W, H, land) {
+      var cx = land ? W * .72 : W * .5, cy = land ? H * .66 : H * .42, A = land ? Math.min(W * .22, H * .42) : W * .38;
+      var r = land ? Math.min(W, H) * .062 : W * .058, out = '';
+      P = [];
+      for (var i = 0; i < 8; i++) {
+        var a = Math.PI * (1 - i / 7), x = cx + A * Math.cos(a), y = cy - A * Math.sin(a) * (land ? .9 : 1);
+        P.push({ x: x, y: y });
+        out += '<g class="hp" transform="translate(' + x.toFixed(1) + ',' + y.toFixed(1) + ')"><g filter="url(#cut)"><circle r="' + (r * 1.3).toFixed(1) + '" fill="' + C.n4 + '"/></g>' +
+          '<g filter="url(#pc)">' + M.moonDisc(i / 8, r, 'h' + i) + '</g></g>';
+      }
+      var hill = '';
+      [[H * .88, 12, 0, '#2A3A5E'], [H * .93, 9, 2, '#33496F']].forEach(function (h) {
+        var d = 'M-20,' + (H + 20);
+        for (var x = -20; x <= W + 20; x += 24) d += 'L' + x + ',' + (h[0] + Math.sin(x / 150 + h[2]) * h[1]).toFixed(1);
+        hill += '<path d="' + d + 'L' + (W + 20) + ',' + (H + 20) + 'Z" fill="' + h[3] + '"/>';
+      });
+      return M.skyAt(W, H, cx, cy - A * .4, 21, H * .88) + out + '<g filter="url(#cut)">' + hill + '</g>';
+    });
+    function draw(dt) {
+      var g = s.querySelectorAll('.hp'), r = bg.getBoundingClientRect(), vb = s.viewBox.baseVal;
+      for (var i = 0; i < g.length; i++) {
+        var want = 1;
+        if (aim) { var dx = aim.x * vb.width - P[i].x, dy = aim.y * vb.height - P[i].y; want = 1 + .35 * Math.exp(-(dx * dx + dy * dy) / (vb.width * vb.width * .006)); }
+        sc[i] += (want - sc[i]) * (1 - Math.pow(.001, dt));
+        g[i].setAttribute('transform', 'translate(' + P[i].x.toFixed(1) + ',' + P[i].y.toFixed(1) + ') scale(' + sc[i].toFixed(3) + ')');
+      }
+    }
+    head.addEventListener('pointermove', function (e) { var r = bg.getBoundingClientRect(); aim = { x: (e.clientX - r.left) / r.width, y: (e.clientY - r.top) / r.height }; });
+    head.addEventListener('pointerleave', function () { aim = null; });
+    if (M.reduce) return;
+    loop(head, draw);
+  })();
+
+  // ================= 1. Tuần trăng =================
+  (function () {
+    var fig = $('#s1');
+    svgEl(fig, '0 0 800 450').innerHTML = night(800, 450, 3);
+    var s = svgEl(fig, '0 0 800 450');
+    var EX = 290, EY = 215, OR = 150, ER = 38, MR = 17, rays = '';
+    [70, 140, 290, 360].forEach(function (y) { rays += M.arrow(66, y, 118, y, 10); });
+    s.innerHTML =
+      '<g filter="url(#pc)"><circle cx="-80" cy="' + EY + '" r="128" fill="' + C.orange + '"/></g>' +
+      '<path d="' + rays + '" stroke="' + C.cream + '" stroke-width="3" fill="' + C.cream + '" opacity=".55" stroke-linecap="round"/>' +
+      '<circle cx="' + EX + '" cy="' + EY + '" r="' + OR + '" fill="none" stroke="' + C.grey + '" stroke-opacity=".5" stroke-width="2" stroke-dasharray="3 9"/>' +
+      '<g filter="url(#pc)">' + earth(EX, EY, ER) + '</g>' +
+      '<path d="M' + EX + ',' + (EY - ER) + 'A' + ER + ',' + ER + ' 0 0 1 ' + EX + ',' + (EY + ER) + 'Z" fill="#070A1A" opacity=".4"/>' +
+      '<path id="s1l" stroke="' + C.orange + '" stroke-width="2.5" stroke-dasharray="6 7" fill="none"/>' +
+      '<g id="s1m" filter="url(#pcs)">' + LIT(MR) + '</g>' +
+      '<g transform="translate(655,190)"><g filter="url(#cut)"><circle r="104" fill="' + C.n4 + '"/></g><g filter="url(#pc)">' + M.moonDisc(.1, 82, 's1d') + '</g></g>' +
+      txt(655, 336, 'lbl', 'middle', 's1il') + txt(655, 364, 'sm', 'middle', 's1iv') +
+      txt(EX, EY - ER - 14, 'sm', 'middle', 's1el') + txt(16, 30, 'sm', 'start', 's1sun') + txt(784, 432, 'sm', 'end', 's1sc');
+    say(s, { s1il: ['Nhìn từ Trái Đất', 'Seen from Earth'], s1el: ['Trái Đất', 'Earth'], s1sun: ['Ánh nắng', 'Sunlight'], s1sc: ['nhìn từ trên cực Bắc · không theo tỉ lệ', 'seen from above the North Pole · not to scale'] });
+    var moon = $('#s1m', s), line = $('#s1l', s), dp = $('#s1dp', s), iv = $('#s1iv', s), sl = $('#s1a'), out = $('#s1t'), av = $('#s1av');
+    var age = +sl.value;
+    function upd() {
+      var e = 2 * Math.PI * age / SYN, mx = EX - OR * Math.cos(e), my = EY + OR * Math.sin(e);
+      moon.setAttribute('transform', 'translate(' + mx.toFixed(1) + ',' + my.toFixed(1) + ')');
+      var ux = (mx - EX) / OR, uy = (my - EY) / OR;
+      line.setAttribute('d', 'M' + (EX + ux * (ER + 4)).toFixed(1) + ',' + (EY + uy * (ER + 4)).toFixed(1) + 'L' + (mx - ux * (MR + 5)).toFixed(1) + ',' + (my - uy * (MR + 5)).toFixed(1));
+      dp.setAttribute('d', M.phase(age / SYN, 82));
+      var name = M.phaseName(age), lit = Math.round((1 - Math.cos(e)) / 2 * 100);
+      iv.textContent = name;
+      var rise = (6 * 60 + age * 48.8) % 1440, hh = Math.floor(rise / 60), mi = Math.floor(rise % 60);
+      av.textContent = fmt(age, 1);
+      out.innerHTML = T('≈ <b>' + M.lunarDay(Math.floor(age) + 1) + '</b> âm lịch · ' + name.toLowerCase() + ' · sáng <b>' + lit + '%</b> · mọc lúc khoảng <b>' + hh + ':' + String(mi).padStart(2, '0') + '</b>',
+        '≈ lunar <b>' + M.lunarDay(Math.floor(age) + 1) + '</b> · ' + name.toLowerCase() + ' · <b>' + lit + '%</b> lit · rises around <b>' + hh + ':' + String(mi).padStart(2, '0') + '</b>');
+    }
+    sl.addEventListener('input', function () { age = +sl.value; upd(); });
+    hooks.push(upd); upd();
+    loop(fig, function (dt) {
+      if (!playing.s1) return;
+      age = (age + dt * 2.4) % 29.5; sl.value = age; upd();
+    });
+  })();
+
+  // ================= 2. Hai loại tháng =================
+  (function () {
+    var fig = $('#s2');
+    svgEl(fig, '0 0 800 450').innerHTML = night(800, 450, 7);
+    var s = svgEl(fig, '0 0 800 450');
+    var SX = 400, SY = 650, RO = 520, MO = 100, ER = 26, MR = 13, TS = 27.321661, TY = 365.25, th0 = 14.5 * D;
+    function E(t) { var th = th0 - 2 * Math.PI * t / TY; return { x: SX + RO * Math.sin(th), y: SY - RO * Math.cos(th) }; }
+    var e0 = E(0), a0 = Math.atan2(SY - e0.y, SX - e0.x);
+    function Mo(t) { var e = E(t), a = a0 - 2 * Math.PI * t / TS; return { x: e.x + MO * Math.cos(a), y: e.y + MO * Math.sin(a) }; }
+    s.innerHTML =
+      '<circle cx="' + SX + '" cy="' + SY + '" r="' + RO + '" fill="none" stroke="' + C.grey + '" stroke-opacity=".45" stroke-width="2" stroke-dasharray="3 9"/>' +
+      '<g filter="url(#pc)"><circle cx="' + SX + '" cy="' + SY + '" r="238" fill="' + C.orange + '"/></g>' +
+      '<g opacity=".35">' + earth(e0.x, e0.y, ER) + '</g>' +
+      '<path id="s2tr" fill="none" stroke="' + C.cream + '" stroke-opacity=".45" stroke-width="2"/>' +
+      '<path id="s2st" stroke="' + C.cream + '" stroke-width="2.5" stroke-dasharray="2 7" stroke-linecap="round" fill="none"/>' +
+      '<path id="s2sn" stroke="' + C.orange + '" stroke-width="2.5" stroke-dasharray="7 6" fill="none"/>' +
+      '<g id="s2e" filter="url(#pc)">' + earth(0, 0, ER) + '</g>' +
+      '<g id="s2m" filter="url(#pcs)">' + LIT(MR) + '</g>' +
+      '<path d="M24,34L64,34" stroke="' + C.cream + '" stroke-width="2.5" stroke-dasharray="2 7" stroke-linecap="round"/>' + txt(76, 39, 'sm', 'start', 's2l1') +
+      '<path d="M24,64L64,64" stroke="' + C.orange + '" stroke-width="2.5" stroke-dasharray="7 6"/>' + txt(76, 69, 'sm', 'start', 's2l2') +
+      txt(SX, 440, 'lbl', 'middle', 's2sun') + txt(784, 39, 'sm', 'end', 's2sc');
+    say(s, { s2l1: ['hướng về một ngôi sao xa', 'towards a distant star'], s2l2: ['hướng về Mặt Trời', 'towards the Sun'], s2sun: ['Mặt Trời', 'Sun'], s2sc: ['không theo tỉ lệ', 'not to scale'] });
+    var eg = $('#s2e', s), mg = $('#s2m', s), tr = $('#s2tr', s), st = $('#s2st', s), sn = $('#s2sn', s);
+    var sl = $('#s2t'), out = $('#s2r'), tv = $('#s2tv'), t = 0, hold = 0;
+    function upd() {
+      var e = E(t), m = Mo(t), d = '', k;
+      for (k = 0; k <= t; k += .2) { var p = Mo(k); d += (k ? 'L' : 'M') + p.x.toFixed(1) + ',' + p.y.toFixed(1); }
+      tr.setAttribute('d', d + 'L' + m.x.toFixed(1) + ',' + m.y.toFixed(1));
+      eg.setAttribute('transform', 'translate(' + e.x.toFixed(1) + ',' + e.y.toFixed(1) + ')');
+      var bs = Math.atan2(SY - e.y, SX - e.x);
+      mg.setAttribute('transform', 'translate(' + m.x.toFixed(1) + ',' + m.y.toFixed(1) + ') rotate(' + (bs / D - 180).toFixed(1) + ')');
+      var L = MO + 40;
+      st.setAttribute('d', 'M' + e.x.toFixed(1) + ',' + e.y.toFixed(1) + 'L' + (e.x + L * Math.cos(a0)).toFixed(1) + ',' + (e.y + L * Math.sin(a0)).toFixed(1));
+      sn.setAttribute('d', 'M' + e.x.toFixed(1) + ',' + e.y.toFixed(1) + 'L' + (e.x + L * Math.cos(bs)).toFixed(1) + ',' + (e.y + L * Math.sin(bs)).toFixed(1));
+      var vs = 360 * t / TS, vn = 360 * t / SYN;
+      tv.textContent = fmt(t, 1);
+      var tail = Math.abs(t - TS) < .12 ? T(' Tròn một vòng so với sao: <b>một tháng thiên văn</b>, nhưng chưa phải trăng mới.', ' One full turn against the stars: <b>a sidereal month</b>, but not yet a new moon.')
+        : Math.abs(t - SYN) < .12 ? T(' Thẳng hàng với Mặt Trời lần nữa: <b>trăng mới</b>, hết một tháng giao hội.', ' Lined up with the Sun again: <b>new moon</b>, one synodic month.') : '';
+      out.innerHTML = T('Ngày <b>' + fmt(t, 1) + '</b>: so với sao, Mặt Trăng đã đi <b>' + fmt(vs, 0) + '°</b>; so với Mặt Trời, <b>' + fmt(vn, 0) + '°</b>.',
+        'Day <b>' + fmt(t, 1) + '</b>: against the stars the Moon has turned <b>' + fmt(vs, 0) + '°</b>; against the Sun, <b>' + fmt(vn, 0) + '°</b>.') + tail;
+    }
+    sl.addEventListener('input', function () { t = +sl.value; upd(); });
+    M.segment('s2j', function (v) {
+      if (playing.s2) $('[data-play="s2"]').click();
+      t = +v; sl.value = t; upd();
+    });
+    hooks.push(upd); upd();
+    loop(fig, function (dt) {
+      if (!playing.s2) return;
+      // Dừng một nhịp ở hai mốc 27,3 và 29,5 để kịp đọc, rồi quay lại từ đầu.
+      if (hold > 0) { hold -= dt; if (hold <= 0 && t >= SYN) t = 0; else return; }
+      var n = t + dt * 3.2;
+      if (t < TS && n >= TS) { t = TS; hold = 1.4; }
+      else if (t < SYN && n >= SYN) { t = SYN; hold = 1.8; }
+      else t = n;
+      sl.value = t; upd();
+    });
+  })();
+
+  // ================= 3. Nhật thực =================
+  (function () {
+    var fig = $('#s3');
+    svgEl(fig, '0 0 800 450').innerHTML = night(800, 450, 9);
+    var s = svgEl(fig, '0 0 800 450');
+    var Y = 150, EXX = 470, ER = 26, NX = 380, FX = 610, MR = 11, K = 14, X0 = 160, STEP = 17.4, U0 = -61, DU = 30.67;
+    function beta(n) { return 5.145 * Math.sin((U0 + n * DU) * D); }
+    function betaF(n) { return 5.145 * Math.sin((U0 + n * DU + 195.33) * D); }
+    var dots = '';
+    for (var n = 0; n < 36; n++) {
+      var x = X0 + n * STEP, sol = Math.abs(beta(n)) < 1.5, lun = Math.abs(betaF(n)) < 1;
+      dots += '<circle cx="' + x.toFixed(1) + '" cy="330" r="6.5" fill="' + (sol ? C.orange : '#3A4573') + '"/>' +
+        '<circle cx="' + (x + STEP / 2).toFixed(1) + '" cy="372" r="6.5" fill="' + (lun ? C.sand : '#3A4573') + '"/>';
+    }
+    var yr = '';
+    for (var y = 0; y < 3; y++) yr += '<path d="M' + (X0 + y * 12.368 * STEP - 6).toFixed(1) + ',398l0,10" stroke="' + C.grey + '" stroke-width="2"/>' + txt((X0 + y * 12.368 * STEP - 6).toFixed(1), 430, 'sm', 'start', 's3y' + y);
+    s.innerHTML =
+      '<path d="M0,' + Y + 'L800,' + Y + '" stroke="' + C.grey + '" stroke-opacity=".5" stroke-width="2" stroke-dasharray="3 9"/>' +
+      '<g filter="url(#pc)"><circle cx="40" cy="' + Y + '" r="52" fill="' + C.orange + '"/></g>' +
+      '<path d="M' + EXX + ',' + (Y - ER) + 'L790,' + (Y - 8) + 'L790,' + (Y + 8) + 'L' + EXX + ',' + (Y + ER) + 'Z" fill="#070A1A" opacity=".45"/>' +
+      '<path id="s3o" stroke="' + C.cream + '" stroke-opacity=".5" stroke-width="2" fill="none"/>' +
+      '<g filter="url(#pc)">' + earth(EXX, Y, ER) + '</g>' +
+      '<path id="s3sh" fill="#070A1A" opacity=".6"/>' +
+      '<g id="s3m" filter="url(#pcs)">' + LIT(MR) + '</g>' +
+      '<g id="s3f" filter="url(#pcs)"><circle r="' + MR + '" fill="' + C.cream + '"/></g>' +
+      '<text id="s3xs" class="lbl" text-anchor="middle" y="70" x="' + NX + '" style="fill:' + C.orange + '"></text>' +
+      '<text id="s3xl" class="lbl" text-anchor="middle" y="70" x="' + FX + '" style="fill:' + C.sand + '"></text>' +
+      txt(40, Y + 82, 'sm', 'middle', 's3sun') + txt(EXX, Y + ER + 26, 'sm', 'middle', 's3e') + txt(784, 30, 'sm', 'end', 's3sc') + txt(784, Y - 10, 'sm', 'end', 's3pl') +
+      '<rect id="s3cur" y="314" width="' + (STEP * 1.5 + 8).toFixed(1) + '" height="74" rx="10" fill="none" stroke="' + C.cream + '" stroke-width="2.5"/>' +
+      dots + txt(X0 - 22, 335, 'sm', 'end', 's3r1') + txt(X0 - 22, 377, 'sm', 'end', 's3r2') + yr;
+    say(s, { s3sun: ['Mặt Trời', 'Sun'], s3e: ['Trái Đất', 'Earth'], s3sc: ['nhìn ngang · độ nghiêng phóng đại', 'side view · tilt exaggerated'], s3pl: ['mặt phẳng quỹ đạo Trái Đất', "plane of Earth's orbit"],
+      s3r1: ['nhật thực', 'solar'], s3r2: ['nguyệt thực', 'lunar'], s3y0: ['năm 1', 'year 1'], s3y1: ['năm 2', 'year 2'], s3y2: ['năm 3', 'year 3'] });
+    var mg = $('#s3m', s), fg = $('#s3f', s), orb = $('#s3o', s), sh = $('#s3sh', s), cur = $('#s3cur', s), xs = $('#s3xs', s), xl = $('#s3xl', s);
+    var sl = $('#s3n'), out = $('#s3r'), nv = $('#s3nv'), n = +sl.value, acc = 0;
+    function upd() {
+      var b = beta(n), b2 = betaF(n), my = Y - b * K, fy = Y - b2 * K, sol = Math.abs(b) < 1.5, lun = Math.abs(b2) < 1;
+      mg.setAttribute('transform', 'translate(' + NX + ',' + my.toFixed(1) + ')');
+      fg.setAttribute('transform', 'translate(' + FX + ',' + fy.toFixed(1) + ')');
+      fg.firstChild.setAttribute('fill', lun ? '#B5684A' : C.cream);
+      orb.setAttribute('d', 'M' + (NX - 60) + ',' + (my - (fy - my) * 60 / (FX - NX)).toFixed(1) + 'L' + (FX + 60) + ',' + (fy + (fy - my) * 60 / (FX - NX)).toFixed(1));
+      var ys = Y + (my - Y) * (EXX + 4 - 40) / (NX - 40);
+      sh.setAttribute('d', 'M' + NX + ',' + (my - MR) + 'L' + (EXX + 4) + ',' + ys.toFixed(1) + 'L' + NX + ',' + (my + MR) + 'Z');
+      cur.setAttribute('x', (X0 + n * STEP - 10).toFixed(1));
+      xs.textContent = sol ? T('Nhật thực', 'Solar eclipse') : '';
+      xl.textContent = lun ? T('Nguyệt thực', 'Lunar eclipse') : '';
+      nv.textContent = n + 1;
+      var f = function (v) { return fmt(Math.abs(v), 1) + '°'; };
+      out.innerHTML = T('Trăng mới: lệch <b>' + f(b) + '</b> khỏi mặt phẳng → ' + (sol ? '<b>có nhật thực</b>' : 'bóng trượt khỏi Trái Đất') + '. Trăng tròn kế đó: lệch <b>' + f(b2) + '</b> → ' + (lun ? '<b>có nguyệt thực</b>' : 'không có nguyệt thực') + '.',
+        'New moon: <b>' + f(b) + '</b> off the plane → ' + (sol ? '<b>solar eclipse</b>' : 'the shadow misses the Earth') + '. Following full moon: <b>' + f(b2) + '</b> off → ' + (lun ? '<b>lunar eclipse</b>' : 'no lunar eclipse') + '.');
+    }
+    sl.addEventListener('input', function () { n = +sl.value; upd(); });
+    hooks.push(upd); upd();
+    loop(fig, function (dt) {
+      if (!playing.s3) return;
+      acc += dt; if (acc < .75) return; acc = 0;
+      n = (n + 1) % 36; sl.value = n; upd();
+    });
+  })();
+
+  M.stage();
+})();
+</script>
+</body>
+</html>

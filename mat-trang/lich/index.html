@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="vi" data-lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Tuần trăng và lịch</title>
+<meta name="description" content="Phần 2: tuần trăng, những người đầu tiên đếm trăng, lịch âm, dương, âm dương và âm lịch Việt Nam, bằng hình cắt giấy tương tác. Part 2: phases, the first Moon-counters, lunar, solar and lunisolar calendars, and the Vietnamese calendar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+<script>
+  (function () {
+    var l = 'vi';
+    try {
+      var q = new URLSearchParams(location.search).get('lang');
+      l = (q === 'en' || q === 'vi') ? q : (localStorage.getItem('mt-lang') || 'vi');
+    } catch (e) {}
+    document.documentElement.dataset.lang = l;
+    document.documentElement.lang = l;
+  })();
+</script>
+<link rel="stylesheet" href="/mat-trang/giay.css">
+</head>
+<body>
+
+<div class="bar">
+  <div class="wide">
+    <nav class="crumbs" aria-label="Đường dẫn / Breadcrumb">
+      <a class="brand" href="/mat-trang/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 14.4A9.6 9.6 0 1 1 9.6 2.4a7.6 7.6 0 0 0 12 12Z"/></svg>
+        <span lang="vi">Mặt Trăng</span><span lang="en">The Moon</span></a>
+      <span class="sep" aria-hidden="true">/</span>
+      <span class="here"><span lang="vi">Lịch</span><span lang="en">Calendars</span></span>
+    </nav>
+    <div class="seg lang" role="group" aria-label="Ngôn ngữ / Language">
+      <button type="button" data-l="vi" aria-pressed="true">VI</button>
+      <button type="button" data-l="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</div>
+
+<header class="hero act" id="top">
+  <div class="stage">
+    <div class="bg" id="hero" aria-hidden="true"></div>
+    <div class="tcard seen">
+      <p class="eyebrow"><span class="num" lang="vi">Phần 2</span><span class="num" lang="en">Part 2</span>
+        <span lang="vi">Tuần trăng và lịch</span><span lang="en">Phases and calendars</span></p>
+      <h1><span lang="vi">Đếm ngày bằng Mặt Trăng</span><span lang="en">Counting days by the Moon</span></h1>
+      <p class="lede" lang="vi">Trăng tròn rồi khuyết đều đặn khoảng 29,5 ngày một lần, nên từ rất sớm người ta đã dùng nó để đếm thời gian. Bốn trang đi từ tuần trăng, qua những vạch khắc trên xương, tới cách âm lịch Việt Nam được tính hôm nay.</p>
+      <p class="lede" lang="en">The Moon waxes and wanes every 29.5 days or so, so people used it to count time very early on. Four pages take you from the phases, through notches carved on bones, to how the Vietnamese calendar is computed today.</p>
+      <p class="tonight" id="tn"></p>
+      <div class="cta">
+        <a class="btn" href="/mat-trang/lich/tuan-trang/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.3 5.3a1 1 0 0 1 1.4 0l6 6a1 1 0 0 1 0 1.4l-6 6a1 1 0 0 1-1.4-1.4l4.3-4.3H4a1 1 0 1 1 0-2h13.6l-4.3-4.3a1 1 0 0 1 0-1.4Z"/></svg>
+          <span lang="vi">Bắt đầu từ tuần trăng</span><span lang="en">Start with the phases</span></a>
+        <a class="btn ghost" href="#cay"><span lang="vi">Xem cả cây</span><span lang="en">See the whole tree</span></a>
+      </div>
+    </div>
+    <p class="hint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 3.2a.8.8 0 0 1 1.1-.7l13 6.2a.8.8 0 0 1-.1 1.5l-5.6 1.7-2.6 5.4a.8.8 0 0 1-1.5-.1Z"/></svg>
+      <span lang="vi">Rê ngang để đổi ngày trong tháng âm</span><span lang="en">Move sideways to change the day of the lunar month</span></p>
+  </div>
+</header>
+
+<main>
+
+<section class="branch wrap" id="cay">
+  <span class="tag" lang="vi">Phần 2 · 4 trang</span><span class="tag" lang="en">Part 2 · 4 pages</span>
+  <h2><span lang="vi">Đọc theo thứ tự, hoặc nhảy thẳng tới trang bạn muốn</span><span lang="en">Read in order, or jump straight to the page you want</span></h2>
+  <p class="lede" lang="vi">Mỗi trang dẫn sang trang kế ở cuối bài. Trang 4 dùng những gì trang 1 và 3 đã nói, nhưng vẫn đọc riêng được.</p>
+  <p class="lede" lang="en">Each page links to the next one at the end. Page 4 builds on pages 1 and 3, but you can still read it on its own.</p>
+  <div data-tree="lich"></div>
+</section>
+
+<section class="sources wrap" id="nguon">
+  <h3><span lang="vi">Nguồn cho trang này</span><span lang="en">Sources for this page</span></h3>
+  <ol>
+    <li><a href="https://en.wikipedia.org/wiki/Lunar_month">Lunar month</a> (29,530589 ngày) — Wikipedia</li>
+    <li>Jean Meeus, <em>Astronomical Algorithms</em>, 2nd ed. (1998), chương 47 và 49: vị trí Mặt Trời, điểm Sóc.</li>
+    <li>Hồ Ngọc Đức, phương pháp tính âm lịch Việt Nam (<a href="https://web.archive.org/web/20250123093939/http://www.informatik.uni-leipzig.de/~duc/amlich/calrules.html">bản lưu trên Wayback Machine</a>). Bộ tính trên trang này viết lại từ đầu theo phương pháp đó.</li>
+  </ol>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <span lang="vi">Hình minh họa không theo tỉ lệ. Ngày âm tính cho múi giờ Việt Nam (UTC+7) theo đồng hồ máy bạn.</span>
+  <span lang="en">Illustrations are not to scale. Lunar dates are computed for Vietnam time (UTC+7) from your device clock.</span>
+</footer>
+
+<script src="/mat-trang/giay.js"></script>
+<script src="/mat-trang/lich/amlich.js"></script>
+<script>
+(function () {
+  'use strict';
+  var M = window.MT, AL = window.AL, $ = M.$, T = M.T, hooks = M.hooks, clamp = M.clamp, C = M.C, SYN = M.SYN;
+
+  // Ngày hôm nay theo giờ Việt Nam, và tuổi trăng thật lúc này.
+  var now = new Date(Date.now() + 7 * 36e5), dd = now.getUTCDate(), mm = now.getUTCMonth() + 1, yy = now.getUTCFullYear();
+  var L = AL.toLunar(dd, mm, yy, 7), cc = AL.canChi(L[2]);
+  var J0 = Date.now() / 864e5 + 2440587.5, k = Math.floor((J0 - 2415021.077) / 29.530588853);
+  while (AL.newMoon(k + 1) <= J0) k++;
+  while (AL.newMoon(k) > J0) k--;
+  var age0 = J0 - AL.newMoon(k);
+
+  var tn = $('#tn');
+  function today() {
+    var lit = Math.round((1 - Math.cos(2 * Math.PI * age0 / SYN)) / 2 * 100);
+    tn.innerHTML = M.phaseIcon(age0 / SYN) + '<span>' + T(
+      'Hôm nay ' + dd + '/' + mm + '/' + yy + ' là ngày <b>' + L[0] + ' tháng ' + L[1] + (L[3] ? ' nhuận' : '') + '</b> năm ' + cc[0][0] + ' ' + cc[1][0] + '. Trăng ' + M.phaseName(age0).toLowerCase() + ', sáng ' + lit + '%.',
+      'Today, ' + yy + '-' + String(mm).padStart(2, '0') + '-' + String(dd).padStart(2, '0') + ', is <b>day ' + L[0] + ' of month ' + L[1] + (L[3] ? ' (leap)' : '') + '</b> in the year ' + cc[0][0] + ' ' + cc[1][0] + ' (' + cc[1][1] + '). ' + M.phaseName(age0) + ', ' + lit + '% lit.'
+    ) + '</span>';
+  }
+  hooks.push(today); today();
+
+  // ================= HERO =================
+  // Mặt Trăng đêm nay; rê ngang để chạy qua cả tháng âm, buông tay thì trăng trôi về đêm nay.
+  (function () {
+    var head = $('#top'), bg = $('#hero'), G = {}, age = age0, aim = null;
+    var s = M.backdrop(bg, function (W, H, land) {
+      var R = Math.min(W, H) * (land ? .2 : .13), cx = land ? W * .72 : W * .5, cy = land ? H * .42 : H * .19;
+      G = { R: R, cx: cx, cy: cy };
+      var hill = function (y, a, ph, fill) {
+        var d = 'M-20,' + (H + 20);
+        for (var x = -20; x <= W + 20; x += 24) d += 'L' + x + ',' + (y + Math.sin(x / 160 + ph) * a + Math.sin(x / 57 + ph * 2) * a * .3).toFixed(1);
+        return '<path d="' + d + 'L' + (W + 20) + ',' + (H + 20) + 'Z" fill="' + fill + '"/>';
+      };
+      var fs = Math.max(15, R * .16);
+      return M.skyAt(W, H, cx, cy, 13, H * .85) +
+        '<g transform="translate(' + cx.toFixed(1) + ',' + cy.toFixed(1) + ')"><g filter="url(#cut)"><circle r="' + (R * 1.27).toFixed(1) + '" fill="' + C.n4 + '"/></g>' +
+        '<g filter="url(#pc)">' + M.moonDisc(age / SYN, R, 'hm') + '</g>' +
+        '<text id="hl" y="' + (R * 1.27 + fs * 1.9).toFixed(1) + '" text-anchor="middle" style="font: 600 ' + fs.toFixed(0) + 'px Inter, sans-serif; fill: ' + C.cream + '"></text></g>' +
+        '<g filter="url(#cut)">' + hill(H * .86, 14, 0, '#2A3A5E') + hill(H * .92, 10, 2, '#33496F') + '</g>';
+    });
+    function label() {
+      var el = $('#hl', s); if (!el) return;
+      el.textContent = aim === null && Math.abs(age - age0) < .3
+        ? T('Đêm nay · ', 'Tonight · ') + M.lunarDay(L[0]) + ' · ' + M.phaseName(age0)
+        : '≈ ' + M.lunarDay(Math.floor(age) + 1) + ' · ' + M.phaseName(age);
+    }
+    function draw() {
+      var p = $('#hmp', s); if (p) p.setAttribute('d', M.phase(age / SYN, G.R));
+      label();
+    }
+    hooks.push(label); draw();
+    function point(e) {
+      var r = bg.getBoundingClientRect();
+      aim = clamp((e.clientX - r.left) / r.width, 0, 1) * (SYN - .01);
+      if (M.reduce) { age = aim; draw(); }
+    }
+    head.addEventListener('pointermove', point);
+    head.addEventListener('pointerdown', point);
+    head.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') { aim = null; if (M.reduce) { age = age0; draw(); } } });
+    addEventListener('resize', function () { setTimeout(draw, 200); });
+    if (M.reduce) return;
+    M.loop(head, function (dt) {
+      var tgt = aim === null ? age0 : aim, e = 1 - Math.pow(.004, dt);
+      if (Math.abs(tgt - age) < .005) return;
+      age += (tgt - age) * e; draw();
+    });
+  })();
+
+  M.stage();
+})();
+</script>
+</body>
+</html>

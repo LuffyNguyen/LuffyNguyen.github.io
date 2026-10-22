@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="vi" data-lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Âm, dương, hay cả hai</title>
+<meta name="description" content="Vì sao Ramadan trôi qua các mùa, Giáng sinh đứng yên, còn Tết nhích qua lại: lịch âm, lịch dương và lịch âm dương. Why Ramadan drifts, Christmas stays, and Tết wobbles: lunar, solar and lunisolar calendars.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+<script>
+  (function () {
+    var l = 'vi';
+    try {
+      var q = new URLSearchParams(location.search).get('lang');
+      l = (q === 'en' || q === 'vi') ? q : (localStorage.getItem('mt-lang') || 'vi');
+    } catch (e) {}
+    document.documentElement.dataset.lang = l;
+    document.documentElement.lang = l;
+  })();
+</script>
+<link rel="stylesheet" href="/mat-trang/giay.css">
+</head>
+<body>
+
+<div class="bar">
+  <div class="wide">
+    <nav class="crumbs" aria-label="Đường dẫn / Breadcrumb">
+      <a class="brand" href="/mat-trang/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 14.4A9.6 9.6 0 1 1 9.6 2.4a7.6 7.6 0 0 0 12 12Z"/></svg>
+        <span lang="vi">Mặt Trăng</span><span lang="en">The Moon</span></a>
+      <span class="sep" aria-hidden="true">/</span>
+      <a href="/mat-trang/lich/"><span lang="vi">Lịch</span><span lang="en">Calendars</span></a>
+      <span class="sep last" aria-hidden="true">/</span>
+      <span class="here"><span lang="vi">Ba kiểu lịch</span><span lang="en">Three kinds</span></span>
+    </nav>
+    <div class="seg lang" role="group" aria-label="Ngôn ngữ / Language">
+      <button type="button" data-l="vi" aria-pressed="true">VI</button>
+      <button type="button" data-l="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</div>
+
+<header class="hero act" id="top">
+  <div class="stage">
+    <div class="bg" id="hero" aria-hidden="true"></div>
+    <div class="tcard seen">
+      <p class="eyebrow"><span class="num" lang="vi">Phần 2 · 03</span><span class="num" lang="en">Part 2 · 03</span>
+        <span lang="vi">Ba kiểu lịch</span><span lang="en">Three kinds of calendar</span></p>
+      <h1><span lang="vi">Âm, dương, hay cả hai</span><span lang="en">Lunar, solar, or both</span></h1>
+      <p class="lede" lang="vi">Mười hai tháng trăng ngắn hơn một năm khoảng 11 ngày. Mọi bộ lịch đều phải chọn: bỏ trăng để theo mùa, bỏ mùa để theo trăng, hay chen thêm tháng để giữ cả hai.</p>
+      <p class="lede" lang="en">Twelve lunar months fall about 11 days short of a year. Every calendar has to choose: drop the Moon and follow the seasons, drop the seasons and follow the Moon, or slip in extra months to keep both.</p>
+      <div class="cta">
+        <a class="btn" href="#c1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4a1 1 0 0 1 1 1v11.6l4.3-4.3a1 1 0 1 1 1.4 1.4l-6 6a1 1 0 0 1-1.4 0l-6-6a1 1 0 1 1 1.4-1.4L11 16.6V5a1 1 0 0 1 1-1Z"/></svg>
+          <span lang="vi">Bắt đầu</span><span lang="en">Start</span></a>
+        <span class="meta" lang="vi">Ba cảnh · khoảng 7 phút</span><span class="meta" lang="en">Three scenes · about 7 minutes</span>
+      </div>
+    </div>
+    <p class="hint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 3.2a.8.8 0 0 1 1.1-.7l13 6.2a.8.8 0 0 1-.1 1.5l-5.6 1.7-2.6 5.4a.8.8 0 0 1-1.5-.1Z"/></svg>
+      <span lang="vi">Rê ngang để cho năm trôi</span><span lang="en">Move sideways to let the years pass</span></p>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ 1 ============ -->
+<section class="ch" id="c1">
+  <div class="act">
+    <div class="stage">
+      <div class="bg" aria-hidden="true"></div>
+      <div class="vis"><div class="fit">
+        <figure class="scene" id="s1" data-bg="stage" style="--ar: 16 / 9"></figure>
+      </div></div>
+      <div class="dock">
+        <div class="controls">
+          <button class="icon-btn" type="button" data-play="s1"></button>
+          <label class="range"><span class="lbl"><span><span lang="vi">Số năm đã trôi</span><span lang="en">Years passed</span></span><b id="s1yv"></b></span>
+            <input type="range" id="s1y" min="0" max="33" step="1" value="3"></label>
+          <div class="seg" id="s1k" role="group">
+            <button type="button" data-v="0" aria-pressed="true"><span lang="vi">Không nhuận</span><span lang="en">No leap months</span></button>
+            <button type="button" data-v="1" aria-pressed="false"><span lang="vi">Nhuận 7 trong 19 năm</span><span lang="en">7 leap months in 19 years</span></button>
+          </div>
+        </div>
+        <p class="readout" id="s1r" aria-live="polite"></p>
+      </div>
+    </div>
+    <div class="story">
+      <div class="tcard">
+        <p class="eyebrow"><span class="num">01</span><span lang="vi">11 ngày mỗi năm</span><span lang="en">11 days a year</span></p>
+        <h2><span lang="vi">Năm trăng hụt, và cách vá</span><span lang="en">The short lunar year, and the patch</span></h2>
+        <p lang="vi">Một năm theo mùa dài 365,24 ngày. Mười hai tháng trăng chỉ dài 12 × 29,53 = 354,37 ngày. Mỗi năm âm bắt đầu sớm hơn năm trước gần <strong>11 ngày</strong>. Để yên, sau khoảng 33 năm nó trôi hết một vòng mùa.</p>
+        <p lang="en">A year of seasons lasts 365.24 days. Twelve lunar months last only 12 × 29.53 = 354.37 days. Each lunar year starts nearly <strong>11 days</strong> earlier than the last. Left alone, it drifts through every season in about 33 years.</p>
+      </div>
+      <div class="tcard">
+        <p lang="vi">Cách vá là thỉnh thoảng chen một tháng thứ 13. Babylon, từ khoảng 499 TCN, chèn <strong>7 tháng nhuận trong mỗi 19 năm</strong>, theo lịch cố định. Ở Athens, Meton đưa ra cùng chu kỳ năm 432 TCN: 19 năm mùa dài 6.939,60 ngày, 235 tháng trăng dài 6.939,69 ngày, chỉ lệch nhau khoảng 2 giờ.</p>
+        <p lang="en">The patch is to slip in a 13th month now and then. Babylon, from about 499 BC, added <strong>7 leap months every 19 years</strong> on a fixed schedule. In Athens, Meton proposed the same cycle in 432 BC: 19 years of seasons last 6,939.60 days and 235 lunar months last 6,939.69 days, only about 2 hours apart.</p>
+      </div>
+      <div class="tcard">
+        <p class="note" lang="vi">Bấm "Nhuận 7 trong 19 năm" và kéo tới năm 19: điểm đầu năm âm quay về gần đúng chỗ cũ. Âm lịch Việt Nam và Trung Quốc không dùng lịch nhuận cố định này mà xét theo tiết khí; trang 4 kể chuyện đó.</p>
+        <p class="note" lang="en">Press "7 leap months in 19 years" and drag to year 19: the start of the lunar year comes back almost exactly where it began. The Vietnamese and Chinese calendars do not use this fixed schedule; they decide by the solar terms, which is page 4.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2 ============ -->
+<section class="ch" id="c2">
+  <div class="act">
+    <div class="stage">
+      <div class="bg" aria-hidden="true"></div>
+      <div class="vis"><div class="fit">
+        <figure class="scene" id="s2" data-bg="stage" style="--ar: 16 / 9"></figure>
+      </div></div>
+      <div class="dock">
+        <div class="controls">
+          <button class="icon-btn" type="button" data-play="s2"></button>
+          <label class="range"><span class="lbl"><span><span lang="vi">Năm</span><span lang="en">Year</span></span><b id="s2yv"></b></span>
+            <input type="range" id="s2y" min="2000" max="2060" step="1" value="2026"></label>
+        </div>
+        <p class="readout" id="s2r" aria-live="polite"></p>
+      </div>
+    </div>
+    <div class="story">
+      <div class="tcard">
+        <p class="eyebrow"><span class="num">02</span><span lang="vi">Ba ngày lễ, ba kiểu lịch</span><span lang="en">Three holidays, three calendars</span></p>
+        <h2><span lang="vi">Trôi, đứng yên, và nhích qua lại</span><span lang="en">Drifting, fixed, and wobbling</span></h2>
+        <p lang="vi">Vòng tròn là một năm dương lịch, tháng 1 ở trên cùng. Kéo năm và xem ba chấm để lại vệt.</p>
+        <p lang="en">The circle is one Gregorian year, January at the top. Drag the year and watch the trails the three dots leave.</p>
+      </div>
+      <div class="tcard">
+        <p lang="vi"><strong>Lịch Hồi giáo</strong> chỉ theo trăng: năm dài 354 hoặc 355 ngày, không có tháng nhuận. Tháng Ramadan vì thế tới sớm hơn khoảng 11 ngày mỗi năm và đi hết các mùa trong chừng 33 năm. Ramadan năm 2026 bắt đầu khoảng 18–19/2, tùy nước, vì nhiều nơi bắt đầu tháng khi thấy trăng non.</p>
+        <p lang="en">The <strong>Islamic calendar</strong> follows only the Moon: a year of 354 or 355 days, no leap months. So Ramadan comes about 11 days earlier each year and passes through every season in some 33 years. Ramadan 2026 began around 18–19 February, depending on the country, since many start the month when the crescent is sighted.</p>
+      </div>
+      <div class="tcard">
+        <p lang="vi"><strong>Lịch Gregory</strong> chỉ theo Mặt Trời, nên Giáng sinh luôn là 25/12. <strong>Âm lịch</strong> theo cả hai: tháng theo trăng, và cứ khi lệch đủ xa thì chen một tháng nhuận. Tết vì thế nhích qua lại, nhưng luôn rơi trong khoảng 21/1 tới 20/2.</p>
+        <p lang="en">The <strong>Gregorian calendar</strong> follows only the Sun, so Christmas is always 25 December. The <strong>lunisolar calendar</strong> follows both: months by the Moon, plus a leap month whenever the drift grows too large. So Tết wobbles back and forth, but always lands between about 21 January and 20 February.</p>
+      </div>
+      <div class="tcard">
+        <p class="note" lang="vi">Ngày Ramadan trên hình tính theo lịch Hồi giáo dạng bảng (quy tắc số học), có thể lệch một hai ngày so với ngày thấy trăng thật. Ngày Tết tính theo âm lịch Việt Nam, giờ UTC+7.</p>
+        <p class="note" lang="en">Ramadan dates in the picture use the tabular (arithmetic) Islamic calendar and can differ by a day or two from the actual sighting. Tết dates use the Vietnamese calendar at UTC+7.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3 ============ -->
+<section class="ch" id="c3">
+  <div class="act">
+    <div class="stage">
+      <div class="bg" aria-hidden="true"></div>
+      <div class="vis"><div class="fit">
+        <figure class="scene" id="s3" data-bg="stage" style="--ar: 16 / 9"></figure>
+      </div></div>
+      <div class="dock">
+        <div class="controls">
+          <button class="icon-btn" type="button" data-play="s3"></button>
+          <label class="range"><span class="lbl"><span><span lang="vi">Năm</span><span lang="en">Year</span></span><b id="s3yv"></b></span>
+            <input type="range" id="s3y" min="325" max="2500" step="1" value="1582"></label>
+        </div>
+        <p class="readout" id="s3r" aria-live="polite"></p>
+      </div>
+    </div>
+    <div class="story">
+      <div class="tcard">
+        <p class="eyebrow"><span class="num">03</span><span lang="vi">Ngay cả lịch dương cũng trôi</span><span lang="en">Even solar calendars drift</span></p>
+        <h2><span lang="vi">Mười ngày biến mất năm 1582</span><span lang="en">Ten days vanish in 1582</span></h2>
+        <p lang="vi">Lịch Julius có hiệu lực từ 1/1/45 TCN: năm 365 ngày, cứ 4 năm nhuận một ngày, tức trung bình 365,25 ngày. Năm theo mùa ngắn hơn khoảng 11 phút, nên lịch Julius trễ dần chừng <strong>1 ngày mỗi 128 năm</strong>.</p>
+        <p lang="en">The Julian calendar took effect on 1 January 45 BC: 365 days, plus a leap day every 4 years, so 365.25 days on average. The year of seasons is about 11 minutes shorter, so the Julian calendar slips by roughly <strong>1 day every 128 years</strong>.</p>
+      </div>
+      <div class="tcard">
+        <p lang="vi">Giáo hội tính lễ Phục sinh từ xuân phân và coi xuân phân là 21/3, theo thời Công đồng Nicaea (năm 325). Tới thế kỷ 16, xuân phân thật đã lùi về khoảng 10–11/3. Năm 1582, Giáo hoàng Gregory XIII cho bỏ 10 ngày: sau thứ Năm 4/10/1582 là thứ Sáu 15/10/1582.</p>
+        <p lang="en">The Church computed Easter from the spring equinox and took the equinox to be 21 March, as at the time of the Council of Nicaea (AD 325). By the 16th century the real equinox had slipped back to about 10–11 March. In 1582 Pope Gregory XIII dropped 10 days: Thursday 4 October 1582 was followed by Friday 15 October 1582.</p>
+      </div>
+      <div class="tcard">
+        <p lang="vi">Luật nhuận mới bỏ bớt ba ngày nhuận mỗi 400 năm: năm tròn thế kỷ chỉ nhuận khi chia hết cho 400 (1600 và 2000 nhuận; 1700, 1800, 1900 thì không). Trung bình còn 365,2425 ngày, đủ gần để xuân phân ở quanh 20–21/3 hàng nghìn năm.</p>
+        <p lang="en">The new rule drops three leap days every 400 years: a century year is a leap year only if divisible by 400 (1600 and 2000 were; 1700, 1800 and 1900 were not). That averages 365.2425 days, close enough to keep the equinox around 20–21 March for thousands of years.</p>
+      </div>
+      <div class="tcard">
+        <p class="note" lang="vi">Ngày xuân phân trên hình tính gần đúng theo năm chí tuyến trung bình, giờ UTC. Trước năm 1582, hàng lịch Gregory là tính ngược, lúc đó chưa ai dùng.</p>
+        <p class="note" lang="en">Equinox dates in the picture are approximated from the mean tropical year, in UTC. Before 1582 the Gregorian row is proleptic: nobody used it yet.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="branch wrap">
+  <div data-next="ba-kieu-lich"></div>
+  <div data-tree="ba-kieu-lich"></div>
+</section>
+
+<section class="sources wrap" id="nguon">
+  <h3><span lang="vi">Nguồn</span><span lang="en">Sources</span></h3>
+  <ol>
+    <li><a href="https://en.wikipedia.org/wiki/Lunar_month">Lunar month</a> · <a href="https://en.wikipedia.org/wiki/Tropical_year">Tropical year</a> — Wikipedia</li>
+    <li><a href="https://en.wikipedia.org/wiki/Babylonian_calendar">Babylonian calendar</a> · <a href="https://en.wikipedia.org/wiki/Metonic_cycle">Metonic cycle</a> — Wikipedia</li>
+    <li><a href="https://en.wikipedia.org/wiki/Islamic_calendar">Islamic calendar</a> — Wikipedia · <a href="https://gulfnews.com/uae/ramadan/ramadan-2026-these-countries-sighted-the-crescent-moon-today-1.500446556">Ramadan 2026: these countries sighted the crescent</a> — Gulf News</li>
+    <li><a href="https://en.wikipedia.org/wiki/Chinese_New_Year">Chinese New Year</a> · <a href="https://en.wikipedia.org/wiki/Chinese_calendar">Chinese calendar</a> — Wikipedia</li>
+    <li><a href="https://en.wikipedia.org/wiki/Gregorian_calendar">Gregorian calendar</a> — Wikipedia</li>
+  </ol>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <span lang="vi">Hình minh họa không theo tỉ lệ. Ngày Tết tính bằng bộ tính âm lịch trên trang này (UTC+7).</span>
+  <span lang="en">Illustrations are not to scale. Tết dates come from this site's own lunar-calendar code (UTC+7).</span>
+</footer>
+
+<script src="/mat-trang/giay.js"></script>
+<script src="/mat-trang/lich/amlich.js"></script>
+<script>
+(function () {
+  'use strict';
+  var M = window.MT, AL = window.AL, $ = M.$, T = M.T, hooks = M.hooks, fmt = M.fmt, clamp = M.clamp, C = M.C,
+    night = M.night, svgEl = M.svgEl, txt = M.txt, say = M.say, loop = M.loop, playing = M.playing, SYN = M.SYN;
+  var YR = 365.2422, LY = 12 * SYN, RAD = Math.PI / 180;
+
+  // Góc 0 ở đỉnh, tăng theo chiều kim đồng hồ.
+  function pt(cx, cy, r, a) { return [cx + r * Math.sin(a * RAD), cy - r * Math.cos(a * RAD)]; }
+  function arc(cx, cy, r, a0, a1) {
+    var p = pt(cx, cy, r, a0), q = pt(cx, cy, r, a1);
+    return 'M' + p[0].toFixed(1) + ',' + p[1].toFixed(1) + 'A' + r + ',' + r + ' 0 ' + (a1 - a0 > 180 ? 1 : 0) + ' 1 ' + q[0].toFixed(1) + ',' + q[1].toFixed(1);
+  }
+  // Mười hai cung tháng trăng nối đuôi nhau, bắt đầu ở đỉnh; phần còn trống là 11 ngày hụt.
+  function moonArcs(cx, cy, r, w) {
+    var out = '', step = SYN / YR * 360;
+    for (var i = 0; i < 12; i++) out += '<path d="' + arc(cx, cy, r, i * step + .9, (i + 1) * step - .9) + '" stroke="' + (i % 2 ? C.crater : C.cream) + '" stroke-width="' + w + '" fill="none"/>';
+    return out;
+  }
+  var MON = [['T1', 'Jan'], ['T2', 'Feb'], ['T3', 'Mar'], ['T4', 'Apr'], ['T5', 'May'], ['T6', 'Jun'], ['T7', 'Jul'], ['T8', 'Aug'], ['T9', 'Sep'], ['T10', 'Oct'], ['T11', 'Nov'], ['T12', 'Dec']];
+
+  // ================= HERO =================
+  (function () {
+    var head = $('#top'), bg = $('#hero'), n = 0, aim = null, G = {};
+    var s = M.backdrop(bg, function (W, H, land) {
+      var cx = land ? W * .7 : W * .5, cy = land ? H * .5 : H * .29, R = land ? Math.min(W * .2, H * .32) : W * .34;
+      G = { cx: cx, cy: cy, R: R };
+      var fs = Math.max(14, R * .11);
+      return M.skyAt(W, H, cx, cy, 23, H * .9) +
+        '<g filter="url(#cut)"><circle cx="' + cx + '" cy="' + cy + '" r="' + (R * 1.22).toFixed(1) + '" fill="' + C.n4 + '"/></g>' +
+        '<circle cx="' + cx + '" cy="' + cy + '" r="' + (R * .84).toFixed(1) + '" stroke="' + C.sand + '" stroke-opacity=".55" stroke-width="' + (R * .035).toFixed(1) + '" fill="none"/>' +
+        '<g id="hr" filter="url(#pc)">' + moonArcs(cx, cy, R, R * .12) + '</g>' +
+        '<g filter="url(#pc)"><circle cx="' + cx + '" cy="' + (cy - R * .84).toFixed(1) + '" r="' + (R * .07).toFixed(1) + '" fill="' + C.orange + '"/></g>' +
+        '<text id="hy" x="' + cx + '" y="' + (cy + fs * .35).toFixed(1) + '" text-anchor="middle" style="font: 600 ' + (fs * 1.5).toFixed(0) + 'px Inter Tight, Inter, sans-serif; fill: ' + C.cream + '"></text>' +
+        '<text id="hs" x="' + cx + '" y="' + (cy + fs * 1.9).toFixed(1) + '" text-anchor="middle" style="font: 500 ' + fs.toFixed(0) + 'px Inter, sans-serif; fill: ' + C.grey + '"></text>';
+    });
+    function draw() {
+      var g = $('#hr', s); if (!g) return;
+      g.setAttribute('transform', 'rotate(' + (-n * (YR - LY) / YR * 360).toFixed(2) + ' ' + G.cx + ' ' + G.cy + ')');
+      $('#hy', s).textContent = T('năm thứ ', 'year ') + (Math.floor(n) + 1);
+      $('#hs', s).textContent = T('năm âm sớm hơn ', 'lunar year ') + fmt(n * (YR - LY), 0) + T(' ngày', ' days early');
+    }
+    hooks.push(draw); draw();
+    addEventListener('resize', function () { setTimeout(draw, 200); });
+    function point(e) { var r = bg.getBoundingClientRect(); aim = clamp((e.clientX - r.left) / r.width, 0, 1) * 33; if (M.reduce) { n = aim; draw(); } }
+    head.addEventListener('pointermove', point);
+    head.addEventListener('pointerdown', point);
+    head.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') aim = null; });
+    if (M.reduce) return;
+    loop(head, function (dt) {
+      if (aim === null) { n += dt * .9; if (n > 33.6) n = 0; draw(); return; }
+      if (Math.abs(aim - n) < .005) return;
+      n += (aim - n) * (1 - Math.pow(.004, dt)); draw();
+    });
+  })();
+
+  // ================= 1. Năm trăng hụt =================
+  (function () {
+    var fig = $('#s1');
+    svgEl(fig, '0 0 800 450').innerHTML = night(800, 450, 6);
+    var s = svgEl(fig, '0 0 800 450');
+    var CX = 220, CY = 236, R = 148, BX = 440, BW = 320, k = BW / 383.9;
+    var ticks = '';
+    for (var i = 0; i < 12; i++) { var a = i * 30, p = pt(CX, CY, R + 22, a), q = pt(CX, CY, R + 30, a); ticks += '<path d="M' + p[0].toFixed(1) + ',' + p[1].toFixed(1) + 'L' + q[0].toFixed(1) + ',' + q[1].toFixed(1) + '" stroke="' + C.grey + '" stroke-width="2"/>'; }
+    s.innerHTML =
+      '<circle cx="' + CX + '" cy="' + CY + '" r="' + R + '" stroke="' + C.n4 + '" stroke-width="30" fill="none"/>' + ticks +
+      '<path d="M' + CX + ',' + (CY - R - 40) + 'l0,26" stroke="' + C.cream + '" stroke-width="2.5"/>' + txt(CX, CY - R - 48, 'sm', 'middle', 's1top') +
+      '<g id="s1tr"></g><circle id="s1c" r="13" fill="' + C.orange + '"/>' +
+      '<text id="s1n" class="lbl" x="' + CX + '" y="' + (CY + 6) + '" text-anchor="middle" style="font-size:30px"></text>' + txt(CX, CY + 34, 'sm', 'middle', 's1nl') +
+      txt(BX, 92, 'sm', 'start', 's1a') + '<rect x="' + BX + '" y="104" height="22" rx="4" width="' + (YR * k).toFixed(1) + '" fill="' + C.sand + '"/>' +
+      txt(BX, 168, 'sm', 'start', 's1b') + '<rect x="' + BX + '" y="180" height="22" rx="4" width="' + (LY * k).toFixed(1) + '" fill="' + C.cream + '"/>' +
+      '<rect id="s1x" x="' + (BX + LY * k).toFixed(1) + '" y="180" height="22" rx="4" width="' + (SYN * k).toFixed(1) + '" fill="' + C.orange + '"/>' +
+      '<path d="M' + (BX + YR * k).toFixed(1) + ',96l0,116" stroke="' + C.cream + '" stroke-opacity=".6" stroke-width="2" stroke-dasharray="3 5"/>' +
+      '<text id="s1d" class="lbl" x="' + BX + '" y="290" style="font-size:40px"></text>' + txt(BX, 322, 'sm', 'start', 's1dl') +
+      txt(BX, 380, 'sm', 'start', 's1m');
+    say(s, { s1top: ['1/1 dương lịch', '1 January'], s1a: ['Năm theo mùa: 365,24 ngày', 'Year of seasons: 365.24 days'], s1nl: ['đầu năm âm', 'lunar new year'], s1dl: ['đầu năm âm so với 1/1', 'lunar new year vs 1 January'] });
+    var tr = $('#s1tr', s), cur = $('#s1c', s), nEl = $('#s1n', s), dEl = $('#s1d', s), bEl = $('#s1b', s), xEl = $('#s1x', s), mEl = $('#s1m', s);
+    var sl = $('#s1y'), out = $('#s1r'), yv = $('#s1yv'), Y = +sl.value, leap = false, L19 = [3, 6, 8, 11, 14, 17, 19];
+    function isLeap(n) { return leap && L19.indexOf((n - 1) % 19 + 1) >= 0; }
+    function offs(Y) { var o = [0], x = 0; for (var n = 1; n <= Y; n++) { x += LY + (isLeap(n) ? SYN : 0) - YR; o.push(x); } return o; }
+    function upd() {
+      var o = offs(Y), d = o[Y], dots = '';
+      for (var i = 0; i < Y; i++) { var p = pt(CX, CY, R, o[i] / YR * 360); dots += '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="6" fill="' + C.cream + '" opacity="' + (.3 + .5 * i / Math.max(1, Y)).toFixed(2) + '"/>'; }
+      tr.innerHTML = dots;
+      var c = pt(CX, CY, R, d / YR * 360); cur.setAttribute('cx', c[0].toFixed(1)); cur.setAttribute('cy', c[1].toFixed(1));
+      var thirteen = Y > 0 && isLeap(Y);
+      nEl.textContent = T('năm ', 'year ') + (Y + 1);
+      dEl.textContent = (d > .05 ? '+' : d < -.05 ? '−' : '') + fmt(Math.abs(d), 1) + T(' ngày', ' days');
+      bEl.textContent = thirteen ? T('Năm vừa rồi có 13 tháng: 383,90 ngày', 'Last year had 13 months: 383.90 days') : T('12 tháng trăng: 354,37 ngày', '12 lunar months: 354.37 days');
+      xEl.style.display = thirteen ? '' : 'none';
+      mEl.textContent = leap ? T('đã chèn ' + countLeap() + ' tháng nhuận', 'leap months so far: ' + countLeap()) : T('không chèn tháng nhuận', 'no leap months added');
+      yv.textContent = Y;
+      out.innerHTML = Y === 0
+        ? T('Năm đầu tiên: năm âm và năm dương bắt đầu cùng ngày.', 'Year one: the lunar and solar years start on the same day.')
+        : T('Sau <b>' + Y + '</b> năm, năm âm bắt đầu ' + (d < 0 ? 'sớm hơn' : 'muộn hơn') + ' <b>' + fmt(Math.abs(d), 1) + '</b> ngày so với năm dương.' + (leap ? '' : ' Đã trôi ' + fmt(Math.abs(d) / YR * 12, 1) + ' tháng.'),
+          'After <b>' + Y + '</b> years the lunar year starts <b>' + fmt(Math.abs(d), 1) + '</b> days ' + (d < 0 ? 'earlier' : 'later') + ' than the solar year.' + (leap ? '' : ' That is ' + fmt(Math.abs(d) / YR * 12, 1) + ' months of drift.'));
+    }
+    function countLeap() { var c = 0; for (var n = 1; n <= Y; n++) if (isLeap(n)) c++; return c; }
+    sl.addEventListener('input', function () { Y = +sl.value; upd(); });
+    M.segment('s1k', function (v) { leap = v === '1'; upd(); });
+    hooks.push(upd); upd();
+    var acc = 0;
+    loop(fig, function (dt) {
+      if (!playing.s1) return;
+      acc += dt; if (acc < (Y === 33 || (leap && Y === 19) ? 2.4 : .7)) return; acc = 0;
+      Y = Y >= 33 ? 0 : Y + 1; sl.value = Y; upd();
+    });
+  })();
+
+  // ================= 2. Ba ngày lễ =================
+  (function () {
+    var fig = $('#s2');
+    svgEl(fig, '0 0 800 450').innerHTML = night(800, 450, 9);
+    var s = svgEl(fig, '0 0 800 450');
+    var CX = 270, CY = 228, R = 168, LX = 520;
+    var lab = '';
+    MON.forEach(function (m, i) { var p = pt(CX, CY, R + 34, (i + .5) * 30); lab += txt(p[0].toFixed(1), (p[1] + 7).toFixed(1), 'sm', 'middle', 's2m' + i); });
+    var ticks = '';
+    for (var i = 0; i < 12; i++) { var p = pt(CX, CY, R - 16, i * 30), q = pt(CX, CY, R + 16, i * 30); ticks += '<path d="M' + p[0].toFixed(1) + ',' + p[1].toFixed(1) + 'L' + q[0].toFixed(1) + ',' + q[1].toFixed(1) + '" stroke="' + C.night + '" stroke-width="3"/>'; }
+    var SER = [{ c: C.cream, k: 'x' }, { c: C.orange, k: 't' }, { c: C.land, k: 'r' }];
+    var legend = '';
+    SER.forEach(function (e, i) {
+      legend += '<circle cx="' + (LX + 12) + '" cy="' + (150 + i * 70) + '" r="12" fill="' + e.c + '"/>' + txt(LX + 38, 157 + i * 70, 'lbl', 'start', 's2n' + i) + txt(LX + 38, 182 + i * 70, 'sm', 'start', 's2v' + i);
+    });
+    s.innerHTML =
+      '<circle cx="' + CX + '" cy="' + CY + '" r="' + R + '" stroke="' + C.n4 + '" stroke-width="32" fill="none"/>' + ticks + lab +
+      '<g id="s2tr"></g><g id="s2d"></g>' +
+      '<text id="s2yy" class="lbl" x="' + CX + '" y="' + (CY + 14) + '" text-anchor="middle" style="font-size:44px"></text>' + legend;
+    var mm = {}; MON.forEach(function (m, i) { mm['s2m' + i] = [m[0], m[1]]; });
+    mm.s2n0 = ['Giáng sinh', 'Christmas']; mm.s2n1 = ['Tết', 'Tết']; mm.s2n2 = ['1 Ramadan', '1 Ramadan'];
+    say(s, mm);
+    var trEl = $('#s2tr', s), dEl = $('#s2d', s), yy = $('#s2yy', s), sl = $('#s2y'), out = $('#s2r'), yv = $('#s2yv'), y = +sl.value;
+    var cache = {};
+    function dmy(a) { return a[0] + '/' + a[1]; }
+    function dates(y) {
+      if (cache[y]) return cache[y];
+      var j1 = AL.jd(1, 1, y), len = AL.jd(1, 1, y + 1) - j1;
+      var tet = AL.toSolar(1, 1, y, 0, 7), ram = [];
+      var H0 = Math.floor((y - 622) * 33 / 32);
+      for (var H = H0 - 2; H <= H0 + 3; H++) {
+        var j = 1948439.5 + 236 + 354 * (H - 1) + Math.floor((3 + 11 * H) / 30) + .5, g = AL.fromJd(j);
+        if (g[2] === y) ram.push({ a: (j - j1) / len * 360, d: g, h: H });
+      }
+      return (cache[y] = { x: { a: (AL.jd(25, 12, y) - j1) / len * 360, d: [25, 12, y] }, t: { a: (AL.jd(tet[0], tet[1], tet[2]) - j1) / len * 360, d: tet }, r: ram });
+    }
+    function dot(a, r, c, o) { var p = pt(CX, CY, R, a); return '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="' + r + '" fill="' + c + '"' + (o ? ' opacity="' + o + '"' : '') + '/>'; }
+    function upd() {
+      var tr = '';
+      for (var z = 2000; z < y; z++) {
+        var q = dates(z), o = (.25 + .45 * (z - 2000) / Math.max(1, y - 2000)).toFixed(2);
+        tr += dot(q.t.a, 4, C.orange, o);
+        q.r.forEach(function (e) { tr += dot(e.a, 4, C.land, o); });
+      }
+      trEl.innerHTML = tr;
+      var D = dates(y), now = dot(D.x.a, 13, C.cream) + dot(D.t.a, 13, C.orange);
+      D.r.forEach(function (e) { now += dot(e.a, 13, C.land); });
+      dEl.innerHTML = now;
+      yy.textContent = y;
+      $('#s2v0', s).textContent = T('luôn 25/12', 'always 25 Dec');
+      $('#s2v1', s).textContent = T('năm ' + y + ': ' + dmy(D.t.d), y + ': ' + dmy(D.t.d));
+      $('#s2v2', s).textContent = D.r.length ? D.r.map(function (e) { return dmy(e.d); }).join(T(' và ', ' and ')) : '—';
+      yv.textContent = y;
+      var rs = D.r.map(function (e) { return '<b>' + dmy(e.d) + '</b>'; }).join(T(' và ', ' and '));
+      out.innerHTML = T('Năm <b>' + y + '</b>: Tết <b>' + dmy(D.t.d) + '</b>, Ramadan bắt đầu ' + rs + ', Giáng sinh vẫn <b>25/12</b>.' + (D.r.length > 1 ? ' Năm này có hai lần bắt đầu Ramadan.' : ''),
+        'In <b>' + y + '</b>: Tết on <b>' + dmy(D.t.d) + '</b>, Ramadan begins ' + rs + ', Christmas still on <b>25/12</b>.' + (D.r.length > 1 ? ' This year Ramadan begins twice.' : ''));
+    }
+    sl.addEventListener('input', function () { y = +sl.value; upd(); });
+    hooks.push(upd); upd();
+    var acc = 0;
+    loop(fig, function (dt) {
+      if (!playing.s2) return;
+      acc += dt; if (acc < (y === 2060 ? 2.4 : .55)) return; acc = 0;
+      y = y >= 2060 ? 2000 : y + 1; sl.value = y; upd();
+    });
+  })();
+
+  // ================= 3. Julius và Gregory =================
+  (function () {
+    var fig = $('#s3');
+    svgEl(fig, '0 0 800 450').innerHTML = night(800, 450, 21);
+    var s = svgEl(fig, '0 0 800 450');
+    var X0 = 64, CW = 21.9, RY = [150, 290];
+    function julian(J) {
+      var c = J + 32082, d = Math.floor((4 * c + 3) / 1461), e = c - Math.floor(1461 * d / 4), m = Math.floor((5 * e + 2) / 153);
+      return [e - Math.floor((153 * m + 2) / 5) + 1, m + 3 - 12 * Math.floor(m / 10), d - 4800 + Math.floor(m / 10)];
+    }
+    function greg(J) {
+      var a = J + 32044, b = Math.floor((4 * a + 3) / 146097), c = a - Math.floor(146097 * b / 4), d = Math.floor((4 * c + 3) / 1461), e = c - Math.floor(1461 * d / 4), m = Math.floor((5 * e + 2) / 153);
+      return [e - Math.floor((153 * m + 2) / 5) + 1, m + 3 - 12 * Math.floor(m / 10), b * 100 + d - 4800 + Math.floor(m / 10)];
+    }
+    var rows = '';
+    RY.forEach(function (ry, r) {
+      var cells = '';
+      for (var d = 1; d <= 31; d++) cells += '<rect x="' + (X0 + (d - 1) * CW).toFixed(1) + '" y="' + ry + '" width="' + (CW - 4).toFixed(1) + '" height="40" rx="4" fill="' + C.n4 + '"/>';
+      var nums = '';
+      [1, 10, 20, 31].forEach(function (d) { nums += '<text class="sm" text-anchor="middle" x="' + (X0 + (d - 1) * CW + CW / 2 - 2).toFixed(1) + '" y="' + (ry + 66) + '">' + d + '</text>'; });
+      rows += '<g id="s3r' + r + '">' + cells + '</g>' + nums + txt(X0, ry - 18, 'lbl', 'start', 's3h' + r) + txt(X0 + CW * 31 - 4, ry - 18, 'sm', 'end', 's3s' + r);
+    });
+    var rx = X0 + 20 * CW + CW / 2 - 2;
+    s.innerHTML =
+      '<path d="M' + rx.toFixed(1) + ',' + (RY[0] - 8) + 'L' + rx.toFixed(1) + ',' + (RY[1] + 50) + '" stroke="' + C.cream + '" stroke-opacity=".7" stroke-width="2" stroke-dasharray="4 6"/>' + rows +
+      txt(rx.toFixed(1), 400, 'sm', 'middle', 's3n') + '<text id="s3yy" class="lbl" x="' + X0 + '" y="70" style="font-size:30px"></text>';
+    say(s, { s3h0: ['Lịch Julius · tháng 3', 'Julian calendar · March'], s3h1: ['Lịch Gregory · tháng 3', 'Gregorian calendar · March'], s3n: ['21/3, ngày xuân phân thời Nicaea', '21 March, the equinox at the time of Nicaea'] });
+    var R0 = $('#s3r0', s).children, R1 = $('#s3r1', s).children, yy = $('#s3yy', s), s0 = $('#s3s0', s), s1 = $('#s3s1', s);
+    var sl = $('#s3y'), out = $('#s3r'), yv = $('#s3yv'), y = +sl.value;
+    function paint(cells, dm) { for (var i = 0; i < cells.length; i++) cells[i].setAttribute('fill', dm[1] === 3 && i === dm[0] - 1 ? C.orange : C.n4); }
+    function upd() {
+      var J = Math.floor(2451623.81 + 365.24219 * (y - 2000) + .5), ju = julian(J), gr = greg(J), used = y >= 1582;
+      paint(R0, ju); paint(R1, gr);
+      $('#s3r0', s).style.opacity = y >= 1582 ? .55 : 1; $('#s3r1', s).style.opacity = used ? 1 : .55;
+      s0.textContent = used ? T('lịch cũ', 'old calendar') : T('đang dùng', 'in use');
+      s1.textContent = used ? T('đang dùng', 'in use') : T('tính ngược', 'proleptic');
+      yy.textContent = T('Năm ', 'Year ') + y;
+      yv.textContent = y;
+      var off = ju[0] - 21;
+      out.innerHTML = T('Năm <b>' + y + '</b>, xuân phân rơi vào <b>' + ju[0] + '/3</b> theo lịch Julius' + (off ? ', lệch ' + Math.abs(off) + ' ngày so với 21/3' : ', đúng 21/3') + '; theo lịch Gregory là <b>' + gr[0] + '/3</b>.' + (y >= 1582 && y < 1600 ? ' Năm 1582 đã bỏ 10 ngày.' : ''),
+        'In <b>' + y + '</b> the equinox falls on <b>' + ju[0] + ' March</b> in the Julian calendar' + (off ? ', ' + Math.abs(off) + ' days off 21 March' : ', right on 21 March') + '; in the Gregorian calendar it is <b>' + gr[0] + ' March</b>.' + (y >= 1582 && y < 1600 ? ' In 1582 ten days were dropped.' : ''));
+    }
+    sl.addEventListener('input', function () { y = +sl.value; upd(); });
+    hooks.push(upd); upd();
+    var f = y, hold = 0;
+    loop(fig, function (dt) {
+      if (!playing.s3) { f = y; return; }
+      if (hold > 0) { hold -= dt; return; }
+      var n = f + dt * 70;
+      if (f < 1582 && n >= 1582) { n = 1582; hold = 1.8; }
+      if (n > 2500) { n = 325; hold = 1.2; }
+      f = n;
+      if (Math.floor(f) !== y) { y = Math.floor(f); sl.value = y; upd(); }
+    });
+  })();
+
+  M.stage();
+})();
+</script>
+</body>
+</html>
