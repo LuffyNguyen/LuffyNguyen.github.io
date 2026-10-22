@@ -111,11 +111,6 @@
   .seg.lang button { padding: 4px 12px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; }
 
   /* ---------- hero ---------- */
-  header.hero { padding-block: 40px 56px; }
-  .hero .wide { display: grid; gap: 32px; align-items: center; grid-template-columns: 1fr; }
-  @media (min-width: 900px) {
-    .hero .wide { grid-template-columns: 1.4fr 1fr; min-height: calc(100dvh - 140px); }
-  }
   .eyebrow {
     font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
     color: var(--ink-2); margin: 0 0 20px; display: flex; gap: 12px; align-items: center;
@@ -136,21 +131,6 @@
   .btn.ghost { background: var(--well); color: var(--ink); }
   .btn[disabled] { opacity: .5; cursor: default; }
   .meta { font-size: 14px; color: var(--ink-3); }
-
-  /* ---------- paper scenes ---------- */
-  .scene {
-    position: relative; margin: 28px 0 0; border-radius: 22px; overflow: hidden;
-    background: var(--night); aspect-ratio: var(--ar, 16 / 9);
-    box-shadow: 0 1px 2px rgba(20, 24, 48, 0.08), 0 8px 28px rgba(20, 24, 48, 0.10);
-    touch-action: pan-y;
-  }
-  .scene > svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-  .scene::after {
-    content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .22; mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-  }
-  .hero-scene { aspect-ratio: 1 / 1; margin: 0; max-width: 560px; justify-self: center; width: 100%; }
-  @media (max-width: 899px) { .hero-scene { aspect-ratio: 4 / 3; } }
 
   .controls { display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: center; margin-top: 18px; }
   .range { display: grid; gap: 4px; flex: 1 1 260px; font-size: 14px; color: var(--ink-2); }
@@ -178,7 +158,6 @@
   nav.toc ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px 24px; }
   nav.toc a { color: var(--ink); font-size: 15px; }
   nav.toc span.n { color: var(--ink-3); font-variant-numeric: tabular-nums; margin-right: 8px; }
-  section.ch { padding-block: 88px 8px; }
   h2 { font-size: clamp(30px, 4.4vw, 46px); line-height: 1.12; font-weight: 700; margin-bottom: 22px; text-wrap: balance; }
   h3 { font-size: 19px; line-height: 1.3; font-weight: 600; margin: 0 0 8px; }
   p { margin: 0 0 16px; }
@@ -199,6 +178,137 @@
   .sources li { margin-bottom: 6px; overflow-wrap: anywhere; }
   footer { padding-block: 32px 64px; font-size: 13px; color: var(--ink-3); border-top: 1px solid var(--line); margin-top: 40px; }
 
+  /* ---------- paper scenes ---------- */
+  .scene {
+    position: relative; margin: 0; border-radius: 22px; overflow: hidden;
+    background: var(--night); aspect-ratio: var(--ar, 16 / 9);
+    box-shadow: 0 1px 2px rgba(20, 24, 48, 0.08), 0 8px 28px rgba(20, 24, 48, 0.10);
+    touch-action: pan-y;
+  }
+  .scene > svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  /* Cảnh chính đứng thẳng trên nền sân khấu: không khung, không nền riêng. */
+  .scene[data-bg="stage"], .scene.feather { background: transparent; box-shadow: none; border-radius: 0; overflow: visible; }
+  .scene.panel { border-radius: 16px; box-shadow: 0 10px 30px rgba(7, 10, 26, 0.35); }
+  .scene.feather {
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+  }
+
+  /* ---------- sân khấu: cảnh dính màn hình, chữ cuộn qua ---------- */
+  :root { --bar: 52px; --stage-h: calc(100dvh - var(--bar)); }
+  section.ch { padding: 0; }
+  .act { position: relative; }
+  .stage {
+    position: sticky; top: var(--bar); height: var(--stage-h); margin-inline: -16px;
+    overflow: hidden; isolation: isolate;
+    background: var(--ground);
+    display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto;
+    transition: background-color .7s ease;
+  }
+  .act.in .stage { background: var(--sky, var(--night)); }
+  .act.ready .stage { transition: none; }
+  .stage > .bg { position: absolute; inset: 0; z-index: 0; }
+  .stage > .bg > svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .stage[data-sky="plain"] { --stars: 0; }
+  .stage > .bg .st { opacity: var(--stars, 1); }
+  .stage::after {
+    content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: .2; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+  .vis {
+    position: relative; z-index: 2; min-height: 0; padding: 20px 16px;
+    container-type: size; display: grid; place-items: center;
+  }
+  .fit { display: grid; gap: var(--gap, 0px); width: min(100%, calc((100cqh - var(--gap, 0px)) * var(--arn, 1.78))); }
+  .fit > .scene { width: 100%; }
+  @media (max-width: 999px) { .vis { place-items: start center; padding-top: 16px; } }
+
+  /* Giấy cho chữ và bảng điều khiển: luôn là giấy sáng, cả khi máy để chế độ tối. */
+  .tcard, .dock {
+    --card: #FBF7EE; --ink: #1D1D1F; --ink-2: #5F5B53; --ink-3: #7E7A70; --line: #E2DCCF;
+    --well: #ECE5D5; --accent: #D9692F; --accent-ink: #A9491A; --accent-soft: #F8E6D8;
+    color-scheme: light; background: var(--card); color: var(--ink);
+  }
+  .dock {
+    position: relative; z-index: 3; border-radius: 22px 22px 0 0;
+    padding: 14px 18px calc(14px + env(safe-area-inset-bottom));
+    box-shadow: 0 -6px 24px rgba(7, 10, 26, 0.28);
+  }
+  .dock .controls { margin-top: 0; gap: 10px 20px; }
+  .dock .controls + .readout { margin-top: 10px; }
+  .dock .readout { margin: 0; padding: 0; background: transparent; border-radius: 0; font-size: 14.5px; min-height: 3em; }
+  .dock .range { flex-basis: 220px; }
+
+  .story { position: relative; z-index: 4; margin-top: calc(-1 * var(--stage-h)); padding: 62dvh 16px 72dvh; pointer-events: none; }
+  .tcard {
+    pointer-events: auto; max-width: 460px; margin: 0 auto 34dvh; padding: 24px 24px 22px; border-radius: 22px;
+    box-shadow: 0 1px 2px rgba(7, 10, 26, 0.18), 0 14px 40px rgba(7, 10, 26, 0.32);
+  }
+  .tcard:last-child { margin-bottom: 0; }
+  .tcard h2 { font-size: clamp(26px, 3vw, 34px); margin-bottom: 14px; }
+  .tcard .eyebrow { margin-bottom: 14px; }
+  .tcard p { font-size: 16px; line-height: 1.6; }
+  .tcard p:last-child { margin-bottom: 0; }
+  .tcard .note { margin: 0; font-size: 15px; }
+  .tcard .big { font-family: var(--display); font-size: 34px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 10px; }
+  .tcard .muted { font-size: 15px; }
+
+  @media (min-width: 1000px) {
+    .stage { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); }
+    .vis { grid-column: 2; grid-row: 1; padding: 44px 48px 20px 8px; }
+    .dock { grid-column: 2; grid-row: 2; margin: 0 48px 28px 8px; border-radius: 22px; padding: 16px 22px; box-shadow: 0 10px 30px rgba(7, 10, 26, 0.32); }
+    .story { padding: 26dvh 0 34dvh max(40px, calc((100vw - 1400px) / 2 + 40px)); width: 40%; min-width: 420px; }
+    .tcard { margin: 0 0 22dvh; max-width: 440px; padding: 28px 28px 26px; }
+  }
+
+  /* ---------- cảnh lăn vào, rồi chữ mới hiện ---------- */
+  .act .stage > .bg { clip-path: circle(0% at 62% 48%); transition: clip-path 1.1s cubic-bezier(.3, .7, .2, 1); }
+  .act.in .stage > .bg { clip-path: circle(150% at 62% 48%); }
+  .act .fit { opacity: 0; transform: translateY(18vh) rotate(-7deg) scale(.86); transform-origin: 50% 80%;
+    transition: transform 1.15s cubic-bezier(.2, 1.25, .3, 1) .22s, opacity .5s ease .22s; }
+  .act.in .fit { opacity: 1; transform: none; }
+  .act .dock { opacity: 0; translate: 0 36px; transition: opacity .6s ease .6s, translate .8s cubic-bezier(.2, 1, .3, 1) .6s; }
+  .act.in .dock { opacity: 1; translate: 0 0; }
+  .story .tcard { opacity: 0; translate: 0 44px; transition: opacity .6s ease, translate .8s cubic-bezier(.2, 1, .3, 1); }
+  .act.ready .story .tcard.seen { opacity: 1; translate: 0 0; }
+
+  /* ---------- hero ---------- */
+  header.hero { position: relative; }
+  .hero .stage { position: relative; top: 0; display: block; background: var(--night); }
+  .hero .bg > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .hero .bg > svg.hmoon { inset: auto; left: 0; top: 0; will-change: transform; overflow: visible; }
+  .hero .tcard {
+    position: absolute; z-index: 4; left: 16px; right: 16px; bottom: 16px; margin: 0; max-width: 600px;
+    padding: 24px 22px 22px; opacity: 0; animation: rise .9s cubic-bezier(.2, 1, .3, 1) 1.15s forwards;
+  }
+  .hero .tcard h1 { font-size: clamp(28px, 7vw, 46px); }
+  .hero .tcard .lede { font-size: 16px; margin-top: 14px; }
+  .hero .tcard .cta { margin-top: 20px; }
+  .hint {
+    position: absolute; z-index: 3; top: 14px; left: 50%; transform: translateX(-50%); margin: 0;
+    display: flex; gap: 8px; align-items: center; white-space: nowrap;
+    font-size: 13px; color: #E9DFC8; opacity: 0; animation: rise .8s ease 2s forwards;
+  }
+  .hint svg { width: 14px; height: 14px; fill: currentColor; flex: none; }
+  @media (min-width: 700px) {
+    .hero .tcard { left: 50%; right: auto; width: min(600px, calc(100% - 32px)); transform: translateX(-50%); }
+  }
+  @media (min-width: 1000px) {
+    .hero .tcard { left: max(40px, calc((100vw - 1400px) / 2 + 40px)); top: 50%; bottom: auto; transform: translateY(-50%); width: min(600px, 46vw); padding: 36px 36px 32px; }
+    .hero .tcard .lede { font-size: 18px; }
+    .hint { top: auto; bottom: 22px; left: auto; right: 40px; transform: none; }
+  }
+  @keyframes rise { from { opacity: 0; translate: 0 30px; } to { opacity: 1; translate: 0 0; } }
+
+  nav.toc { margin-top: 0; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .act .stage > .bg, .act .fit, .act .dock, .story .tcard { transition: none !important; }
+    .act .stage > .bg { clip-path: none; }
+    .act .fit, .act .dock, .story .tcard { opacity: 1; transform: none; translate: none; }
+    .hero .tcard, .hint { animation: none; opacity: 1; }
+  }
+
   /* svg text */
   .scene text { font-family: var(--body); fill: #F3E9D2; font-size: 17px; font-weight: 500; }
   .scene text.sm { font-size: 14px; fill: #C9C0AA; }
@@ -210,15 +320,6 @@
     .scene text.lbl { font-size: 20px; }
   }
 
-  /* hero motion */
-  @keyframes bob { 0%,100% { transform: translateX(0); } 50% { transform: translateX(-14px); } }
-  @keyframes bob2 { 0%,100% { transform: translateX(-10px); } 50% { transform: translateX(6px); } }
-  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-  .w1 { animation: bob 7s ease-in-out infinite; }
-  .w2 { animation: bob2 9s ease-in-out infinite; }
-  .w3 { animation: bob 11s ease-in-out infinite; }
-  .fl { animation: float 8s ease-in-out infinite; }
-  @media (prefers-reduced-motion: reduce) { .w1, .w2, .w3, .fl { animation: none; } }
 </style>
 </head>
 <body>
@@ -251,9 +352,10 @@
   </div>
 </div>
 
-<header class="hero" id="top">
-  <div class="wide">
-    <div>
+<header class="hero act" id="top">
+  <div class="stage">
+    <div class="bg" id="hero" aria-hidden="true"></div>
+    <div class="tcard seen">
       <p class="eyebrow"><span class="num" lang="vi">Phần 1</span><span class="num" lang="en">Part 1</span>
         <span lang="vi">Khóa thủy triều</span><span lang="en">Tidal locking</span></p>
       <h1><span lang="vi">Vì sao ta chỉ thấy một mặt của Mặt Trăng</span><span lang="en">Why we only ever see one side of the Moon</span></h1>
@@ -266,7 +368,8 @@
         <span class="meta" lang="en">Based on Neil deGrasse Tyson's explanation · about 15 minutes</span>
       </div>
     </div>
-    <figure class="scene hero-scene" id="hero" aria-hidden="true"></figure>
+    <p class="hint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 3.2a.8.8 0 0 1 1.1-.7l13 6.2a.8.8 0 0 1-.1 1.5l-5.6 1.7-2.6 5.4a.8.8 0 0 1-1.5-.1Z"/></svg>
+      <span lang="vi">Chạm hoặc rê chuột để dời Mặt Trăng, nước dâng theo</span><span lang="en">Tap or move your pointer: the water follows the Moon</span></p>
   </div>
 </header>
 
@@ -286,194 +389,348 @@
 <main>
 
 <!-- ============ 1 ============ -->
-<section class="ch wrap" id="c1">
-  <p class="eyebrow"><span class="num">01</span><span lang="vi">Lực thủy triều</span><span lang="en">Tidal force</span></p>
-  <h2><span lang="vi">Mặt Trăng kéo, nhưng kéo không đều</span><span lang="en">The Moon pulls, but not evenly</span></h2>
-  <p lang="vi">Mặt Trăng hút cả Trái Đất, nhưng phía gần nó bị hút mạnh hơn tâm, còn phía xa bị hút yếu hơn tâm. <strong>Lực thủy triều</strong> chính là phần chênh lệch đó.</p>
-  <p lang="en">The Moon pulls on the whole Earth, but the near side is pulled harder than the centre and the far side less hard. The <strong>tidal force</strong> is that difference.</p>
-  <p lang="vi">Bấm "Phần chênh lệch" để trừ đi lực ở tâm. Còn lại hai nhóm mũi tên chĩa ra hai phía: Trái Đất bị kéo giãn dọc theo đường nối với Mặt Trăng. Nước biển, thứ dễ chảy nhất, phồng lên thành <strong>hai bướu</strong>: một bướu hướng về Mặt Trăng, một bướu ở phía đối diện.</p>
-  <p lang="en">Tap "The difference" to subtract the pull at the centre. What is left points outward on both sides: the Earth is stretched along the line to the Moon. The oceans, the most fluid part, rise into <strong>two bulges</strong>: one facing the Moon and one on the opposite side.</p>
-  <figure class="scene" id="s1" style="--ar: 16 / 9"></figure>
-  <div class="controls">
-    <label class="range"><span class="lbl"><span><span lang="vi">Mặt Trăng gần hay xa</span><span lang="en">Moon near or far</span></span><b id="s1dv"></b></span>
-      <input type="range" id="s1d" min="0" max="100" value="45"></label>
-    <div class="seg" id="s1m" role="group">
-      <button type="button" data-v="raw" aria-pressed="true"><span lang="vi">Lực hút</span><span lang="en">Pull</span></button>
-      <button type="button" data-v="diff" aria-pressed="false"><span lang="vi">Phần chênh lệch</span><span lang="en">The difference</span></button>
+<section class="ch" id="c1">
+  <div class="act">
+    <div class="stage">
+      <div class="bg" aria-hidden="true"></div>
+      <div class="vis"><div class="fit">
+        <figure class="scene" id="s1" data-bg="stage" style="--ar: 16 / 9"></figure>
+      </div></div>
+      <div class="dock">
+        <div class="controls">
+          <label class="range"><span class="lbl"><span><span lang="vi">Mặt Trăng gần hay xa</span><span lang="en">Moon near or far</span></span><b id="s1dv"></b></span>
+            <input type="range" id="s1d" min="0" max="100" value="45"></label>
+          <div class="seg" id="s1m" role="group">
+            <button type="button" data-v="raw" aria-pressed="true"><span lang="vi">Lực hút</span><span lang="en">Pull</span></button>
+            <button type="button" data-v="diff" aria-pressed="false"><span lang="vi">Phần chênh lệch</span><span lang="en">The difference</span></button>
+          </div>
+        </div>
+        <p class="readout" id="s1r" aria-live="polite"></p>
+      </div>
+    </div>
+    <div class="story">
+      <div class="tcard">
+        <p class="eyebrow"><span class="num">01</span><span lang="vi">Lực thủy triều</span><span lang="en">Tidal force</span></p>
+        <h2><span lang="vi">Mặt Trăng kéo, nhưng kéo không đều</span><span lang="en">The Moon pulls, but not evenly</span></h2>
+        <p lang="vi">Mặt Trăng hút cả Trái Đất, nhưng phía gần nó bị hút mạnh hơn tâm, còn phía xa bị hút yếu hơn tâm. <strong>Lực thủy triều</strong> chính là phần chênh lệch đó.</p>
+        <p lang="en">The Moon pulls on the whole Earth, but the near side is pulled harder than the centre and the far side less hard. The <strong>tidal force</strong> is that difference.</p>
+      </div>
+      <div class="tcard">
+        <p lang="vi">Bấm "Phần chênh lệch" để trừ đi lực ở tâm. Còn lại hai nhóm mũi tên chĩa ra hai phía: Trái Đất bị kéo giãn dọc theo đường nối với Mặt Trăng. Nước biển, thứ dễ chảy nhất, phồng lên thành <strong>hai bướu</strong>: một bướu hướng về Mặt Trăng, một bướu ở phía đối diện.</p>
+        <p lang="en">Tap "The difference" to subtract the pull at the centre. What is left points outward on both sides: the Earth is stretched along the line to the Moon. The oceans, the most fluid part, rise into <strong>two bulges</strong>: one facing the Moon and one on the opposite side.</p>
+      </div>
+      <div class="tcard">
+        <p class="note" lang="vi">Trong hình, Mặt Trăng đặt rất gần để dễ thấy. Thật ra nó cách xa khoảng 60 lần bán kính Trái Đất, nên mặt gần chỉ bị hút mạnh hơn tâm khoảng 3%. Ngoài đại dương mở, bướu nước cao chưa tới một mét.</p>
+        <p class="note" lang="en">The Moon is drawn very close here so the effect is visible. In reality it sits about 60 Earth radii away, so the near side is pulled only about 3% harder than the centre. In the open ocean the bulge is less than a metre high.</p>
+      </div>
     </div>
   </div>
-  <p class="readout" id="s1r" aria-live="polite"></p>
-  <p class="note" lang="vi">Trong hình, Mặt Trăng đặt rất gần để dễ thấy. Thật ra nó cách xa khoảng 60 lần bán kính Trái Đất, nên mặt gần chỉ bị hút mạnh hơn tâm khoảng 3%. Ngoài đại dương mở, bướu nước cao chưa tới một mét.</p>
-  <p class="note" lang="en">The Moon is drawn very close here so the effect is visible. In reality it sits about 60 Earth radii away, so the near side is pulled only about 3% harder than the centre. In the open ocean the bulge is less than a metre high.</p>
 </section>
 
 <!-- ============ 2 ============ -->
-<section class="ch wrap" id="c2">
-  <p class="eyebrow"><span class="num">02</span><span lang="vi">Khóa thủy triều</span><span lang="en">Tidal locking</span></p>
-  <h2><span lang="vi">Quay đồng bộ, không phải đứng yên</span><span lang="en">Spinning in sync, not standing still</span></h2>
-  <p lang="vi">Trái Đất nặng gấp khoảng 81 lần Mặt Trăng, nên lực thủy triều của Trái Đất lên Mặt Trăng mạnh hơn nhiều so với chiều ngược lại. Nó kéo khối đá Mặt Trăng hơi dài ra theo hướng Trái Đất.</p>
-  <p lang="en">The Earth is about 81 times as massive as the Moon, so its tidal pull on the Moon is far stronger than the other way round. It stretches the rocky Moon slightly along the line to the Earth.</p>
-  <p lang="vi">Khi Mặt Trăng còn tự quay nhanh, phần phình ấy liên tục bị quay lệch đi, và Trái Đất cứ kéo nó về. Cái kéo ấy phanh Mặt Trăng lại tới khi nó tự quay một vòng mất đúng bằng một vòng quanh Trái Đất: <strong>27,3 ngày</strong>. Từ đó phần phình chỉ thẳng vào ta, và mặt có lá cờ cam không bao giờ quay đi.</p>
-  <p lang="en">While the Moon still spun fast, that bulge kept being carried out of line, and the Earth kept tugging it back. The tug braked the Moon until one spin took exactly as long as one orbit: <strong>27.3 days</strong>. Since then the bulge points straight at us, and the face with the orange flag never turns away.</p>
-  <figure class="scene" id="s2" style="--ar: 16 / 9"></figure>
-  <div class="controls">
-    <button class="icon-btn" type="button" data-play="s2" aria-label="Tạm dừng / Pause"></button>
-    <label class="range"><span class="lbl"><span><span lang="vi">Tự quay mấy vòng trong một vòng quỹ đạo</span><span lang="en">Spins per orbit</span></span><b id="s2v"></b></span>
-      <input type="range" id="s2r" min="0" max="60" value="40"></label>
-    <button class="btn" type="button" id="s2go"><span lang="vi">Để thủy triều phanh</span><span lang="en">Let the tides brake it</span></button>
+<section class="ch" id="c2">
+  <div class="act">
+    <div class="stage">
+      <div class="bg" aria-hidden="true"></div>
+      <div class="vis"><div class="fit">
+        <figure class="scene" id="s2" data-bg="stage" style="--ar: 16 / 9"></figure>
+      </div></div>
+      <div class="dock">
+        <div class="controls">
+          <button class="icon-btn" type="button" data-play="s2" aria-label="Tạm dừng / Pause"></button>
+          <label class="range"><span class="lbl"><span><span lang="vi">Tự quay mấy vòng trong một vòng quỹ đạo</span><span lang="en">Spins per orbit</span></span><b id="s2v"></b></span>
+            <input type="range" id="s2r" min="0" max="60" value="40"></label>
+          <button class="btn" type="button" id="s2go"><span lang="vi">Để thủy triều phanh</span><span lang="en">Let the tides brake it</span></button>
+        </div>
+        <p class="readout" id="s2t" aria-live="polite"></p>
+      </div>
+    </div>
+    <div class="story">
+      <div class="tcard">
+        <p class="eyebrow"><span class="num">02</span><span lang="vi">Khóa thủy triều</span><span lang="en">Tidal locking</span></p>
+        <h2><span lang="vi">Quay đồng bộ, không phải đứng yên</span><span lang="en">Spinning in sync, not standing still</span></h2>
+        <p lang="vi">Trái Đất nặng gấp khoảng 81 lần Mặt Trăng, nên lực thủy triều của Trái Đất lên Mặt Trăng mạnh hơn nhiều so với chiều ngược lại. Nó kéo khối đá Mặt Trăng hơi dài ra theo hướng Trái Đất.</p>
+        <p lang="en">The Earth is about 81 times as massive as the Moon, so its tidal pull on the Moon is far stronger than the other way round. It stretches the rocky Moon slightly along the line to the Earth.</p>
+      </div>
+      <div class="tcard">
+        <p lang="vi">Khi Mặt Trăng còn tự quay nhanh, phần phình ấy liên tục bị quay lệch đi, và Trái Đất cứ kéo nó về. Cái kéo ấy phanh Mặt Trăng lại tới khi nó tự quay một vòng mất đúng bằng một vòng quanh Trái Đất: <strong>27,3 ngày</strong>. Từ đó phần phình chỉ thẳng vào ta, và mặt có lá cờ cam không bao giờ quay đi.</p>
+        <p lang="en">While the Moon still spun fast, that bulge kept being carried out of line, and the Earth kept tugging it back. The tug braked the Moon until one spin took exactly as long as one orbit: <strong>27.3 days</strong>. Since then the bulge points straight at us, and the face with the orange flag never turns away.</p>
+      </div>
+      <div class="tcard">
+        <p class="note" lang="vi">Kéo thanh trượt về 0 để thấy một điều hay bị hiểu lầm: nếu Mặt Trăng không tự quay, ta vẫn lần lượt thấy đủ mọi mặt. Và vì quỹ đạo hơi bầu dục, hơi nghiêng, Mặt Trăng "lắc" nhẹ, nên theo thời gian ta thấy được khoảng 59% bề mặt của nó.</p>
+        <p class="note" lang="en">Drag the slider to 0 for a common misconception: a Moon that did not spin at all would show us every side in turn. And because its orbit is slightly oval and tilted, the Moon wobbles a little, so over time we see about 59% of its surface.</p>
+      </div>
+    </div>
   </div>
-  <p class="readout" id="s2t" aria-live="polite"></p>
-  <p class="note" lang="vi">Kéo thanh trượt về 0 để thấy một điều hay bị hiểu lầm: nếu Mặt Trăng không tự quay, ta vẫn lần lượt thấy đủ mọi mặt. Và vì quỹ đạo hơi bầu dục, hơi nghiêng, Mặt Trăng "lắc" nhẹ, nên theo thời gian ta thấy được khoảng 59% bề mặt của nó.</p>
-  <p class="note" lang="en">Drag the slider to 0 for a common misconception: a Moon that did not spin at all would show us every side in turn. And because its orbit is slightly oval and tilted, the Moon wobbles a little, so over time we see about 59% of its surface.</p>
 </section>
 
 <!-- ============ 3 ============ -->
-<section class="ch wrap" id="c3">
-  <p class="eyebrow"><span class="num">03</span><span lang="vi">Bướu nước đứng yên</span><span lang="en">The bulge stays put</span></p>
-  <h2><span lang="vi">Nước không chạy vào bờ. Bờ chạy qua nước.</span><span lang="en">The water doesn't come in. The shore goes through it.</span></h2>
-  <p lang="vi">Hai bướu nước gần như đứng yên theo hướng Mặt Trăng. Cái quay là Trái Đất: mỗi ngày một vòng, mang bạn đi qua bướu thứ nhất, qua chỗ nước thấp, qua bướu thứ hai, rồi lại chỗ nước thấp.</p>
-  <p lang="en">The two bulges stay roughly lined up with the Moon. What turns is the Earth: once a day it carries you through the first bulge, a low, the second bulge, and another low.</p>
-  <p lang="vi">Đứng trên bãi biển, bạn thấy nước "lên" rồi "xuống". Thật ra bạn đang được chở vào rồi ra khỏi chỗ nước phồng. Vì Mặt Trăng cũng đi tiếp trên quỹ đạo, Trái Đất mất khoảng <strong>24 giờ 50 phút</strong> mới đuổi kịp, nên hai lần nước lớn cách nhau chừng 12 giờ 25 phút.</p>
-  <p lang="en">On a beach you see the water "come in" and "go out". Really, you are being carried into and out of the bulge. Because the Moon also moves along its orbit, the Earth needs about <strong>24 hours 50 minutes</strong> to catch up, so high tides come roughly 12 hours 25 minutes apart.</p>
-  <figure class="scene" id="s3" style="--ar: 16 / 9"></figure>
-  <figure class="scene" id="s3b" style="--ar: 800 / 190; margin-top: 12px"></figure>
-  <div class="controls">
-    <button class="icon-btn" type="button" data-play="s3" aria-label="Tạm dừng / Pause"></button>
-    <div class="seg" id="s3s" role="group">
-      <button type="button" data-v="1" aria-pressed="false"><span lang="vi">Chậm</span><span lang="en">Slow</span></button>
-      <button type="button" data-v="3" aria-pressed="true"><span lang="vi">Vừa</span><span lang="en">Medium</span></button>
-      <button type="button" data-v="8" aria-pressed="false"><span lang="vi">Nhanh</span><span lang="en">Fast</span></button>
+<section class="ch" id="c3">
+  <div class="act">
+    <div class="stage">
+      <div class="bg" aria-hidden="true"></div>
+      <div class="vis"><div class="fit" style="--gap: 10px">
+        <figure class="scene" id="s3" data-bg="stage" style="--ar: 16 / 9"></figure>
+        <figure class="scene panel" id="s3b" style="--ar: 800 / 190"></figure>
+      </div></div>
+      <div class="dock">
+        <div class="controls">
+          <button class="icon-btn" type="button" data-play="s3" aria-label="Tạm dừng / Pause"></button>
+          <div class="seg" id="s3s" role="group">
+            <button type="button" data-v="1" aria-pressed="false"><span lang="vi">Chậm</span><span lang="en">Slow</span></button>
+            <button type="button" data-v="3" aria-pressed="true"><span lang="vi">Vừa</span><span lang="en">Medium</span></button>
+            <button type="button" data-v="8" aria-pressed="false"><span lang="vi">Nhanh</span><span lang="en">Fast</span></button>
+          </div>
+        </div>
+        <p class="readout" id="s3t" aria-live="off"></p>
+      </div>
+    </div>
+    <div class="story">
+      <div class="tcard">
+        <p class="eyebrow"><span class="num">03</span><span lang="vi">Bướu nước đứng yên</span><span lang="en">The bulge stays put</span></p>
+        <h2><span lang="vi">Nước không chạy vào bờ. Bờ chạy qua nước.</span><span lang="en">The water doesn't come in. The shore goes through it.</span></h2>
+        <p lang="vi">Hai bướu nước gần như đứng yên theo hướng Mặt Trăng. Cái quay là Trái Đất: mỗi ngày một vòng, mang bạn đi qua bướu thứ nhất, qua chỗ nước thấp, qua bướu thứ hai, rồi lại chỗ nước thấp.</p>
+        <p lang="en">The two bulges stay roughly lined up with the Moon. What turns is the Earth: once a day it carries you through the first bulge, a low, the second bulge, and another low.</p>
+      </div>
+      <div class="tcard">
+        <p lang="vi">Đứng trên bãi biển, bạn thấy nước "lên" rồi "xuống". Thật ra bạn đang được chở vào rồi ra khỏi chỗ nước phồng. Vì Mặt Trăng cũng đi tiếp trên quỹ đạo, Trái Đất mất khoảng <strong>24 giờ 50 phút</strong> mới đuổi kịp, nên hai lần nước lớn cách nhau chừng 12 giờ 25 phút.</p>
+        <p lang="en">On a beach you see the water "come in" and "go out". Really, you are being carried into and out of the bulge. Because the Moon also moves along its orbit, the Earth needs about <strong>24 hours 50 minutes</strong> to catch up, so high tides come roughly 12 hours 25 minutes apart.</p>
+      </div>
+      <div class="tcard">
+        <p class="note" lang="vi">Bờ biển thật rắc rối hơn: lục địa chắn đường nước, đáy biển nông sâu khác nhau, Mặt Trời cũng góp một phần thủy triều. Ở Vịnh Bắc Bộ, phần lớn các ngày chỉ có một lần nước lớn và một lần nước ròng, gọi là nhật triều.</p>
+        <p class="note" lang="en">Real coasts are messier: continents block the water, the sea floor varies in depth, and the Sun adds its own smaller tide. In the Gulf of Tonkin, most days have only one high and one low tide, a so-called diurnal tide.</p>
+      </div>
     </div>
   </div>
-  <p class="readout" id="s3t" aria-live="off"></p>
-  <p class="note" lang="vi">Bờ biển thật rắc rối hơn: lục địa chắn đường nước, đáy biển nông sâu khác nhau, Mặt Trời cũng góp một phần thủy triều. Ở Vịnh Bắc Bộ, phần lớn các ngày chỉ có một lần nước lớn và một lần nước ròng, gọi là nhật triều.</p>
-  <p class="note" lang="en">Real coasts are messier: continents block the water, the sea floor varies in depth, and the Sun adds its own smaller tide. In the Gulf of Tonkin, most days have only one high and one low tide, a so-called diurnal tide.</p>
 </section>
 
 <!-- ============ 4 ============ -->
-<section class="ch wrap" id="c4">
-  <p class="eyebrow"><span class="num">04</span><span lang="vi">Phanh và cú kéo</span><span lang="en">Brake and sling</span></p>
-  <h2><span lang="vi">Trái Đất chậm lại, Mặt Trăng lùi xa</span><span lang="en">The Earth slows, the Moon drifts away</span></h2>
-  <p lang="vi">Trái Đất tự quay nhanh hơn nhiều so với Mặt Trăng đi trên quỹ đạo: một ngày so với gần một tháng. Ma sát kéo bướu nước đi theo chiều quay, nên bướu không nằm ngay dưới Mặt Trăng mà <strong>lệch lên trước</strong> một chút.</p>
-  <p lang="en">The Earth spins much faster than the Moon orbits: one day versus almost a month. Friction drags the bulge along with the spin, so it does not sit right under the Moon but slightly <strong>ahead</strong> of it.</p>
-  <p lang="vi">Hai việc xảy ra cùng lúc. Mặt Trăng kéo bướu lùi lại: đó là <strong>cái phanh</strong> làm Trái Đất quay chậm dần. Khối nước thừa ở bướu kéo Mặt Trăng về phía trước: Mặt Trăng được tiếp thêm đà, nên leo lên quỹ đạo cao hơn. Mô-men động lượng không mất đi, chỉ chuyển chỗ: Trái Đất mất bao nhiêu, Mặt Trăng nhận bấy nhiêu.</p>
-  <p lang="en">Two things happen at once. The Moon pulls the bulge back: that is <strong>the brake</strong> that slows the Earth's spin. The extra mass in the bulge pulls the Moon forward: the Moon gains speed and climbs to a higher orbit. Angular momentum is not lost, only moved: what the Earth gives up, the Moon gains.</p>
-  <figure class="scene" id="s4" style="--ar: 16 / 10"></figure>
-  <div class="controls">
-    <label class="range"><span class="lbl"><span><span lang="vi">Bướu lệch lên trước (phóng đại)</span><span lang="en">Bulge lead angle (exaggerated)</span></span><b id="s4av"></b></span>
-      <input type="range" id="s4a" min="0" max="25" value="14"></label>
-    <label class="range"><span class="lbl"><span><span lang="vi">Tua về tương lai</span><span lang="en">Fast-forward</span></span><b id="s4tv"></b></span>
-      <input type="range" id="s4t" min="0" max="1000" step="10" value="0"></label>
-  </div>
-  <p class="readout" id="s4r" aria-live="polite"></p>
-  <div class="grid g2">
-    <div class="card">
-      <div class="big">3,8 cm</div>
-      <p lang="vi">Mỗi năm Mặt Trăng lùi xa chừng đó, xấp xỉ tốc độ móng tay mọc. Video nói 1,5 inch, cùng một con số.</p>
-      <p lang="en">That is how far the Moon recedes each year, about as fast as your fingernails grow. The video says 1.5 inches: same number.</p>
+<section class="ch" id="c4">
+  <div class="act">
+    <div class="stage">
+      <div class="bg" aria-hidden="true"></div>
+      <div class="vis"><div class="fit">
+        <figure class="scene" id="s4" data-bg="stage" style="--ar: 16 / 10"></figure>
+      </div></div>
+      <div class="dock">
+        <div class="controls">
+          <label class="range"><span class="lbl"><span><span lang="vi">Bướu lệch lên trước (phóng đại)</span><span lang="en">Bulge lead angle (exaggerated)</span></span><b id="s4av"></b></span>
+            <input type="range" id="s4a" min="0" max="25" value="14"></label>
+          <label class="range"><span class="lbl"><span><span lang="vi">Tua về tương lai</span><span lang="en">Fast-forward</span></span><b id="s4tv"></b></span>
+            <input type="range" id="s4t" min="0" max="1000" step="10" value="0"></label>
+        </div>
+        <p class="readout" id="s4r" aria-live="polite"></p>
+      </div>
     </div>
-    <div class="card">
-      <div class="big">~16 m</div>
-      <p lang="vi">Chênh lệch thủy triều ở Vịnh Fundy (Canada), lớn nhất thế giới: lòng vịnh dài, hẹp, dồn nước lên. Ma sát của nước ở những vùng biển nông như vậy chính là má phanh của Trái Đất.</p>
-      <p lang="en">The tidal range in Canada's Bay of Fundy, the largest on Earth: the long, narrow bay piles the water up. Friction in shallow seas like this is where the Earth's brake pads are.</p>
+    <div class="story">
+      <div class="tcard">
+        <p class="eyebrow"><span class="num">04</span><span lang="vi">Phanh và cú kéo</span><span lang="en">Brake and sling</span></p>
+        <h2><span lang="vi">Trái Đất chậm lại, Mặt Trăng lùi xa</span><span lang="en">The Earth slows, the Moon drifts away</span></h2>
+        <p lang="vi">Trái Đất tự quay nhanh hơn nhiều so với Mặt Trăng đi trên quỹ đạo: một ngày so với gần một tháng. Ma sát kéo bướu nước đi theo chiều quay, nên bướu không nằm ngay dưới Mặt Trăng mà <strong>lệch lên trước</strong> một chút.</p>
+        <p lang="en">The Earth spins much faster than the Moon orbits: one day versus almost a month. Friction drags the bulge along with the spin, so it does not sit right under the Moon but slightly <strong>ahead</strong> of it.</p>
+      </div>
+      <div class="tcard">
+        <p lang="vi">Hai việc xảy ra cùng lúc. Mặt Trăng kéo bướu lùi lại: đó là <strong>cái phanh</strong> làm Trái Đất quay chậm dần. Khối nước thừa ở bướu kéo Mặt Trăng về phía trước: Mặt Trăng được tiếp thêm đà, nên leo lên quỹ đạo cao hơn. Mô-men động lượng không mất đi, chỉ chuyển chỗ: Trái Đất mất bao nhiêu, Mặt Trăng nhận bấy nhiêu.</p>
+        <p lang="en">Two things happen at once. The Moon pulls the bulge back: that is <strong>the brake</strong> that slows the Earth's spin. The extra mass in the bulge pulls the Moon forward: the Moon gains speed and climbs to a higher orbit. Angular momentum is not lost, only moved: what the Earth gives up, the Moon gains.</p>
+      </div>
+      <div class="tcard">
+        <div class="big">3,8 cm</div>
+        <p class="muted" lang="vi">Mỗi năm Mặt Trăng lùi xa chừng đó, xấp xỉ tốc độ móng tay mọc. Video nói 1,5 inch, cùng một con số.</p>
+        <p class="muted" lang="en">That is how far the Moon recedes each year, about as fast as your fingernails grow. The video says 1.5 inches: same number.</p>
+      </div>
+      <div class="tcard">
+        <div class="big">~16 m</div>
+        <p class="muted" lang="vi">Chênh lệch thủy triều ở Vịnh Fundy (Canada), lớn nhất thế giới: lòng vịnh dài, hẹp, dồn nước lên. Ma sát của nước ở những vùng biển nông như vậy chính là má phanh của Trái Đất.</p>
+        <p class="muted" lang="en">The tidal range in Canada's Bay of Fundy, the largest on Earth: the long, narrow bay piles the water up. Friction in shallow seas like this is where the Earth's brake pads are.</p>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ============ 5 ============ -->
-<section class="ch wrap" id="c5">
-  <p class="eyebrow"><span class="num">05</span><span lang="vi">Khóa kép</span><span lang="en">Double lock</span></p>
-  <h2><span lang="vi">Điểm dừng cuối: hai bên nhìn nhau mãi</span><span lang="en">The end state: face to face, forever</span></h2>
-  <p lang="vi">Nếu cứ thế mãi, Trái Đất sẽ chậm tới khi một ngày dài bằng một tháng. Lúc đó Trái Đất không còn kéo bướu đi trước: bướu thẳng hàng với Mặt Trăng, phanh nhả, Mặt Trăng thôi lùi xa. Đó là <strong>khóa thủy triều kép</strong>.</p>
-  <p lang="en">If this went on forever, the Earth would slow until a day lasted as long as a month. Then the Earth no longer drags the bulge ahead: it lines up with the Moon, the brake lets go and the Moon stops receding. That is a <strong>double tidal lock</strong>.</p>
-  <p lang="vi">Một nửa Trái Đất sẽ thấy Mặt Trăng treo yên một chỗ trên trời, nửa kia không bao giờ thấy nó. Thủy triều do Mặt Trăng ngừng lên xuống: nước phồng đứng yên trên đầu những người ở dưới bướu.</p>
-  <p lang="en">Half the Earth would see the Moon hanging in one spot in the sky; the other half would never see it. Moon tides would stop rising and falling: the bulge would just sit over whoever lives under it.</p>
-  <figure class="scene" id="s5" style="--ar: 16 / 9"></figure>
-  <div class="controls">
-    <button class="icon-btn" type="button" data-play="s5" aria-label="Tạm dừng / Pause"></button>
-    <label class="range"><span class="lbl"><span><span lang="vi">Tua tới rất xa</span><span lang="en">Fast-forward, very far</span></span><b id="s5v"></b></span>
-      <input type="range" id="s5f" min="0" max="100" value="0"></label>
-  </div>
-  <p class="readout" id="s5t" aria-live="polite"></p>
-  <div class="grid g2">
-    <div class="card">
-      <div class="big">≈ 47 <span lang="vi">ngày</span><span lang="en">days</span></div>
-      <p lang="vi">Độ dài ước tính của cả một ngày lẫn một tháng khi khóa kép. Quá trình mất hàng chục tỷ năm, lâu hơn nhiều so với khoảng 5 tỷ năm Mặt Trời còn giữ dạng hiện tại, nên có thể nó không bao giờ kịp xảy ra.</p>
-      <p lang="en">The estimated length of both a day and a month once doubly locked. Getting there would take tens of billions of years, far longer than the roughly 5 billion the Sun has left in its current form, so it may never happen.</p>
+<section class="ch" id="c5">
+  <div class="act">
+    <div class="stage">
+      <div class="bg" aria-hidden="true"></div>
+      <div class="vis"><div class="fit">
+        <figure class="scene" id="s5" data-bg="stage" style="--ar: 16 / 9"></figure>
+      </div></div>
+      <div class="dock">
+        <div class="controls">
+          <button class="icon-btn" type="button" data-play="s5" aria-label="Tạm dừng / Pause"></button>
+          <label class="range"><span class="lbl"><span><span lang="vi">Tua tới rất xa</span><span lang="en">Fast-forward, very far</span></span><b id="s5v"></b></span>
+            <input type="range" id="s5f" min="0" max="100" value="0"></label>
+        </div>
+        <p class="readout" id="s5t" aria-live="polite"></p>
+      </div>
     </div>
-    <div class="card">
-      <div class="big">Pluto · Charon</div>
-      <p lang="vi">Ví dụ đã có sẵn: Pluto và vệ tinh Charon luôn quay cùng một mặt vào nhau, mỗi vòng 6,4 ngày.</p>
-      <p lang="en">A pair that is already there: Pluto and its moon Charon always show each other the same face, turning once every 6.4 days.</p>
+    <div class="story">
+      <div class="tcard">
+        <p class="eyebrow"><span class="num">05</span><span lang="vi">Khóa kép</span><span lang="en">Double lock</span></p>
+        <h2><span lang="vi">Điểm dừng cuối: hai bên nhìn nhau mãi</span><span lang="en">The end state: face to face, forever</span></h2>
+        <p lang="vi">Nếu cứ thế mãi, Trái Đất sẽ chậm tới khi một ngày dài bằng một tháng. Lúc đó Trái Đất không còn kéo bướu đi trước: bướu thẳng hàng với Mặt Trăng, phanh nhả, Mặt Trăng thôi lùi xa. Đó là <strong>khóa thủy triều kép</strong>.</p>
+        <p lang="en">If this went on forever, the Earth would slow until a day lasted as long as a month. Then the Earth no longer drags the bulge ahead: it lines up with the Moon, the brake lets go and the Moon stops receding. That is a <strong>double tidal lock</strong>.</p>
+      </div>
+      <div class="tcard">
+        <p lang="vi">Một nửa Trái Đất sẽ thấy Mặt Trăng treo yên một chỗ trên trời, nửa kia không bao giờ thấy nó. Thủy triều do Mặt Trăng ngừng lên xuống: nước phồng đứng yên trên đầu những người ở dưới bướu.</p>
+        <p lang="en">Half the Earth would see the Moon hanging in one spot in the sky; the other half would never see it. Moon tides would stop rising and falling: the bulge would just sit over whoever lives under it.</p>
+      </div>
+      <div class="tcard">
+        <div class="big">≈ 47 <span lang="vi">ngày</span><span lang="en">days</span></div>
+        <p class="muted" lang="vi">Độ dài ước tính của cả một ngày lẫn một tháng khi khóa kép. Quá trình mất hàng chục tỷ năm, lâu hơn nhiều so với khoảng 5 tỷ năm Mặt Trời còn giữ dạng hiện tại, nên có thể nó không bao giờ kịp xảy ra.</p>
+        <p class="muted" lang="en">The estimated length of both a day and a month once doubly locked. Getting there would take tens of billions of years, far longer than the roughly 5 billion the Sun has left in its current form, so it may never happen.</p>
+      </div>
+      <div class="tcard">
+        <div class="big">Pluto · Charon</div>
+        <p class="muted" lang="vi">Ví dụ đã có sẵn: Pluto và vệ tinh Charon luôn quay cùng một mặt vào nhau, mỗi vòng 6,4 ngày.</p>
+        <p class="muted" lang="en">A pair that is already there: Pluto and its moon Charon always show each other the same face, turning once every 6.4 days.</p>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ============ 6 ============ -->
-<section class="ch wrap" id="c6">
-  <p class="eyebrow"><span class="num">06</span><span lang="vi">Gương trên Mặt Trăng</span><span lang="en">Mirrors on the Moon</span></p>
-  <h2><span lang="vi">Đo bằng một tấm gương và một tia laser</span><span lang="en">Measured with a mirror and a laser</span></h2>
-  <p lang="vi">Năm 1969, phi hành đoàn Apollo 11 đặt lên Mặt Trăng một dãy <strong>gương phản xạ góc</strong>. Apollo 14, 15 và hai xe tự hành Lunokhod của Liên Xô mang thêm bốn dãy nữa.</p>
-  <p lang="en">In 1969 the Apollo 11 crew left an array of <strong>corner reflectors</strong> on the Moon. Apollo 14, 15 and the two Soviet Lunokhod rovers added four more.</p>
-  <p lang="vi">Gương phản xạ góc gồm ba mặt gương vuông góc với nhau, nên ánh sáng vào từ hướng nào cũng bị dội về đúng hướng đó. Hình dưới là bản hai chiều với hai mặt gương: chỉnh tia tới bao nhiêu, tia về vẫn song song.</p>
-  <p lang="en">A corner reflector is three mirrors at right angles, so light that enters from any direction is sent straight back the way it came. Below is a two-mirror, two-dimensional version: tilt the incoming beam however you like and the return beam stays parallel.</p>
-  <figure class="scene" id="s6" style="--ar: 800 / 380"></figure>
-  <div class="controls">
-    <label class="range"><span class="lbl"><span><span lang="vi">Góc tia tới</span><span lang="en">Beam angle</span></span><b id="s6av"></b></span>
-      <input type="range" id="s6a" min="-22" max="22" value="7"></label>
-    <label class="range"><span class="lbl"><span><span lang="vi">Vị trí tia</span><span lang="en">Beam position</span></span><b></b></span>
-      <input type="range" id="s6y" min="0" max="100" value="30"></label>
+<section class="ch" id="c6">
+  <div class="act">
+    <div class="stage">
+      <div class="bg" aria-hidden="true"></div>
+      <div class="vis"><div class="fit">
+        <figure class="scene" id="s6" data-bg="stage" style="--ar: 800 / 380"></figure>
+      </div></div>
+      <div class="dock">
+        <div class="controls">
+          <label class="range"><span class="lbl"><span><span lang="vi">Góc tia tới</span><span lang="en">Beam angle</span></span><b id="s6av"></b></span>
+            <input type="range" id="s6a" min="-22" max="22" value="7"></label>
+          <label class="range"><span class="lbl"><span><span lang="vi">Vị trí tia</span><span lang="en">Beam position</span></span><b></b></span>
+            <input type="range" id="s6y" min="0" max="100" value="30"></label>
+        </div>
+      </div>
+    </div>
+    <div class="story">
+      <div class="tcard">
+        <p class="eyebrow"><span class="num">06</span><span lang="vi">Gương trên Mặt Trăng</span><span lang="en">Mirrors on the Moon</span></p>
+        <h2><span lang="vi">Đo bằng một tấm gương và một tia laser</span><span lang="en">Measured with a mirror and a laser</span></h2>
+        <p lang="vi">Năm 1969, phi hành đoàn Apollo 11 đặt lên Mặt Trăng một dãy <strong>gương phản xạ góc</strong>. Apollo 14, 15 và hai xe tự hành Lunokhod của Liên Xô mang thêm bốn dãy nữa.</p>
+        <p lang="en">In 1969 the Apollo 11 crew left an array of <strong>corner reflectors</strong> on the Moon. Apollo 14, 15 and the two Soviet Lunokhod rovers added four more.</p>
+      </div>
+      <div class="tcard">
+        <p lang="vi">Gương phản xạ góc gồm ba mặt gương vuông góc với nhau, nên ánh sáng vào từ hướng nào cũng bị dội về đúng hướng đó. Hình là bản hai chiều với hai mặt gương: chỉnh tia tới bao nhiêu, tia về vẫn song song.</p>
+        <p lang="en">A corner reflector is three mirrors at right angles, so light that enters from any direction is sent straight back the way it came. The scene is a two-mirror, two-dimensional version: tilt the incoming beam however you like and the return beam stays parallel.</p>
+      </div>
+    </div>
   </div>
-  <p lang="vi" style="margin-top:40px">Các đài quan sát bắn một xung laser lên, đếm thời gian ánh sáng đi và về, nhân với tốc độ ánh sáng rồi chia đôi. Ngày nay sai số chỉ cỡ milimét, đủ để thấy Mặt Trăng lùi xa từng năm.</p>
-  <p lang="en" style="margin-top:40px">Observatories fire a laser pulse, time the round trip, multiply by the speed of light and halve it. Today the error is down to millimetres, enough to watch the Moon recede year by year.</p>
-  <figure class="scene" id="s6b" style="--ar: 800 / 220"></figure>
-  <div class="controls">
-    <button class="btn" type="button" id="s6go"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><span lang="vi">Bắn laser</span><span lang="en">Fire the laser</span></button>
+  <div class="act">
+    <div class="stage">
+      <div class="bg" aria-hidden="true"></div>
+      <div class="vis"><div class="fit">
+        <figure class="scene" id="s6b" data-bg="stage" style="--ar: 800 / 220"></figure>
+      </div></div>
+      <div class="dock">
+        <div class="controls">
+          <button class="btn" type="button" id="s6go"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><span lang="vi">Bắn laser</span><span lang="en">Fire the laser</span></button>
+        </div>
+        <p class="readout" id="s6t" aria-live="polite"></p>
+      </div>
+    </div>
+    <div class="story">
+      <div class="tcard">
+        <p lang="vi">Các đài quan sát bắn một xung laser lên, đếm thời gian ánh sáng đi và về, nhân với tốc độ ánh sáng rồi chia đôi. Ngày nay sai số chỉ cỡ milimét, đủ để thấy Mặt Trăng lùi xa từng năm.</p>
+        <p lang="en">Observatories fire a laser pulse, time the round trip, multiply by the speed of light and halve it. Today the error is down to millimetres, enough to watch the Moon recede year by year.</p>
+      </div>
+      <div class="tcard">
+        <p class="note" lang="vi">Tới Mặt Trăng, chùm laser đã loe rộng hàng km. Trong khoảng 10<sup>17</sup> photon bắn đi, thường chỉ vài photon quay về được tới kính thiên văn, nên phải bắn hàng nghìn xung và cộng lại.</p>
+        <p class="note" lang="en">By the time it reaches the Moon the beam is kilometres wide. Of roughly 10<sup>17</sup> photons sent out, usually only a handful make it back to the telescope, so thousands of pulses are fired and added up.</p>
+      </div>
+    </div>
   </div>
-  <p class="readout" id="s6t" aria-live="polite"></p>
-  <p class="note" lang="vi">Tới Mặt Trăng, chùm laser đã loe rộng hàng km. Trong khoảng 10<sup>17</sup> photon bắn đi, thường chỉ vài photon quay về được tới kính thiên văn, nên phải bắn hàng nghìn xung và cộng lại.</p>
-  <p class="note" lang="en">By the time it reaches the Moon the beam is kilometres wide. Of roughly 10<sup>17</sup> photons sent out, usually only a handful make it back to the telescope, so thousands of pulses are fired and added up.</p>
 </section>
 
 <!-- ============ 7 ============ -->
-<section class="ch wrap" id="c7">
-  <p class="eyebrow"><span class="num">07</span><span lang="vi">Nhật thực sẽ hết</span><span lang="en">The end of eclipses</span></p>
-  <h2><span lang="vi">Ta đang sống trong một thời khắc đặc biệt</span><span lang="en">We live in a special moment</span></h2>
-  <p lang="vi">Mặt Trời to hơn Mặt Trăng khoảng 400 lần, và cũng ở xa hơn khoảng 400 lần. Nhờ trùng hợp đó, hai đĩa trên trời trông gần bằng nhau, và Mặt Trăng vừa khít che kín Mặt Trời.</p>
-  <p lang="en">The Sun is about 400 times wider than the Moon and also about 400 times farther away. Thanks to that coincidence the two discs look almost the same size, and the Moon can just cover the Sun.</p>
-  <p lang="vi">Mặt Trăng lùi xa thì đĩa của nó nhỏ dần. Kéo thanh trượt để tua: tới một lúc, kể cả khi Mặt Trăng ở gần nhất và Mặt Trời ở xa nhất, nó cũng không che hết được nữa. Chỉ còn <strong>nhật thực hình khuyên</strong>, một vòng lửa quanh đĩa tối.</p>
-  <p lang="en">As the Moon recedes its disc shrinks. Drag the slider forward: at some point, even with the Moon at its closest and the Sun at its farthest, it can no longer cover the Sun completely. Only <strong>annular eclipses</strong> remain, a ring of fire around a dark disc.</p>
-  <figure class="scene" id="s7" style="--ar: 800 / 400"></figure>
-  <div class="controls">
-    <button class="icon-btn" type="button" data-play="s7" aria-label="Tạm dừng / Pause"></button>
-    <label class="range"><span class="lbl"><span><span lang="vi">Tua về tương lai</span><span lang="en">Fast-forward</span></span><b id="s7v"></b></span>
-      <input type="range" id="s7f" min="0" max="1500" step="10" value="0"></label>
+<section class="ch" id="c7">
+  <div class="act">
+    <div class="stage" data-sky="plain">
+      <div class="bg" aria-hidden="true"></div>
+      <div class="vis"><div class="fit">
+        <figure class="scene feather" id="s7" style="--ar: 800 / 400"></figure>
+      </div></div>
+      <div class="dock">
+        <div class="controls">
+          <button class="icon-btn" type="button" data-play="s7" aria-label="Tạm dừng / Pause"></button>
+          <label class="range"><span class="lbl"><span><span lang="vi">Tua về tương lai</span><span lang="en">Fast-forward</span></span><b id="s7v"></b></span>
+            <input type="range" id="s7f" min="0" max="1500" step="10" value="0"></label>
+        </div>
+        <p class="readout" id="s7t" aria-live="polite"></p>
+      </div>
+    </div>
+    <div class="story">
+      <div class="tcard">
+        <p class="eyebrow"><span class="num">07</span><span lang="vi">Nhật thực sẽ hết</span><span lang="en">The end of eclipses</span></p>
+        <h2><span lang="vi">Ta đang sống trong một thời khắc đặc biệt</span><span lang="en">We live in a special moment</span></h2>
+        <p lang="vi">Mặt Trời to hơn Mặt Trăng khoảng 400 lần, và cũng ở xa hơn khoảng 400 lần. Nhờ trùng hợp đó, hai đĩa trên trời trông gần bằng nhau, và Mặt Trăng vừa khít che kín Mặt Trời.</p>
+        <p lang="en">The Sun is about 400 times wider than the Moon and also about 400 times farther away. Thanks to that coincidence the two discs look almost the same size, and the Moon can just cover the Sun.</p>
+      </div>
+      <div class="tcard">
+        <p lang="vi">Mặt Trăng lùi xa thì đĩa của nó nhỏ dần. Kéo thanh trượt để tua: tới một lúc, kể cả khi Mặt Trăng ở gần nhất và Mặt Trời ở xa nhất, nó cũng không che hết được nữa. Chỉ còn <strong>nhật thực hình khuyên</strong>, một vòng lửa quanh đĩa tối.</p>
+        <p lang="en">As the Moon recedes its disc shrinks. Drag the slider forward: at some point, even with the Moon at its closest and the Sun at its farthest, it can no longer cover the Sun completely. Only <strong>annular eclipses</strong> remain, a ring of fire around a dark disc.</p>
+      </div>
+      <div class="tcard">
+        <p class="note" lang="vi">Video nói khoảng 1,2 tỷ năm. Tính đơn giản với tốc độ 3,8 cm/năm hôm nay (như thanh trượt này) thì mốc đó vào khoảng 600 triệu năm. Con số thật phụ thuộc vào việc tốc độ lùi xa sẽ thay đổi ra sao, nên các ước tính chênh nhau.</p>
+        <p class="note" lang="en">The video says about 1.2 billion years. A simple calculation at today's 3.8 cm a year (which is what this slider does) puts it closer to 600 million. The real date depends on how the recession rate changes, so estimates differ.</p>
+      </div>
+    </div>
   </div>
-  <p class="readout" id="s7t" aria-live="polite"></p>
-  <p class="note" lang="vi">Video nói khoảng 1,2 tỷ năm. Tính đơn giản với tốc độ 3,8 cm/năm hôm nay (như thanh trượt này) thì mốc đó vào khoảng 600 triệu năm. Con số thật phụ thuộc vào việc tốc độ lùi xa sẽ thay đổi ra sao, nên các ước tính chênh nhau.</p>
-  <p class="note" lang="en">The video says about 1.2 billion years. A simple calculation at today's 3.8 cm a year (which is what this slider does) puts it closer to 600 million. The real date depends on how the recession rate changes, so estimates differ.</p>
 </section>
 
 <!-- ============ 8 ============ -->
-<section class="ch wrap" id="c8">
-  <p class="eyebrow"><span class="num">08</span><span lang="vi">Ngày đang dài ra</span><span lang="en">Longer days</span></p>
-  <h2><span lang="vi">Mỗi thế kỷ, một ngày dài thêm vài mili giây</span><span lang="en">Every century, the day grows a few milliseconds</span></h2>
-  <p lang="vi">Trái Đất bị phanh, nên ngày dài ra một chút: trung bình khoảng <strong>1,8 mili giây mỗi thế kỷ</strong>, đo được nhờ ghi chép nhật thực cổ của Babylon, Trung Hoa, Hy Lạp và Ả Rập. Hóa thạch kể cùng câu chuyện: vân tăng trưởng của san hô kỷ Devon, khoảng 380 triệu năm trước, gợi ý một năm khi ấy có chừng 400 ngày, mỗi ngày chừng 22 giờ.</p>
-  <p lang="en">Because the Earth is being braked, the day gets slightly longer: on average about <strong>1.8 milliseconds per century</strong>, measured from ancient eclipse records kept in Babylon, China, Greece and the Arab world. Fossils tell the same story: growth bands in Devonian corals, some 380 million years old, suggest a year then had about 400 days of roughly 22 hours.</p>
-  <p lang="vi">Đồng hồ nguyên tử thì không chậm lại. Để giờ hành chính khớp với Trái Đất, từ năm 1972 người ta chèn <strong>giây nhuận</strong> vào cuối ngày 30/6 hoặc 31/12. Đã có 27 giây nhuận. Chạm vào từng chấm để xem ngày.</p>
-  <p lang="en">Atomic clocks do not slow down. To keep civil time in step with the planet, since 1972 a <strong>leap second</strong> has been inserted at the end of 30 June or 31 December when needed. There have been 27. Tap a dot to see its date.</p>
-  <figure class="scene" id="s8" style="--ar: 800 / 200"></figure>
-  <p class="readout" id="s8t" aria-live="polite"></p>
-  <p lang="vi" style="margin-top:40px">Cộng dồn qua hàng nghìn năm, mili giây thành hàng giờ. Kéo về một năm xưa: nếu tính nhật thực như thể Trái Đất luôn quay đều, dải tối sẽ rơi lệch hàng nghìn km so với nơi người xưa thật sự ghi lại.</p>
-  <p lang="en" style="margin-top:40px">Added up over thousands of years, milliseconds become hours. Drag back to an ancient year: if you computed an eclipse as though the Earth had always spun at today's rate, the shadow would land thousands of kilometres from where people actually recorded it.</p>
-  <figure class="scene" id="s8b" style="--ar: 800 / 210"></figure>
-  <div class="controls">
-    <label class="range"><span class="lbl"><span><span lang="vi">Năm</span><span lang="en">Year</span></span><b id="s8yv"></b></span>
-      <input type="range" id="s8y" min="-720" max="2000" step="10" value="-720"></label>
+<section class="ch" id="c8">
+  <div class="act">
+    <div class="stage">
+      <div class="bg" aria-hidden="true"></div>
+      <div class="vis"><div class="fit">
+        <figure class="scene" id="s8" data-bg="stage" style="--ar: 800 / 200"></figure>
+      </div></div>
+      <div class="dock">
+        <p class="readout" id="s8t" aria-live="polite"></p>
+      </div>
+    </div>
+    <div class="story">
+      <div class="tcard">
+        <p class="eyebrow"><span class="num">08</span><span lang="vi">Ngày đang dài ra</span><span lang="en">Longer days</span></p>
+        <h2><span lang="vi">Mỗi thế kỷ, một ngày dài thêm vài mili giây</span><span lang="en">Every century, the day grows a few milliseconds</span></h2>
+        <p lang="vi">Trái Đất bị phanh, nên ngày dài ra một chút: trung bình khoảng <strong>1,8 mili giây mỗi thế kỷ</strong>, đo được nhờ ghi chép nhật thực cổ của Babylon, Trung Hoa, Hy Lạp và Ả Rập. Hóa thạch kể cùng câu chuyện: vân tăng trưởng của san hô kỷ Devon, khoảng 380 triệu năm trước, gợi ý một năm khi ấy có chừng 400 ngày, mỗi ngày chừng 22 giờ.</p>
+        <p lang="en">Because the Earth is being braked, the day gets slightly longer: on average about <strong>1.8 milliseconds per century</strong>, measured from ancient eclipse records kept in Babylon, China, Greece and the Arab world. Fossils tell the same story: growth bands in Devonian corals, some 380 million years old, suggest a year then had about 400 days of roughly 22 hours.</p>
+      </div>
+      <div class="tcard">
+        <p lang="vi">Đồng hồ nguyên tử thì không chậm lại. Để giờ hành chính khớp với Trái Đất, từ năm 1972 người ta chèn <strong>giây nhuận</strong> vào cuối ngày 30/6 hoặc 31/12. Đã có 27 giây nhuận. Chạm vào từng chấm để xem ngày.</p>
+        <p lang="en">Atomic clocks do not slow down. To keep civil time in step with the planet, since 1972 a <strong>leap second</strong> has been inserted at the end of 30 June or 31 December when needed. There have been 27. Tap a dot to see its date.</p>
+      </div>
+    </div>
   </div>
-  <p class="readout" id="s8u" aria-live="polite"></p>
-  <p class="note" lang="vi">Giây nhuận không chỉ do thủy triều: băng tan, lõi Trái Đất và gió cũng làm tốc độ quay dao động, và vài năm gần đây Trái Đất còn quay nhanh lên đôi chút. Năm 2022, Đại hội Cân đo Quốc tế quyết định ngừng chèn giây nhuận chậm nhất từ năm 2035.</p>
-  <p class="note" lang="en">Leap seconds are not only about tides: melting ice, the Earth's core and the winds also make the spin wobble, and in the last few years the Earth has even sped up slightly. In 2022 the General Conference on Weights and Measures decided to stop adding leap seconds by 2035.</p>
+  <div class="act">
+    <div class="stage">
+      <div class="bg" aria-hidden="true"></div>
+      <div class="vis"><div class="fit">
+        <figure class="scene" id="s8b" data-bg="stage" style="--ar: 800 / 210"></figure>
+      </div></div>
+      <div class="dock">
+        <div class="controls">
+          <label class="range"><span class="lbl"><span><span lang="vi">Năm</span><span lang="en">Year</span></span><b id="s8yv"></b></span>
+            <input type="range" id="s8y" min="-720" max="2000" step="10" value="-720"></label>
+        </div>
+        <p class="readout" id="s8u" aria-live="polite"></p>
+      </div>
+    </div>
+    <div class="story">
+      <div class="tcard">
+        <p lang="vi">Cộng dồn qua hàng nghìn năm, mili giây thành hàng giờ. Kéo về một năm xưa: nếu tính nhật thực như thể Trái Đất luôn quay đều, dải tối sẽ rơi lệch hàng nghìn km so với nơi người xưa thật sự ghi lại.</p>
+        <p lang="en">Added up over thousands of years, milliseconds become hours. Drag back to an ancient year: if you computed an eclipse as though the Earth had always spun at today's rate, the shadow would land thousands of kilometres from where people actually recorded it.</p>
+      </div>
+      <div class="tcard">
+        <p class="note" lang="vi">Giây nhuận không chỉ do thủy triều: băng tan, lõi Trái Đất và gió cũng làm tốc độ quay dao động, và vài năm gần đây Trái Đất còn quay nhanh lên đôi chút. Năm 2022, Đại hội Cân đo Quốc tế quyết định ngừng chèn giây nhuận chậm nhất từ năm 2035.</p>
+        <p class="note" lang="en">Leap seconds are not only about tides: melting ice, the Earth's core and the winds also make the spin wobble, and in the last few years the Earth has even sped up slightly. In 2022 the General Conference on Weights and Measures decided to stop adding leap seconds by 2035.</p>
+      </div>
+    </div>
+  </div>
 </section>
 
 <section class="wrap">
@@ -563,6 +820,8 @@
     var s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     s.setAttribute('viewBox', vb); s.setAttribute('preserveAspectRatio', 'xMidYMid meet');
     if (cls) s.setAttribute('class', cls);
+    // Cảnh đứng trên sân khấu: lớp trời đêm đầu tiên đã có ở nền sân khấu, không vẽ lại.
+    if (fig.dataset.bg === 'stage' && !fig.dataset.skipped) { fig.dataset.skipped = '1'; return s; }
     s.setAttribute('aria-hidden', 'true');
     fig.appendChild(s); return s;
   }
@@ -632,22 +891,75 @@
   }
 
   // ================= HERO =================
+  // Cả màn hình là cảnh: Mặt Trăng đi theo con trỏ, mặt nước phồng lên ngay bên dưới nó.
   (function () {
-    var fig = $('#hero'), s = svgEl(fig, '0 0 600 600', '');
-    var wave = function (y, a, k, ph) {
-      var d = 'M-60,' + y;
-      for (var x = -60; x <= 660; x += 20) d += 'L' + x + ',' + (y + Math.sin(x * k + ph) * a).toFixed(1);
-      return d + 'L660,620L-60,620Z';
-    };
-    s.innerHTML = night(600, 600, 11) +
-      '<g class="fl"><g filter="url(#cut)"><circle cx="370" cy="210" r="132" fill="' + C.n4 + '"/></g>' +
-      '<g filter="url(#pc)" transform="translate(370,210)">' + moonArt(104) + '</g>' +
-      '<g filter="url(#pcs)" transform="translate(370,210)"><path d="M98,-14L142,0L98,14Z" fill="' + C.orange + '"/></g></g>' +
-      '<g filter="url(#cut)" class="w3"><path d="' + wave(420, 12, .018, 0) + '" fill="#2E4F7C"/></g>' +
-      '<g filter="url(#cut)" class="w2"><path d="' + wave(462, 14, .022, 1.4) + '" fill="#3A6C99"/></g>' +
-      '<g filter="url(#cut)" class="w1"><path d="' + wave(508, 12, .026, 2.6) + '" fill="' + C.sea + '"/></g>' +
-      '<g filter="url(#cut)"><path d="M-20,620L-20,540C60,520 120,548 190,560C240,568 270,600 300,620Z" fill="' + C.sand + '"/></g>' +
-      '<g filter="url(#pcs)"><path d="M92,548L92,500" stroke="' + C.cream + '" stroke-width="4"/><path d="M92,500L122,511L92,522Z" fill="' + C.orange + '"/></g>';
+    var head = $('#top'), bg = $('#hero');
+    var back = svgEl(bg, '0 0 10 10'), s = svgEl(bg, '0 0 10 10');
+    var W = 0, H = 0, R = 0, home = { x: 0, y: 0 }, base = 0;
+    var m = { x: 0, y: 0 }, aim = null, t0 = performance.now(), ph = 0;
+    var moon, waves, sand;
+    var LAYERS = [
+      { f: '#2E4F7C', a: 12, k: .011, off: -0.075, sp: .55 },
+      { f: '#3A6C99', a: 14, k: .014, off: -0.03, sp: .8 },
+      { f: C.sea, a: 12, k: .018, off: 0.02, sp: 1.05 }
+    ];
+    function build() {
+      var r = head.querySelector('.stage').getBoundingClientRect();
+      W = Math.max(320, Math.round(r.width)); H = Math.max(320, Math.round(r.height));
+      var land = W >= H;
+      R = Math.min(W, H) * (land ? .15 : .17);
+      home = land ? { x: W * .7, y: H * .3 } : { x: W * .5, y: H * .2 };
+      base = H * (land ? .7 : .5);
+      var vb = '0 0 ' + W + ' ' + H, M = Math.max(W, H);
+      back.setAttribute('viewBox', vb); s.setAttribute('viewBox', vb);
+      back.setAttribute('preserveAspectRatio', 'none'); s.setAttribute('preserveAspectRatio', 'none');
+      back.innerHTML = '<rect width="' + W + '" height="' + H + '" fill="' + C.night + '"/>' +
+        '<g filter="url(#cut)"><circle cx="' + home.x + '" cy="' + home.y + '" r="' + M * .6 + '" fill="' + C.n2 + '"/>' +
+        '<circle cx="' + home.x + '" cy="' + home.y + '" r="' + M * .38 + '" fill="' + C.n3 + '"/></g>' +
+        stars(W, base, Math.round(W * base / 7000), 11);
+      s.innerHTML =
+        '<g id="hm"><g filter="url(#cut)"><circle r="' + R * 1.27 + '" fill="' + C.n4 + '"/></g>' +
+        '<g filter="url(#pc)">' + moonArt(R) + '</g>' +
+        '<g filter="url(#pcs)"><path d="M' + R * .94 + ',' + -R * .13 + 'L' + R * 1.36 + ',0L' + R * .94 + ',' + R * .13 + 'Z" fill="' + C.orange + '"/></g></g>' +
+        LAYERS.map(function (L) { return '<g filter="url(#pc)"><path class="hw" fill="' + L.f + '"/></g>'; }).join('') +
+        '<g filter="url(#cut)"><path d="M-20,' + (H + 20) + 'L-20,' + (H - .12 * H) + 'C' + W * .08 + ',' + (H - .15 * H) + ' ' + W * .16 + ',' + (H - .1 * H) + ' ' + W * .26 + ',' + (H - .07 * H) + 'C' + W * .32 + ',' + (H - .05 * H) + ' ' + W * .36 + ',' + (H - .01 * H) + ' ' + W * .4 + ',' + (H + 20) + 'Z" fill="' + C.sand + '"/></g>' +
+        '<g filter="url(#pcs)" transform="translate(' + W * .1 + ',' + (H - .115 * H) + ')"><path d="M0,0L0,-48" stroke="' + C.cream + '" stroke-width="4"/><path d="M0,-48L30,-37L0,-26Z" fill="' + C.orange + '"/></g>';
+      moon = $('#hm', s);
+      waves = s.querySelectorAll('.hw');
+      if (!aim) { m.x = home.x; m.y = home.y; }
+    }
+    function frame(time, dt) {
+      var tgt = aim || home;
+      var e = 1 - Math.pow(.02, dt);
+      m.x += (tgt.x - m.x) * e; m.y += (tgt.y - m.y) * e;
+      var intro = reduce ? 1 : clamp((time - t0) / 1400, 0, 1), ease = 1 - Math.pow(1 - intro, 3);
+      var my = m.y + (1 - ease) * (H * .8);
+      moon.setAttribute('transform', 'translate(' + m.x.toFixed(1) + ',' + my.toFixed(1) + ')');
+      // Mặt Trăng càng xuống gần mặt nước thì bướu nước càng cao.
+      var pull = clamp(1 - (my - R) / base, .12, 1), A = H * .11 * pull * pull, sig = W * .2;
+      for (var i = 0; i < 3; i++) {
+        var L = LAYERS[i], roll = clamp((time - t0 - 350 - i * 160) / 1100, 0, 1);
+        var lift = reduce ? 0 : (1 - (1 - Math.pow(1 - roll, 3))) * H * .45;
+        var y0 = base + L.off * H + lift, d = 'M-40,' + (H + 40);
+        for (var x = -40; x <= W + 40; x += 16) {
+          var g = Math.exp(-Math.pow((x - m.x) / sig, 2));
+          d += 'L' + x + ',' + (y0 + Math.sin(x * L.k + ph * L.sp + i * 1.7) * L.a - A * g * (1 - i * .12)).toFixed(1);
+        }
+        waves[i].setAttribute('d', d + 'L' + (W + 40) + ',' + (H + 40) + 'Z');
+      }
+    }
+    build(); frame(t0 + 5000, 1);
+    var rs = 0;
+    addEventListener('resize', function () { clearTimeout(rs); rs = setTimeout(function () { build(); frame(performance.now(), 1); }, 150); });
+    function point(e) {
+      var r = bg.getBoundingClientRect();
+      aim = { x: clamp((e.clientX - r.left) / r.width * W, R, W - R), y: clamp((e.clientY - r.top) / r.height * H, R, base - R * .4) };
+    }
+    head.addEventListener('pointermove', point);
+    head.addEventListener('pointerdown', point);
+    head.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') aim = null; });
+    if (reduce) return;
+    loop(head, function (dt) { ph += dt * 1.6; frame(performance.now(), dt); });
   })();
 
   // ================= 1. Lực thủy triều =================
@@ -1060,10 +1372,10 @@
     top.innerHTML =
       '<g filter="url(#cut)"><path d="M-20,420L-20,330C80,300 160,318 250,334C330,348 380,316 470,312C560,308 640,340 820,318L820,420Z" fill="#2A3A5E"/></g>' +
       '<g filter="url(#cut)"><path d="M-20,420L-20,362C120,346 220,372 330,370C450,368 560,352 820,372L820,420Z" fill="#33496F"/></g>' +
-      txt(780, 388, 'sm', 'end', 's7c');
+      txt(400, 392, 'sm', 'middle', 's7c');
     say(top, { s7c: ['Mặt Trăng lúc gần nhất, Mặt Trời lúc xa nhất', 'Moon at its closest, Sun at its farthest'] });
     var sky = $('#s7sky', s), st = $('#s7stars', s), co = $('#s7cor', s), mo = $('#s7m', s), rayG = $('#s7rays', s);
-    var fS = $('#s7f'), ph = -1.2;
+    var fS = $('#s7f'), ph = -1.2, stg = fig.closest('.stage');
     function overlap(r1, r2, d) {
       if (d >= r1 + r2) return 0;
       if (d <= Math.abs(r1 - r2)) return Math.PI * Math.min(r1, r2) * Math.min(r1, r2);
@@ -1078,7 +1390,9 @@
       mo.setAttribute('cx', mx.toFixed(1)); mo.setAttribute('r', mr.toFixed(1));
       var cov = overlap(SR, mr, Math.abs(mx - SX)) / (Math.PI * SR * SR);
       var dark = Math.pow(cov, 6);
-      sky.setAttribute('fill', mix('#86AFCF', '#141A33', dark));
+      var col = mix('#86AFCF', '#141A33', dark);
+      sky.setAttribute('fill', col);
+      stg.style.setProperty('--sky', col); stg.style.setProperty('--stars', (dark * .9).toFixed(2));
       st.setAttribute('opacity', (dark * .9).toFixed(2));
       var total = cov > .9995;
       co.setAttribute('opacity', total ? 1 : 0);
@@ -1161,6 +1475,72 @@
     }
     yS.addEventListener('input', upd);
     hooks.push(upd); upd();
+  })();
+
+  // ================= SÂN KHẤU =================
+  // Mỗi cảnh dính màn hình; trời sao vẽ một lần cho cả sân khấu, cảnh lăn vào rồi chữ mới hiện.
+  (function () {
+    var stages = document.querySelectorAll('.act .stage');
+    function sky(st) {
+      var bg = st.querySelector('.bg'), fit = st.querySelector('.fit');
+      if (!fit) return;
+      var h = st.offsetHeight;
+      if (!h) return;
+      // Đo theo layout (offset), không theo khung đang xoay lúc cảnh còn lăn vào.
+      var v = st.querySelector('.vis'), k = 900 / h, W = Math.round(st.offsetWidth * k), H = 900;
+      var fx = (v.offsetLeft + fit.offsetLeft) * k, fy = (v.offsetTop + fit.offsetTop) * k, fw = fit.offsetWidth * k, fh = fit.offsetHeight * k;
+      var cx = (fx + fw / 2).toFixed(0), cy = (fy + fh / 2).toFixed(0), M = Math.max(fw, fh), out;
+      if (st.dataset.sky === 'plain') {
+        // Đồi giấy kéo dài hai bên cảnh nhật thực, nối liền với đồi trong hình.
+        var hill = function (y, a, ph, fill) {
+          var d = 'M-20,' + (H + 20);
+          for (var x = -20; x <= W + 20; x += 30) d += 'L' + x + ',' + (y + Math.sin(x / 140 + ph) * a).toFixed(1);
+          return '<path d="' + d + 'L' + (W + 20) + ',' + (H + 20) + 'Z" fill="' + fill + '"/>';
+        };
+        out = '<g filter="url(#cut)">' + hill(fy + fh * .8, 9, 0, '#2A3A5E') + hill(fy + fh * .915, 6, 2, '#33496F') + '</g>';
+      } else {
+        out = '<g filter="url(#cut)"><circle cx="' + cx + '" cy="' + cy + '" r="' + (M * .62).toFixed(0) + '" fill="' + C.n2 + '"/>' +
+          '<circle cx="' + cx + '" cy="' + cy + '" r="' + (M * .42).toFixed(0) + '" fill="' + C.n3 + '"/></g>';
+      }
+      var svg = bg.querySelector('svg') || svgEl(bg, '0 0 1 1');
+      svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H); svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+      svg.innerHTML = '<g class="st">' + stars(W, H, Math.round(W * H / 9000), 5 + W % 97) + '</g>' + out;
+    }
+    function ratio(fit) {
+      var inv = 0;
+      fit.querySelectorAll('.scene').forEach(function (fg) {
+        var p = getComputedStyle(fg).getPropertyValue('--ar').split('/');
+        inv += (+p[1] || 9) / (+p[0] || 16);
+      });
+      fit.style.setProperty('--arn', (1 / inv).toFixed(4));
+    }
+    document.querySelectorAll('.fit').forEach(ratio);
+    stages.forEach(sky);
+    var rs = 0;
+    addEventListener('resize', function () {
+      clearTimeout(rs);
+      rs = setTimeout(function () { stages.forEach(sky); }, 200);
+    });
+
+    var acts = document.querySelectorAll('.act');
+    if (reduce || !('IntersectionObserver' in window)) {
+      acts.forEach(function (a) { a.classList.add('in', 'ready'); });
+      document.querySelectorAll('.tcard').forEach(function (c) { c.classList.add('seen'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var a = e.target; io.unobserve(a);
+        a.classList.add('in');
+        setTimeout(function () { a.classList.add('ready'); }, 1150);
+      });
+    }, { rootMargin: '0px 0px -30% 0px' });
+    acts.forEach(function (a) { io.observe(a); });
+    var co = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('seen'); co.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -12% 0px' });
+    document.querySelectorAll('.story .tcard').forEach(function (c) { co.observe(c); });
   })();
 })();
 </script>
