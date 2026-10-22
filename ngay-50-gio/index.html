@@ -1,0 +1,1165 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Nếu một ngày có 50 giờ thì điều gì sẽ xảy ra? Giải thích bằng cảnh cắt giấy tương tác. What if a day lasted 50 hours, in interactive paper cut-outs.">
+<title>Ngày 50 giờ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Paytone+One&family=Be+Vietnam+Pro:wght@400;500;700&family=Patrick+Hand&display=swap">
+<style>
+/* Cảnh giấy cắt phủ kín màn hình và nằm yên phía sau; trang cuộn qua từng "chương".
+   Mỗi chương khi lướt tới: cảnh tua giờ và đẩy máy quay, xong mới mở tấm giấy chứa chữ. */
+:root {
+  --page: #e4ecee;
+  --paper: #f7f4ee;
+  --ink: #1f2a33;
+  --ink-soft: #52606b;
+  --sun: #f5b83d;
+  --coral: #e8664e;
+  --plum: #6b4e8a;
+  --tape: rgba(245, 184, 61, .55);
+  --shadow: rgba(10, 22, 30, .35);
+  --c-sleep: #6b4e8a;
+  --c-work: #3f7f78;
+  --c-life: #f5b83d;
+  --c-free: #e8664e;
+  --f-display: "Paytone One", "Arial Rounded MT Bold", system-ui, sans-serif;
+  --f-body: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-hand: "Patrick Hand", "Comic Sans MS", cursive;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --page: #141a2c; --paper: #232b45; --ink: #eef0f5; --ink-soft: #a9b1c6;
+    --sun: #f2c35a; --coral: #f07f69; --plum: #a68bd0; --tape: rgba(242, 195, 90, .35); --shadow: rgba(0,0,0,.6);
+    --c-sleep: #a68bd0; --c-work: #4fa59b; --c-life: #f2c35a; --c-free: #f07f69;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --page: #141a2c; --paper: #232b45; --ink: #eef0f5; --ink-soft: #a9b1c6;
+  --sun: #f2c35a; --coral: #f07f69; --plum: #a68bd0; --tape: rgba(242, 195, 90, .35); --shadow: rgba(0,0,0,.6);
+  --c-sleep: #a68bd0; --c-work: #4fa59b; --c-life: #f2c35a; --c-free: #f07f69;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: #0b1230;
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 17px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+h1, h2, h3 { font-family: var(--f-display); font-weight: 400; line-height: 1.12; text-wrap: balance; margin: 0; letter-spacing: -.01em; }
+p { margin: 0; }
+.eyebrow { font-family: var(--f-hand); font-size: 20px; color: var(--coral); letter-spacing: .02em; }
+.lead { color: var(--ink-soft); max-width: 62ch; }
+.chip { background: var(--paper); border-radius: 999px; box-shadow: 0 1px 0 var(--shadow), 0 10px 24px -10px var(--shadow); }
+
+/* ================= CẢNH NỀN ================= */
+.scene { position: fixed; inset: 0; z-index: 0; overflow: hidden; isolation: isolate; background: #0b1230; }
+.scrub { position: absolute; inset: 0; cursor: grab; touch-action: pan-y; }
+.scrub.drag { cursor: grabbing; }
+.cam { position: absolute; inset: 0; pointer-events: none; transform-origin: 50% 50%; transition: transform 2.2s cubic-bezier(.6, .05, .25, 1); will-change: transform; }
+.plane { position: absolute; inset: -4%; pointer-events: none; will-change: transform; }
+.plane > svg { display: block; width: 100%; height: 100%; pointer-events: none; animation: rise 1.2s cubic-bezier(.2,.8,.2,1) backwards; }
+.plane:nth-child(1) > svg { animation: none; }
+.plane:nth-child(2) > svg { animation-delay: .1s; } .plane:nth-child(3) > svg { animation-delay: .2s; }
+.plane:nth-child(4) > svg { animation-delay: .3s; } .plane:nth-child(5) > svg { animation-delay: .3s; }
+.plane:nth-child(6) > svg { animation-delay: .42s; } .plane:nth-child(7) > svg { animation-delay: .5s; }
+.plane:nth-child(8) > svg { animation-delay: .6s; } .plane:nth-child(9) > svg { animation-delay: .6s; }
+@keyframes rise { from { transform: translateY(22%); } to { transform: none; } }
+.hit { pointer-events: auto; cursor: pointer; }
+.hit:hover { filter: brightness(1.12); }
+.tint { position: absolute; inset: 0; mix-blend-mode: multiply; pointer-events: none; }
+.glare { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: soft-light; }
+.grain {
+  position: absolute; inset: 0; pointer-events: none; opacity: .35; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+.vignette { position: absolute; inset: 0; pointer-events: none; box-shadow: inset 0 0 160px rgba(8, 12, 32, .5); }
+
+/* hoạt cảnh nhỏ trong cảnh */
+.twinkle { animation: twinkle 3s ease-in-out infinite; }
+@keyframes twinkle { 0%,100% { opacity: 1; } 50% { opacity: .25; } }
+.rays { transform-box: fill-box; transform-origin: center; animation: spin 40s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.blades { transform-box: view-box; transform-origin: 740px 268px; animation: spin 9s linear infinite; }
+.rolling .blades, .blades.boost { animation-duration: 1.2s; }
+.drift { animation: drift 70s ease-in-out infinite alternate; }
+.drift.slow { animation-duration: 110s; animation-direction: alternate-reverse; }
+@keyframes drift { from { transform: translateX(-80px); } to { transform: translateX(120px); } }
+.flock { animation: fly 34s linear infinite; }
+@keyframes fly { from { transform: translate(-160px, 40px); } to { transform: translate(1360px, -30px); } }
+.wing { transform-box: fill-box; transform-origin: center; animation: flap .55s ease-in-out infinite alternate; }
+@keyframes flap { from { transform: scaleY(1); } to { transform: scaleY(-.6); } }
+.smoke circle { transform-box: fill-box; transform-origin: center; animation: smoke 6s ease-out infinite; opacity: 0; }
+.smoke.burst circle { animation-duration: 1.6s; }
+@keyframes smoke { 0% { transform: translate(0,0) scale(.4); opacity: 0; } 15% { opacity: .75; } 100% { transform: translate(34px,-110px) scale(2.2); opacity: 0; } }
+.fly { transform-box: fill-box; animation: firefly 7s ease-in-out infinite alternate; }
+@keyframes firefly { 0% { transform: translate(0,0); opacity: .2; } 50% { opacity: 1; } 100% { transform: translate(26px,-22px); opacity: .3; } }
+.meteor { animation: meteor 11s linear infinite; opacity: 0; }
+@keyframes meteor { 0%, 86% { transform: translate(0,0); opacity: 0; } 88% { opacity: 1; } 96% { transform: translate(-260px, 140px); opacity: 0; } 100% { opacity: 0; } }
+
+/* ================= LỚP ĐIỀU KHIỂN CỐ ĐỊNH ================= */
+.hud {
+  position: fixed; z-index: 40; top: calc(14px + env(safe-area-inset-top, 0px)); left: max(16px, env(safe-area-inset-left, 0px));
+  display: flex; align-items: center; gap: 12px; padding: 6px 18px 6px 6px; font-variant-numeric: tabular-nums;
+}
+.hud svg { width: 48px; height: 48px; flex: none; }
+.hud b { display: block; font-family: var(--f-display); font-weight: 400; font-size: 20px; line-height: 1.1; }
+.hud span { display: block; font-size: 13px; color: var(--ink-soft); line-height: 1.3; }
+.hud.flip { animation: flip .5s ease; }
+@keyframes flip { 50% { transform: perspective(300px) rotateX(-70deg); } }
+.lang {
+  position: fixed; z-index: 40; top: calc(18px + env(safe-area-inset-top, 0px)); right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; grid-template-columns: 1fr 1fr; padding: 4px;
+}
+.lang button { position: relative; z-index: 1; background: none; box-shadow: none; padding: 7px 14px; min-width: 48px; font: 700 14px var(--f-body); letter-spacing: .06em; color: var(--ink-soft); transition: color .3s; }
+.lang button[aria-pressed="true"] { color: #fff; }
+.lang button:hover { transform: none; box-shadow: none; }
+.lang .knob { position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc(50% - 4px); border-radius: 999px; background: var(--coral); transition: transform .45s cubic-bezier(.7, -0.4, .3, 1.4); }
+.lang[data-lang="en"] .knob { transform: translateX(100%); }
+
+.dock {
+  position: fixed; z-index: 40; left: 50%; transform: translateX(-50%);
+  bottom: calc(14px + env(safe-area-inset-bottom, 0px)); display: flex; gap: 4px; padding: 5px;
+}
+.dock button { display: flex; align-items: center; gap: 7px; padding: 9px 14px; background: none; box-shadow: none; font-size: 14px; font-weight: 700; white-space: nowrap; }
+.dock button:hover { background: var(--page); transform: none; box-shadow: none; }
+.dock button[aria-pressed="true"] { background: var(--coral); color: #fff; }
+.dock svg { width: 18px; height: 18px; fill: currentColor; flex: none; }
+
+.rail { position: fixed; z-index: 40; right: max(18px, env(safe-area-inset-right, 0px)); top: 50%; transform: translateY(-50%); display: grid; gap: 10px; }
+.rail button { width: 12px; height: 12px; padding: 0; border-radius: 50%; background: rgba(255,255,255,.45); box-shadow: 0 2px 6px rgba(0,0,0,.25); transition: transform .3s, background-color .3s; }
+.rail button.on { background: var(--coral); transform: scale(1.4); }
+.rail button:hover { transform: scale(1.4); }
+
+button {
+  font: 500 15px var(--f-body); color: var(--ink); background: var(--paper); border: 0; cursor: pointer;
+  padding: 10px 18px; border-radius: 999px; box-shadow: 0 1px 0 var(--shadow), 0 6px 14px -8px var(--shadow);
+  transition: transform .2s, box-shadow .2s, background-color .2s, color .2s;
+}
+button:hover { transform: translateY(-2px); }
+button:active { transform: scale(.96); }
+button:focus-visible, input:focus-visible, a:focus-visible { outline: 3px solid var(--coral); outline-offset: 3px; }
+
+/* ================= CÁC CHƯƠNG ================= */
+.wrap {
+  position: relative; z-index: 10; pointer-events: none; max-width: 1200px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.ch { min-height: 100vh; min-height: 100dvh; display: flex; align-items: center; padding-block: 110px 120px; }
+.ch.l { justify-content: flex-start; } .ch.r { justify-content: flex-end; } .ch.c { justify-content: center; }
+.ch.short { min-height: 80vh; min-height: 80dvh; }
+
+/* tấm giấy chứa chữ: mở ra như một vạt giấy lật xuống */
+.card {
+  position: relative; pointer-events: auto; background: var(--paper); border-radius: 8px;
+  box-shadow: 0 2px 0 var(--shadow), 0 26px 50px -22px var(--shadow);
+  transform-origin: 50% 0; transition: opacity .7s ease, transform 1s cubic-bezier(.2,.8,.2,1);
+}
+.card::before {
+  content: ""; position: absolute; top: -11px; left: 50%; width: 92px; height: 24px; z-index: 2;
+  transform: translateX(-50%) rotate(-3deg); background: var(--tape); border-radius: 2px;
+}
+.card > * { transition: opacity .55s ease, transform .7s cubic-bezier(.2,.8,.2,1); transition-delay: calc(.35s + var(--i, 0) * 90ms); }
+.card.pending { opacity: 0; transform: perspective(1000px) rotateX(-32deg) translateY(50px) scale(.95); }
+.card.pending > * { opacity: 0; transform: translateY(18px); }
+
+/* đổi ngôn ngữ: chữ cụp lại rồi mở ra */
+[data-i], [data-ih] { transform-origin: 50% 100%; }
+.swapping [data-i], .swapping [data-ih] { opacity: 0 !important; transform: perspective(400px) rotateX(70deg) !important; filter: blur(2px); transition: opacity .2s, transform .2s, filter .2s !important; transition-delay: 0s !important; }
+span[data-i], label[data-i], a[data-i] { display: inline-block; }
+
+.hero-card { max-width: 700px; padding: 34px 34px 30px; display: grid; gap: 16px; }
+.hero-card h1 { font-size: clamp(40px, 7vw, 86px); }
+.num { color: var(--coral); display: inline-block; animation: wobble 4s ease-in-out infinite; }
+@keyframes wobble { 0%,100% { transform: rotate(-3deg); } 50% { transform: rotate(4deg) translateY(-3px); } }
+.hint { font-family: var(--f-hand); font-size: 18px; color: var(--ink-soft); line-height: 1.35; }
+.cue { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; color: var(--coral); font-size: 15px; text-decoration: none; }
+.cue svg { width: 20px; height: 20px; fill: currentColor; animation: cue 1.6s ease-in-out infinite; }
+@keyframes cue { 50% { transform: translateY(6px); } }
+
+.sec-card { max-width: 560px; padding: 30px; display: grid; gap: 12px; }
+.sec-card h2, .big-h { font-size: clamp(30px, 5vw, 50px); }
+
+/* thanh kéo */
+.lab { max-width: 820px; width: 100%; padding: 30px; display: grid; gap: 24px; }
+.lab-top { display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: end; justify-content: space-between; }
+.lab-top label { font-weight: 700; }
+.big { font-family: var(--f-display); font-size: clamp(48px, 9vw, 80px); line-height: 1; color: var(--coral); font-variant-numeric: tabular-nums; }
+.big small { font-size: .35em; color: var(--ink-soft); font-family: var(--f-body); font-weight: 500; }
+.earth-row { display: flex; gap: 22px; align-items: center; }
+.earth { width: 84px; height: 84px; flex: none; filter: drop-shadow(0 6px 8px var(--shadow)); }
+.earth .spin { transform-box: view-box; transform-origin: 50px 50px; animation: spin var(--spin, 4s) linear infinite; }
+input[type=range] { width: 100%; accent-color: var(--coral); height: 32px; }
+.scale { display: flex; justify-content: space-between; font-size: 13px; color: var(--ink-soft); margin-top: -6px; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+.stat { background: var(--page); border-radius: 6px; padding: 14px 16px; display: grid; gap: 4px; align-content: start; }
+.stat .v { font-family: var(--f-display); font-size: 28px; line-height: 1.15; font-variant-numeric: tabular-nums; display: inline-block; transform-origin: left bottom; }
+.stat .v.bump { animation: bump .35s ease; }
+@keyframes bump { 40% { transform: scale(1.08) rotate(-1.5deg); color: var(--coral); } }
+.stat .k { font-size: 14px; color: var(--ink-soft); }
+.stat .now { color: var(--ink-soft); font-family: var(--f-hand); font-size: 16px; }
+
+/* thẻ hệ quả */
+.effect { max-width: 460px; width: 100%; padding: 0 0 26px; display: grid; gap: 12px; align-content: start; }
+.effect svg { display: block; width: 100%; height: auto; border-radius: 8px 8px 0 0; }
+.effect h3 { font-size: 26px; padding: 0 24px; }
+.effect p { padding: 0 24px; color: var(--ink-soft); font-size: 16px; }
+.effect .tag { font-family: var(--f-hand); font-size: 18px; color: var(--coral); }
+.effect .count { position: absolute; top: 14px; right: 16px; font-family: var(--f-display); font-size: 15px; color: #fff; background: rgba(0,0,0,.35); padding: 2px 10px; border-radius: 999px; }
+.e-rays { transform-box: fill-box; transform-origin: center; animation: spin 14s linear infinite; }
+.e-bob { animation: bob 3s ease-in-out infinite; }
+@keyframes bob { 50% { transform: translateY(-6px); } }
+.e-vortex { transform-box: view-box; transform-origin: 200px 85px; animation: spin 5s linear infinite reverse; }
+.e-up { animation: up 1.8s ease-in-out infinite; } .e-down { animation: down 1.8s ease-in-out infinite; }
+@keyframes up { 50% { transform: translateY(-8px); } } @keyframes down { 50% { transform: translateY(8px); } }
+.e-wave { animation: wave 3s ease-in-out infinite; }
+@keyframes wave { 50% { transform: translateX(-14px); } }
+.e-z text { animation: zz 3s ease-in-out infinite; } .e-z text:nth-child(2) { animation-delay: .4s; } .e-z text:nth-child(3) { animation-delay: .8s; }
+@keyframes zz { 0% { opacity: 0; transform: translateY(10px); } 30% { opacity: 1; } 100% { opacity: 0; transform: translateY(-14px); } }
+.e-breath { transform-box: fill-box; transform-origin: bottom; animation: breath 4s ease-in-out infinite; }
+@keyframes breath { 50% { transform: scaleY(1.04); } }
+.e-sway { transform-box: view-box; transform-origin: 200px 142px; animation: sway 4s ease-in-out infinite; }
+@keyframes sway { 0%,100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
+.e-page { transform-box: fill-box; transform-origin: top; animation: page 5s ease-in-out infinite; }
+@keyframes page { 0%, 60%, 100% { transform: perspective(300px) rotateX(0); } 75% { transform: perspective(300px) rotateX(-75deg); } }
+
+/* lịch 50 giờ */
+.strip-card { max-width: 1040px; width: 100%; padding: 30px; display: grid; gap: 18px; }
+.strip-wrap { overflow-x: auto; padding: 10px 0 6px; }
+.strip { display: grid; grid-template-columns: repeat(50, minmax(12px, 1fr)); gap: 3px; min-width: 640px; }
+.strip .h { height: 54px; border-radius: 3px; box-shadow: 0 3px 5px -3px var(--shadow); transition: transform .25s; transform-origin: bottom; cursor: pointer; }
+.strip .h.night { margin-top: 10px; height: 44px; }
+.strip .h:hover { transform: translateY(-3px); }
+.strip .h.on { transform: translateY(-8px) scaleY(1.1); box-shadow: 0 8px 10px -4px var(--shadow); }
+.ticks { display: grid; grid-template-columns: repeat(50, minmax(12px, 1fr)); gap: 3px; min-width: 640px; font-size: 11px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.daynight { display: grid; grid-template-columns: 1fr 1fr; min-width: 640px; font-family: var(--f-hand); font-size: 17px; color: var(--ink-soft); }
+.legend { display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: 15px; }
+.legend i { display: inline-block; width: 14px; height: 14px; border-radius: 3px; margin-right: 8px; vertical-align: -2px; }
+.agenda { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 6px 24px; font-size: 15px; }
+.agenda button { display: flex; gap: 10px; align-items: baseline; text-align: left; padding: 5px 8px; border-radius: 5px; background: none; box-shadow: none; font-size: 15px; }
+.agenda button:hover { background: var(--page); transform: none; }
+.agenda button.on { background: var(--page); color: var(--coral); }
+.agenda b { font-variant-numeric: tabular-nums; white-space: nowrap; min-width: 62px; color: var(--ink); }
+
+/* có thật không */
+.real { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 28px; align-items: center; width: 100%; }
+.real .sec-card { max-width: none; }
+.timeline { padding: 28px; display: grid; gap: 14px; }
+.tl-row { display: grid; grid-template-columns: 130px 1fr; gap: 14px; align-items: center; font-size: 15px; }
+.tl-row .bar { height: 22px; border-radius: 3px; background: var(--c-work); display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; color: #fff; font-size: 13px; font-weight: 700; transform-origin: left; transition: transform 1.2s cubic-bezier(.2,.8,.2,1) .6s; }
+.card.pending .tl-row .bar { transform: scaleX(.05); }
+.tl-row .bar.hi { background: var(--coral); } .tl-row .bar.lo { background: var(--plum); }
+.tl-row span { color: var(--ink-soft); }
+.src { font-size: 14px; color: var(--ink-soft); display: grid; gap: 4px; }
+.src a { color: inherit; }
+.end-card { padding: 22px 28px; font-family: var(--f-hand); font-size: 20px; color: var(--ink-soft); text-align: center; }
+
+@media (max-width: 760px) {
+  .rail { display: none; }
+  .real { grid-template-columns: 1fr; }
+  .hero-card, .sec-card, .lab, .strip-card { padding: 24px 20px; }
+  .tl-row { grid-template-columns: 100px 1fr; }
+  .ch { padding-block: 96px 110px; }
+  .dock button { padding: 9px 11px; }
+  .hud { padding-right: 14px; }
+  .hud b { font-size: 17px; }
+}
+@media (max-width: 420px) { .dock .lbl-x { display: none; } }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- bộ lọc dùng chung: vân giấy được chiếu sáng theo hướng mặt trời -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="paper" x="-4%" y="-12%" width="108%" height="124%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency=".75" numOctaves="3" seed="7" result="noise"/>
+      <feDiffuseLighting in="noise" surfaceScale="2.2" diffuseConstant="1.05" lighting-color="#ffffff" result="lit" id="litNode">
+        <feDistantLight id="dl" azimuth="235" elevation="40"/>
+      </feDiffuseLighting>
+      <feComposite in="lit" in2="SourceAlpha" operator="in" result="litA"/>
+      <feBlend in="SourceGraphic" in2="litA" mode="multiply" result="tex"/>
+      <feOffset in="SourceAlpha" id="rimOff" dx="2" dy="2" result="off"/>
+      <feComposite in="SourceAlpha" in2="off" operator="out" result="rim"/>
+      <feFlood id="rimCol" flood-color="#fff3cf" flood-opacity=".8"/>
+      <feComposite in2="rim" operator="in" result="rimC"/>
+      <feGaussianBlur in="SourceAlpha" id="shBlur" stdDeviation="5"/>
+      <feOffset id="shOff" dx="-6" dy="-5" result="sh"/>
+      <feFlood id="shCol" flood-color="#0a1a22" flood-opacity=".38"/>
+      <feComposite in2="sh" operator="in" result="shC"/>
+      <feMerge><feMergeNode in="shC"/><feMergeNode in="tex"/><feMergeNode in="rimC"/></feMerge>
+    </filter>
+    <filter id="paperS" x="-4%" y="-15%" width="108%" height="130%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="3" seed="2" result="noise"/>
+      <feDiffuseLighting in="noise" surfaceScale="1.8" lighting-color="#ffffff" result="lit"><feDistantLight azimuth="235" elevation="45"/></feDiffuseLighting>
+      <feComposite in="lit" in2="SourceAlpha" operator="in" result="litA"/>
+      <feBlend in="SourceGraphic" in2="litA" mode="multiply" result="tex"/>
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+      <feOffset dx="0" dy="-3" result="sh"/>
+      <feFlood flood-color="#0a1a22" flood-opacity=".3"/>
+      <feComposite in2="sh" operator="in" result="shC"/>
+      <feMerge><feMergeNode in="shC"/><feMergeNode in="tex"/></feMerge>
+    </filter>
+    <radialGradient id="sunGlow"><stop offset="0" stop-color="#fff2b8" stop-opacity=".9"/><stop offset=".45" stop-color="#ffd36b" stop-opacity=".35"/><stop offset="1" stop-color="#ffb347" stop-opacity="0"/></radialGradient>
+    <radialGradient id="moonGlow"><stop offset="0" stop-color="#e8eeff" stop-opacity=".6"/><stop offset="1" stop-color="#9fb4ff" stop-opacity="0"/></radialGradient>
+    <radialGradient id="winGlow"><stop offset="0" stop-color="#ffd57a" stop-opacity=".9"/><stop offset="1" stop-color="#ffb347" stop-opacity="0"/></radialGradient>
+    <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1">
+      <stop id="skyTop" offset="0" stop-color="#5aa6d6"/><stop id="skyBot" offset="1" stop-color="#cfe8ef"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<!-- CẢNH NỀN -->
+<div class="scene" id="scene" role="img" aria-label="Cảnh đồi núi bằng giấy cắt, mặt trời và mặt trăng đi qua một ngày 50 giờ">
+  <div class="scrub" id="scrub"></div>
+  <div class="cam" id="cam">
+    <!-- 0. bầu trời -->
+    <div class="plane" data-depth=".15">
+      <svg viewBox="0 0 1200 520" preserveAspectRatio="xMidYMid slice">
+        <rect width="1200" height="520" fill="url(#skyG)"/>
+        <g id="stars" opacity="0" fill="#fff8e0"></g>
+        <line class="meteor" id="meteor" x1="980" y1="60" x2="1040" y2="28" stroke="#fff8e0" stroke-width="2.5" stroke-linecap="round"/>
+        <g id="sun">
+          <circle r="190" fill="url(#sunGlow)"/>
+          <g class="rays" fill="#ffd56b" opacity=".55">
+            <path d="M0 -96 L8 -70 L-8 -70Z M0 96 L8 70 L-8 70Z M-96 0 L-70 8 L-70 -8Z M96 0 L70 8 L70 -8Z M68 -68 L56 -44 L44 -56Z M-68 68 L-56 44 L-44 56Z M-68 -68 L-44 -56 L-56 -44Z M68 68 L44 56 L56 44Z"/>
+          </g>
+          <circle r="52" id="sunDisc" class="hit" fill="#ffc94d" filter="url(#paperS)"/>
+        </g>
+        <g id="moon" opacity="0">
+          <circle r="120" fill="url(#moonGlow)"/>
+          <g class="hit" id="moonHit">
+            <circle r="38" fill="#f4efe2" filter="url(#paperS)"/>
+            <circle r="7" cx="-10" cy="-8" fill="#d9d2c0"/><circle r="5" cx="12" cy="10" fill="#d9d2c0"/><circle r="4" cx="8" cy="-16" fill="#d9d2c0"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <!-- 1. núi xa -->
+    <div class="plane" data-depth=".3">
+      <svg viewBox="0 0 1200 520" preserveAspectRatio="xMidYMid slice">
+        <g filter="url(#paper)">
+          <path fill="#a9c6d6" d="M-60 300 L90 232 L150 262 L250 168 L330 240 L420 198 L520 262 L640 156 L760 250 L860 204 L960 240 L1060 176 L1260 252 V560 H-60Z"/>
+        </g>
+        <g filter="url(#paper)" fill="#f6f2e8">
+          <path d="M250 168 L224 192 L238 188 L250 200 L262 186 L278 194Z"/>
+          <path d="M640 156 L612 184 L628 180 L642 194 L654 178 L672 188Z"/>
+          <path d="M1060 176 L1036 198 L1050 196 L1062 206 L1074 194 L1088 200Z"/>
+        </g>
+      </svg>
+    </div>
+    <!-- 2. mây -->
+    <div class="plane" data-depth=".42">
+      <svg viewBox="0 0 1200 520" preserveAspectRatio="xMidYMid slice">
+        <g class="drift" filter="url(#paperS)" fill="#fbf8f2" opacity=".95">
+          <path d="M150 150 a28 28 0 0 1 50 -14 a34 34 0 0 1 62 8 a24 24 0 0 1 8 46 h-118 a20 20 0 0 1 -2 -40z"/>
+          <path d="M820 110 a24 24 0 0 1 42 -10 a30 30 0 0 1 54 8 a20 20 0 0 1 6 40 h-100 a18 18 0 0 1 -2 -38z"/>
+        </g>
+        <g class="drift slow" filter="url(#paperS)" fill="#f1ece3" opacity=".85">
+          <path d="M480 200 a20 20 0 0 1 36 -8 a26 26 0 0 1 46 6 a16 16 0 0 1 4 32 h-84 a14 14 0 0 1 -2 -30z"/>
+          <path d="M1020 216 a18 18 0 0 1 32 -8 a22 22 0 0 1 40 6 a14 14 0 0 1 4 28 h-74 a12 12 0 0 1 -2 -26z"/>
+        </g>
+      </svg>
+    </div>
+    <!-- 3. đồi giữa + tháp cối xay -->
+    <div class="plane" data-depth=".55">
+      <svg viewBox="0 0 1200 520" preserveAspectRatio="xMidYMid slice">
+        <g filter="url(#paper)">
+          <path fill="#7fb3a8" d="M-60 352 C120 318 260 362 400 320 C560 274 700 342 860 310 C1000 284 1100 332 1260 300 V560 H-60Z"/>
+          <path fill="#f2ece0" d="M731 334 L736 266 L744 266 L749 334Z"/>
+          <path fill="#e8664e" d="M733 268 L740 256 L747 268Z"/>
+        </g>
+      </svg>
+    </div>
+    <div class="plane" data-depth=".55">
+      <svg viewBox="0 0 1200 520" preserveAspectRatio="xMidYMid slice">
+        <g class="blades hit" id="blades" filter="url(#paperS)" fill="#fbf8f2">
+          <path d="M740 268 L734 214 L746 214Z"/><path d="M740 268 L794 262 L794 274Z"/>
+          <path d="M740 268 L746 322 L734 322Z"/><path d="M740 268 L686 274 L686 262Z"/>
+          <circle cx="740" cy="268" r="5" fill="#e8664e"/>
+        </g>
+      </svg>
+    </div>
+    <!-- 4. đồi rừng thông -->
+    <div class="plane" data-depth=".75">
+      <svg viewBox="0 0 1200 520" preserveAspectRatio="xMidYMid slice">
+        <g filter="url(#paper)" id="forest">
+          <path id="l3path" fill="#4b8f83" d="M-60 410 C180 368 320 422 520 380 C700 344 860 412 1040 370 C1120 352 1170 366 1260 360 V560 H-60Z"/>
+        </g>
+      </svg>
+    </div>
+    <!-- 5. đàn chim -->
+    <div class="plane" data-depth=".65" id="birdsPlane">
+      <svg viewBox="0 0 1200 520" preserveAspectRatio="xMidYMid slice">
+        <g class="flock" fill="#2a3a44">
+          <g transform="translate(0 120)"><path class="wing" d="M0 0 Q8 -8 16 0 Q24 -8 32 0 Q24 -3 16 3 Q8 -3 0 0Z"/></g>
+          <g transform="translate(40 100)"><path class="wing" style="animation-delay:.2s" d="M0 0 Q7 -7 14 0 Q21 -7 28 0 Q21 -3 14 3 Q7 -3 0 0Z"/></g>
+          <g transform="translate(26 146)"><path class="wing" style="animation-delay:.35s" d="M0 0 Q6 -6 12 0 Q18 -6 24 0 Q18 -2 12 2 Q6 -2 0 0Z"/></g>
+        </g>
+      </svg>
+    </div>
+    <!-- 6. đồi gần + nhà -->
+    <div class="plane" data-depth="1">
+      <svg viewBox="0 0 1200 520" preserveAspectRatio="xMidYMid slice">
+        <g filter="url(#paper)" id="front">
+          <path id="l4path" fill="#2d6a61" d="M-60 462 C200 428 380 472 600 440 C820 410 1000 472 1260 438 V560 H-60Z"/>
+          <g id="house" class="hit">
+            <rect x="614" y="358" width="12" height="24" fill="#c9543f"/>
+            <rect x="566" y="392" width="68" height="54" fill="#f6f1e6"/>
+            <path d="M554 396 L600 356 L646 396Z" fill="#e8664e"/>
+            <rect x="588" y="408" width="24" height="22" fill="#3d5f5a"/>
+            <rect x="572" y="420" width="10" height="26" fill="#9c6b4e"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <!-- 7. đèn cửa sổ, khói, đom đóm -->
+    <div class="plane" data-depth="1">
+      <svg viewBox="0 0 1200 520" preserveAspectRatio="xMidYMid slice">
+        <g id="winLight" opacity="0">
+          <circle cx="600" cy="420" r="60" fill="url(#winGlow)"/>
+          <rect x="588" y="408" width="24" height="22" fill="#ffd57a"/>
+          <path d="M600 408 V430 M588 419 H612" stroke="#c98a3a" stroke-width="2"/>
+        </g>
+        <g class="smoke" id="smoke" fill="#e9e4da">
+          <circle cx="620" cy="354" r="7"/><circle cx="620" cy="354" r="7" style="animation-delay:2s"/><circle cx="620" cy="354" r="7" style="animation-delay:4s"/>
+        </g>
+        <g id="flies" opacity="0" fill="#fff0a0"></g>
+      </svg>
+    </div>
+  </div>
+  <div class="tint" id="tint"></div>
+  <div class="glare" id="glare"></div>
+  <div class="grain"></div>
+  <div class="vignette"></div>
+</div>
+
+<!-- LỚP ĐIỀU KHIỂN CỐ ĐỊNH -->
+<div class="hud chip" id="hud" aria-live="polite">
+  <svg viewBox="0 0 200 200" aria-hidden="true">
+    <circle cx="100" cy="100" r="96" style="fill: var(--page)"/>
+    <path d="M100 100 L100 4 A96 96 0 0 1 100 196 Z" style="fill: var(--sun)" opacity=".45"/>
+    <path d="M100 100 L100 196 A96 96 0 0 1 100 4 Z" style="fill: var(--plum)" opacity=".3"/>
+    <g id="ticks"></g>
+    <line id="hand" x1="100" y1="100" x2="100" y2="22" style="stroke: var(--coral)" stroke-width="12" stroke-linecap="round"/>
+    <circle cx="100" cy="100" r="14" style="fill: var(--ink)"/>
+  </svg>
+  <div><b id="hourTxt">Giờ 0 / 50</b><span id="phaseTxt">Bình minh</span></div>
+</div>
+
+<div class="lang chip" id="lang" data-lang="vi" role="group" aria-label="Ngôn ngữ / Language">
+  <span class="knob" aria-hidden="true"></span>
+  <button type="button" data-lang="vi" aria-pressed="true">VI</button>
+  <button type="button" data-lang="en" aria-pressed="false">EN</button>
+</div>
+
+<nav class="rail" id="rail" aria-label="Chương"></nav>
+
+<div class="dock chip" role="toolbar">
+  <button id="playBtn" type="button">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path id="playIco" d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+    <span class="lbl-x" id="playLbl">Tạm dừng</span>
+  </button>
+  <button id="fastBtn" type="button" aria-pressed="false">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6l9 6-9 6zM12 6l9 6-9 6z"/></svg>
+    <span>×5</span>
+  </button>
+  <button id="dayBtn" type="button">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M11 1h2v4h-2zM11 19h2v4h-2zM1 11h4v2H1zM19 11h4v2h-4zM4.2 5.6l1.4-1.4 2.8 2.8-1.4 1.4zM15.6 17l1.4-1.4 2.8 2.8-1.4 1.4zM4.2 18.4l2.8-2.8 1.4 1.4-2.8 2.8zM15.6 7l2.8-2.8 1.4 1.4L17 8.4z"/></svg>
+    <span data-i="dNoon">Trưa</span>
+  </button>
+  <button id="nightBtn" type="button">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.5A8.5 8.5 0 0 1 8.5 4a8.5 8.5 0 1 0 11.5 11.5z"/></svg>
+    <span data-i="dNight">Đêm</span>
+  </button>
+</div>
+
+<!-- CÁC CHƯƠNG -->
+<main class="wrap" id="wrap">
+
+  <section class="ch l" id="ch-hero" data-hour="1" data-speed="1" data-cam="1,.5,.5" data-rl="rHero">
+    <div class="card hero-card">
+      <p class="eyebrow" data-i="heroEyebrow">Một thí nghiệm tưởng tượng</p>
+      <h1 data-ih="heroTitle">Nếu một ngày có <span class="num">50</span> giờ</h1>
+      <p class="lead" data-i="heroLead">Muốn có 50 giờ, Trái Đất phải quay chậm lại còn chưa bằng một nửa tốc độ hiện nay. Ban ngày dài 25 tiếng, ban đêm cũng 25 tiếng. Thời tiết, biển, cây cối và cả giấc ngủ của bạn đều phải đổi theo.</p>
+      <p class="hint" data-i="hint">Kéo ngang trên cảnh để tua giờ. Bấm vào mặt trời, mặt trăng, cối xay gió hay ngôi nhà thử xem.</p>
+      <a class="cue" href="#ch-lab"><span data-i="cue">Lướt xuống để bắt đầu</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 3h2v13l5-5 1.4 1.4L12 19.8 4.6 12.4 6 11l5 5z"/></svg></a>
+    </div>
+  </section>
+
+  <section class="ch c" id="ch-lab" data-hour="12.5" data-speed=".2" data-cam="1.12,.5,.3" data-rl="rLab">
+    <div class="card lab">
+      <div class="lab-head" style="display:grid; gap:8px">
+        <p class="eyebrow" data-i="labEyebrow">Kéo cho Trái Đất chậm lại</p>
+        <h2 class="big-h" data-i="labTitle">Một vòng quay dài hơn</h2>
+        <p class="lead" data-i="labLead">Năm vẫn dài bằng một vòng quanh Mặt Trời, nên ngày càng dài thì một năm càng ít ngày. Các con số dưới đây tính thẳng từ tốc độ quay.</p>
+      </div>
+      <div class="lab-top">
+        <div class="earth-row">
+          <svg class="earth" id="earth" viewBox="0 0 100 100" aria-hidden="true">
+            <defs><clipPath id="globe"><circle cx="50" cy="50" r="44"/></clipPath></defs>
+            <circle cx="50" cy="50" r="44" fill="#4f8fb8"/>
+            <g clip-path="url(#globe)"><g class="spin" fill="#7fb36a">
+              <path d="M20 30 q14 -8 24 4 q-4 10 -16 10 q-10 -4 -8 -14z"/><path d="M58 52 q16 -4 22 10 q-8 14 -20 8 q-6 -8 -2 -18z"/>
+              <path d="M30 66 q8 -2 10 6 q-6 8 -12 2z"/><path d="M66 22 q8 -2 12 6 q-6 4 -12 -6z"/>
+            </g></g>
+            <ellipse cx="38" cy="34" rx="18" ry="12" fill="#fff" opacity=".18"/>
+          </svg>
+          <div>
+            <label for="hrs" data-i="hrsLabel">Số giờ trong một ngày</label>
+            <div class="big"><span id="hrsVal">50</span> <small data-i="hoursUnit">giờ</small></div>
+          </div>
+        </div>
+        <p class="hint" id="hrsNote">Bằng 2,08 ngày bây giờ</p>
+      </div>
+      <div>
+        <input id="hrs" type="range" min="24" max="50" step="1" value="50" aria-describedby="hrsNote">
+        <div class="scale"><span data-i="scaleLo">24 giờ, hôm nay</span><span data-i="scaleHi">50 giờ</span></div>
+      </div>
+      <div class="stats">
+        <div class="stat"><span class="k" data-i="sDaysK">Một năm có</span><span class="v" id="sDays">175 ngày</span><span class="now" data-i="sDaysN">hiện nay 365</span></div>
+        <div class="stat"><span class="k" data-i="sSpeedK">Tốc độ quay ở xích đạo</span><span class="v" id="sSpeed">802 km/h</span><span class="now" data-i="sSpeedN">hiện nay 1.670 km/h</span></div>
+        <div class="stat"><span class="k" data-i="sCorK">Lực Coriolis làm bão xoáy</span><span class="v" id="sCor">48%</span><span class="now" data-i="sCorN">so với hiện nay</span></div>
+        <div class="stat"><span class="k" data-i="sKgK">Người 60 kg ở xích đạo nặng</span><span class="v" id="sKg">60,16 kg</span><span class="now" data-i="sKgN">vì lực văng ra yếu đi</span></div>
+        <div class="stat"><span class="k" data-i="sMoonK">Trăng tròn lại sau</span><span class="v" id="sMoon">14,2 ngày</span><span class="now" data-i="sMoonN">hiện nay 29,5</span></div>
+        <div class="stat"><span class="k" data-i="sBulgeK">Độ phình ở xích đạo còn</span><span class="v" id="sBulge">23%</span><span class="now" data-i="sBulgeN">tỉ lệ với bình phương tốc độ quay</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ch c short" id="ch-eff" data-hour="18" data-speed=".2" data-cam="1,.5,.5" data-rl="rEff">
+    <div class="card sec-card" style="text-align:center">
+      <p class="eyebrow" data-i="effEyebrow">Chuyện gì sẽ xảy ra</p>
+      <h2 data-i="effTitle">Sáu thứ đổi khác</h2>
+    </div>
+  </section>
+
+  <section class="ch l" data-hour="22" data-speed=".15" data-cam="1.12,.4,.45" data-rl="e1h">
+    <article class="card effect">
+      <svg viewBox="0 0 400 170" aria-hidden="true">
+        <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7fb6d6"/><stop offset="1" stop-color="#f7d9b0"/></linearGradient>
+        <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b1230"/><stop offset="1" stop-color="#2b2f62"/></linearGradient></defs>
+        <rect width="200" height="170" fill="url(#g1)"/><rect x="200" width="200" height="170" fill="url(#g2)"/>
+        <g transform="translate(100 70)"><path class="e-rays" fill="#ffd56b" opacity=".7" d="M0 -58 L6 -42 L-6 -42Z M0 58 L6 42 L-6 42Z M-58 0 L-42 6 L-42 -6Z M58 0 L42 6 L42 -6Z M41 -41 L34 -26 L26 -34Z M-41 41 L-34 26 L-26 34Z M-41 -41 L-26 -34 L-34 -26Z M41 41 L26 34 L34 26Z"/>
+        <circle r="32" fill="#ffc94d" filter="url(#paperS)"/></g>
+        <g class="e-bob"><circle cx="300" cy="64" r="24" fill="#f4efe2"/><circle cx="312" cy="56" r="22" fill="#0e1536"/></g>
+        <g fill="#fff8e0"><circle class="twinkle" cx="240" cy="30" r="2"/><circle class="twinkle" style="animation-delay:1s" cx="360" cy="40" r="2"/><circle class="twinkle" style="animation-delay:2s" cx="330" cy="110" r="1.6"/></g>
+        <g filter="url(#paperS)"><path fill="#e8664e" d="M0 130 C60 112 130 136 200 120 V170 H0Z"/><path fill="#33437a" d="M200 120 C270 108 340 134 400 118 V170 H200Z"/></g>
+      </svg>
+      <span class="count">1/6</span>
+      <p class="tag" data-i="e1t">25 giờ nắng, 25 giờ tối</p>
+      <h3 data-i="e1h">Ngày nóng hơn, đêm lạnh hơn</h3>
+      <p data-i="e1p">Mặt đất bị nung lâu gấp đôi rồi tỏa nhiệt lâu gấp đôi. Chênh lệch nhiệt giữa trưa và rạng sáng sẽ lớn hơn nhiều, nhất là ở sa mạc và vùng nội địa xa biển. Sương giá về đêm xuất hiện ở cả những nơi hiện nay không có.</p>
+    </article>
+  </section>
+
+  <section class="ch r" data-hour="16" data-speed=".15" data-cam="1.2,.55,.25" data-rl="e2h">
+    <article class="card effect">
+      <svg viewBox="0 0 400 170" aria-hidden="true">
+        <rect width="400" height="170" fill="#9cc3d4"/>
+        <g filter="url(#paperS)"><path d="M0 150 C100 136 300 160 400 144 V170 H0Z" fill="#4f8fb8"/></g>
+        <g class="e-vortex" filter="url(#paperS)">
+          <path d="M200 85 m-70 0 a70 70 0 1 1 140 0 a54 54 0 1 1 -108 0 a38 38 0 1 1 76 0 a22 22 0 1 1 -44 0" fill="none" stroke="#fbf8f2" stroke-width="16" stroke-linecap="round"/>
+        </g>
+        <circle cx="200" cy="85" r="8" fill="#3f7f78"/>
+      </svg>
+      <span class="count">2/6</span>
+      <p class="tag" data-i="e2t">lực xoáy còn khoảng một nửa</p>
+      <h3 data-i="e2h">Bão xoáy kém hơn</h3>
+      <p data-i="e2p">Bão nhiệt đới cần lực Coriolis, thứ sinh ra từ sự tự quay, để cuộn thành vòng. Quay chậm hơn thì lực này yếu đi, vùng gần xích đạo khó hình thành bão hơn, và các dải gió lớn như gió mậu dịch cũng dịch chuyển, kéo theo mùa mưa đổi chỗ.</p>
+    </article>
+  </section>
+
+  <section class="ch l" data-hour="7" data-speed=".15" data-cam="1.15,.35,.6" data-rl="e3h">
+    <article class="card effect">
+      <svg viewBox="0 0 400 170" aria-hidden="true">
+        <rect width="400" height="170" fill="#1b2440"/>
+        <g fill="#fff8e0"><circle class="twinkle" cx="40" cy="30" r="1.8"/><circle class="twinkle" style="animation-delay:1.4s" cx="360" cy="140" r="1.8"/><circle class="twinkle" style="animation-delay:.7s" cx="80" cy="130" r="1.5"/></g>
+        <g filter="url(#paperS)"><circle cx="200" cy="85" r="72" fill="#4f8fb8"/></g>
+        <clipPath id="eq"><circle cx="200" cy="85" r="72"/></clipPath>
+        <g clip-path="url(#eq)">
+          <g class="e-wave"><path fill="#e9c46a" d="M110 85 C150 70 250 70 290 85 C250 100 150 100 110 85Z"/></g>
+          <path class="e-up" d="M120 0 H280 V30 C240 40 160 40 120 30Z" fill="#2f6ea0"/>
+          <path class="e-down" d="M120 170 H280 V140 C240 130 160 130 120 140Z" fill="#2f6ea0"/>
+        </g>
+        <g stroke="#e8664e" stroke-width="4" stroke-linecap="round" fill="none">
+          <g class="e-up"><path d="M320 80 V40 m-8 10 l8 -10 l8 10"/></g>
+          <g class="e-down"><path d="M320 90 V130 m-8 -10 l8 10 l8 -10"/></g>
+        </g>
+      </svg>
+      <span class="count">3/6</span>
+      <p class="tag" data-i="e3t">biển dồn về hai cực</p>
+      <h3 data-i="e3h">Đất liền mới ở xích đạo</h3>
+      <p data-i="e3p">Lực văng do quay làm nước biển hiện đang phình ra quanh xích đạo. Quay chậm thì chỗ phình đó xẹp nhanh hơn lớp đá bên dưới, nên nước chảy về phía hai cực. Vùng xích đạo lộ thêm đất, còn các thành phố ven biển ở vĩ độ cao có nguy cơ ngập.</p>
+    </article>
+  </section>
+
+  <section class="ch r" data-hour="36" data-speed=".15" data-cam="1.35,.5,.75" data-rl="e4h">
+    <article class="card effect">
+      <svg viewBox="0 0 400 170" aria-hidden="true">
+        <rect width="400" height="170" fill="#141b3a"/>
+        <circle cx="70" cy="40" r="18" fill="#f4efe2"/><circle cx="78" cy="34" r="16" fill="#141b3a"/>
+        <g filter="url(#paperS)">
+          <g class="e-breath"><path fill="#8a6fb8" d="M60 122 C60 82 120 72 160 94 C200 72 300 74 340 112 V140 H60Z"/></g>
+          <rect x="40" y="132" width="320" height="22" rx="4" fill="#f6f1e6"/>
+          <circle cx="96" cy="112" r="16" fill="#e8c9a8"/>
+        </g>
+        <g class="e-z" style="font: 400 30px var(--f-display)" fill="#ffd56b"><text x="250" y="60">z</text><text x="280" y="38" font-size="22">z</text><text x="302" y="22" font-size="16">z</text></g>
+      </svg>
+      <span class="count">4/6</span>
+      <p class="tag" data-i="e4t">đồng hồ sinh học khoảng 24 giờ</p>
+      <h3 data-i="e4h">Ngủ hai giấc mỗi ngày</h3>
+      <p data-i="e4p">Đồng hồ trong cơ thể người chỉ bám được những chu kỳ lệch không xa 24 giờ. Với ngày 50 giờ, cách hợp lý nhất là chia thành hai chu kỳ thức ngủ: một giấc dài giữa trưa nắng và một giấc giữa đêm, như lịch mẫu bên dưới.</p>
+    </article>
+  </section>
+
+  <section class="ch l" id="ch-cal" data-hour="30" data-speed=".15" data-cam="1.15,.6,.3" data-rl="e5h">
+    <article class="card effect">
+      <svg viewBox="0 0 400 170" aria-hidden="true">
+        <rect width="400" height="170" fill="#e9e2d4"/>
+        <g filter="url(#paperS)">
+          <rect x="110" y="26" width="180" height="128" rx="6" fill="#fbf8f2"/>
+          <rect x="110" y="26" width="180" height="34" rx="6" fill="#e8664e"/>
+        </g>
+        <circle cx="150" cy="26" r="5" fill="#2a3a44"/><circle cx="250" cy="26" r="5" fill="#2a3a44"/>
+        <text id="calNum" x="200" y="118" text-anchor="middle" style="font: 400 46px var(--f-display); font-variant-numeric: tabular-nums" fill="#1f2a33">175</text>
+        <text x="200" y="140" text-anchor="middle" style="font: 500 13px var(--f-body)" fill="#52606b" data-i="calUnit">ngày / năm</text>
+        <g class="e-page"><rect x="110" y="60" width="180" height="20" fill="#f1ece3" opacity=".9"/></g>
+      </svg>
+      <span class="count">5/6</span>
+      <p class="tag" data-i="e5t">sinh nhật vẫn mỗi năm một lần</p>
+      <h3 data-i="e5h">Lịch phải in lại</h3>
+      <p data-i="e5p">Một năm còn khoảng 175 ngày, một tháng âm lịch chỉ hơn 14 ngày. Tuổi tính theo năm thì như cũ, nhưng nếu tuần vẫn 7 ngày thì cuối tuần cách nhau tới 350 giờ. Gần như chắc chắn người ta sẽ phát minh ra một kiểu tuần ngắn hơn.</p>
+    </article>
+  </section>
+
+  <section class="ch r" data-hour="3" data-speed=".15" data-cam="1.3,.3,.72" data-rl="e6h">
+    <article class="card effect">
+      <svg viewBox="0 0 400 170" aria-hidden="true">
+        <defs><linearGradient id="g6" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#bcd7e0"/><stop offset=".6" stop-color="#f3c99a"/><stop offset="1" stop-color="#2b2f62"/></linearGradient></defs>
+        <rect width="400" height="170" fill="url(#g6)"/>
+        <g filter="url(#paperS)"><path fill="#6ea7a4" d="M0 140 C100 128 300 132 400 138 V170 H0Z"/></g>
+        <g class="e-sway" filter="url(#paperS)">
+          <rect x="197" y="70" width="6" height="72" fill="#3f7f78"/>
+          <path fill="#4b8f83" d="M200 92 C170 92 156 72 158 56 C180 58 196 72 200 92Z"/>
+          <path fill="#5aa394" d="M200 80 C230 80 244 60 242 44 C220 46 204 60 200 80Z"/>
+          <circle cx="200" cy="66" r="9" fill="#f5b83d"/>
+        </g>
+        <circle cx="330" cy="46" r="22" fill="#ffc94d" class="e-bob"/>
+      </svg>
+      <span class="count">6/6</span>
+      <p class="tag" data-i="e6t">25 giờ không có ánh sáng</p>
+      <h3 data-i="e6h">Cây phải để dành năng lượng</h3>
+      <p data-i="e6p">Cây quang hợp ban ngày và sống nhờ phần dự trữ ban đêm. Đêm dài 25 tiếng nghĩa là cây phải trữ nhiều tinh bột hơn trước khi trời tối. Nhiều giống lúa, rau quen thuộc ra hoa theo độ dài đêm, nên mùa vụ cũng phải tính lại từ đầu.</p>
+    </article>
+  </section>
+
+  <section class="ch c" id="ch-sch" data-hour="0" data-speed="2" data-cam="1,.5,.5" data-rl="rSch">
+    <div class="card strip-card">
+      <div style="display:grid; gap:8px">
+        <p class="eyebrow" data-i="schEyebrow">Thử sống một ngày</p>
+        <h2 class="big-h" data-i="schTitle">Lịch mẫu cho ngày 50 giờ</h2>
+        <p class="lead" data-i="schLead">Ngủ 16 trên 50 giờ, tức khoảng một phần ba ngày, đúng như tỉ lệ 8 trên 24 bây giờ. Giờ 0 là lúc mặt trời mọc. Cảnh phía sau đang chạy nhanh theo lịch này, bấm vào một ô hay một dòng để nhảy tới giờ đó.</p>
+      </div>
+      <div class="strip-wrap">
+        <div class="daynight"><span data-i="dayHalf">Ban ngày, giờ 0 đến 25</span><span data-i="nightHalf">Ban đêm, giờ 25 đến 50</span></div>
+        <div class="strip" id="strip"></div>
+        <div class="ticks" id="stripTicks"></div>
+      </div>
+      <div class="legend">
+        <span><i style="background: var(--c-sleep)"></i><span data-i="lgSleep">Ngủ</span></span>
+        <span><i style="background: var(--c-work)"></i><span data-i="lgWork">Làm việc</span></span>
+        <span><i style="background: var(--c-life)"></i><span data-i="lgLife">Ăn uống, sinh hoạt</span></span>
+        <span><i style="background: var(--c-free)"></i><span data-i="lgFree">Thời gian tự do</span></span>
+      </div>
+      <div class="agenda" id="agenda"></div>
+    </div>
+  </section>
+
+  <section class="ch c" data-hour="24.5" data-speed=".1" data-cam="1.05,.5,.45" data-rl="rReal">
+    <div class="real">
+      <div class="card sec-card">
+        <p class="eyebrow" data-i="realEyebrow">Có thật không?</p>
+        <h2 data-i="realTitle">Ngày trên Trái Đất đang dài ra thật</h2>
+        <p class="lead" data-i="realLead1">Thủy triều do Mặt Trăng kéo đang hãm Trái Đất lại từng chút một, khoảng gần 2 phần nghìn giây mỗi thế kỷ. Thời khủng long, một ngày ngắn hơn bây giờ chừng nửa giờ. Khoảng 1,4 tỷ năm trước, một ngày chỉ dài khoảng 18,7 giờ.</p>
+        <p class="lead" data-i="realLead2">Với tốc độ đó, phải mất cỡ 5 tỷ năm nữa mới tới ngày 50 giờ. Tới lúc ấy Mặt Trời đã sắp phình thành sao khổng lồ đỏ, nên ngày 50 giờ có lẽ mãi chỉ là chuyện tưởng tượng.</p>
+        <div class="src">
+          <a href="https://www.pnas.org/doi/10.1073/pnas.1717689115" target="_blank" rel="noopener" data-i="src1">Meyers &amp; Malinverno, PNAS 2018: ngày dài 18,7 giờ cách đây 1,4 tỷ năm</a>
+          <a href="https://royalsocietypublishing.org/doi/10.1098/rspa.2016.0404" target="_blank" rel="noopener" data-i="src2">Stephenson và cộng sự, Proc. R. Soc. A 2016: ngày dài thêm khoảng 1,8 ms mỗi thế kỷ</a>
+        </div>
+      </div>
+      <div class="card timeline">
+        <div class="tl-row"><span data-i="tl1">1,4 tỷ năm trước</span><div class="bar lo" style="width: 37.4%"><span data-i="tl1v">18,7 h</span></div></div>
+        <div class="tl-row"><span data-i="tl2">Khủng long</span><div class="bar lo" style="width: 47%"><span data-i="tl2v">23,5 h</span></div></div>
+        <div class="tl-row"><span data-i="tl3">Hôm nay</span><div class="bar" style="width: 48%">24 h</div></div>
+        <div class="tl-row"><span data-i="tl4">Tưởng tượng</span><div class="bar hi" style="width: 100%">50 h</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ch c short" data-hour="47.5" data-speed=".3" data-cam="1,.5,.5" data-rl="rEnd">
+    <div class="card end-card"><span data-i="footer">cắt, dán và tính bằng tay, cho một ngày dài gấp đôi</span></div>
+  </section>
+</main>
+
+<script>
+(function () {
+  var NS = 'http://www.w3.org/2000/svg';
+  function el(tag, attrs, parent) { var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $ = function (id) { return document.getElementById(id); };
+
+  /* ================= NGÔN NGỮ ================= */
+  var EN = {
+    heroEyebrow: 'A thought experiment',
+    heroTitle: 'What if a day had <span class="num">50</span> hours',
+    heroLead: 'For a day to last 50 hours, Earth would have to spin at less than half its current speed. Daylight would last 25 hours, and so would the night. Weather, oceans, plants and your own sleep would all have to change.',
+    hint: 'Drag sideways across the scene to scrub time. Try clicking the sun, the moon, the windmill or the house.',
+    cue: 'Scroll down to begin', dNoon: 'Noon', dNight: 'Night', dPause: 'Pause', dPlay: 'Play',
+    labEyebrow: 'Drag to slow the Earth down', labTitle: 'A longer spin',
+    labLead: 'A year is still one trip around the Sun, so longer days mean fewer days per year. Every number below comes straight from the rotation speed.',
+    hrsLabel: 'Hours in a day', hoursUnit: 'hours', scaleLo: '24 hours, today', scaleHi: '50 hours',
+    sDaysK: 'A year has', sDaysN: 'today: 365', sSpeedK: 'Spin speed at the equator', sSpeedN: 'today: 1,670 km/h',
+    sCorK: 'Coriolis force that spins storms', sCorN: 'compared with today', sKgK: 'A 60 kg person at the equator weighs', sKgN: 'because the outward fling weakens',
+    sMoonK: 'Full moon returns after', sMoonN: 'today: 29.5', sBulgeK: 'Equatorial bulge shrinks to', sBulgeN: 'scales with spin speed squared',
+    effEyebrow: 'What would happen', effTitle: 'Six things that change',
+    e1t: '25 hours of sun, 25 of dark', e1h: 'Hotter days, colder nights',
+    e1p: 'The ground bakes twice as long, then cools twice as long. The gap between noon and dawn grows a lot, especially in deserts and far inland. Night frost shows up in places that never see it today.',
+    e2t: 'spin force roughly halved', e2h: 'Weaker spinning storms',
+    e2p: 'Tropical storms need the Coriolis force, which comes from Earth\'s spin, to curl into a vortex. A slower spin weakens it, storms form less easily near the equator, and big wind belts like the trade winds shift, moving the rainy seasons with them.',
+    e3t: 'oceans drift to the poles', e3h: 'New land at the equator',
+    e3p: 'Today the spin makes the oceans bulge around the equator. Slow the spin and that bulge sinks faster than the rock beneath it, so water flows toward the poles. The equator gains dry land while coastal cities at high latitudes risk flooding.',
+    e4t: 'the body clock runs about 24 hours', e4h: 'Two sleeps a day',
+    e4p: 'The human body clock can only lock on to cycles fairly close to 24 hours. With a 50-hour day, the sensible move is two wake and sleep cycles: a long sleep through the midday heat and another in the middle of the night, as in the sample schedule below.',
+    e5t: 'birthdays still come once a year', e5h: 'Reprint the calendar', calUnit: 'days / year',
+    e5p: 'A year shrinks to about 175 days, and a lunar month to just over 14. Age in years stays the same, but a 7-day week would put weekends 350 hours apart. People would almost certainly invent a shorter week.',
+    e6t: '25 hours without light', e6h: 'Plants must save energy',
+    e6p: 'Plants photosynthesise by day and live off their reserves at night. A 25-hour night means storing much more starch before dark. Many familiar crops flower according to night length, so growing seasons would need rethinking from scratch.',
+    schEyebrow: 'Try living one day', schTitle: 'A sample 50-hour schedule',
+    schLead: 'Sleep 16 of 50 hours, about a third of the day, the same ratio as 8 in 24 today. Hour 0 is sunrise. The scene behind is running fast along this schedule; click a block or a row to jump to that hour.',
+    dayHalf: 'Daytime, hours 0 to 25', nightHalf: 'Night, hours 25 to 50',
+    lgSleep: 'Sleep', lgWork: 'Work', lgLife: 'Meals and chores', lgFree: 'Free time',
+    realEyebrow: 'Is it real?', realTitle: 'Earth\'s days really are getting longer',
+    realLead1: 'Tides raised by the Moon brake Earth bit by bit, adding almost 2 thousandths of a second per century. In the age of dinosaurs a day was about half an hour shorter than now. Around 1.4 billion years ago a day lasted only about 18.7 hours.',
+    realLead2: 'At that rate it would take roughly 5 billion years to reach a 50-hour day. By then the Sun will be close to swelling into a red giant, so the 50-hour day will probably stay imaginary.',
+    src1: 'Meyers & Malinverno, PNAS 2018: an 18.7-hour day 1.4 billion years ago',
+    src2: 'Stephenson et al., Proc. R. Soc. A 2016: days grow about 1.8 ms longer per century',
+    tl1: '1.4 billion years ago', tl1v: '18.7 h', tl2: 'Dinosaurs', tl2v: '23.5 h', tl3: 'Today', tl4: 'Imagined',
+    footer: 'cut, glued and calculated by hand, for a day twice as long',
+    rHero: 'Start', rLab: 'A longer spin', rEff: 'What changes', rSch: 'Sample schedule', rReal: 'Is it real?', rEnd: 'The end'
+  };
+  var VI = { dPause: 'Tạm dừng', dPlay: 'Chạy tiếp', rHero: 'Mở đầu', rLab: 'Vòng quay dài hơn', rEff: 'Điều đổi khác', rSch: 'Lịch mẫu', rReal: 'Có thật không?', rEnd: 'Kết' };
+  document.querySelectorAll('[data-i]').forEach(function (n) { if (!VI[n.dataset.i]) VI[n.dataset.i] = n.textContent; });
+  document.querySelectorAll('[data-ih]').forEach(function (n) { VI[n.dataset.ih] = n.innerHTML; });
+  var DICT = { vi: VI, en: EN };
+
+  var DYN = {
+    vi: {
+      hour: function (h) { return 'Giờ ' + h + ' / 50'; },
+      phases: ['Bình minh', 'Buổi sáng dài', 'Giữa trưa, nắng gắt nhất', 'Buổi chiều dài', 'Hoàng hôn', 'Đầu đêm', 'Nửa đêm', 'Đêm khuya, lạnh nhất', 'Trời sắp sáng'],
+      today: 'Đúng như hôm nay', equal: function (x) { return 'Bằng ' + x + ' ngày bây giờ'; },
+      days: ' ngày', hourWord: 'Giờ ',
+      plan: ['Dậy, ăn sáng', 'Làm việc ca một', 'Ăn trưa', 'Ngủ trưa dài, tránh nắng gắt', 'Làm việc ca hai tới hoàng hôn', 'Ăn tối, ở bên gia đình', 'Ngủ đêm', 'Giờ đêm tự do: đọc, học, chơi', 'Chuẩn bị đón bình minh'],
+      sceneLabel: 'Cảnh đồi núi bằng giấy cắt, mặt trời và mặt trăng đi qua một ngày 50 giờ',
+      title: 'Ngày 50 giờ', locale: 'vi-VN'
+    },
+    en: {
+      hour: function (h) { return 'Hour ' + h + ' / 50'; },
+      phases: ['Dawn', 'Long morning', 'Midday, harshest sun', 'Long afternoon', 'Sunset', 'Early night', 'Midnight', 'Deep night, the coldest hours', 'Almost sunrise'],
+      today: 'Exactly like today', equal: function (x) { return 'Equal to ' + x + ' of today\'s days'; },
+      days: ' days', hourWord: 'Hour ',
+      plan: ['Wake up, breakfast', 'First work shift', 'Lunch', 'Long midday sleep, away from the heat', 'Second shift until sunset', 'Dinner, time with family', 'Night sleep', 'Free night hours: read, study, play', 'Get ready for sunrise'],
+      sceneLabel: 'A paper-cut landscape with the sun and moon crossing a 50-hour day',
+      title: 'The 50-Hour Day', locale: 'en-US'
+    }
+  };
+
+  var lang = 'vi';
+  try { var saved = localStorage.getItem('day50-lang'); if (saved === 'en' || saved === 'vi') lang = saved; } catch (e) {}
+  var langBox = $('lang'), wrap = $('wrap');
+
+  function applyText() {
+    var d = DICT[lang];
+    document.querySelectorAll('[data-i]').forEach(function (n) { var k = n.dataset.i; if (d[k] != null) n.textContent = d[k]; });
+    document.querySelectorAll('[data-ih]').forEach(function (n) { var k = n.dataset.ih; if (d[k] != null) n.innerHTML = d[k]; });
+    $('playLbl').textContent = d[playing ? 'dPause' : 'dPlay'];
+    document.documentElement.lang = lang;
+    document.title = DYN[lang].title;
+    $('scene').setAttribute('aria-label', DYN[lang].sceneLabel);
+    langBox.dataset.lang = lang;
+    langBox.querySelectorAll('button').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.lang === lang); });
+    railBtns.forEach(function (b, i) { var t = d[chapters[i].dataset.rl] || ''; b.title = t; b.setAttribute('aria-label', t); });
+    buildAgenda(); calc(); lastPhase = -1; lastHour = -1; drawLabels(hour);
+  }
+  function setLang(l) {
+    if (l === lang) return;
+    lang = l;
+    try { localStorage.setItem('day50-lang', l); } catch (e) {}
+    langBox.dataset.lang = l;
+    if (reduce) { applyText(); return; }
+    wrap.classList.add('swapping');
+    setTimeout(function () { applyText(); requestAnimationFrame(function () { wrap.classList.remove('swapping'); }); }, 230);
+  }
+  langBox.addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) setLang(b.dataset.lang); });
+
+  /* ================= DỰNG CẢNH ================= */
+  var ticks = $('ticks');
+  for (var i = 0; i < 50; i += 5) {
+    var a = i / 50 * Math.PI * 2;
+    var l = el('line', { x1: 100 + 76 * Math.sin(a), y1: 100 - 76 * Math.cos(a), x2: 100 + 92 * Math.sin(a), y2: 100 - 92 * Math.cos(a), 'stroke-width': 8, 'stroke-linecap': 'round' }, ticks);
+    l.style.stroke = 'var(--ink-soft)';
+  }
+  var starG = $('stars');
+  for (i = 0; i < 90; i++) {
+    var s = el('circle', { cx: Math.random() * 1200, cy: Math.random() * 320, r: (Math.random() * 1.8 + .6).toFixed(2) }, starG);
+    s.setAttribute('class', 'twinkle'); s.style.animationDelay = (Math.random() * 3).toFixed(2) + 's'; s.style.animationDuration = (2 + Math.random() * 3).toFixed(2) + 's';
+  }
+  var flyG = $('flies');
+  for (i = 0; i < 26; i++) {
+    var f = el('circle', { cx: 40 + Math.random() * 1120, cy: 400 + Math.random() * 110, r: (Math.random() * 1.6 + 1.6).toFixed(2) }, flyG);
+    f.setAttribute('class', 'fly'); f.style.animationDelay = (-Math.random() * 7).toFixed(2) + 's'; f.style.animationDuration = (4 + Math.random() * 5).toFixed(2) + 's';
+  }
+  // lấy cao độ mép đồi để cắm cây
+  function edgeSampler(path) {
+    var len = path.getTotalLength(), pts = [];
+    for (var t = 0; t <= len; t += 4) { var p = path.getPointAtLength(t); if (p.x >= 1259 && pts.length) break; pts.push(p); }
+    return function (x) { for (var j = 1; j < pts.length; j++) if (pts[j].x >= x) return pts[j].y; return pts[pts.length - 1].y; };
+  }
+  function seeded(seed) { return function () { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }; }
+  var rnd = seeded(42);
+  var forest = $('forest'), yAt3 = edgeSampler($('l3path'));
+  var pineCols = ['#2f6e66', '#3b8077', '#24564f', '#367a6e'];
+  for (var x = -40; x < 1240; x += 22 + rnd() * 40) {
+    if (x > 540 && x < 660) continue;
+    var base = yAt3(x) + 8, h = 34 + rnd() * 46, w = h * .42, col = pineCols[Math.floor(rnd() * pineCols.length)];
+    el('path', { d: 'M' + (x - 2) + ' ' + base + ' h4 v-' + (h * .2) + ' h-4z', fill: '#5b4636' }, forest);
+    var tiers = '';
+    for (var k = 0; k < 3; k++) {
+      var tb = base - h * .18 - k * h * .24, tw = w * (1 - k * .22), tt = tb - h * .42;
+      tiers += 'M' + (x - tw) + ' ' + tb + ' L' + x + ' ' + tt + ' L' + (x + tw) + ' ' + tb + 'Z ';
+    }
+    el('path', { d: tiers, fill: col }, forest);
+  }
+  var front = $('front'), yAt4 = edgeSampler($('l4path'));
+  for (x = -30; x < 1240; x += 40 + rnd() * 70) {
+    if (x > 530 && x < 680) continue;
+    var by = yAt4(x) + 10, r = 12 + rnd() * 14;
+    el('path', { d: 'M' + (x - r) + ' ' + by + ' a' + r + ' ' + r + ' 0 0 1 ' + (2 * r) + ' 0 Z', fill: rnd() > .5 ? '#3b7d70' : '#24564f' }, front);
+    if (rnd() > .55) el('circle', { cx: x + (rnd() - .5) * r, cy: by - r * .7, r: 2.6, fill: rnd() > .5 ? '#f5b83d' : '#e8664e' }, front);
+  }
+  front.appendChild($('house'));
+
+  /* ================= MÀU THEO GIỜ ================= */
+  function hex(c) { return [parseInt(c.slice(1, 3), 16), parseInt(c.slice(3, 5), 16), parseInt(c.slice(5, 7), 16)]; }
+  function mix(a, b, t) { var A = hex(a), B = hex(b); return 'rgb(' + A.map(function (v, i) { return Math.round(v + (B[i] - v) * t); }).join(',') + ')'; }
+  // [giờ, trời trên, trời dưới, màu phủ]
+  var KEYS = [
+    [0, '#5b5a8f', '#f6a37b', '#ffc9b0'], [3, '#7fb6d6', '#f7d9b0', '#fff0dc'], [12.5, '#4f9fd3', '#d2ebf2', '#ffffff'],
+    [21, '#6a96c8', '#f3d3a2', '#fff1d8'], [25, '#4b3f78', '#f08a5d', '#ffb08a'], [28, '#1d2550', '#4b3f78', '#8a86c8'],
+    [37.5, '#0b1230', '#1b2550', '#5866a8'], [47, '#1d2550', '#3f3a70', '#7a78bc'], [50, '#5b5a8f', '#f6a37b', '#ffc9b0']
+  ];
+  function sample(h) {
+    for (var j = 1; j < KEYS.length; j++) if (h <= KEYS[j][0]) {
+      var a = KEYS[j - 1], b = KEYS[j], t = (h - a[0]) / (b[0] - a[0]);
+      t = t * t * (3 - 2 * t);
+      return [mix(a[1], b[1], t), mix(a[2], b[2], t), mix(a[3], b[3], t)];
+    }
+    return [KEYS[0][1], KEYS[0][2], KEYS[0][3]];
+  }
+
+  var scene = $('scene'), cam = $('cam');
+  var sun = $('sun'), moon = $('moon'), sunDisc = $('sunDisc');
+  var stars = $('stars'), meteor = $('meteor'), flies = $('flies'), winLight = $('winLight'), birds = $('birdsPlane');
+  var skyTop = $('skyTop'), skyBot = $('skyBot'), tint = $('tint'), glare = $('glare'), hand = $('hand');
+  var dl = $('dl'), litNode = $('litNode'), rimOff = $('rimOff'), rimCol = $('rimCol');
+  var shOff = $('shOff'), shBlur = $('shBlur'), shCol = $('shCol');
+  var hourTxt = $('hourTxt'), phaseTxt = $('phaseTxt'), hud = $('hud');
+
+  // khung nhìn của viewBox 1200×520 khi phủ kín (slice) màn hình
+  var W = 0, H = 0, vs = 1, rx = 470;
+  function measure() {
+    // cảnh có thể chưa có kích thước lúc script chạy; khi đó lấy cửa sổ để tránh NaN
+    W = scene.clientWidth || window.innerWidth || 1200; H = scene.clientHeight || window.innerHeight || 520;
+    vs = Math.max(W / 1200, H / 520);
+    rx = Math.max(90, Math.min(470, Math.min(1200, W / vs) / 2 - 50));
+  }
+  measure();
+  window.addEventListener('resize', measure);
+  function arc(t) { return { x: 600 - rx * Math.cos(t * Math.PI), y: 470 - 360 * Math.sin(t * Math.PI) }; }
+  function phaseIdx(h) { var c = [2, 10, 15, 23, 25, 34, 41, 48, 50]; for (var j = 0; j < c.length; j++) if (h < c[j]) return j; return 8; }
+  function darkness(h) {
+    var dk;
+    if (h < 2) dk = 1 - h / 2; else if (h < 23) dk = 0; else if (h < 27) dk = (h - 23) / 4; else if (h < 47) dk = 1; else dk = 1 - (h - 47) / 3;
+    return Math.max(0, Math.min(1, dk));
+  }
+
+  var lastLight = 0, lastHour = -1, lastPhase = -1, lights = null;
+  function drawLabels(h) {
+    var hi = Math.floor(h), pi = phaseIdx(h);
+    if (hi !== lastHour) { hourTxt.textContent = DYN[lang].hour(hi); highlightHour(hi); lastHour = hi; }
+    if (pi !== lastPhase) {
+      phaseTxt.textContent = DYN[lang].phases[pi];
+      if (lastPhase !== -1 && !reduce) { hud.classList.remove('flip'); void hud.offsetWidth; hud.classList.add('flip'); }
+      lastPhase = pi;
+    }
+  }
+  function draw(h, now) {
+    var day = h < 25, dk = darkness(h);
+    var sp = arc(day ? h / 25 : 1.15), mp = arc(day ? -0.15 : (h - 25) / 25);
+    sun.setAttribute('transform', 'translate(' + sp.x.toFixed(1) + ' ' + sp.y.toFixed(1) + ')');
+    moon.setAttribute('transform', 'translate(' + mp.x.toFixed(1) + ' ' + mp.y.toFixed(1) + ')');
+    sun.style.display = day ? '' : 'none';
+    moon.setAttribute('opacity', day ? 0 : 1);
+    moon.style.display = day ? 'none' : '';
+    var elevS = Math.max(0, (470 - sp.y) / 360);
+    sunDisc.setAttribute('fill', mix('#ff8a4a', '#ffd25a', Math.min(1, elevS * 1.6)));
+    var c = sample(h);
+    skyTop.setAttribute('stop-color', c[0]); skyBot.setAttribute('stop-color', c[1]);
+    tint.style.backgroundColor = c[2];
+    stars.setAttribute('opacity', Math.max(0, dk * 1.25 - .25).toFixed(2));
+    meteor.style.visibility = dk > .8 ? 'visible' : 'hidden';
+    flies.setAttribute('opacity', Math.max(0, dk * 1.4 - .4).toFixed(2));
+    winLight.setAttribute('opacity', lights === null ? Math.max(0, dk * 1.3 - .3).toFixed(2) : (lights ? 1 : 0));
+    birds.style.opacity = (1 - Math.min(1, dk * 1.5)).toFixed(2);
+    hand.setAttribute('transform', 'rotate(' + (h / 50 * 360).toFixed(1) + ' 100 100)');
+
+    // ánh sáng: mặt trời ban ngày, mặt trăng ban đêm
+    var src = day ? sp : mp, elev = day ? elevS : Math.max(0, (470 - mp.y) / 360);
+    var gx = ((src.x - 600) * vs + W / 2) / W * 100, gy = ((src.y - 260) * vs + H / 2) / H * 100;
+    glare.style.background = 'radial-gradient(circle at ' + gx.toFixed(1) + '% ' + gy.toFixed(1) + '%, ' + (day ? 'rgba(255,236,190,.75)' : 'rgba(190,210,255,.35)') + ', transparent 55%)';
+    if (!now || now - lastLight > 140) {
+      lastLight = now || 0;
+      var nx = src.x - 600, ny = src.y - 470, n = Math.hypot(nx, ny) || 1; nx /= n; ny /= n;
+      var len = 4 + 14 * (1 - elev);
+      dl.setAttribute('azimuth', (Math.atan2(ny, nx) * 180 / Math.PI).toFixed(1));
+      dl.setAttribute('elevation', (18 + 50 * elev).toFixed(1));
+      litNode.setAttribute('lighting-color', day ? mix('#ffd2a8', '#ffffff', Math.min(1, elev * 1.5)) : '#b9c6ff');
+      rimOff.setAttribute('dx', (-nx * 3).toFixed(2)); rimOff.setAttribute('dy', (-ny * 3).toFixed(2));
+      rimCol.setAttribute('flood-color', day ? mix('#ffb27a', '#fff6dc', Math.min(1, elev * 1.5)) : '#cfdcff');
+      rimCol.setAttribute('flood-opacity', day ? '.85' : '.45');
+      shOff.setAttribute('dx', (-nx * len).toFixed(1)); shOff.setAttribute('dy', (-3 - 3 * (1 - elev)).toFixed(1));
+      shBlur.setAttribute('stdDeviation', (3 + 4 * elev).toFixed(1));
+      shCol.setAttribute('flood-opacity', day ? (.28 + .2 * (1 - elev)).toFixed(2) : '.5');
+    }
+    drawLabels(h);
+  }
+
+  /* ================= THỜI GIAN, TUA, MÁY QUAY ================= */
+  var hour = 0.5, playing = !reduce, baseSpeed = 1, mult = 1, last = null, roll = null, scrubbing = false;
+  function rollTo(target, speedAfter, done) {
+    if (speedAfter != null) baseSpeed = speedAfter;
+    var dist = ((target - hour) % 50 + 50) % 50;
+    if (reduce || dist < .25) { hour = target % 50; draw(hour); if (done) done(); return; }
+    roll = { from: hour, dist: dist, t0: performance.now(), dur: Math.min(2400, 800 + dist * 45), done: done };
+    scene.classList.add('rolling');
+  }
+  function setCam(s, fx, fy) {
+    var lim = (1 - 1 / s) / 2 * 100;
+    var tx = Math.max(-lim, Math.min(lim, (.5 - fx) * 100)), ty = Math.max(-lim, Math.min(lim, (.5 - fy) * 100));
+    cam.style.transform = 'scale(' + s + ') translate(' + tx.toFixed(2) + '%,' + ty.toFixed(2) + '%)';
+  }
+
+  var playBtn = $('playBtn'), fastBtn = $('fastBtn');
+  function setPlaying(p) {
+    playing = p; last = null;
+    $('playLbl').textContent = DICT[lang][p ? 'dPause' : 'dPlay'];
+    $('playIco').setAttribute('d', p ? 'M7 5h4v14H7zM13 5h4v14h-4z' : 'M7 4l13 8-13 8z');
+  }
+  playBtn.addEventListener('click', function () { setPlaying(!playing); });
+  fastBtn.addEventListener('click', function () {
+    mult = mult > 1 ? 1 : 5; fastBtn.setAttribute('aria-pressed', mult > 1);
+    if (!playing) setPlaying(true);
+  });
+  $('dayBtn').addEventListener('click', function () { rollTo(12.5); });
+  $('nightBtn').addEventListener('click', function () { rollTo(37.5); });
+
+  // chạm vào chủ thể trong cảnh
+  sunDisc.addEventListener('click', function () { rollTo(37.5); });
+  $('moonHit').addEventListener('click', function () { rollTo(12.5); });
+  var blades = $('blades'), boostT;
+  blades.addEventListener('click', function () { blades.classList.add('boost'); clearTimeout(boostT); boostT = setTimeout(function () { blades.classList.remove('boost'); }, 3000); });
+  var smoke = $('smoke'), smokeT;
+  $('house').addEventListener('click', function () {
+    lights = !(+winLight.getAttribute('opacity') > .5);
+    smoke.classList.add('burst'); clearTimeout(smokeT); smokeT = setTimeout(function () { smoke.classList.remove('burst'); }, 3200);
+    draw(hour);
+  });
+
+  // kéo ngang để tua giờ
+  var scrub = $('scrub'), sx = 0, sh0 = 0;
+  scrub.addEventListener('pointerdown', function (e) { scrubbing = true; roll = null; scene.classList.remove('rolling'); sx = e.clientX; sh0 = hour; scrub.classList.add('drag'); scrub.setPointerCapture(e.pointerId); });
+  scrub.addEventListener('pointermove', function (e) {
+    tx = e.clientX / W - .5; ty = e.clientY / H - .5;
+    if (!scrubbing) return;
+    hour = ((sh0 + (e.clientX - sx) / W * 30) % 50 + 50) % 50; draw(hour);
+  });
+  function endScrub() { scrubbing = false; last = null; scrub.classList.remove('drag'); }
+  scrub.addEventListener('pointerup', endScrub);
+  scrub.addEventListener('pointercancel', endScrub);
+
+  // thị sai theo chuột, mượt dần
+  var planes = Array.prototype.slice.call(document.querySelectorAll('.plane'));
+  var tx = 0, ty = 0, px = 0, py = 0;
+  window.addEventListener('pointermove', function (e) { if (e.pointerType === 'mouse') { tx = e.clientX / W - .5; ty = e.clientY / H - .5; } });
+
+  function tick(ts) {
+    var pan = 0;
+    if (roll) {
+      var t = Math.min(1, (ts - roll.t0) / roll.dur), e = t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      hour = (roll.from + roll.dist * e) % 50; pan = Math.sin(t * Math.PI);
+      draw(hour, ts);
+      if (t >= 1) { var cb = roll.done; roll = null; last = null; scene.classList.remove('rolling'); if (cb) cb(); }
+    } else if (playing && !scrubbing) {
+      if (last !== null) hour = (hour + (ts - last) / 1000 * baseSpeed * mult) % 50;
+      last = ts; draw(hour, ts);
+    }
+    if (!reduce) {
+      px += (tx - px) * .06; py += (ty - py) * .06;
+      planes.forEach(function (p) {
+        var d = +p.dataset.depth;
+        p.style.transform = 'translate3d(' + (px * d * -26 - pan * d * 60).toFixed(1) + 'px,' + (py * d * -14 + pan * d * 6).toFixed(1) + 'px,0)';
+      });
+    }
+    requestAnimationFrame(tick);
+  }
+
+  /* ================= THANH KÉO ================= */
+  function fmt(n, d) { return n.toLocaleString(DYN[lang].locale, { minimumFractionDigits: d, maximumFractionDigits: d }); }
+  var R = 6.378e6, G = 9.814;
+  function cf(T) { var w = 2 * Math.PI / (T * 3600); return w * w * R; }
+  var hrs = $('hrs'), earth = $('earth');
+  function setV(id, txt, bump) {
+    var n = $(id);
+    if (n.textContent === txt) return;
+    n.textContent = txt;
+    if (bump && !reduce) { n.classList.remove('bump'); void n.offsetWidth; n.classList.add('bump'); }
+  }
+  function calc(bump) {
+    var T = +hrs.value, D = DYN[lang];
+    $('hrsVal').textContent = T;
+    $('hrsNote').textContent = T === 24 ? D.today : D.equal(fmt(T / 24, 2));
+    setV('sDays', fmt(8766 / T, 0) + D.days, bump);
+    setV('sSpeed', fmt(40075 / T, 0) + ' km/h', bump);
+    setV('sCor', fmt(24 / T * 100, 0) + '%', bump);
+    setV('sKg', fmt(60 * (G - cf(T)) / (G - cf(24)), 2) + ' kg', bump);
+    setV('sMoon', fmt(708.7 / T, 1) + D.days, bump);
+    setV('sBulge', fmt(Math.pow(24 / T, 2) * 100, 0) + '%', bump);
+    earth.style.setProperty('--spin', (T / 6).toFixed(2) + 's');
+  }
+  hrs.addEventListener('input', function () { calc(true); });
+
+  /* ================= LỊCH 50 GIỜ ================= */
+  var PLAN = [[0, 2, 'life'], [2, 10, 'work'], [10, 12, 'life'], [12, 19, 'sleep'], [19, 25, 'work'], [25, 30, 'life'], [30, 39, 'sleep'], [39, 46, 'free'], [46, 50, 'life']];
+  var strip = $('strip'), st = $('stripTicks'), ag = $('agenda'), cells = [];
+  PLAN.forEach(function (p, idx) {
+    for (var hh = p[0]; hh < p[1]; hh++) {
+      var dv = document.createElement('div');
+      dv.className = 'h' + (hh >= 25 ? ' night' : '');
+      dv.style.background = 'var(--c-' + p[2] + ')';
+      dv.dataset.plan = idx; dv.dataset.h = hh;
+      strip.appendChild(dv); cells.push(dv);
+    }
+  });
+  strip.addEventListener('click', function (e) { var c = e.target.closest('.h'); if (c) rollTo(+c.dataset.h + .5); });
+  for (var kk = 0; kk < 50; kk++) { var tt = document.createElement('span'); tt.textContent = kk % 5 === 0 ? kk : ''; st.appendChild(tt); }
+  function buildAgenda() {
+    ag.innerHTML = '';
+    PLAN.forEach(function (p, idx) {
+      var row = document.createElement('button');
+      row.type = 'button'; row.dataset.plan = idx;
+      row.innerHTML = '<b>' + p[0] + '–' + p[1] + 'h</b><span></span>';
+      row.querySelector('span').textContent = DYN[lang].plan[idx];
+      row.addEventListener('click', function () { rollTo(p[0] + .5); });
+      ag.appendChild(row);
+    });
+    cells.forEach(function (c, hh) { c.title = DYN[lang].hourWord + hh + ': ' + DYN[lang].plan[+c.dataset.plan]; });
+    lastHour = -1;
+  }
+  var onCell = null, onRow = null;
+  function highlightHour(hh) {
+    if (onCell) onCell.classList.remove('on');
+    if (onRow) onRow.classList.remove('on');
+    onCell = cells[hh]; if (!onCell) return;
+    onCell.classList.add('on');
+    onRow = ag.querySelector('[data-plan="' + onCell.dataset.plan + '"]');
+    if (onRow) onRow.classList.add('on');
+  }
+
+  /* ================= CHƯƠNG: LƯỚT TỚI → TUA → MỞ CHỮ ================= */
+  var chapters = Array.prototype.slice.call(document.querySelectorAll('.ch'));
+  var rail = $('rail'), railBtns = [], current = null;
+  chapters.forEach(function (ch, i) {
+    ch.querySelectorAll('.card').forEach(function (c) { Array.prototype.forEach.call(c.children, function (k, j) { k.style.setProperty('--i', j); }); });
+    var b = document.createElement('button'); b.type = 'button';
+    b.addEventListener('click', function () { ch.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' }); });
+    rail.appendChild(b); railBtns.push(b);
+  });
+  var calNum = $('calNum'), calDone = false;
+  function countCal() {
+    if (calDone || reduce) return; calDone = true;
+    var t0 = performance.now();
+    (function step(ts) { var t = Math.min(1, Math.max(0, (ts - t0) / 1600)), e = 1 - Math.pow(1 - t, 3); calNum.textContent = Math.round(365 - 190 * e); if (t < 1) requestAnimationFrame(step); })(t0);
+  }
+  function reveal(ch) {
+    ch.querySelectorAll('.card.pending').forEach(function (c) { c.classList.remove('pending'); });
+    if (ch.id === 'ch-cal') setTimeout(countCal, 500);
+  }
+  function activate(ch) {
+    if (current === ch) return;
+    current = ch;
+    railBtns.forEach(function (b, i) { b.classList.toggle('on', chapters[i] === ch); });
+    var c = ch.dataset.cam.split(',').map(Number);
+    setCam(c[0], c[1], c[2]);
+    rollTo(+ch.dataset.hour, +ch.dataset.speed, function () { if (current === ch) reveal(ch); });
+  }
+
+  if ('IntersectionObserver' in window && !reduce) {
+    chapters.forEach(function (ch) { ch.querySelectorAll('.card').forEach(function (c) { c.classList.add('pending'); }); });
+    var io = new IntersectionObserver(function (ents) {
+      ents.forEach(function (en) { if (en.isIntersecting) activate(en.target); });
+    }, { rootMargin: '-45% 0px -45% 0px' });
+    // lưới an toàn: chương nằm trên màn hình đủ lâu thì vẫn mở chữ dù chưa chạm vạch giữa
+    var timers = new Map();
+    var io2 = new IntersectionObserver(function (ents) {
+      ents.forEach(function (en) {
+        if (en.isIntersecting) timers.set(en.target, setTimeout(function () { reveal(en.target); }, 2800));
+        else { clearTimeout(timers.get(en.target)); }
+      });
+    }, { threshold: .3 });
+    chapters.forEach(function (ch) { io.observe(ch); io2.observe(ch); });
+    // chương mở đầu: chờ các lớp giấy dựng xong rồi mới hiện chữ
+    current = chapters[0]; railBtns[0].classList.add('on');
+    setTimeout(function () { if (current === chapters[0]) reveal(chapters[0]); }, 1300);
+  } else {
+    railBtns[0].classList.add('on');
+    window.addEventListener('scroll', function () {
+      var mid = innerHeight / 2;
+      chapters.forEach(function (ch) { var r = ch.getBoundingClientRect(); if (r.top < mid && r.bottom > mid && current !== ch) { current = ch; hour = +ch.dataset.hour; draw(hour); railBtns.forEach(function (b, i) { b.classList.toggle('on', chapters[i] === ch); }); } });
+    }, { passive: true });
+  }
+
+  /* ================= KHỞI ĐỘNG ================= */
+  buildAgenda();
+  calc(false);
+  if (reduce) { setPlaying(false); hour = 12.5; }
+  draw(hour);
+  applyText();
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
